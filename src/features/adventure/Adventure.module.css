@@ -348,3 +348,10 @@ a.mission:active {
   font-weight: 700;
   text-decoration: none;
 }
+
+.listAge {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--brown);
+}

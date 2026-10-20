@@ -1,6 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { adventures } from "@/content/adventures";
+import { adventures, isVisible } from "@/content/adventures";
 import { COOKIE_NAME, readToken } from "./token";
 
 /**
@@ -16,7 +16,7 @@ export async function getOwnedAdventures(): Promise<string[]> {
 
 export async function canAccessAdventure(slug: string): Promise<boolean> {
   const a = adventures.find((x) => x.slug === slug);
-  if (!a || !a.published) return false;
+  if (!a || !isVisible(a)) return false;
   if (a.access === "free") return true;
   return (await getOwnedAdventures()).includes(slug);
 }

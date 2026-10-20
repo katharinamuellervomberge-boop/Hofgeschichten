@@ -11,6 +11,13 @@ Alle Spiele und Fälle sind **Daten**. Der Spielkern (`src/engine`) spielt sie a
 | `choice` | Multiple Choice mit Bildern oder Text | `options` (`correct`, `feedback`), `explain`, `layout` |
 | `match` | Drag & Drop mit Tipp-Alternative | `targets`, `items` (`target`, `say`, `wrong`) |
 | `code` | Zahlenschloss mit Rätsel je Ziffer | `digits` (`riddle`, `answer`, `hint`), `success` |
+| `cipher` | Geheimschrift entziffern (Stallmeister-Schrift) | `message`, `given`, `hint`, `success` |
+
+Zusätzliche Bilder (`visual`) für Detektivfälle:
+`{ kind: "person", person: "wilhelm" }` (Porträts aus `src/content/people.ts`),
+`{ kind: "doc", doc: { style, label, title, lines, table } }` (Zettel, Protokoll, Bon, Zeitung, Handy) und
+`{ kind: "tag", text: "M" }` (Buchstaben- oder Uhrzeit-Schild, z. B. für Zeitleisten).
+Personen aus `people.ts` können in Geschichten auch sprechen: `speaker: "hanna"`.
 
 Jeder Text kann je Stufe unterschiedlich sein:
 
@@ -44,6 +51,14 @@ Die Seite `/spielen/<id>` entsteht automatisch.
 6. Produkt in Shopify mit identischem Handle anlegen → `published: true`.
 
 Abzeichen (eins je Mission + Abschluss) und Pass-Einträge entstehen automatisch.
+
+**Nur für ein Alter:** `levels: ["mittel"]` und `ageLabel: "ab 7 Jahren"` in den öffentlichen Angaben.
+Dann blendet die Mission die Stufenwahl aus und zeigt stattdessen den Altershinweis.
+
+**Vorschau vor der Freigabe:** Bei Vercel unter *Settings → Environment Variables* die Variable
+`NEXT_PUBLIC_PREVIEW_ADVENTURES=<slug>` **nur für „Preview“** anlegen (nie für „Production“).
+Dann erscheint der Fall auf Vorschau-Adressen von Branches, obwohl `published: false` ist.
+Freigeschaltet wird er dort wie gewohnt mit einem Code (`npm run codes -- <slug> 1`).
 
 ## Bundles
 

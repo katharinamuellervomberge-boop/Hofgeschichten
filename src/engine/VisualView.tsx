@@ -5,14 +5,29 @@ import { Horse } from "@/components/illustrations/Horse";
 import { HorseHead } from "@/components/illustrations/HorseHead";
 import { isItemName, ItemIcon } from "@/components/illustrations/ItemIcons";
 import { KidPortrait } from "@/components/illustrations/KidPortrait";
+import { PersonPortrait } from "@/components/illustrations/PersonPortrait";
 import { Puppy } from "@/components/illustrations/Puppy";
 import { GeisterweideScene } from "@/components/illustrations/scenes/Geisterweide";
 import { HofScene } from "@/components/illustrations/scenes/Hof";
 import { HuetteInnenScene, HuetteScene } from "@/components/illustrations/scenes/Huette";
+import {
+  AlterStallScene,
+  AltesFotoScene,
+  GeheimzettelScene,
+  GeisterstallCover,
+  HofplanScene,
+  HufabdruckScene,
+  HufspurScene,
+  LindenhofSattelkammerScene,
+  SchluesselbrettScene,
+  SchwarzesBrettScene,
+  StallgasseScene,
+} from "@/components/illustrations/scenes/Lindenhof";
 import { SattelkammerScene } from "@/components/illustrations/scenes/Sattelkammer";
 import { isTrackName, Track } from "@/components/illustrations/Tracks";
 import { getCharacter } from "@/content/characters";
 import { getHorse } from "@/content/horses";
+import { getPerson } from "@/content/people";
 import { MoodIcon } from "./MoodIcon";
 import type { ClueDef, Visual } from "./types";
 import styles from "./engine.module.css";
@@ -24,6 +39,18 @@ export const SCENES: Record<string, { component: ComponentType<{ className?: str
   geisterweide: { component: GeisterweideScene, viewBox: "0 0 800 600", label: "Geisterweide" },
   huette: { component: HuetteScene, viewBox: "0 0 800 600", label: "Weidehütte" },
   "huette-innen": { component: HuetteInnenScene, viewBox: "0 0 800 600", label: "In der Hütte" },
+  /* Mystery Files · Die Nacht im Geisterstall (Lindenhof) */
+  "lh-stallgasse": { component: StallgasseScene, viewBox: "0 0 800 600", label: "Stallgasse" },
+  "lh-brett": { component: SchwarzesBrettScene, viewBox: "0 0 800 600", label: "Schwarzes Brett" },
+  "lh-plan": { component: HofplanScene, viewBox: "0 0 800 600", label: "Hofplan" },
+  "lh-hufabdruck": { component: HufabdruckScene, viewBox: "0 0 800 600", label: "Hufabdruck" },
+  "lh-hufspur": { component: HufspurScene, viewBox: "0 0 800 600", label: "Hufspur" },
+  "lh-geheimzettel": { component: GeheimzettelScene, viewBox: "0 0 800 600", label: "Geheimzettel" },
+  "lh-sattelkammer": { component: LindenhofSattelkammerScene, viewBox: "0 0 800 600", label: "Alte Sattelkammer" },
+  "lh-schluesselbrett": { component: SchluesselbrettScene, viewBox: "0 0 800 600", label: "Schlüsselbrett" },
+  "lh-foto": { component: AltesFotoScene, viewBox: "0 0 800 600", label: "Altes Foto" },
+  "lh-alter-stall": { component: AlterStallScene, viewBox: "0 0 800 600", label: "Alter Stall" },
+  "lh-cover": { component: GeisterstallCover, viewBox: "0 0 800 600", label: "Lindenhof bei Nacht" },
 };
 
 /** viewBox der Pferde-Illustration (für Körperteil-Hotspots) */
@@ -86,6 +113,56 @@ export function VisualView({ v, className, decorative }: { v: Visual; className?
     case "clue": {
       const c = clues[v.clue];
       return c ? <VisualView v={c.visual} className={className} /> : null;
+    }
+    case "person": {
+      const p = getPerson(v.person);
+      return p ? <PersonPortrait person={p} className={className} /> : null;
+    }
+    case "tag":
+      return (
+        <span className={`${styles.tag} ${className ?? ""}`} aria-hidden={decorative || undefined}>
+          {v.text}
+        </span>
+      );
+    case "doc": {
+      const d = v.doc;
+      return (
+        <div className={`${styles.docWrap} ${className ?? ""}`}>
+        <div className={`${styles.doc} ${styles[`doc_${d.style}`] ?? ""}`}>
+          {d.label && <p className={styles.docLabel}>{d.label}</p>}
+          {d.title && <p className={styles.docTitle}>{d.title}</p>}
+          {d.table ? (
+            <table className={styles.docTable}>
+              <thead>
+                <tr>
+                  {d.table[0].map((h, i) => (
+                    <th key={i} scope="col">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {d.table.slice(1).map((row, r) => (
+                  <tr key={r}>
+                    {row.map((c, i) => (
+                      <td key={i}>{c}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : null}
+          {d.lines.length > 0 && (
+            <ul className={styles.docLines}>
+              {d.lines.map((l, i) => (
+                <li key={i}>{l}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+        </div>
+      );
     }
     case "notebook":
       return (

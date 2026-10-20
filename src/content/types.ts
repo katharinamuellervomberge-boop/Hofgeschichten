@@ -117,6 +117,13 @@ export type AdventureMeta = {
   /** Titel der Missionen – öffentlich, damit gesperrte Abenteuer eine Übersicht zeigen können */
   missions: Array<{ id: string; title: string }>;
   badge: { title: string };
+  /**
+   * Nur in diesen Stufen spielbar (fehlt = alle). Bei genau einer Stufe
+   * wird die Stufenwahl im Fall ausgeblendet und das Alter angezeigt.
+   */
+  levels?: import("@/engine/types").Level[];
+  /** Altershinweis für Kinder- und Elternansicht, z. B. „ab 7 Jahren“ */
+  ageLabel?: string;
   /** Sichtbar in der App? (für vorbereitete, noch nicht veröffentlichte Fälle) */
   published: boolean;
 };

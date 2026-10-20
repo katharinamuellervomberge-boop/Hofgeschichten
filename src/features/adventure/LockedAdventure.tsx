@@ -27,6 +27,7 @@ export function LockedAdventure({ meta }: { meta: AdventureMeta }) {
           <Icon name="lock" />
         </span>
         <p className={styles.lockedText}>{meta.teaser}</p>
+        {meta.ageLabel && <p className={styles.listAge}>Für Detektive {meta.ageLabel}</p>}
         <p className={styles.lockedHint}>Dieses Abenteuer können deine Eltern freischalten.</p>
         <ol className={styles.missionPreview}>
           {meta.missions.map((m, i) => (

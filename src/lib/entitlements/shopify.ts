@@ -1,5 +1,5 @@
 import "server-only";
-import { adventures } from "@/content/adventures";
+import { adventures, isVisible } from "@/content/adventures";
 
 /**
  * Prüft eine Bestellung direkt über die Shopify Admin GraphQL API.
@@ -116,7 +116,7 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
 
   const handles = new Set(order.lineItems.nodes.map((li) => li.product?.handle).filter(Boolean));
   const unlocked = adventures
-    .filter((a) => a.published && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
+    .filter((a) => isVisible(a) && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
     .map((a) => a.slug);
   return unlocked.length ? { ok: true, adventures: unlocked } : { ok: false, reason: "no_product" };
 }

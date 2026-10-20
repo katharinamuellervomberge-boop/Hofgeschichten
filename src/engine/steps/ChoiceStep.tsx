@@ -39,7 +39,9 @@ export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
     <>
       <Prompt text={prompt} />
       {step.visual && (
-        <div className={styles.choiceVisual}>
+        <div
+          className={`${styles.choiceVisual} ${step.visual.kind === "scene" || step.visual.kind === "doc" ? styles.choiceVisualWide : ""}`}
+        >
           <VisualView v={step.visual} />
         </div>
       )}
