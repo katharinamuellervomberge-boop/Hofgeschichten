@@ -40,9 +40,9 @@ export const adventures: AdventureMeta[] = [
       "Interaktive Fassung des Print-Detektivfalls „Mystery Files · Case 02“ in sieben Missionen: Tatort untersuchen, Zeugenaussagen vergleichen, Hufspuren messen, Geheimschrift entziffern, Logikrätsel, Zeitleiste und Alibis prüfen. Für Kinder ab 7 Jahren (Stufe Mittel), etwa 60 bis 90 Minuten. Nebel, Nacht und eine Geisterlegende, aber ohne Gewalt und ohne echten Spuk – die Lösung ist realistisch und herzlich. Jede Mission ist wiederholbar.",
     season: "halloween",
     access: "premium",
-    // TODO vor Freigabe: Shopify-Produkt mit genau diesem Handle anlegen (Preis offen)
+    // Shopify-Produkt mit genau diesem Handle anlegen, sonst greift der Shop-Link nicht
     shopifyProductHandle: "mystery-files-die-nacht-im-geisterstall-app",
-    priceLabel: "7,90 €",
+    priceLabel: "4,90 €",
     levels: ["mittel"],
     ageLabel: "ab 7 Jahren",
     missions: [
