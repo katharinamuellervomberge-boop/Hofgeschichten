@@ -6,7 +6,7 @@ Die Print-Detektivfälle „Horse & Harmonie Mystery Files“ als interaktive Ap
 
 **Stand 20.10.:** In der App veröffentlicht (`published: true`), gesperrt bis zur Freischaltung.
 Shop-Produkt: gid://shopify/Product/10979465429325, Handle `mystery-files-die-nacht-im-geisterstall-app`, 4,90 €,
-Produktbild `public/shop/geisterstall-produktbild.jpg`.
+Produktbild `public/shop/geisterstall-produktbild-2.jpg`.
 
 - Inhalte: `src/content/adventures/geisterstall.server.ts` (Premium, nur Server)
 - Szenen: `src/components/illustrations/scenes/Lindenhof.tsx`
