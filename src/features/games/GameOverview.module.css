@@ -1,0 +1,112 @@
+.list {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.item {
+  position: relative;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.art {
+  display: grid;
+  place-items: end center;
+  height: 170px;
+  padding: var(--space-4) var(--space-4) 0;
+  overflow: hidden;
+}
+
+.artItems {
+  display: flex;
+  gap: var(--space-3);
+  align-self: center;
+}
+
+.artItems > svg {
+  width: 84px;
+  height: 84px;
+}
+
+.artItems > svg:nth-child(2) {
+  transform: translateY(-14px) scale(1.15);
+}
+
+.artHead {
+  width: 170px;
+  height: auto;
+  margin-bottom: -40px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+  background: var(--paper);
+}
+
+.title {
+  font-size: 1.3rem;
+}
+
+.go {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: 50%;
+  background: var(--forest);
+  color: #fbf8f1;
+}
+
+.go svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;
+}
+
+.done {
+  background: var(--honey);
+}
+
+.done svg {
+  margin-left: 0;
+  stroke-width: 3;
+}
+
+.speak {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}

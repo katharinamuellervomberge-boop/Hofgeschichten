@@ -1,0 +1,9 @@
+{
+  "provider": "elevenlabs",
+  "voiceName": "Brian – Deep, Resonant and Comforting",
+  "voiceId": "nPczCjzI2devNBz1zQrb",
+  "model": "eleven_v4",
+  "speed": null,
+  "stability": null,
+  "style": null
+}

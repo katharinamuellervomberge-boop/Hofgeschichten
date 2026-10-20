@@ -1,0 +1,62 @@
+# „Stimme erzeugen“ – erzeugt die KI-Aufnahmen bei ElevenLabs und speichert sie im Projekt.
+# Start: GitHub → Actions → „Stimme erzeugen“ → „Run workflow“.
+# Danach veröffentlicht Vercel die App automatisch neu.
+name: Stimme erzeugen
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Nur so viele Sätze erzeugen (leer = alle fehlenden). Zum Probehören z. B. 10."
+        required: false
+        default: ""
+      force:
+        description: "Vorhandene Aufnahmen neu erzeugen (nur nach Stimmwechsel nötig)"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stimme
+  cancel-in-progress: false
+
+jobs:
+  stimme:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pakete installieren
+        run: npm install --no-audit --no-fund
+
+      - name: Sprecherskript aktualisieren
+        run: npm run voice:export
+
+      - name: Aufnahmen erzeugen
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.limit }}" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          npm run voice:generate -- $ARGS
+
+      - name: Aufnahmen im Projekt speichern
+        run: |
+          git config user.name "Hofgeschichten Stimme"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/voice private/voice src/content/voice-manifest.json voice/script.json voice/sprecherskript.csv
+          if git diff --cached --quiet; then
+            echo "Keine neuen Aufnahmen."
+          else
+            git commit -m "Stimme: neue Aufnahmen erzeugt"
+            git push
+          fi

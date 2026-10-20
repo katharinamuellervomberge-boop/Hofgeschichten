@@ -1,0 +1,153 @@
+.profile {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 860px) {
+  .profile {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .portrait {
+    grid-row: span 3;
+  }
+}
+
+.portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6) var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  /* Passepartout-Rahmen wie ein eingeklebtes Foto */
+  outline: 10px solid var(--paper);
+  outline-offset: -10px;
+}
+
+.horse {
+  display: block;
+  width: min(460px, 100%);
+  height: auto;
+  /* Papierfarbe des Aquarells verschmilzt mit der Kartenfarbe */
+  mix-blend-mode: multiply;
+  border-radius: var(--radius-md);
+}
+
+.portraitBadge {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+}
+
+.card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--sand-light), var(--shadow-card);
+}
+
+.cardTitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px dotted var(--sand);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.fact dt {
+  font-weight: 700;
+  color: var(--brown-deep);
+}
+
+.fact dd {
+  margin: 0;
+}
+
+.knowledge {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.knowledge li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--ivory);
+}
+
+.explore {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 96px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--forest);
+  color: #fbf8f1;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.15s ease;
+}
+
+.explore:active {
+  transform: scale(0.98);
+}
+
+.exploreIcon,
+.exploreGo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(251, 248, 241, 0.14);
+  color: var(--sand);
+}
+
+.exploreIcon svg,
+.exploreGo svg {
+  width: 28px;
+  height: 28px;
+}
+
+.exploreGo {
+  background: var(--ivory);
+  color: var(--forest-deep);
+}
+
+.exploreText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exploreText strong {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.exploreText span {
+  font-size: var(--text-sm);
+  opacity: 0.85;
+}
