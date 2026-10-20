@@ -2,10 +2,10 @@
 
 ## Launch-Weg (einfach): Freischaltkarte mit Code
 
-Für den Launch am 31.10. reicht der einfache Weg – ohne Shopify-App im Dev Dashboard:
+Für den Launch am 31.10. reicht der einfache Weg (gilt für jedes Abenteuer, je ein eigener Code und eine eigene Freischaltkarte) – ohne Shopify-App im Dev Dashboard:
 
 1. Bei Vercel nur `ENTITLEMENT_SECRET` und `LICENSE_SECRET` eintragen → Redeploy.
-2. Shop-Produkt „Die Hofgeschichten – Das Geheimnis der Geisterweide“ (Digital Products, 7,90 €,
+2. Shop-Produkt „Die Hofgeschichten – Das Geheimnis der Geisterweide“ (Digital Products, 4,90 €,
    Handle `das-geheimnis-der-geisterweide`) bekommt als Download eine **Freischaltkarte (PDF)** mit
    App-Link und Shop-Code.
 3. Eltern: kaufen → PDF laden → App → Elternbereich → Code eingeben. Ohne Shopify-Einstellungen zeigt der
@@ -52,7 +52,7 @@ POST /api/freischalten  (Server, Vercel)
 ### 1. Produkt im Shop anlegen
 
 - Titel: *Das Geheimnis der Geisterweide – Interaktives Halloween-Detektivabenteuer*
-- Preis: 7,90 €, Produkttyp digital, **kein Versand** („Physisches Produkt“ abwählen)
+- Preis: 4,90 €, Produkttyp digital, **kein Versand** („Physisches Produkt“ abwählen)
 - **Handle** (URL-Teil) exakt: `das-geheimnis-der-geisterweide`
   (oder anderen Handle wählen und in `src/content/adventures/index.ts` → `shopifyProductHandle` eintragen)
 - In der Produktbeschreibung erklären: „Nach dem Kauf im Elternbereich der App mit Bestellnummer und E-Mail freischalten: <App-URL>/eltern“
@@ -114,7 +114,7 @@ LICENSE_SECRET=<gleicher Wert wie bei Vercel> npm run codes -- geisterweide 200 
 - Die Codes können über eine Shopify-App für Lizenzschlüssel automatisch nach dem Kauf verschickt
   oder manuell per E-Mail versendet werden.
 - Missbrauchte Codes in `REVOKED_CODES` eintragen.
-- Grenze: Ein Code kann ohne Datenbank nicht auf eine Anzahl Geräte begrenzt werden. Für 7,90 € ist das
+- Grenze: Ein Code kann ohne Datenbank nicht auf eine Anzahl Geräte begrenzt werden. Für 4,90 € ist das
   vertretbar; mit der späteren Datenbank (Familienmitgliedschaft) lässt sich das nachrüsten.
 
 ## Rechtliches (bitte prüfen lassen – keine Rechtsberatung)

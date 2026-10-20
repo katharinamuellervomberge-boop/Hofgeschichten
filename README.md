@@ -12,7 +12,8 @@ Mobiloptimierte Pferde-Lernwelt und Detektivspiel-Plattform für Kinder
 | Was braucht ein Pferd? | Lernquiz | kostenlos |
 | Pferdesprache | Körpersignale erkennen und richtig reagieren | kostenlos |
 | Mein Abenteuerpass | Stempel & Detektiv-Abzeichen | kostenlos |
-| Das Geheimnis der Geisterweide | Halloween-Detektivfall, 5 Missionen | Premium 7,90 € |
+| Das Geheimnis der Geisterweide | Halloween-Detektivfall, 5 Missionen | Premium 4,90 € |
+| Mystery Files: Die Nacht im Geisterstall | Halloween-Detektivfall, 7 Missionen, ab 7 Jahren | Premium 4,90 € |
 | Elternbereich | Freischaltung, Shop, Datenschutz, Einstellungen | – |
 
 Weitere Dokumente:

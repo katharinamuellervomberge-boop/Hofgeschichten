@@ -20,7 +20,7 @@ export const adventures: AdventureMeta[] = [
     season: "halloween",
     access: "premium",
     shopifyProductHandle: "das-geheimnis-der-geisterweide",
-    priceLabel: "7,90 €",
+    priceLabel: "4,90 €",
     missions: [
       { id: "sattelkammer", title: "Die leere Sattelkammer" },
       { id: "spuren", title: "Spuren auf dem Hof" },
@@ -32,7 +32,7 @@ export const adventures: AdventureMeta[] = [
     published: true,
   },
   {
-    /* Interaktive Fassung von Print „Mystery Files · Case 02“. Noch nicht veröffentlicht. */
+    /* Interaktive Fassung von Print „Mystery Files · Case 02“. Shopify-Produkt gid://shopify/Product/10979465429325 */
     slug: "geisterstall",
     title: "Mystery Files: Die Nacht im Geisterstall",
     teaser: "Auf dem Lindenhof brennt nachts die alte Laterne – und Hufspuren führen zu einer verschlossenen Tür. Löse den Fall vor Mitternacht!",
@@ -55,7 +55,7 @@ export const adventures: AdventureMeta[] = [
       { id: "mitternacht", title: "Mitternacht" },
     ],
     badge: { title: "Spürnase vom Lindenhof" },
-    published: false,
+    published: true,
   },
   /* ---------- Vorbereitet für nach dem Launch ---------- */
   {

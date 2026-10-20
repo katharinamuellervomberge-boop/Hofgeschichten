@@ -4,7 +4,9 @@ Die Print-Detektivfälle „Horse & Harmonie Mystery Files“ als interaktive Ap
 
 ## Case 02 · Die Nacht im Geisterstall (`geisterstall`)
 
-**Stand:** Inhalte, Szenen und Spielkern fertig. **Unveröffentlicht** (`published: false`).
+**Stand 20.10.:** In der App veröffentlicht (`published: true`), gesperrt bis zur Freischaltung.
+Shop-Produkt: gid://shopify/Product/10979465429325, Handle `mystery-files-die-nacht-im-geisterstall-app`, 4,90 €,
+Produktbild `public/shop/geisterstall-produktbild.jpg`.
 
 - Inhalte: `src/content/adventures/geisterstall.server.ts` (Premium, nur Server)
 - Szenen: `src/components/illustrations/scenes/Lindenhof.tsx`
@@ -39,9 +41,10 @@ Bonus wie im Heft: Kater Moritz versteckt sich in mehreren Bildern (antippen = f
 - [ ] Fall auf einer Vorschau-Adresse durchspielen (siehe `INHALTE-ERWEITERN.md` → Vorschau), auch auf iPad/iPhone
 - [ ] Texte abnehmen (vor allem Bruno statt Krümel, Lea/Mila/Ben als Gäste)
 - [x] Preis: 4,90 € (Entscheidung 20.10.)
-- [ ] Shopify-Produkt mit Handle `mystery-files-die-nacht-im-geisterstall-app` anlegen (oder Handle im Eintrag anpassen)
+- [x] Shopify-Produkt angelegt (Entwurf), Handle `mystery-files-die-nacht-im-geisterstall-app`
 - [ ] Freischaltkarte (PDF) für das Produkt, Codes mit `npm run codes -- geisterstall <anzahl>`
-- [ ] `published: true` setzen
+- [x] `published: true` gesetzt
+- [ ] Produkt im Shop aktiv schalten (erst wenn Freischaltkarte angehängt und Testkauf geklappt hat)
 
 ### Nächste Fälle
 
