@@ -39,9 +39,44 @@ export type ItemName =
   | "handschuh"
   | "reflektor"
   | "garn"
-  | "schere";
+  | "schere"
+  | "streichholz"
+  | "eimer"
+  | "foto"
+  | "schluessel"
+  | "kostuem"
+  | "bon"
+  | "zeitung"
+  | "fahrrad"
+  | "uhr"
+  | "muetze"
+  | "schal"
+  | "kopfhoerer"
+  | "taschenlampe"
+  | "block-kariert"
+  | "block-kuerbis"
+  | "block-lieferschein"
+  | "spinnennetz"
+  | "schluessel-rund"
+  | "schluessel-eckig"
+  | "schluessel-herz"
+  | "schluessel-klee"
+  | "geheimzettel"
+  | "ponyhalfter"
+  | "kater"
+  | "stallbuch";
 
 const OUT = "#5E4636"; // Konturfarbe
+
+function keyIcon(grip: ReactNode) {
+  return (
+    <>
+      {grip}
+      <rect x="29" y="28" width="6" height="28" fill="#C99A4E" stroke={OUT} strokeWidth="2" />
+      <path d="M35 44h8v5h-8M35 51h6v5h-6" fill="#C99A4E" stroke={OUT} strokeWidth="2" />
+    </>
+  );
+}
 
 const items: Record<ItemName, ReactNode> = {
   heu: (
@@ -337,6 +372,192 @@ const items: Record<ItemName, ReactNode> = {
       <circle cx="26" cy="26" r="16" fill="#DDE3D6" stroke="#344638" strokeWidth="5" />
       <path d="M38 38l16 16" stroke="#80634D" strokeWidth="8" strokeLinecap="round" />
       <path d="M18 20a10 10 0 0 1 8-6" stroke="#FBF8F1" strokeWidth="3" fill="none" strokeLinecap="round" />
+    </>
+  ),
+streichholz: (
+    <>
+      <rect x="10" y="30" width="44" height="22" rx="3" fill="#A4573A" stroke={OUT} strokeWidth="2.5" />
+      <rect x="10" y="30" width="44" height="7" fill="#80634D" />
+      <path d="M22 30 40 8" stroke="#E8C9A0" strokeWidth="4" strokeLinecap="round" />
+      <ellipse cx="41" cy="7" rx="4" ry="5" fill="#A4573A" />
+      <path d="M44 4c4 2 4 7 0 9" stroke="#D9803E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+    </>
+  ),
+  eimer: (
+    <>
+      <path d="M14 22c0-14 36-14 36 0" stroke="#4A4540" strokeWidth="3" fill="none" />
+      <path d="M12 22h40l-5 34H17Z" fill="#9BA79A" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <ellipse cx="32" cy="22" rx="20" ry="4" fill="#C7CDB4" stroke={OUT} strokeWidth="2" />
+    </>
+  ),
+  foto: (
+    <>
+      <rect x="8" y="10" width="48" height="44" rx="2" fill="#FBF8F1" stroke={OUT} strokeWidth="2.5" transform="rotate(-6 32 32)" />
+      <rect x="13" y="15" width="38" height="28" fill="#DDE3D6" transform="rotate(-6 32 32)" />
+      <path d="M22 38c2-8 10-10 16-8l6-4 2 6c-2 4-6 6-10 6Z" fill="#FFFFFF" stroke="#A9A398" strokeWidth="1.5" transform="rotate(-6 32 32)" />
+      <circle cx="20" cy="24" r="4" fill="#344638" transform="rotate(-6 32 32)" />
+    </>
+  ),
+  schluessel: keyIcon(<circle cx="32" cy="18" r="11" fill="#C99A4E" stroke={OUT} strokeWidth="2.5" />),
+  "schluessel-rund": keyIcon(
+    <>
+      <circle cx="32" cy="18" r="11" fill="#C99A4E" stroke={OUT} strokeWidth="2.5" />
+      <circle cx="32" cy="18" r="4.5" fill="#FBF8F1" stroke={OUT} strokeWidth="2" />
+    </>,
+  ),
+  "schluessel-eckig": keyIcon(
+    <>
+      <rect x="21" y="7" width="22" height="22" rx="2" fill="#C99A4E" stroke={OUT} strokeWidth="2.5" />
+      <rect x="28" y="14" width="8" height="8" fill="#FBF8F1" stroke={OUT} strokeWidth="2" />
+    </>,
+  ),
+  "schluessel-herz": keyIcon(
+    <path d="M32 30C20 22 18 16 20 11c2-5 9-6 12 0 3-6 10-5 12 0 2 5 0 11-12 19Z" fill="#C99A4E" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />,
+  ),
+  "schluessel-klee": keyIcon(
+    <g fill="#C99A4E" stroke={OUT} strokeWidth="2.5">
+      <circle cx="32" cy="10" r="7" />
+      <circle cx="23" cy="20" r="7" />
+      <circle cx="41" cy="20" r="7" />
+      <circle cx="32" cy="22" r="5" />
+    </g>,
+  ),
+  kostuem: (
+    <>
+      <rect x="10" y="8" width="44" height="48" rx="4" fill="#E9EEF0" stroke="#9A9893" strokeWidth="2.5" />
+      <path d="M22 50V30c0-8 4-12 10-12s10 4 10 12v20l-4-3-3 3-3-3-3 3-3-3Z" fill="#FFFFFF" stroke={OUT} strokeWidth="2" strokeLinejoin="round" />
+      <circle cx="28" cy="30" r="2" fill={OUT} />
+      <circle cx="36" cy="30" r="2" fill={OUT} />
+      <path d="M14 14l8 8M42 14l8 8" stroke="#FFFFFF" strokeWidth="3" opacity=".8" />
+    </>
+  ),
+  bon: (
+    <>
+      <path d="M16 6h32v50l-4-3-4 3-4-3-4 3-4-3-4 3-4-3-4 3Z" fill="#FBF8F1" stroke={OUT} strokeWidth="2.2" strokeLinejoin="round" />
+      <path d="M22 16h20M22 23h14M22 30h20M22 40h20" stroke="#A9A398" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M36 23h6" stroke="#A4573A" strokeWidth="3" strokeLinecap="round" />
+    </>
+  ),
+  zeitung: (
+    <>
+      <rect x="8" y="10" width="48" height="44" fill="#F2E7CF" stroke={OUT} strokeWidth="2.5" />
+      <path d="M14 18h36" stroke={OUT} strokeWidth="4" />
+      <rect x="14" y="26" width="16" height="14" fill="#C4AC84" />
+      <path d="M34 28h16M34 34h16M34 40h16M14 46h36" stroke="#A9A398" strokeWidth="2.2" />
+    </>
+  ),
+  fahrrad: (
+    <>
+      <circle cx="16" cy="42" r="11" fill="none" stroke={OUT} strokeWidth="3" />
+      <circle cx="48" cy="42" r="11" fill="none" stroke={OUT} strokeWidth="3" />
+      <path d="M16 42l10-18h16l6 18M26 24l8 18 8-18M24 20h8M42 24l-2-6h6" fill="none" stroke="#A4573A" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
+      <path d="M50 22l8-2" stroke="#E3C47A" strokeWidth="3" strokeLinecap="round" />
+    </>
+  ),
+  uhr: (
+    <>
+      <circle cx="32" cy="32" r="24" fill="#FBF8F1" stroke={OUT} strokeWidth="3" />
+      <path d="M32 32V16M32 32l12 6" stroke="#344638" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="32" cy="32" r="3" fill="#344638" />
+    </>
+  ),
+  muetze: (
+    <>
+      <path d="M12 38c0-16 10-24 22-24s20 8 20 24Z" fill="#344638" stroke="#26342A" strokeWidth="2.5" />
+      <path d="M6 38h50c0 5-4 8-10 8H14c-5 0-8-3-8-8Z" fill="#344638" stroke="#26342A" strokeWidth="2.5" />
+      <g transform="rotate(-30 46 22)">
+        <rect x="36" y="18" width="22" height="7" rx="1" fill="#D9803E" stroke={OUT} strokeWidth="1.5" />
+        <path d="M58 18l6 3.5-6 3.5Z" fill="#E8C9A0" stroke={OUT} strokeWidth="1.5" />
+      </g>
+    </>
+  ),
+  schal: (
+    <>
+      <path d="M10 20c8 8 36 8 44 0l-2 10c-10 6-30 6-40 0Z" fill="#D9803E" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M40 30l4 24h-10l-2-22Z" fill="#D9803E" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M34 50h10M35 54v4M39 54v4M43 54v4" stroke={OUT} strokeWidth="2" />
+    </>
+  ),
+  kopfhoerer: (
+    <>
+      <path d="M12 38V30c0-12 9-20 20-20s20 8 20 20v8" fill="none" stroke="#2C2A24" strokeWidth="5" />
+      <rect x="6" y="34" width="14" height="20" rx="6" fill="#D9803E" stroke={OUT} strokeWidth="2.5" />
+      <rect x="44" y="34" width="14" height="20" rx="6" fill="#D9803E" stroke={OUT} strokeWidth="2.5" />
+    </>
+  ),
+  taschenlampe: (
+    <>
+      <path d="M44 14l12 8-6 8-12-6Z" fill="#E3C47A" opacity=".6" />
+      <rect x="8" y="30" width="34" height="12" rx="3" fill="#344638" stroke="#26342A" strokeWidth="2.5" transform="rotate(-30 25 36)" />
+      <path d="M36 18l8 12-6 4-8-10Z" fill="#9A9893" stroke="#4A4540" strokeWidth="2" />
+    </>
+  ),
+  "block-kariert": (
+    <>
+      <rect x="10" y="8" width="44" height="10" fill="#6E3B3F" />
+      <rect x="10" y="18" width="44" height="38" fill="#FFFFFF" stroke={OUT} strokeWidth="2" />
+      <path d="M10 18l6 4 6-4 6 4 6-4 6 4 6-4 6 4 6-4" fill="none" stroke={OUT} strokeWidth="1.5" />
+      <path d="M18 24v32M26 24v32M34 24v32M42 24v32M50 24v32M10 32h44M10 40h44M10 48h44" stroke="#9FB4CF" strokeWidth="1" />
+    </>
+  ),
+  "block-kuerbis": (
+    <>
+      <rect x="10" y="8" width="44" height="10" fill="#6E3B3F" />
+      <rect x="10" y="18" width="44" height="38" fill="#FFFFFF" stroke={OUT} strokeWidth="2" />
+      <path d="M10 18l4 5 4-3 4 4 4-4 4 3 4-4 4 4 4-3 4 4 4-4" fill="none" stroke={OUT} strokeWidth="1.5" />
+      <circle cx="46" cy="49" r="4.5" fill="#D9803E" />
+      <path d="M46 44v-2" stroke="#4F6A47" strokeWidth="2" />
+    </>
+  ),
+  "block-lieferschein": (
+    <>
+      <rect x="10" y="8" width="44" height="10" fill="#6E3B3F" />
+      <rect x="10" y="18" width="44" height="38" fill="#FFFFFF" stroke={OUT} strokeWidth="2" />
+      <path d="M10 20c8 2 16-2 22 0s16 4 22-2" fill="none" stroke={OUT} strokeWidth="1.5" />
+      <path d="M15 30h22M15 38h34M15 44h34M15 50h34" stroke="#C99A4E" strokeWidth="1.6" />
+    </>
+  ),
+  spinnennetz: (
+    <>
+      <g fill="none" stroke="#A9A398" strokeWidth="1.8">
+        <path d="M6 6l24 24M6 6h40M6 6v40M6 6l34 14M6 6l14 34" />
+        <path d="M18 6c0 6-6 12-12 12M30 6c0 12-12 24-24 24M42 6c0 18-18 36-36 36" />
+      </g>
+      <path d="M40 26l14 14" stroke="#A9A398" strokeWidth="1.8" strokeDasharray="3 4" />
+      <circle cx="52" cy="44" r="3" fill={OUT} />
+    </>
+  ),
+  geheimzettel: (
+    <>
+      <path d="M8 14l46-4 2 40-44 6Z" fill="#FBF8F1" stroke={OUT} strokeWidth="2.2" strokeLinejoin="round" />
+      <g fill="none" stroke="#2C2A24" strokeWidth="2.6">
+        <path d="M16 22h8v8h-8M30 21h6v8M42 20h-6v8h6M16 38h7M23 34v8M32 34l6 4-6 4M44 33h-6v8h6" />
+      </g>
+      <circle cx="33" cy="25" r="1.6" fill="#2C2A24" />
+    </>
+  ),
+  ponyhalfter: (
+    <g fill="none" stroke="#4F6A47" strokeWidth="5" strokeLinecap="round">
+      <path d="M22 12c-10 18-6 36 10 44 16-8 20-26 10-44" />
+      <path d="M20 28h24M26 48h12" />
+      <circle cx="32" cy="56" r="3" fill="#C99A4E" stroke={OUT} strokeWidth="2" />
+    </g>
+  ),
+  kater: (
+    <>
+      <path d="M18 56c-2-14 2-26 14-26s16 12 14 26Z" fill="#2C2A24" />
+      <path d="M46 52c8 0 12-6 10-12" stroke="#2C2A24" strokeWidth="4" fill="none" strokeLinecap="round" />
+      <circle cx="32" cy="24" r="12" fill="#2C2A24" />
+      <path d="M22 18l-2-12 9 7M42 18l2-12-9 7" fill="#2C2A24" />
+      <ellipse cx="27" cy="23" rx="2.4" ry="3" fill="#E3C47A" />
+      <ellipse cx="37" cy="23" rx="2.4" ry="3" fill="#E3C47A" />
+    </>
+  ),
+  stallbuch: (
+    <>
+      <path d="M6 14c10-4 18-4 26 2v38c-8-6-16-6-26-2Z" fill="#F2E7CF" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M58 14c-10-4-18-4-26 2v38c8-6 16-6 26-2Z" fill="#F2E7CF" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M12 24h7v7h-7M38 24h8v7M46 36l-6 4 6 4" fill="none" stroke="#6E3B3F" strokeWidth="2" />
     </>
   ),
 };

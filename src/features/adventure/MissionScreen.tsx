@@ -61,6 +61,8 @@ export function MissionScreen({ meta, mission, clues }: Props) {
         ) : (
           <ActivityPlayer
             activity={mission}
+            fixedLevel={meta.levels?.length === 1 ? meta.levels[0] : undefined}
+            ageNote={meta.ageLabel ? `Für Detektive ${meta.ageLabel}` : undefined}
             tint="#E4E2D3"
             introArt={firstScene ? <VisualView v={firstScene} /> : undefined}
             onClues={(c) => setRunClues((r) => [...r, ...c.filter((x) => !r.includes(x))])}

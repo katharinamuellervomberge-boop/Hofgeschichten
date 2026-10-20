@@ -6,6 +6,7 @@ import { LevelSwitch } from "@/components/ui/LevelSwitch";
 import { useProgress } from "@/lib/progress/store";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { ChoiceStep } from "./steps/ChoiceStep";
+import { CipherStep } from "./steps/CipherStep";
 import { CodeStep } from "./steps/CodeStep";
 import { HotspotStep } from "./steps/HotspotStep";
 import { MatchStep } from "./steps/MatchStep";
@@ -26,6 +27,10 @@ type Props = {
   renderDone: (api: { replay: () => void }) => ReactNode;
   /** Wird bei jedem neu gefundenen Hinweis aufgerufen (für das Detektivbuch) */
   onClues?: (clues: string[]) => void;
+  /** Feste Stufe (z. B. Fälle nur für 7–9): Stufenwahl wird ausgeblendet */
+  fixedLevel?: Level;
+  /** Altershinweis statt Stufenwahl, z. B. „Für Detektive ab 7 Jahren“ */
+  ageNote?: string;
 };
 
 function renderStep(step: Step, level: Level, onDone: (clues?: string[]) => void) {
@@ -40,13 +45,15 @@ function renderStep(step: Step, level: Level, onDone: (clues?: string[]) => void
       return <MatchStep step={step} level={level} onDone={onDone} />;
     case "code":
       return <CodeStep step={step} level={level} onDone={onDone} />;
+    case "cipher":
+      return <CipherStep step={step} level={level} onDone={onDone} />;
   }
 }
 
 /** Spielt eine Activity Schritt für Schritt ab – für Lernspiele und Missionen. */
-export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete, renderDone, onClues }: Props) {
+export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete, renderDone, onClues, fixedLevel, ageNote }: Props) {
   const { settings } = useProgress();
-  const chosenLevel: Level = settings.level ?? "leicht";
+  const chosenLevel: Level = fixedLevel ?? settings.level ?? "leicht";
   const [phase, setPhase] = useState<"intro" | "play" | "done">(autoStart ? "play" : "intro");
   const [runLevel, setRunLevel] = useState<Level>(chosenLevel);
   const [index, setIndex] = useState(0);
@@ -84,7 +91,7 @@ export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete
     return (
       <div className={styles.intro} style={{ background: tint ?? "var(--sand-light)" }}>
         {introArt && <div className={styles.introArt}>{introArt}</div>}
-        <LevelSwitch compact />
+        {fixedLevel ? ageNote && <p className={styles.ageNote}>{ageNote}</p> : <LevelSwitch compact />}
         <button
           type="button"
           className={styles.startBtn}

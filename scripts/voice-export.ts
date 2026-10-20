@@ -118,6 +118,15 @@ function walkStep(step: Step, lv: Level, access: string, area: string) {
       add(pick(step.success, lv), access, area, lv, DIR.praise);
       break;
     }
+    case "cipher": {
+      add(pick(step.prompt, lv), access, area, lv, task);
+      add(phrases.cipherPick, access, area, lv, DIR.hint);
+      new Set(step.message.replace(/\s/g, "").split("")).forEach((l) => add(phrases.cipherRight(l), access, area, lv, DIR.praise));
+      // falscher Buchstabe = jede Taste im Schlüssel möglich
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach((l) => add([phrases.cipherWrong(l), pick(step.hint, lv)], access, area, lv, DIR.hint));
+      add(pick(step.success, lv), access, area, lv, DIR.praise);
+      break;
+    }
   }
 }
 

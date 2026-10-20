@@ -35,6 +35,11 @@ export const phrases = {
   digitLabel: (i: number) => `${cap(ORDINALS[i])} Zahl:`,
   digitWrong: (i: number) => `Die ${ORDINALS[i]} Zahl stimmt noch nicht.`,
 
+  /* ----- Geheimschrift ----- */
+  cipherPick: "Tippe auf ein Zeichen und dann auf den passenden Buchstaben.",
+  cipherWrong: (letter: string) => `Das Zeichen für ${letter} sieht anders aus.`,
+  cipherRight: (letter: string) => `Richtig, das ist ein ${letter}!`,
+
   /* ----- Stempel & Abschluss ----- */
   newStamp: (title: string) => `Super! Du hast einen neuen Stempel bekommen: ${title}.`,
   gameDone: (title: string) => `Geschafft! Super gemacht. Du hast den Stempel ${title}.`,

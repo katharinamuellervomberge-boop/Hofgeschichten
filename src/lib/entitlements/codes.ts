@@ -1,6 +1,6 @@
 import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { adventures } from "@/content/adventures";
+import { adventures, isVisible } from "@/content/adventures";
 
 /**
  * Freischaltcodes – Ersatzweg für Geschenke, Support oder falls die
@@ -43,7 +43,7 @@ export function verifyCode(input: string): string | null {
   const revoked = (process.env.REVOKED_CODES ?? "").split(",").map(normalizeCode).filter(Boolean);
   if (revoked.includes(c)) return null;
   const id = body.slice(0, 2);
-  const a = adventures.find((x) => x.published && x.access === "premium" && adventureCodeId(x.slug) === id);
+  const a = adventures.find((x) => isVisible(x) && x.access === "premium" && adventureCodeId(x.slug) === id);
   return a?.slug ?? null;
 }
 

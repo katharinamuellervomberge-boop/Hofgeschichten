@@ -47,11 +47,28 @@ export type Visual =
   | { kind: "puppy"; pose?: "sit" | "sleep" }
   | { kind: "clue"; clue: string }
   | { kind: "mood"; mood: EarMoodRef }
-  | { kind: "notebook" };
+  | { kind: "notebook" }
+  /** Erwachsene Figur eines Falls (Porträt aus content/people.ts) */
+  | { kind: "person"; person: string }
+  /** Großes Schild mit kurzem Text, z. B. ein Buchstabe oder eine Uhrzeit */
+  | { kind: "tag"; text: string }
+  /** Beweisstück aus Papier: Zettel, Protokoll, Kassenbon, Zeitung, Handy-Nachricht */
+  | { kind: "doc"; doc: DocVisual };
+
+export type DocVisual = {
+  style: "note" | "typed" | "receipt" | "newspaper" | "phone" | "list";
+  title?: string;
+  /** Kleine Zeile über dem Titel (z. B. „Beweisstück G“) */
+  label?: string;
+  lines: string[];
+  /** Tabelle statt Zeilen: erste Zeile = Kopf */
+  table?: string[][];
+};
 
 /* ---------- Schritte ---------- */
 
-export type Speaker = "lea" | "mila" | "ben" | "erzaehler";
+/** Kinder (characters.ts), Erzähler oder eine erwachsene Figur aus people.ts */
+export type Speaker = "lea" | "mila" | "ben" | "erzaehler" | (string & {});
 
 export type StoryStep = LevelFilter & {
   type: "story";
@@ -135,7 +152,28 @@ export type CodeStep = LevelFilter & {
   success: ByLevel<string>;
 };
 
-export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep;
+/**
+ * Geheimschrift entziffern: Jeder Buchstabe der Nachricht erscheint als
+ * Zeichen. Das Kind tippt ein Zeichen an und wählt den Buchstaben aus dem
+ * Schlüssel. Gleiche Zeichen füllen sich automatisch mit aus.
+ */
+export type CipherStep = LevelFilter & {
+  type: "cipher";
+  id: string;
+  /** Welche Schrift (derzeit: "stallmeister" = Gitter-/Kreuzschrift) */
+  cipher: "stallmeister";
+  prompt: ByLevel<string>;
+  /** Klartext in GROSSBUCHSTABEN, Wörter durch Leerzeichen getrennt */
+  message: string;
+  /** Buchstaben, die schon eingetragen sind */
+  given?: string;
+  /** Tipp bei falschem Buchstaben */
+  hint: ByLevel<string>;
+  success: ByLevel<string>;
+  clue?: string;
+};
+
+export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep | CipherStep;
 
 /** Ein spielbarer Ablauf: Lernspiel oder Mission. */
 export type Activity = {
