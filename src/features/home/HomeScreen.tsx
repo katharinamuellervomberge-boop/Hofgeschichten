@@ -16,13 +16,16 @@ import styles from "./HomeScreen.module.css";
 
 const featured = publishedAdventures[0];
 
-const TILES: Array<{ href: string; label: string; spoken: string; icon: IconName; tone: string; hidden?: boolean }> = [
+type Tile = { href: string; label: string; spoken: string; icon: IconName; tone: string; hidden?: boolean };
+
+const ALL_TILES: Tile[] = [
   { href: "/hoeren", label: "Hörspiele", spoken: UI_SPEECH.tileListen, icon: "headphones", tone: "forest", hidden: !site.features.audio },
   { href: "/pferde", label: "Die Pferde", spoken: UI_SPEECH.tileHorses, icon: "horseshoe", tone: "brown" },
   { href: "/spielen", label: "Spielen", spoken: UI_SPEECH.tileGames, icon: "puzzle", tone: "forest" },
   { href: "/abenteuer", label: "Abenteuer", spoken: UI_SPEECH.tileAdventures, icon: "lupe", tone: "sand" },
   { href: "/pass", label: "Mein Pass", spoken: UI_SPEECH.tilePass, icon: "pass", tone: "ivory" },
-].filter((t) => !t.hidden);
+];
+const TILES = ALL_TILES.filter((t) => !t.hidden);
 
 /* Position der Pferde in der Landschaft (Prozent der Bühne) */
 const STAGE = [

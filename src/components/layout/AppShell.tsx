@@ -9,14 +9,17 @@ import { useProgress } from "@/lib/progress/store";
 import { newStamps } from "@/lib/progress/stamps";
 import styles from "./AppShell.module.css";
 
-const NAV: Array<{ href: string; label: string; icon: IconName; hidden?: boolean }> = [
+type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean };
+
+const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
   { href: "/hoeren", label: "Hören", icon: "headphones", hidden: !site.features.audio },
   { href: "/pferde", label: "Pferde", icon: "horseshoe" },
   { href: "/spielen", label: "Spielen", icon: "puzzle" },
   { href: "/abenteuer", label: "Abenteuer", icon: "lupe" },
   { href: "/pass", label: "Pass", icon: "pass" },
-].filter((n) => !n.hidden);
+];
+const NAV = ALL_NAV.filter((n) => !n.hidden);
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
