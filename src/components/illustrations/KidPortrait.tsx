@@ -1,7 +1,41 @@
 import type { Character } from "@/content/types";
 
-/** Einfaches, illustriertes Kinderporträt. (Platzhalter bis zur finalen Figurengestaltung) */
-export function KidPortrait({ kid, className }: { kid: Character; className?: string }) {
+/**
+ * Porträt eines Hofkinds. Nutzt das gemalte Porträt aus /public/kids,
+ * sonst die einfache SVG-Zeichnung als Rückfall.
+ */
+export function KidPortrait({
+  kid,
+  className,
+  sizes = "110px",
+}: {
+  kid: Character;
+  className?: string;
+  sizes?: string;
+}) {
+  if (kid.portrait) {
+    const { base, alt } = kid.portrait;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- statische WebP-Dateien mit srcset, kein Bildserver nötig
+      <img
+        src={`${base}-320.webp`}
+        srcSet={`${base}-160.webp 160w, ${base}-320.webp 320w, ${base}-640.webp 640w`}
+        sizes={sizes}
+        width={320}
+        height={320}
+        alt={alt}
+        className={className}
+        style={{ aspectRatio: "1", objectFit: "cover", background: "#FBF7EE" }}
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+    );
+  }
+  return <KidSvg kid={kid} className={className} />;
+}
+
+function KidSvg({ kid, className }: { kid: Character; className?: string }) {
   const { skin, hair, hairStyle, shirt } = kid.look;
   return (
     <svg viewBox="0 0 100 100" className={className} role="img" aria-label={kid.name}>

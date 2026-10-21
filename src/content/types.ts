@@ -59,6 +59,8 @@ export type Character = {
   description: string;
   placeholder: boolean;
   look: { skin: string; hair: string; hairStyle: "braid" | "curls" | "short"; shirt: string };
+  /** Gemaltes Porträt (quadratische WebP-Dateien `<base>-160|320|640.webp`) */
+  portrait?: { base: string; alt: string };
 };
 
 export type ContentStatus = "placeholder" | "published";

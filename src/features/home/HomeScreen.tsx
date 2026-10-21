@@ -7,7 +7,6 @@ import { SpeakButton } from "@/components/ui/SpeakButton";
 import { characters } from "@/content/characters";
 import { horses } from "@/content/horses";
 import { site } from "@/content/site";
-import { Puppy } from "@/components/illustrations/Puppy";
 import { LevelSwitch } from "@/components/ui/LevelSwitch";
 import { publishedAdventures } from "@/content/adventures";
 import { AdventureCover } from "@/features/adventure/AdventureCover";
@@ -115,13 +114,23 @@ export function HomeScreen() {
             </li>
           ))}
           <li className={styles.kid}>
-            <span className={styles.dogPortrait}>
-              <Puppy />
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element -- statische WebP-Dateien mit srcset */}
+            <img
+              src="/kids/kruemel-320.webp"
+              srcSet="/kids/kruemel-160.webp 160w, /kids/kruemel-320.webp 320w, /kids/kruemel-640.webp 640w"
+              sizes="110px"
+              width={320}
+              height={320}
+              alt="Krümel, ein fröhlicher Hund mit hellem Fell und braunen Schlappohren"
+              className={styles.kidPortrait}
+              style={{ aspectRatio: "1", objectFit: "cover", background: "#FBF7EE" }}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
             <span className={styles.kidName}>Krümel</span>
           </li>
         </ul>
-        <p className={styles.kidNote}>Figurenillustrationen: Platzhalter</p>
       </section>
     </div>
   );
