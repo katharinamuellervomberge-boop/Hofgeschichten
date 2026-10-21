@@ -214,3 +214,25 @@ svg {
   transform-origin: 50% 0;
   animation: hg-flutter 3.2s ease-in-out infinite;
 }
+
+/* ----- Druck: Urkunde der Reitakademie ----- */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+  body.hg-print-cert * {
+    visibility: hidden !important;
+  }
+  body.hg-print-cert .hg-cert,
+  body.hg-print-cert .hg-cert * {
+    visibility: visible !important;
+  }
+  body.hg-print-cert .hg-cert {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

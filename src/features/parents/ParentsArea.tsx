@@ -10,6 +10,8 @@ import { LEVELS } from "@/engine/types";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { hasLocalGermanVoice, recordingsAvailable, speechSupported, voiceEnabled } from "@/lib/speech";
+import { AcademyParents } from "@/features/akademie/AcademyParents";
+import { academyDoneCount } from "@/features/akademie/progress";
 import { UnlockPanel } from "./UnlockPanel";
 import styles from "./ParentsArea.module.css";
 
@@ -74,6 +76,10 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
               <dt>Pferde besucht</dt>
               <dd>{progress.horsesVisited.length} / 3</dd>
             </div>
+            <div>
+              <dt>Lektionen Reitakademie</dt>
+              <dd>{academyDoneCount(progress)} / 40</dd>
+            </div>
           </dl>
         </section>
 
@@ -112,8 +118,14 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
                 <p>{g.learns}</p>
               </li>
             ))}
+            <li>
+              <strong>Die kleine Reitakademie</strong>
+              <p>Reitwissen in 8 Lernwelten – von Sicherheit und Sitz über Hilfen und Gangarten bis zu fairem Umgang mit dem Pferd. Details weiter unten.</p>
+            </li>
           </ul>
         </section>
+
+        <AcademyParents />
 
         <section className={styles.card} aria-labelledby="p-privacy">
           <h2 id="p-privacy">Datenschutz &amp; Sicherheit</h2>

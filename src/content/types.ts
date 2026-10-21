@@ -146,14 +146,26 @@ export type StampMotif =
   | "pumpkin"
   | "footprint"
   | "lock"
-  | "eye";
+  | "eye"
+  /* Reitakademie */
+  | "helmet"
+  | "seat"
+  | "signals"
+  | "walk"
+  | "trot"
+  | "canter"
+  | "arena"
+  | "heart"
+  | "rosette";
 
 export type StampRule =
   | { type: "activity"; id: string }
   | { type: "horse"; slug: string }
   | { type: "mission"; adventure: string; mission: string }
   | { type: "adventure"; slug: string }
-  | { type: "allFree" };
+  | { type: "allFree" }
+  /** Alle genannten Aktivitäten mindestens einmal abgeschlossen (z. B. eine Lernwelt der Reitakademie) */
+  | { type: "activities"; ids: string[] };
 
 export type StampInfo = {
   id: string;
@@ -164,4 +176,6 @@ export type StampInfo = {
   rule: StampRule;
   /** Gehört zu einem Abenteuer (wird nur angezeigt, wenn es freigeschaltet ist) */
   adventure?: string;
+  /** Gehört zur Reitakademie (eigener Abschnitt im Pass) */
+  academy?: boolean;
 };

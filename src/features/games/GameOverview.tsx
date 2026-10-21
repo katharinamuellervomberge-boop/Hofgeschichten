@@ -15,6 +15,8 @@ import { pick } from "@/engine/types";
 import { useProgress } from "@/lib/progress/store";
 import { phrases } from "@/lib/voice/phrases";
 import { UI_SPEECH } from "@/content/ui-speech";
+import { AcademyTeaser } from "@/features/akademie/AcademyTeaser";
+import academy from "@/features/akademie/akademie.module.css";
 import styles from "./GameOverview.module.css";
 
 const ART: Record<GameInfo["art"], ReactNode> = {
@@ -44,6 +46,10 @@ export function GameOverview() {
       <div className={styles.level}>
         <LevelSwitch />
       </div>
+      <section aria-label="Die kleine Reitakademie">
+        <AcademyTeaser />
+      </section>
+      <h2 className={academy.categoryTitle}>Spiele der Hofwelt</h2>
       <ul className={styles.list}>
         {games.map((g) => {
           const done = (progress.games[g.id]?.completedCount ?? 0) > 0;

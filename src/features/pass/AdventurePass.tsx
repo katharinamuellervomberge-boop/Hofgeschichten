@@ -5,6 +5,7 @@ import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { publishedAdventures } from "@/content/adventures";
 import { adventureStamps, freeStamps } from "@/content/stamps";
+import { academyStamps } from "@/content/akademie/stamps";
 import type { StampInfo } from "@/content/types";
 import { earnedStamps, newStamps } from "@/lib/progress/stamps";
 import { progressActions, readProgress, useProgress } from "@/lib/progress/store";
@@ -55,7 +56,8 @@ export function AdventurePass({ owned }: { owned: string[] }) {
   }, []);
 
   const ownedAdventures = publishedAdventures.filter((a) => a.access === "free" || owned.includes(a.slug));
-  const all = [...freeStamps, ...ownedAdventures.flatMap((a) => adventureStamps(a.slug))];
+  const academy = academyStamps();
+  const all = [...freeStamps, ...ownedAdventures.flatMap((a) => adventureStamps(a.slug)), ...academy];
   const count = all.filter((s) => earned.has(s.id)).length;
 
   return (
@@ -79,6 +81,15 @@ export function AdventurePass({ owned }: { owned: string[] }) {
         </div>
         <h2 className={styles.sectionTitle}>Hofwelt</h2>
         <StampGrid list={freeStamps} earned={earned} fresh={fresh} />
+
+        <div className={styles.adventure}>
+          <h2 className={styles.sectionTitle}>Reitakademie</h2>
+          <StampGrid list={academy} earned={earned} fresh={fresh} />
+          <p className={styles.academyNote}>
+            „Reitwissen-Profi“ ist ein spielerischer Wissensnachweis – kein offizieller Reitpass und kein Nachweis
+            praktischer Reitfähigkeiten.
+          </p>
+        </div>
 
         {ownedAdventures.map((a) => (
           <div key={a.slug} className={styles.adventure}>

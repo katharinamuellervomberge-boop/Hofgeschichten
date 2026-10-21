@@ -22,6 +22,7 @@ Weitere Dokumente:
 - [`docs/INHALTE-ERWEITERN.md`](docs/INHALTE-ERWEITERN.md) – neue Spiele & Abenteuer ohne neuen Code
 - [`docs/GITHUB-VERCEL.md`](docs/GITHUB-VERCEL.md) – Schritt für Schritt: GitHub und Vercel
 - [`docs/STIMME.md`](docs/STIMME.md) – Vorlesestimme (für den Launch ausgeschaltet, kommt mit den Hörspielen)
+- [`docs/REITAKADEMIE.md`](docs/REITAKADEMIE.md) – kostenlose Reitakademie: Inhalte bearbeiten, prüfen, Abzeichen, Urkunde
 
 ---
 

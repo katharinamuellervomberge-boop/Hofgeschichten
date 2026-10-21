@@ -22,6 +22,8 @@ function ruleMet(s: StampInfo, p: Progress, gotFree: () => boolean): boolean {
     }
     case "allFree":
       return gotFree();
+    case "activities":
+      return r.ids.length > 0 && r.ids.every((id) => (p.games[id]?.completedCount ?? 0) > 0);
   }
 }
 

@@ -16,6 +16,8 @@ export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
   const [msg, setMsg] = useState<{ text: string; tone: "good" | "hint" } | null>(null);
   const prompt = pick(step.prompt, level);
   const pictures = step.layout !== "list";
+  // Antworten mit ganzen Szenen (z. B. Reitbahn-Figuren) bekommen große Bildkarten
+  const sceneOptions = pictures && options.some((o) => o.visual?.kind === "scene");
 
   useAutoSpeak(pictures ? prompt : [prompt, ...options.map((o) => phrases.optionLabel(o.label))], level);
 
@@ -45,7 +47,7 @@ export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
           <VisualView v={step.visual} />
         </div>
       )}
-      <ul className={`${styles.options} ${pictures ? styles.optionsPictures : ""}`}>
+      <ul className={`${styles.options} ${pictures ? styles.optionsPictures : ""} ${sceneOptions ? styles.optionsScenes : ""}`}>
         {options.map((o) => {
           const isWrong = wrong.includes(o.id);
           const isRight = solved && o.correct;

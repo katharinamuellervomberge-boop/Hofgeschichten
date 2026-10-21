@@ -24,6 +24,8 @@ import {
   StallgasseScene,
 } from "@/components/illustrations/scenes/Lindenhof";
 import { SattelkammerScene } from "@/components/illustrations/scenes/Sattelkammer";
+import { AK_SCENES } from "@/components/illustrations/akademie/scenes";
+import { AkIcon, isAkIconName } from "@/components/illustrations/akademie/AkIcons";
 import { isTrackName, Track } from "@/components/illustrations/Tracks";
 import { getCharacter } from "@/content/characters";
 import { getHorse } from "@/content/horses";
@@ -51,6 +53,8 @@ export const SCENES: Record<string, { component: ComponentType<{ className?: str
   "lh-foto": { component: AltesFotoScene, viewBox: "0 0 800 600", label: "Altes Foto" },
   "lh-alter-stall": { component: AlterStallScene, viewBox: "0 0 800 600", label: "Alter Stall" },
   "lh-cover": { component: GeisterstallCover, viewBox: "0 0 800 600", label: "Lindenhof bei Nacht" },
+  /* Kleine Reitakademie */
+  ...AK_SCENES,
 };
 
 /** viewBox der Pferde-Illustration (für Körperteil-Hotspots) */
@@ -79,6 +83,7 @@ export function VisualView({ v, className, decorative }: { v: Visual; className?
   const { clues, collected } = useClues();
   switch (v.kind) {
     case "item":
+      if (isAkIconName(v.name)) return <AkIcon name={v.name} className={className} title={decorative ? undefined : v.name} />;
       return isItemName(v.name) ? <ItemIcon name={v.name} className={className} title={decorative ? undefined : v.name} /> : null;
     case "count":
       return (

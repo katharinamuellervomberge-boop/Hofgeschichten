@@ -80,6 +80,68 @@ const motifs: Record<StampInfo["motif"], ReactNode> = {
       <circle cx="50" cy="50" r="7" fill="currentColor" />
     </g>
   ),
+  /* ---------- Reitakademie ---------- */
+  helmet: (
+    <g>
+      <path d="M30 60c0-16 9-26 20-26s20 10 20 24v2Z" fill="currentColor" />
+      <path d="M68 58c5 0 9 2 12 5H66" fill="currentColor" />
+      <path d="M40 62c2 6 6 9 10 9" fill="none" strokeWidth="3.5" strokeLinecap="round" />
+    </g>
+  ),
+  seat: (
+    <g fill="none" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="50" cy="30" r="6" fill="currentColor" stroke="none" />
+      <path d="M50 38v18l8 12M50 56l-6 14" />
+      <path d="M32 58c8 6 28 6 36 0" />
+    </g>
+  ),
+  signals: (
+    <g fill="none" strokeWidth="5" strokeLinecap="round">
+      <path d="M36 40c-6 6-6 14 0 20M64 40c6 6 6 14 0 20" />
+      <path d="M28 32c-12 12-12 24 0 36M72 32c12 12 12 24 0 36" opacity=".6" />
+      <circle cx="50" cy="50" r="6" fill="currentColor" stroke="none" />
+    </g>
+  ),
+  walk: (
+    <g fill="currentColor">
+      <circle cx="32" cy="50" r="6" />
+      <circle cx="44" cy="50" r="6" />
+      <circle cx="56" cy="50" r="6" />
+      <circle cx="68" cy="50" r="6" />
+    </g>
+  ),
+  trot: (
+    <g fill="currentColor">
+      <circle cx="36" cy="38" r="7" />
+      <circle cx="64" cy="62" r="7" />
+      <circle cx="64" cy="38" r="7" opacity=".55" />
+      <circle cx="36" cy="62" r="7" opacity=".55" />
+      <path d="M36 38 64 62" fill="none" strokeWidth="3" strokeDasharray="3 4" />
+    </g>
+  ),
+  canter: (
+    <g>
+      <path d="M28 60c8-20 36-20 44 0" fill="none" strokeWidth="4" strokeLinecap="round" strokeDasharray="2 6" />
+      <circle cx="32" cy="58" r="6" fill="currentColor" />
+      <circle cx="50" cy="44" r="6" fill="currentColor" />
+      <circle cx="68" cy="58" r="6" fill="currentColor" />
+    </g>
+  ),
+  arena: (
+    <g fill="none" strokeWidth="4.5" strokeLinejoin="round">
+      <rect x="26" y="34" width="48" height="32" rx="3" />
+      <circle cx="40" cy="50" r="10" />
+      <path d="M56 50h12" strokeLinecap="round" />
+    </g>
+  ),
+  heart: <path d="M50 70S30 58 30 44c0-6 4-11 10-11 5 0 8 3 10 6 2-3 5-6 10-6 6 0 10 5 10 11 0 14-20 26-20 26Z" fill="currentColor" />,
+  rosette: (
+    <g>
+      <path d="M44 60l-6 18 7-4 4 7 4-15M56 60l6 18-7-4-4 7-4-15" fill="currentColor" />
+      <circle cx="50" cy="46" r="17" fill="currentColor" />
+      <circle cx="50" cy="46" r="9" fill="none" stroke="#F5F0E5" strokeWidth="2.5" opacity=".7" />
+    </g>
+  ),
 };
 
 type Props = {
@@ -92,7 +154,7 @@ type Props = {
 
 /** Runder Stempel im Abenteuerpass. Nicht verdient = gestrichelter Umriss. */
 export function StampSeal({ stamp, earned, className, tilt = 0 }: Props) {
-  const color = earned ? (stamp.motif === "horseshoe" ? "#A4573A" : "#344638") : "#C4AC84";
+  const color = earned ? (stamp.motif === "horseshoe" || stamp.motif === "rosette" ? "#A4573A" : stamp.academy ? "#80634D" : "#344638") : "#C4AC84";
   return (
     <svg
       viewBox="0 0 100 100"

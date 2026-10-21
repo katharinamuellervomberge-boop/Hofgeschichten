@@ -1,4 +1,5 @@
 import { adventures, isVisible } from "./adventures";
+import { academyStamps } from "./akademie/stamps";
 import type { StampInfo, StampMotif } from "./types";
 
 /** Stempel der kostenlosen Hofwelt. */
@@ -40,5 +41,5 @@ export function adventureStamps(slug: string): StampInfo[] {
 }
 
 export function allStamps(): StampInfo[] {
-  return [...freeStamps, ...adventures.filter(isVisible).flatMap((a) => adventureStamps(a.slug))];
+  return [...freeStamps, ...adventures.filter(isVisible).flatMap((a) => adventureStamps(a.slug)), ...academyStamps()];
 }

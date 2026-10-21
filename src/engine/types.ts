@@ -56,7 +56,8 @@ export type Visual =
   | { kind: "doc"; doc: DocVisual };
 
 export type DocVisual = {
-  style: "note" | "typed" | "receipt" | "newspaper" | "phone" | "list";
+  /** "lesson" = ruhige Lernkarte (Reitakademie: Merksatz, Fachbegriffe) */
+  style: "note" | "typed" | "receipt" | "newspaper" | "phone" | "list" | "lesson";
   title?: string;
   /** Kleine Zeile über dem Titel (z. B. „Beweisstück G“) */
   label?: string;
@@ -173,7 +174,23 @@ export type CipherStep = LevelFilter & {
   clue?: string;
 };
 
-export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep | CipherStep;
+/**
+ * Mehrfachauswahl: Alle passenden Antworten antippen, dann „Prüfen“.
+ * Falsch gewählte Antworten erklären sich über ihr `feedback`.
+ */
+export type MultiStep = LevelFilter & {
+  type: "multi";
+  id: string;
+  prompt: ByLevel<string>;
+  visual?: Visual;
+  options: Array<LevelFilter & { id: string; label: string; visual?: Visual; correct?: boolean; feedback?: string }>;
+  /** Hinweis, wenn noch passende Antworten fehlen */
+  missing: ByLevel<string>;
+  /** Erklärung, wenn alles stimmt */
+  explain: ByLevel<string>;
+};
+
+export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep | CipherStep | MultiStep;
 
 /** Ein spielbarer Ablauf: Lernspiel oder Mission. */
 export type Activity = {
