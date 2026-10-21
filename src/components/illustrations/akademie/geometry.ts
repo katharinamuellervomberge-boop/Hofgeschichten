@@ -77,7 +77,7 @@ export const BODIES: Record<Exclude<RiderPose, "ohne">, Body> = {
     heel: [253, 187],
     toe: [272, 188],
   },
-  absatz: { ...SITZ, ankle: [229, 186], heel: [222, 184], toe: [237, 200] },
+  absatz: { ...SITZ, ankle: [229, 186], heel: [221, 181], toe: [235, 204] },
   leicht: {
     ...SITZ,
     hip: [229, 92],
@@ -123,8 +123,8 @@ export function riderPoint(mark: RiderMark, pose: RiderPose = "sitz"): P {
     knee: b.knee,
     knie: b.knee,
     gesaess: [b.hip[0] - 4, b.hip[1] + 4],
-    "schenkel-gurt": [b.ankle[0] + 6, b.ankle[1] - 14],
-    "schenkel-hinter": [b.ankle[0] - 12, b.ankle[1] - 8],
+    "schenkel-gurt": [b.ankle[0] + 8, b.ankle[1] - 17],
+    "schenkel-hinter": [b.ankle[0] - 16, b.ankle[1] - 7],
     stimme: [b.head[0] + 22, b.head[1] + 10],
   } as Partial<Record<RiderMark, P>>;
   return toScene(map[mark] ?? TACK_POINTS[mark] ?? b.hip);

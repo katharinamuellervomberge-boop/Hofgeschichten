@@ -134,7 +134,7 @@ function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRein: bool
   );
 }
 
-function Mark({ at, n, label }: { at: P; n: number; label?: string }) {
+function Mark({ at, n, label, left }: { at: P; n: number; label?: string; left?: boolean }) {
   return (
     <g>
       <circle cx={at[0]} cy={at[1]} r="15" fill={C.gold} opacity=".22" />
@@ -143,7 +143,7 @@ function Mark({ at, n, label }: { at: P; n: number; label?: string }) {
         {n}
       </text>
       {label && (
-        <text x={at[0] + 18} y={at[1] + 5} fontSize="15" fontWeight="700" fill="#26342A" fontFamily="system-ui, sans-serif" paintOrder="stroke" stroke="#FBF8F1" strokeWidth="4">
+        <text x={left ? at[0] - 18 : at[0] + 18} y={at[1] + 5} textAnchor={left ? "end" : "start"} fontSize="15" fontWeight="700" fill="#26342A" fontFamily="system-ui, sans-serif" paintOrder="stroke" stroke="#FBF8F1" strokeWidth="4">
           {label}
         </text>
       )}
@@ -220,7 +220,7 @@ export function RiderScene({ pose = "sitz", marks = [], labels, line, handLine, 
       </svg>
 
       {marks.map((m, i) => (
-        <Mark key={m} at={riderPoint(m, pose)} n={i + 1} label={labels?.[m]} />
+        <Mark key={m} at={riderPoint(m, pose)} n={i + 1} label={labels?.[m]} left={m === "schenkel-hinter"} />
       ))}
     </svg>
   );
