@@ -21,7 +21,7 @@ export const site = {
   legal: {
     imprintUrl: "/impressum" as string | null,
     termsUrl: "/agb" as string | null,
-    privacyUrl: null as string | null,
+    privacyUrl: "/datenschutz" as string | null,
     withdrawalUrl: "/widerruf",
     /** Kündigungsbutton nach § 312k BGB – muss auf der Website immer erreichbar sein */
     cancelUrl: "/kuendigen",

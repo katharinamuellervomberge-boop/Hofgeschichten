@@ -51,7 +51,7 @@ export function CancelForm({ online, email: providerEmail }: { online: boolean; 
     return (
       <div className={styles.success} role="status">
         <p>
-          <strong>Ihre Kündigung ist bei uns eingegangen.</strong>
+          <strong>Ihre Kündigung ist am {receipt.receivedAt} bei uns eingegangen.</strong>
         </p>
         <ul>
           {receipt.lines.map((l) => (
@@ -128,7 +128,7 @@ export function CancelForm({ online, email: providerEmail }: { online: boolean; 
       )}
       {online ? (
         <button type="submit" className={styles.primaryBtn} disabled={busy}>
-          {busy ? "Wird gesendet …" : "jetzt kündigen"}
+          {busy ? "Wird gesendet …" : "Jetzt kündigen"}
         </button>
       ) : (
         <a className={styles.primaryBtn} href={mailto}>

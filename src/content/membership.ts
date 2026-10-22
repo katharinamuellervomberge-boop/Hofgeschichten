@@ -15,10 +15,12 @@
 export const membership = {
   /** Interne Kennung, auch für Freischaltcodes (nie ändern) */
   slug: "mitgliedschaft",
-  name: "Founder-Mitgliedschaft",
+  name: "Founder-Jahresmitgliedschaft",
   shortName: "Hof-Mitgliedschaft",
   /** Preis der ersten 12 Monate, einmalig zu Beginn fällig (AGB § 4.1) */
   price: "39,90 €",
+  /** Rechnerischer Monatswert im ersten Jahr – nur zur Erklärung, es wird nicht monatlich abgerechnet */
+  perMonthEquivalent: "3,33 €",
   priceCents: 3990,
   termMonths: 12,
   /** Folgepreis für Founder ab dem 13. Monat (AGB § 4.1 Abs. 4) */

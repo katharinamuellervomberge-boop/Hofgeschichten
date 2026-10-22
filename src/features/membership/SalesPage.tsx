@@ -55,7 +55,7 @@ function Cta({ status, second }: { status: MembershipStatus; second?: boolean })
   );
 }
 
-/** Verkaufsseite der Founder-Mitgliedschaft (für Eltern). */
+/** Verkaufsseite der Founder-Jahresmitgliedschaft (für Eltern). */
 export function SalesPage({ status }: { status: MembershipStatus }) {
   return (
     <div className={`page ${styles.page}`}>
@@ -71,12 +71,13 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
             Freitag etwas Neues entdecken.
           </p>
           <div className={styles.price}>
-            <span className={styles.priceLabel}>Founder Membership</span>
+            <span className={styles.priceLabel}>Founder-Jahresmitgliedschaft</span>
             <span className={styles.priceValue}>
-              {plan.price} <small>/ {plan.termMonths} Monate</small>
+              {plan.price} <small>für das ganze erste Jahr</small>
             </span>
             <span className={styles.priceNote}>
-              einmalig zu Beginn · danach {plan.followUpPrice} {plan.followUpInterval}, monatlich kündbar ·{" "}
+              <strong>Einmaliger Jahresbeitrag – keine monatlichen Zahlungen im ersten Jahr</strong> (rechnerisch {plan.perMonthEquivalent} im
+              Monat). Ab dem 13. Monat {plan.followUpPrice} {plan.followUpInterval}, dann monatlich kündbar ·{" "}
               <a href="#bedingungen">Bedingungen</a>
             </span>
           </div>
@@ -229,7 +230,8 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
           <div>
             <dt>Preis</dt>
             <dd>
-              {plan.price} für die ersten {plan.termMonths} Monate, einmalig zu Beginn der Mitgliedschaft fällig.
+              {plan.price} als einmaliger Jahresbeitrag für die ersten {plan.termMonths} Monate, fällig zu Beginn der Mitgliedschaft. Im
+              ersten Jahr gibt es keine monatlichen Zahlungen.
             </dd>
           </div>
           <div>
@@ -261,7 +263,7 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
             <dt>Spätere Preise</dt>
             <dd>
               Für spätere Neukundinnen und Neukunden planen wir {plan.plannedRegular.map((p) => p.price).join(" bzw. ")}. Diese Preise
-              stehen noch nicht verbindlich fest und betreffen Ihre Founder-Mitgliedschaft nicht.
+              stehen noch nicht verbindlich fest und betreffen Ihre Founder-Jahresmitgliedschaft nicht.
             </dd>
           </div>
         </dl>

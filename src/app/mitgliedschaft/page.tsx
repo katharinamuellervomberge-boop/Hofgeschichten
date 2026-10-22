@@ -5,7 +5,7 @@ import { getMembershipStatus } from "@/lib/entitlements/server";
 
 export const metadata: Metadata = {
   title: membership.name,
-  description: `Ein ganzes Jahr voller Hofabenteuer: ${membership.name} für ${membership.price} für die ersten ${membership.termMonths} Monate. Jeden Freitag ab ${membership.firstReleaseLabel} neue Inhalte.`,
+  description: `Ein ganzes Jahr voller Hofabenteuer: ${membership.name} – ${membership.price} einmalig für das ganze erste Jahr. Jeden Freitag ab ${membership.firstReleaseLabel} neue Inhalte.`,
 };
 export const dynamic = "force-dynamic";
 

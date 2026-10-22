@@ -96,7 +96,8 @@
 }
 
 .priceValue small {
-  font-size: 0.5em;
+  display: block;
+  font-size: 0.45em;
   font-weight: 500;
   color: var(--ink-soft);
 }

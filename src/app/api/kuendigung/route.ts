@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { provider } from "@/content/legal";
 import { membership } from "@/content/membership";
@@ -43,16 +44,18 @@ async function sendMail(to: string, subject: string, text: string): Promise<bool
   return Boolean(res?.ok);
 }
 
-async function store(record: object): Promise<void> {
+/** Dauerhafte Ablage (Upstash-Liste `hg:kuendigungen`). true = gespeichert. */
+async function store(record: object): Promise<boolean> {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
-  if (!url || !token) return;
-  await fetch(url.replace(/\/$/, ""), {
+  if (!url || !token) return false;
+  const res = await fetch(url.replace(/\/$/, ""), {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify(["LPUSH", "hg:kuendigungen", JSON.stringify(record)]),
     cache: "no-store",
   }).catch(() => null);
+  return Boolean(res?.ok);
 }
 
 export async function POST(req: Request) {
@@ -82,9 +85,12 @@ export async function POST(req: Request) {
   }
 
   const receivedAt = new Date();
+  // Eindeutige Eingangsnummer für Kundin/Kunde und Anbieter
+  const receiptId = `K-${receivedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${randomBytes(3).toString("hex").toUpperCase()}`;
   const when = receivedAt.toLocaleString("de-DE", { timeZone: "Europe/Berlin", dateStyle: "long", timeStyle: "medium" });
   const effective = b.date === "datum" ? new Date(`${dateValue}T12:00:00Z`).toLocaleDateString("de-DE", { dateStyle: "long" }) : "zum nächstmöglichen Zeitpunkt";
   const lines = [
+    `Eingangsnummer: ${receiptId}`,
     `Eingang: ${when} (deutsche Zeit)`,
     `Vertrag: ${membership.name} / Hof Stories – Die Hofgeschichten`,
     `Art: ${kind}${b.kind === "ausserordentlich" && reason ? ` – Grund: ${reason}` : ""}`,
@@ -107,12 +113,13 @@ export async function POST(req: Request) {
     provider.email,
   ].join("\n");
 
-  const sent = await sendMail(email, "Eingangsbestätigung Ihrer Kündigung – Hof Stories", customerText);
-  await sendMail(process.env.CANCEL_NOTIFY_EMAIL || provider.email, `Neue Kündigung: ${name}`, lines.join("\n"));
-  await store({ receivedAt: receivedAt.toISOString(), kind: b.kind, reason, name, email, reference, date: b.date, dateValue });
+  // Dokumentation: Kopie an den Anbieter + (falls eingerichtet) dauerhafte Ablage
+  const stored = await store({ receiptId, receivedAt: receivedAt.toISOString(), kind: b.kind, reason, name, email, reference, date: b.date, dateValue });
+  const notified = await sendMail(process.env.CANCEL_NOTIFY_EMAIL || provider.email, `Neue Kündigung ${receiptId}: ${name}`, lines.join("\n"));
+  const sent = await sendMail(email, `Eingangsbestätigung Ihrer Kündigung ${receiptId} – Hof Stories`, customerText);
 
-  if (!sent) {
+  if (!sent || !(stored || notified)) {
     return NextResponse.json({ ok: false, fallback: true, message: `Die Bestätigung konnte nicht versendet werden. Bitte kündigen Sie zusätzlich per E-Mail an ${provider.email}.` }, { status: 502 });
   }
-  return NextResponse.json({ ok: true, receivedAt: when, lines });
+  return NextResponse.json({ ok: true, receivedAt: when, receiptId, lines });
 }

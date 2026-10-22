@@ -29,8 +29,8 @@ export function MembershipPanel({ membership }: { membership: MembershipStatus }
         <>
           <p className={styles.productInfo}>
             Ein ganzes Jahr voller Hofabenteuer: jeden Freitag ab {plan.firstReleaseLabel} neue Geschichten, Hofspiele,
-            Reitakademie-Lektionen und Detektivfälle – dazu alle bisherigen Premium-Abenteuer. {plan.name}: {plan.price} für die
-            ersten {plan.termMonths} Monate.
+            Reitakademie-Lektionen und Detektivfälle – dazu alle bisherigen Premium-Abenteuer. {plan.name}: {plan.price} einmalig für das ganze
+            erste Jahr, danach {plan.followUpPrice} {plan.followUpInterval}.
           </p>
           <Link href="/mitgliedschaft" className={styles.shopLink}>
             <span>Mitgliedschaft ansehen</span>
