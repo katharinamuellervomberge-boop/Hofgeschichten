@@ -1,5 +1,7 @@
 /**
- * Rechtstexte (Impressum, AGB). Texte von der Inhaberin geliefert am 22.10.2026.
+ * Rechtstexte (Impressum, AGB, Widerrufsbelehrung). AGB-Texte von der Inhaberin geliefert am 22.10.2026;
+ * Founder-Preis am 22.10.2026 auf 39,90 € angepasst (Entscheidung der Inhaberin).
+ * Widerrufsbelehrung: gesetzliches Muster (Anlage 1 zu Art. 246a § 1 Abs. 2 EGBGB) – vor Veröffentlichung juristisch prüfen lassen.
  * Änderungen nur am Text hier – die Seiten /impressum und /agb lesen alles aus dieser Datei.
  */
 
@@ -76,7 +78,7 @@ export const terms: { title: string; subtitle: string; asOf: string; sections: L
           subheading: "4.1 Founders Membership",
           paragraphs: [
             "(1) Die Founders Membership ist ein zeitlich begrenztes Einführungsangebot.",
-            "(2) Der Preis beträgt 39,00 € für die ersten zwölf Monate. Der Betrag wird zu Beginn der Mitgliedschaft vollständig berechnet.",
+            "(2) Der Preis beträgt 39,90 € für die ersten zwölf Monate. Der Betrag wird zu Beginn der Mitgliedschaft vollständig berechnet.",
             "(3) Die anfängliche Mindestvertragslaufzeit beträgt zwölf Monate.",
             "(4) Nach Ablauf der Mindestvertragslaufzeit wird die Mitgliedschaft auf unbestimmte Zeit fortgesetzt. Ab dem 13. Monat beträgt der Mitgliedschaftspreis 9,90 € monatlich. Die Abrechnung erfolgt monatlich.",
             "(5) Eine Kündigung zum Ende der Mindestvertragslaufzeit ist mit einer Frist von einem Monat möglich.",
@@ -200,4 +202,49 @@ export const terms: { title: string; subtitle: string; asOf: string; sections: L
       ],
     },
   ],
+};
+
+/* ---------- Widerrufsbelehrung ---------- */
+
+export const withdrawal = {
+  title: "Widerrufsbelehrung",
+  subtitle: "Für Verträge über digitale Inhalte und Mitgliedschaften von Hof Stories",
+  asOf: "Stand: 22. Oktober 2026",
+  sections: [
+    {
+      heading: "Widerrufsrecht",
+      paragraphs: [
+        "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.",
+        "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.",
+        `Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (${provider.company}, ${provider.street}, ${provider.city}, Telefon: ${provider.phone}, E-Mail: ${provider.email}) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das unten stehende Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.`,
+        "Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.",
+      ],
+    },
+    {
+      heading: "Folgen des Widerrufs",
+      paragraphs: [
+        "Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.",
+      ],
+    },
+    {
+      heading: "Vorzeitiges Erlöschen des Widerrufsrechts",
+      paragraphs: [
+        "Bei einem Vertrag über die Bereitstellung digitaler Inhalte, die sich nicht auf einem körperlichen Datenträger befinden, erlischt das Widerrufsrecht nach § 356 Abs. 5 BGB, wenn wir mit der Vertragserfüllung begonnen haben, nachdem Sie ausdrücklich zugestimmt haben, dass wir vor Ablauf der Widerrufsfrist mit der Vertragserfüllung beginnen, Sie Ihre Kenntnis davon bestätigt haben, dass Sie durch Ihre Zustimmung mit Beginn der Vertragserfüllung Ihr Widerrufsrecht verlieren, und wir Ihnen eine Bestätigung des Vertrags zur Verfügung gestellt haben.",
+      ],
+    },
+  ],
+  form: {
+    heading: "Muster-Widerrufsformular",
+    intro: "(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)",
+    lines: [
+      `An ${provider.company}, ${provider.street}, ${provider.city}, E-Mail: ${provider.email}:`,
+      "Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)",
+      "Bestellt am (*)/erhalten am (*)",
+      "Name des/der Verbraucher(s)",
+      "Anschrift des/der Verbraucher(s)",
+      "Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)",
+      "Datum",
+      "(*) Unzutreffendes streichen.",
+    ],
+  },
 };

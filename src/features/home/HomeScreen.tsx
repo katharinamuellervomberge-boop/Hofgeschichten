@@ -23,7 +23,7 @@ const ALL_TILES: Tile[] = [
   { href: "/pferde", label: "Die Pferde", spoken: UI_SPEECH.tileHorses, icon: "horseshoe", tone: "brown" },
   { href: "/spielen", label: "Spielen", spoken: UI_SPEECH.tileGames, icon: "puzzle", tone: "forest" },
   { href: "/abenteuer", label: "Abenteuer", spoken: UI_SPEECH.tileAdventures, icon: "lupe", tone: "sand" },
-  { href: "/pass", label: "Mein Pass", spoken: UI_SPEECH.tilePass, icon: "pass", tone: "ivory" },
+  { href: "/hofjahr", label: "Mein Hofjahr", spoken: "Mein Hofjahr. Hier siehst du deine Abzeichen und was es jeden Freitag Neues gibt.", icon: "pass", tone: "ivory" },
 ];
 const TILES = ALL_TILES.filter((t) => !t.hidden);
 

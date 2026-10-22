@@ -11,11 +11,12 @@ import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
+import { LearningPath, type PremiumState } from "./LearningPath";
 import { academyDoneCount, lessonDone, worldHref } from "./progress";
 import styles from "./akademie.module.css";
 
 /** Startseite der kleinen Reitakademie: acht Lernwelten und vier Mini-Spiele. */
-export function AcademyOverview() {
+export function AcademyOverview({ premium = {} }: { premium?: Record<string, PremiumState> }) {
   const progress = useProgress();
   const earned = earnedStamps(progress);
   const stamps = academyStamps();
@@ -58,6 +59,8 @@ export function AcademyOverview() {
         <div className={styles.level}>
           <LevelSwitch />
         </div>
+
+        <LearningPath premium={premium} />
 
         <section aria-labelledby="ak-welten">
           <h2 id="ak-welten" className={styles.sectionTitle}>

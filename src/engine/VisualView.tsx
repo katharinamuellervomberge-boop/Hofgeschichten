@@ -24,6 +24,7 @@ import {
   StallgasseScene,
 } from "@/components/illustrations/scenes/Lindenhof";
 import { SattelkammerScene } from "@/components/illustrations/scenes/Sattelkammer";
+import { HofAbendScene, HofMorgenScene, StallboxScene, WeideScene } from "@/components/illustrations/scenes/HofTag";
 import { AK_SCENES } from "@/components/illustrations/akademie/scenes";
 import { AkIcon, isAkIconName } from "@/components/illustrations/akademie/AkIcons";
 import { isTrackName, Track } from "@/components/illustrations/Tracks";
@@ -53,6 +54,11 @@ export const SCENES: Record<string, { component: ComponentType<{ className?: str
   "lh-foto": { component: AltesFotoScene, viewBox: "0 0 800 600", label: "Altes Foto" },
   "lh-alter-stall": { component: AlterStallScene, viewBox: "0 0 800 600", label: "Alter Stall" },
   "lh-cover": { component: GeisterstallCover, viewBox: "0 0 800 600", label: "Lindenhof bei Nacht" },
+  /* Ein Tag auf dem Hof */
+  "ht-morgen": { component: HofMorgenScene, viewBox: "0 0 800 600", label: "Der Hof am Morgen" },
+  "ht-abend": { component: HofAbendScene, viewBox: "0 0 800 600", label: "Der Hof am Abend" },
+  "ht-stallbox": { component: StallboxScene, viewBox: "0 0 800 600", label: "Stallbox" },
+  "ht-weide": { component: WeideScene, viewBox: "0 0 800 600", label: "Weide" },
   /* Kleine Reitakademie */
   ...AK_SCENES,
 };

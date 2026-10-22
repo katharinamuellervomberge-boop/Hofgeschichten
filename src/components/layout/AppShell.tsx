@@ -9,7 +9,7 @@ import { useProgress } from "@/lib/progress/store";
 import { newStamps } from "@/lib/progress/stamps";
 import styles from "./AppShell.module.css";
 
-type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean };
+type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[] };
 
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
@@ -17,7 +17,8 @@ const ALL_NAV: NavItem[] = [
   { href: "/pferde", label: "Pferde", icon: "horseshoe" },
   { href: "/spielen", label: "Spielen", icon: "puzzle" },
   { href: "/abenteuer", label: "Abenteuer", icon: "lupe" },
-  { href: "/pass", label: "Pass", icon: "pass" },
+  /* Mein Hofjahr: Fortschritt, Abzeichen, Freitagsfolgen – der Abenteuerpass ist von dort erreichbar */
+  { href: "/hofjahr", label: "Hofjahr", icon: "pass", also: ["/pass"] },
 ];
 const NAV = ALL_NAV.filter((n) => !n.hidden);
 
@@ -55,7 +56,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <nav className={styles.nav} aria-label="Hauptnavigation">
         <ul>
           {NAV.map((item) => {
-            const active = isActive(pathname, item.href);
+            const active = isActive(pathname, item.href) || (item.also ?? []).some((h) => isActive(pathname, h));
             return (
               <li key={item.href}>
                 <Link
@@ -65,7 +66,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 >
                   <span className={styles.navIcon}>
                     <Icon name={item.icon} />
-                    {item.href === "/pass" && fresh > 0 && (
+                    {item.href === "/hofjahr" && fresh > 0 && (
                       <span className={styles.dot} aria-label={`${fresh} neue Stempel`} />
                     )}
                   </span>

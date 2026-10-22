@@ -1,5 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
+import { membership } from "@/content/membership";
 
 /**
  * Prüft eine Bestellung direkt über die Shopify Admin GraphQL API.
@@ -51,7 +52,9 @@ const ORDER_QUERY = /* GraphQL */ `
   query HofgeschichtenOrder($q: String!) {
     orders(first: 5, query: $q) {
       nodes {
+        id
         name
+        processedAt
         email
         test
         cancelledAt
@@ -70,7 +73,9 @@ const ORDER_QUERY = /* GraphQL */ `
 `;
 
 type OrderNode = {
+  id: string;
   name: string;
+  processedAt: string;
   email: string | null;
   test: boolean;
   cancelledAt: string | null;
@@ -78,7 +83,9 @@ type OrderNode = {
   lineItems: { nodes: Array<{ quantity: number; product: { handle: string } | null }> };
 };
 
-export type VerifyResult = { ok: true; adventures: string[] } | { ok: false; reason: "not_found" | "not_paid" | "no_product" | "unavailable" };
+export type VerifyResult =
+  | { ok: true; adventures: string[]; membershipOrder: { id: string; processedAt: Date } | null }
+  | { ok: false; reason: "not_found" | "not_paid" | "no_product" | "unavailable" };
 
 /** Bestellnummer normalisieren: "#1234", "1234", " #1234 " → "1234" */
 export function normalizeOrderNumber(input: string): string | null {
@@ -118,5 +125,10 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   const unlocked = adventures
     .filter((a) => isVisible(a) && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
     .map((a) => a.slug);
-  return unlocked.length ? { ok: true, adventures: unlocked } : { ok: false, reason: "no_product" };
+  const membershipOrder = handles.has(membership.shopifyProductHandle)
+    ? { id: order.id, processedAt: new Date(order.processedAt) }
+    : null;
+  return unlocked.length || membershipOrder
+    ? { ok: true, adventures: unlocked, membershipOrder }
+    : { ok: false, reason: "no_product" };
 }

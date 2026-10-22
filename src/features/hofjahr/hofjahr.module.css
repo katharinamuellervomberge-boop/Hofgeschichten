@@ -1,0 +1,536 @@
+/* ===== Mein Hofjahr & Freitagsfolgen ===== */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.greeting {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--sage);
+  box-shadow: var(--shadow-card);
+}
+
+@media (min-width: 720px) {
+  .greeting {
+    grid-template-columns: 1fr 220px;
+  }
+}
+
+.greetTitle {
+  font-size: var(--text-xl);
+}
+
+.greetText {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.kids {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.kids > * {
+  width: 76px;
+  height: 76px;
+  margin-left: -12px;
+  border-radius: 50%;
+  border: 4px solid var(--paper);
+  background: var(--sand-light);
+  overflow: hidden;
+}
+
+.kids > *:first-child {
+  margin-left: 0;
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+}
+
+.sectionLead {
+  margin: calc(-1 * var(--space-2)) 0 var(--space-4);
+  color: var(--text-muted);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin: 0;
+}
+
+@media (min-width: 720px) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.stat dt {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--brown);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stat dd {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--forest-deep);
+}
+
+/* Abzeichen */
+.badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.badgeSeal {
+  width: 96px;
+  height: 96px;
+}
+
+.badgeEarned .badgeSeal {
+  animation: hg-pop 0.5s ease both;
+}
+
+.badgeTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+.badgeHow {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Wochenkarten */
+.weeks {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .weeks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.week:hover {
+  box-shadow: var(--shadow-lift);
+}
+
+a.week:active {
+  transform: scale(0.98);
+}
+
+.weekArt {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sand-light);
+}
+
+.weekArt > svg,
+.weekArt > div {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.weekArt > div > svg {
+  width: 62%;
+  height: auto;
+}
+
+.weekDate {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--forest-deep);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  box-shadow: var(--shadow-card);
+}
+
+.weekBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+.weekMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.cat {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+
+.premiumMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--forest);
+  color: var(--paper);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.premiumMark svg {
+  width: 14px;
+  height: 14px;
+}
+
+.weekTitle {
+  font-size: var(--text-lg);
+}
+
+.weekText {
+  color: var(--text-muted);
+}
+
+.weekList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekList li {
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--sand-light);
+  font-size: var(--text-xs);
+}
+
+.weekStatus {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.weekOpen .weekStatus {
+  color: var(--rust);
+}
+
+/* gesperrt / noch nicht veröffentlicht */
+.lockCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.lockIcon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sand-light);
+  color: var(--brown);
+}
+
+.lockIcon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.lockTitle {
+  font-size: var(--text-lg);
+}
+
+.lockHint {
+  color: var(--text-muted);
+}
+
+.parentLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--touch-min);
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heroArt {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.heroArt > svg,
+.heroArt > div {
+  width: 100%;
+  height: auto;
+}
+
+/* Tagesablauf des Hofspiels */
+.day {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: part;
+}
+
+@media (min-width: 720px) {
+  .day {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.part {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-big);
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.part:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.part:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.partNo {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.partDone .partNo {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.partNo svg {
+  width: 24px;
+  height: 24px;
+}
+
+.partText {
+  display: flex;
+  flex-direction: column;
+}
+
+.partTime {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--brown);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.partTitle {
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+
+.meter {
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--sand-light);
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--forest);
+  transition: width 0.4s ease;
+}
+
+.meterLabel {
+  margin-bottom: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--sage);
+  text-align: center;
+}
+
+.doneSeal {
+  width: 140px;
+  height: 140px;
+  animation: hg-pop 0.6s ease both;
+}
+
+.doneTitle {
+  font-size: var(--text-xl);
+}
+
+.heroTitle {
+  font-size: var(--text-2xl);
+  letter-spacing: 0.01em;
+  color: var(--rust);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--touch-min);
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--forest-deep);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.btnPrimary {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.passLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+}
+
+.passLink svg {
+  width: 28px;
+  height: 28px;
+}
+
+.practice {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}

@@ -64,7 +64,12 @@ export type ItemName =
   | "geheimzettel"
   | "ponyhalfter"
   | "kater"
-  | "stallbuch";
+  | "stallbuch"
+  /* Ein Tag auf dem Hof */
+  | "mistgabel"
+  | "schubkarre"
+  | "stroh"
+  | "besen";
 
 const OUT = "#5E4636"; // Konturfarbe
 
@@ -558,6 +563,38 @@ streichholz: (
       <path d="M6 14c10-4 18-4 26 2v38c-8-6-16-6-26-2Z" fill="#F2E7CF" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
       <path d="M58 14c-10-4-18-4-26 2v38c8-6 16-6 26-2Z" fill="#F2E7CF" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
       <path d="M12 24h7v7h-7M38 24h8v7M46 36l-6 4 6 4" fill="none" stroke="#6E3B3F" strokeWidth="2" />
+    </>
+  ),
+  /* ---------- Ein Tag auf dem Hof ---------- */
+  mistgabel: (
+    <>
+      <path d="M32 58V26" stroke="#9A6A4C" strokeWidth="4.5" strokeLinecap="round" />
+      <path d="M18 8v12c0 4 3 6 6 6h16c3 0 6-2 6-6V8" fill="none" stroke="#4A4540" strokeWidth="3" strokeLinecap="round" />
+      <path d="M26 8v16M32 8v18M38 8v16" stroke="#4A4540" strokeWidth="3" strokeLinecap="round" />
+    </>
+  ),
+  schubkarre: (
+    <>
+      <path d="M8 22h38l-6 18H16Z" fill="#7E9468" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M12 26c8-4 22-4 30 0" stroke="#C49A5A" strokeWidth="4" strokeLinecap="round" fill="none" />
+      <path d="M46 22l12-6M20 40l-4 14M36 40l8 6" stroke="#5E4636" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="46" cy="48" r="7" fill="#4A4540" stroke={OUT} strokeWidth="2" />
+      <circle cx="46" cy="48" r="2.5" fill="#C4AC84" />
+    </>
+  ),
+  stroh: (
+    <>
+      <rect x="8" y="22" width="48" height="30" rx="4" fill="#EBD48E" stroke={OUT} strokeWidth="2.5" />
+      <path d="M12 30l40-2M12 38l40 1M12 45l40-2" stroke="#C9A75A" strokeWidth="2" strokeLinecap="round" />
+      <path d="M22 22v30M42 22v30" stroke="#80634D" strokeWidth="2" />
+      <path d="M10 22l-3-6M16 21l-1-7M50 21l3-6M56 23l5-4" stroke="#C9A75A" strokeWidth="2" strokeLinecap="round" />
+    </>
+  ),
+  besen: (
+    <>
+      <path d="M44 6 26 36" stroke="#9A6A4C" strokeWidth="4.5" strokeLinecap="round" />
+      <path d="M16 34h22l4 6-4 16H12l-2-16Z" fill="#C49A5A" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M16 44l-2 12M22 44l-1 12M28 44v12M34 44l1 12" stroke="#80634D" strokeWidth="2" strokeLinecap="round" />
     </>
   ),
 };

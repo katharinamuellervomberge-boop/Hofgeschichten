@@ -1,0 +1,118 @@
+/* Lernpfad: Kapitel als Weg mit Stationen */
+.title {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+}
+
+.path {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.path::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 23px;
+  border-left: 4px dashed var(--sand-deep);
+}
+
+.chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: var(--space-3);
+}
+
+.no {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  box-shadow: 0 0 0 6px var(--bg);
+}
+
+.body {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.chapterTitle {
+  font-size: var(--text-md);
+}
+
+.topics {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.stations {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.station {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--sage);
+  color: var(--forest-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.station svg {
+  width: 22px;
+  height: 22px;
+}
+
+.station em {
+  font-style: normal;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--forest-soft);
+}
+
+.premium {
+  background: var(--sand-light);
+}
+
+.premium em {
+  color: var(--brown);
+}
+
+.planned {
+  background: transparent;
+  border: 2px dashed var(--sand);
+  color: var(--text-muted);
+}
+
+.planned em {
+  color: var(--text-muted);
+}
+
+.done svg {
+  color: var(--forest);
+}

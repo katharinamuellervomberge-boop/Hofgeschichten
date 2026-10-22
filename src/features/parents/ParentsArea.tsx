@@ -12,16 +12,20 @@ import { progressActions, useProgress } from "@/lib/progress/store";
 import { hasLocalGermanVoice, recordingsAvailable, speechSupported, voiceEnabled } from "@/lib/speech";
 import { AcademyParents } from "@/features/akademie/AcademyParents";
 import { academyDoneCount } from "@/features/akademie/progress";
+import type { MembershipStatus } from "@/lib/entitlements/server";
+import { MembershipPanel } from "./MembershipPanel";
 import { UnlockPanel } from "./UnlockPanel";
 import styles from "./ParentsArea.module.css";
 
 type Props = {
   owned: string[];
+  accessible: string[];
+  membership: MembershipStatus;
   orderUnlockAvailable: boolean;
   codeUnlockAvailable: boolean;
 };
 
-export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }: Props) {
+export function ParentsArea({ owned, accessible, membership, orderUnlockAvailable, codeUnlockAvailable }: Props) {
   const progress = useProgress();
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetDone, setResetDone] = useState(false);
@@ -57,7 +61,14 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
       </header>
 
       <div className={styles.grid}>
-        <UnlockPanel owned={owned} orderUnlockAvailable={orderUnlockAvailable} codeUnlockAvailable={codeUnlockAvailable} />
+        <MembershipPanel membership={membership} />
+        <UnlockPanel
+          owned={owned}
+          accessible={accessible}
+          member={membership.active}
+          orderUnlockAvailable={orderUnlockAvailable}
+          codeUnlockAvailable={codeUnlockAvailable}
+        />
 
         <section className={styles.card} aria-labelledby="p-progress">
           <h2 id="p-progress">Fortschritt auf diesem Gerät</h2>
@@ -136,7 +147,7 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
               "Keine Werbung, keine Tracker, keine Analyse-Cookies.",
               "Keine Chats und keine öffentlichen Profile.",
               "Käufe finden nur im Shop statt – Kinder sehen in der App keine Preise und keine Kaufknöpfe.",
-              "Die Freischaltung speichert nur, welche Abenteuer gekauft wurden – keine E-Mail, keine Bestelldaten.",
+              "Die Freischaltung speichert auf dem Gerät nur, was freigeschaltet ist, und eine zufällige Gerätekennung – keine E-Mail, keine Bestelldaten.",
               ...(voiceEnabled
                 ? [
                     "Die Vorlesestimme ist eine vorab aufgenommene KI-Stimme. Beim Spielen wird kein Text an Sprachdienste geschickt; fehlt eine Aufnahme, liest die Stimme des Geräts vor.",
@@ -234,6 +245,12 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
             <li>
               {site.legal.privacyUrl ? <a href={site.legal.privacyUrl}>Datenschutzerklärung</a> : <span>Datenschutzerklärung</span>}
               {!site.legal.privacyUrl && <PlaceholderBadge>Wird ergänzt</PlaceholderBadge>}
+            </li>
+            <li>
+              <a href={site.legal.withdrawalUrl}>Widerrufsbelehrung</a>
+            </li>
+            <li>
+              <a href={site.legal.cancelUrl}>Verträge hier kündigen</a>
             </li>
           </ul>
         </section>

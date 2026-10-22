@@ -32,12 +32,14 @@ export function LegalSection({ heading, children }: { heading: string; children:
 
 export const legalStyles = styles;
 
-/** Kleine Linkzeile (Impressum · AGB · Datenschutz) für Startseite und Elternbereich. */
+/** Kleine Linkzeile (Impressum · AGB · Datenschutz · Widerruf · Kündigung) für Startseite und Elternbereich. */
 export function LegalLinks() {
   const items = [
     { href: site.legal.imprintUrl, label: "Impressum" },
     { href: site.legal.termsUrl, label: "AGB" },
     { href: site.legal.privacyUrl, label: "Datenschutz" },
+    { href: site.legal.withdrawalUrl, label: "Widerruf" },
+    { href: site.legal.cancelUrl, label: "Verträge hier kündigen" },
   ].filter((i): i is { href: string; label: string } => Boolean(i.href));
   if (items.length === 0) return null;
   return (
