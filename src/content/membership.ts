@@ -39,7 +39,7 @@ export const membership = {
    * KEINEN Kauf-Knopf (keine Platzhalter-Buttons). Erst setzen, wenn das
    * Shop-Produkt aktiv ist und Abo-Option, Widerrufsbelehrung und Datenschutz stehen.
    */
-  checkoutUrl: null as string | null,
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/hof-stories-founder-jahresmitgliedschaft" as string | null,
   firstReleaseLabel: "November 2026",
   /** Auf wie vielen Geräten ein Mitgliedscode gleichzeitig aktiv sein darf (Server-Standard, per MEMBERSHIP_DEVICE_LIMIT änderbar) */
   defaultDeviceLimit: 1,

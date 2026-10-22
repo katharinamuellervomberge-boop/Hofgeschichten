@@ -28,7 +28,7 @@ const FEATURES: Array<{ title: string; text: string; art: Visual | "adventure" |
   { title: "Sammelabzeichen", text: "Meistere Aufgaben und sammle Auszeichnungen.", art: "badge" },
 ];
 
-function Cta({ status, second }: { status: MembershipStatus; second?: boolean }) {
+function Cta({ status, second, orderUnlock }: { status: MembershipStatus; second?: boolean; orderUnlock: boolean }) {
   if (status.active) {
     return (
       <p className={styles.memberNote}>
@@ -50,13 +50,18 @@ function Cta({ status, second }: { status: MembershipStatus; second?: boolean })
         Jetzt Founder-Mitglied werden
         <Icon name="external" />
       </a>
-      {!second && <p className={styles.ctaHint}>Sicherer Checkout in unserem Shop. Sie sehen dort vor dem Kauf alle Bedingungen.</p>}
+      <p className={styles.ctaHint}>
+        Sicherer Checkout im Horse &amp; Harmonie Shop – dort sehen Sie vor dem Kauf alle Bedingungen.{" "}
+        {orderUnlock
+          ? "Danach schalten Sie im Elternbereich mit Bestellnummer und E-Mail-Adresse frei."
+          : "Ihren persönlichen Freischaltcode erhalten Sie nach dem Kauf per E-Mail; eingeben im Elternbereich."}
+      </p>
     </div>
   );
 }
 
 /** Verkaufsseite der Founder-Jahresmitgliedschaft (für Eltern). */
-export function SalesPage({ status }: { status: MembershipStatus }) {
+export function SalesPage({ status, orderUnlock = false }: { status: MembershipStatus; orderUnlock?: boolean }) {
   return (
     <div className={`page ${styles.page}`}>
       {/* ---------- Hero ---------- */}
@@ -81,7 +86,7 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
               <a href="#bedingungen">Bedingungen</a>
             </span>
           </div>
-          <Cta status={status} />
+          <Cta status={status} orderUnlock={orderUnlock} />
           <p className={styles.first}>Die ersten neuen Premium-Inhalte erscheinen im {plan.firstReleaseLabel}.</p>
         </div>
         <div className={styles.heroArt} aria-hidden>
@@ -255,8 +260,8 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
           <div>
             <dt>Zugang</dt>
             <dd>
-              Nach dem Kauf schalten Sie die Mitgliedschaft im Elternbereich frei (Bestellnummer + E-Mail oder Freischaltcode). Sie gilt
-              für ein Gerät; ein Gerätewechsel ist jederzeit möglich.
+              Nach dem Kauf schalten Sie die Mitgliedschaft im Elternbereich frei – mit Bestellnummer und E-Mail-Adresse oder mit dem
+              Freischaltcode, den Sie per E-Mail erhalten. Sie gilt für ein Gerät; ein Gerätewechsel ist jederzeit möglich.
             </dd>
           </div>
           <div>
@@ -271,7 +276,7 @@ export function SalesPage({ status }: { status: MembershipStatus }) {
           Es gelten unsere <Link href="/agb">AGB</Link> und die <Link href="/widerruf">Widerrufsbelehrung</Link>. Anbieter: KMVB UG
           (haftungsbeschränkt), siehe <Link href="/impressum">Impressum</Link>.
         </p>
-        <Cta status={status} second />
+        <Cta status={status} second orderUnlock={orderUnlock} />
       </section>
 
       {/* ---------- Fragen ---------- */}

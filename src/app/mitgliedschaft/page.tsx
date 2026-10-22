@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { membership } from "@/content/membership";
 import { SalesPage } from "@/features/membership/SalesPage";
 import { getMembershipStatus } from "@/lib/entitlements/server";
+import { shopifyConfigured } from "@/lib/entitlements/shopify";
 
 export const metadata: Metadata = {
   title: membership.name,
@@ -10,5 +11,5 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  return <SalesPage status={await getMembershipStatus()} />;
+  return <SalesPage status={await getMembershipStatus()} orderUnlock={shopifyConfigured()} />;
 }

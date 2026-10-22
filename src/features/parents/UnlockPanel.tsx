@@ -102,7 +102,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
         <h3>Kauf freischalten</h3>
         <p className={styles.settingHint}>
           {codeOnly
-            ? "Nach dem Kauf erhalten Sie mit dem Download im Shop Ihren Freischaltcode. Geben Sie ihn hier ein. Einzelne Abenteuer lassen sich auf weiteren Geräten mit demselben Code freischalten; ein Mitgliedscode gilt für ein Gerät."
+            ? "Nach dem Kauf erhalten Sie Ihren Freischaltcode – bei Einzelabenteuern mit dem Download im Shop, bei der Jahresmitgliedschaft per E-Mail. Geben Sie ihn hier ein. Einzelne Abenteuer lassen sich auf weiteren Geräten mit demselben Code freischalten; ein Mitgliedscode gilt für ein Gerät."
             : "Nach dem Kauf geben Sie hier Ihre Bestellnummer und die E-Mail-Adresse der Bestellung ein. Die Daten werden nur zur Prüfung an Shopify gesendet und nicht gespeichert. Die Freischaltung gilt für diesen Browser auf diesem Gerät. Eine Mitgliedschaft gilt für ein Gerät; für einen Gerätewechsel entfernen Sie sie zuerst unten auf dem alten Gerät."}
         </p>
 
