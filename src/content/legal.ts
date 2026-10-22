@@ -23,7 +23,7 @@ export type LegalSection = {
   blocks: { subheading?: string; paragraphs: string[] }[];
 };
 
-export const terms = {
+export const terms: { title: string; subtitle: string; asOf: string; sections: LegalSection[] } = {
   title: "Allgemeine Geschäftsbedingungen (AGB)",
   subtitle: "Hof Stories – Digitale Kinderplattform",
   asOf: "Stand: 22. Oktober 2026",
@@ -199,5 +199,5 @@ export const terms = {
         },
       ],
     },
-  ] satisfies LegalSection[],
+  ],
 };
