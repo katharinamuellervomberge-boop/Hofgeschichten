@@ -29,7 +29,7 @@ Vorab testen: in Vercel nur für **Preview** `RELEASE_PREVIEW=1` setzen, Branch 
 
 ## Kaufablauf
 
-1. Eltern kaufen im Shop das Produkt mit Handle `founder-mitgliedschaft`.
+1. Eltern kaufen im Shop das Produkt mit Handle `hof-stories-founder-jahresmitgliedschaft` (gid://shopify/Product/10985326346573).
 2. Elternbereich → Bestellnummer + E-Mail. Der Server fragt Shopify: bezahlt, nicht storniert, Produkt enthalten?
 3. Erst dann wird der persönliche Mitgliedscode (aus der Bestellung abgeleitet, jederzeit wieder abrufbar) erzeugt,
    angezeigt und das Gerät freigeschaltet. Gültig bis Ende des Monats 12 Monate nach Kaufmonat.

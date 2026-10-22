@@ -32,7 +32,8 @@ export const membership = {
     { label: "Monatsmitgliedschaft", price: "9,90 € pro Monat" },
   ],
   /** Shopify-Produkt (Handle). Eine bezahlte Bestellung mit diesem Produkt schaltet die Mitgliedschaft frei. */
-  shopifyProductHandle: "founder-mitgliedschaft",
+  shopifyProductHandle: "hof-stories-founder-jahresmitgliedschaft",
+  /** Shopify-Produkt gid://shopify/Product/10985326346573 (angelegt 22.10.2026, Status Entwurf) */
   /**
    * Link zum Kauf. null = Verkauf noch nicht geöffnet → die Verkaufsseite zeigt
    * KEINEN Kauf-Knopf (keine Platzhalter-Buttons). Erst setzen, wenn das
