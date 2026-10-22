@@ -228,6 +228,10 @@ export function ParentsArea({ owned, orderUnlockAvailable, codeUnlockAvailable }
               {!site.legal.imprintUrl && <PlaceholderBadge>Wird ergänzt</PlaceholderBadge>}
             </li>
             <li>
+              {site.legal.termsUrl ? <a href={site.legal.termsUrl}>AGB</a> : <span>AGB</span>}
+              {!site.legal.termsUrl && <PlaceholderBadge>Wird ergänzt</PlaceholderBadge>}
+            </li>
+            <li>
               {site.legal.privacyUrl ? <a href={site.legal.privacyUrl}>Datenschutzerklärung</a> : <span>Datenschutzerklärung</span>}
               {!site.legal.privacyUrl && <PlaceholderBadge>Wird ergänzt</PlaceholderBadge>}
             </li>

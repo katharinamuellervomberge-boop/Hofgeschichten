@@ -17,9 +17,10 @@ export const site = {
      */
     voice: false,
   },
-  /** Platzhalter – vor Veröffentlichung durch echte Seiten/Links ersetzen. */
+  /** Rechtliche Seiten. null = noch nicht vorhanden (Elternbereich zeigt dann „Wird ergänzt“). */
   legal: {
-    imprintUrl: null as string | null,
+    imprintUrl: "/impressum" as string | null,
+    termsUrl: "/agb" as string | null,
     privacyUrl: null as string | null,
   },
 };

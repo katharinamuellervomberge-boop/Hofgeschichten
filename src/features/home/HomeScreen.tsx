@@ -11,6 +11,7 @@ import { LevelSwitch } from "@/components/ui/LevelSwitch";
 import { publishedAdventures } from "@/content/adventures";
 import { AdventureCover } from "@/features/adventure/AdventureCover";
 import { UI_SPEECH } from "@/content/ui-speech";
+import { LegalLinks } from "@/components/layout/LegalPage";
 import styles from "./HomeScreen.module.css";
 
 const featured = publishedAdventures[0];
@@ -132,6 +133,10 @@ export function HomeScreen() {
           </li>
         </ul>
       </section>
+
+      <footer style={{ marginTop: "var(--space-6)" }}>
+        <LegalLinks />
+      </footer>
     </div>
   );
 }
