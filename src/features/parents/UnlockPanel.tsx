@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
+import { membership as plan } from "@/content/membership";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
 
@@ -89,10 +90,24 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
             </div>
             <p className={styles.productInfo}>{a.parentInfo}</p>
             {!has && (
-              <a href={productUrl(a, site.shopUrl)} target="_blank" rel="noopener noreferrer" className={styles.shopLink}>
-                <span>Im Shop kaufen</span>
-                <Icon name="external" />
-              </a>
+              <div className={styles.choice}>
+                <div className={styles.choiceOption}>
+                  <p className={styles.choiceLabel}>Nur dieses Abenteuer</p>
+                  <p className={styles.choicePrice}>{a.priceLabel} einmalig</p>
+                  <a href={productUrl(a, site.shopUrl)} target="_blank" rel="noopener noreferrer" className={styles.shopLink}>
+                    <span>Abenteuer kaufen</span>
+                    <Icon name="external" />
+                  </a>
+                </div>
+                <div className={`${styles.choiceOption} ${styles.choiceBest}`}>
+                  <p className={styles.choiceLabel}>Oder: {plan.name}</p>
+                  <p className={styles.choicePrice}>{plan.price} für das ganze erste Jahr</p>
+                  <p className={styles.choiceText}>Enthält dieses und alle anderen Detektivabenteuer – und jeden Freitag ab November etwas Neues.</p>
+                  <a href="/mitgliedschaft" className={styles.shopLink}>
+                    <span>Mitgliedschaft ansehen</span>
+                  </a>
+                </div>
+              </div>
             )}
           </div>
         );

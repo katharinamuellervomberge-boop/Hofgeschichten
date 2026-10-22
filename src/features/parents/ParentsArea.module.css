@@ -442,3 +442,50 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Wahl: Einzelabenteuer oder Mitgliedschaft */
+.choice {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .choice {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.choiceOption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--sand-light);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+}
+
+.choiceBest {
+  border-color: var(--honey);
+}
+
+.choiceLabel {
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+
+.choicePrice {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--forest-deep);
+}
+
+.choiceText {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.choiceOption .shopLink {
+  margin-top: auto;
+}
