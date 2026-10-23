@@ -1,0 +1,44 @@
+# Freischaltcodes per Knopfdruck erzeugen (ohne Terminal).
+# GitHub → Actions → „Freischaltcodes erzeugen“ → „Run workflow“.
+# Braucht das Repository-Secret LICENSE_SECRET (gleicher Wert wie bei Vercel).
+# Ergebnis: Datei „freischaltcodes“ (codes.csv) unten auf der Seite des Laufs, 1 Tag abrufbar.
+name: Freischaltcodes erzeugen
+
+on:
+  workflow_dispatch:
+    inputs:
+      abenteuer:
+        description: "Abenteuer"
+        required: true
+        type: choice
+        options: [geisterstall, geisterweide]
+      anzahl:
+        description: "Wie viele Codes?"
+        required: true
+        default: "1"
+
+permissions:
+  contents: read
+
+jobs:
+  codes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Codes erzeugen
+        env:
+          LICENSE_SECRET: ${{ secrets.LICENSE_SECRET }}
+          ANZAHL: ${{ inputs.anzahl }}
+          ABENTEUER: ${{ inputs.abenteuer }}
+        run: |
+          if [ -z "$LICENSE_SECRET" ]; then echo "::error::Secret LICENSE_SECRET fehlt (Settings → Secrets and variables → Actions)"; exit 1; fi
+          node scripts/generate-codes.mjs "$ABENTEUER" "$ANZAHL" > codes.csv
+          echo "Erzeugt: $(($(wc -l < codes.csv) - 1)) Code(s) für $ABENTEUER" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: freischaltcodes
+          path: codes.csv
+          retention-days: 1
