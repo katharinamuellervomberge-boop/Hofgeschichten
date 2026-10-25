@@ -20,7 +20,10 @@ export type IconName =
   | "lock"
   | "close"
   | "horseshoe"
-  | "lupe";
+  | "lupe"
+  | "academy"
+  | "barn"
+  | "gift";
 
 const paths: Record<IconName, ReactNode> = {
   home: (
@@ -115,6 +118,31 @@ const paths: Record<IconName, ReactNode> = {
     </>
   ),
   close: <path d="M6 6l12 12M18 6 6 18" />,
+  /* Reitakademie: Doktorhut mit Quaste */
+  academy: (
+    <>
+      <path d="M2.5 9.5 12 5l9.5 4.5L12 14Z" />
+      <path d="M6.5 11.5v4.2c1.6 1.5 3.4 2.3 5.5 2.3s3.9-.8 5.5-2.3v-4.2" />
+      <path d="M21.5 9.5v5" />
+    </>
+  ),
+  /* Mein Hof: Scheune mit Kreuztor */
+  barn: (
+    <>
+      <path d="M3.5 20V10l3-4.5h11l3 4.5v10Z" />
+      <path d="M3.5 10h17" />
+      <rect x="8.5" y="13" width="7" height="7" />
+      <path d="m8.5 13 7 7M15.5 13l-7 7" />
+    </>
+  ),
+  /* Wochenpaket */
+  gift: (
+    <>
+      <rect x="4" y="10" width="16" height="10" rx="1.5" />
+      <path d="M3 7h18v3H3ZM12 7v13" />
+      <path d="M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7Zm0 0c1.5-3 5-3.5 5-1.5S14 7 12 7Z" />
+    </>
+  ),
   lupe: (
     <>
       <circle cx="10.5" cy="10.5" r="6" />

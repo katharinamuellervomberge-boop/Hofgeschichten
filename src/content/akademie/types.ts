@@ -112,6 +112,23 @@ export type AcademyGame = {
   activity: import("@/engine/types").Activity;
 };
 
+/* ---------- Kleine und Große Akademie ---------- */
+
+/**
+ * klein = kostenlos für alle (Welten 1–3 + zwei Mini-Spiele)
+ * gross = nach Freischaltung (Hof-Mitgliedschaft ODER Kauf „Große Reitakademie“)
+ */
+export type AcademyTier = "klein" | "gross";
+
+/** Was der Browser über eine Lektion wissen darf (ohne Inhalte) */
+export type LessonInfo = Pick<AcademyLesson, "id" | "slug" | "number" | "title">;
+
+/** Lernwelt ohne Lektionsinhalte – für Übersichten, Fortschritt und Abzeichen */
+export type AcademyWorldInfo = Omit<AcademyWorld, "lessons"> & { tier: AcademyTier; lessons: LessonInfo[] };
+
+/** Mini-Spiel ohne Ablauf – für Übersichten */
+export type AcademyGameInfo = Omit<AcademyGame, "activity"> & { tier: AcademyTier };
+
 /* ---------- Hilfen zum Schreiben der Inhalte ---------- */
 
 export const noAudio = (): LessonAudio => ({

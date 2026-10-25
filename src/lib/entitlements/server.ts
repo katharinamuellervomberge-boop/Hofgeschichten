@@ -2,6 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { adventures, isVisible } from "@/content/adventures";
 import { getRelease, isReleased, type Release } from "@/content/membership";
+import { grosseAkademie, productSlugs } from "@/content/products";
 import { membershipCodeStillValid } from "./codes";
 import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./token";
 
@@ -13,7 +14,7 @@ import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./to
 export async function getEntitlement(): Promise<Entitlement> {
   const jar = await cookies();
   const e = readToken(jar.get(COOKIE_NAME)?.value);
-  const valid = new Set(adventures.map((a) => a.slug));
+  const valid = new Set([...adventures.map((a) => a.slug), ...productSlugs]);
   const membership = e.membership && membershipCodeStillValid(e.membership.code, e.membership.until) ? e.membership : null;
   return { ...e, adventures: e.adventures.filter((s) => valid.has(s)), membership };
 }
@@ -29,15 +30,24 @@ export async function isMember(): Promise<boolean> {
   return (await getEntitlement()).membership !== null;
 }
 
-/** Einzeln gekaufte Abenteuer (für die bisherige Anzeige im Elternbereich) */
+/** Einzeln gekaufte Abenteuer und Pakete (für die Anzeige im Elternbereich) */
 export async function getOwnedAdventures(): Promise<string[]> {
   return (await getEntitlement()).adventures;
+}
+
+/**
+ * Große Reitakademie: Mitglieder haben sie automatisch, sonst nach Einzelkauf.
+ * Wird von jeder Seite der Großen Akademie VOR der Auslieferung der Inhalte geprüft.
+ */
+export async function hasGrosseAkademie(): Promise<boolean> {
+  const e = await getEntitlement();
+  return e.membership !== null || e.adventures.includes(grosseAkademie.slug);
 }
 
 /** Abenteuer, die auf diesem Gerät spielbar sind (gekauft oder über die Mitgliedschaft) */
 export async function getAccessibleAdventures(): Promise<string[]> {
   const e = await getEntitlement();
-  if (!e.membership) return e.adventures;
+  if (!e.membership) return e.adventures.filter((s) => !productSlugs.includes(s));
   return adventures.filter((a) => isVisible(a) && a.access === "premium").map((a) => a.slug);
 }
 

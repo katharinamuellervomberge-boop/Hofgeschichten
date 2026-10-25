@@ -8,7 +8,7 @@ import { phrases } from "@/lib/voice/phrases";
 import styles from "./LevelSwitch.module.css";
 
 /**
- * Schwierigkeitswahl: Leicht (4–6) / Mittel (7–9).
+ * Schwierigkeitswahl: Leicht (4–7, auch für Kinder, die noch nicht lesen) / Mittel (8–12).
  * Sterne statt Text, damit auch Kinder ohne Lesefähigkeit wählen können.
  */
 export function LevelSwitch({ compact }: { compact?: boolean }) {

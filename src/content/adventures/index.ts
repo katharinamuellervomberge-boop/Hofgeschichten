@@ -16,7 +16,7 @@ export const adventures: AdventureMeta[] = [
     title: "Das Geheimnis der Geisterweide",
     teaser: "Tivolis Halfter ist verschwunden! Löse den Fall in fünf Missionen.",
     parentInfo:
-      "Interaktiver Halloween-Detektivfall in fünf zusammenhängenden Missionen: Suchbild, Spuren vergleichen, Pferdekörpersprache, Zahlencode und Auflösung. Spannend und herbstlich, aber nicht gruselig. Spielbar in den Stufen Leicht (4–6) und Mittel (7–9). Jede Mission ist wiederholbar.",
+      "Interaktiver Halloween-Detektivfall in fünf zusammenhängenden Missionen: Suchbild, Spuren vergleichen, Pferdekörpersprache, Zahlencode und Auflösung. Spannend und herbstlich, aber nicht gruselig. Spielbar in den Stufen Leicht (4–7) und Mittel (8–12). Jede Mission ist wiederholbar.",
     season: "halloween",
     access: "premium",
     shopifyProductHandle: "das-geheimnis-der-geisterweide",

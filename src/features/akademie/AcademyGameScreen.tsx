@@ -3,21 +3,22 @@
 import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getAcademyGame } from "@/content/akademie/spiele";
+import { ACADEMY_TIERS } from "@/content/akademie";
+import type { AcademyGameInfo } from "@/content/akademie/types";
+import type { Activity } from "@/engine/types";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import { VisualView } from "@/engine/VisualView";
 import { progressActions } from "@/lib/progress/store";
 import styles from "./akademie.module.css";
 
 /** Rahmen für die Mini-Spiele der Reitakademie. */
-export function AcademyGameScreen({ slug }: { slug: string }) {
-  const game = getAcademyGame(slug);
-  if (!game) return null;
+export function AcademyGameScreen({ game, activity }: { game: AcademyGameInfo; activity: Activity }) {
+  const home = ACADEMY_TIERS[game.tier];
   return (
     <div className="page">
-      <PageHeader title={game.title} backHref="/spielen/akademie" backLabel="Zurück zur Reitakademie" />
+      <PageHeader title={game.title} backHref={home.href} backLabel={`Zurück zur ${home.short}`} />
       <ActivityPlayer
-        activity={game.activity}
+        activity={activity}
         tint={game.tint}
         introArt={<VisualView v={game.cover} />}
         onComplete={() => progressActions.completeGame(game.id)}
@@ -33,9 +34,9 @@ export function AcademyGameScreen({ slug }: { slug: string }) {
                 <Icon name="replay" />
                 Nochmal
               </button>
-              <Link href="/spielen/akademie" className={`${styles.btn} ${styles.btnPrimary}`}>
-                <Icon name="puzzle" />
-                Zur Reitakademie
+              <Link href={home.href} className={`${styles.btn} ${styles.btnPrimary}`}>
+                <Icon name="academy" />
+                Zur {home.short}
               </Link>
             </div>
           </div>

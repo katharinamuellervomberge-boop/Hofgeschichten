@@ -5,6 +5,8 @@ import { Icon } from "@/components/illustrations/Icons";
 import { KidPortrait } from "@/components/illustrations/KidPortrait";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { Shelf } from "@/components/ui/Shelf";
+import { site } from "@/content/site";
 import { publishedAdventures } from "@/content/adventures";
 import { characters } from "@/content/characters";
 import { HOFTAG_STEPS, hofjahrBadges, hoftagDone } from "@/content/hofjahr";
@@ -19,12 +21,18 @@ const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "A
 
 type Props = {
   weekStates: Record<string, WeekState>;
+  /** Mitgliedschaft auf diesem Gerät aktiv (vom Server geprüft) */
+  member: boolean;
   /** Server-Zeit (ISO), damit Server und Browser dasselbe Monatsabenteuer zeigen */
   now: string;
 };
 
-/** „Mein Hofjahr“: Fortschritt, Abzeichen und die Freitagsfolgen – nur lokal, ohne Profil. */
-export function HofjahrScreen({ weekStates, now }: Props) {
+/**
+ * Mitgliederbereich („Mein Hof“, Name in site.clubName):
+ * 1. die Wochenpakete (jeden Freitag etwas Neues) – für Mitglieder
+ * 2. Fortschritt und Abzeichen – für alle, nur lokal, ohne Profil
+ */
+export function HofjahrScreen({ weekStates, member, now }: Props) {
   const progress = useProgress();
   const earned = earnedStamps(progress);
   const date = new Date(now);
@@ -37,7 +45,7 @@ export function HofjahrScreen({ weekStates, now }: Props) {
 
   return (
     <div className="page">
-      <PageHeader title="Mein Hofjahr" />
+      <PageHeader title={site.clubName} spoken={`${site.clubName}. Hier gibt es jeden Freitag etwas Neues. Und du siehst deine Abzeichen.`} />
       <div className={styles.stack}>
         <section className={styles.greeting} aria-labelledby="hj-hallo">
           <div>
@@ -45,8 +53,9 @@ export function HofjahrScreen({ weekStates, now }: Props) {
               Schön, dass du da bist!
             </h2>
             <p className={styles.greetText}>
-              Hier siehst du, was du auf dem Hof schon alles geschafft hast. Jeden Freitag ab November gibt es etwas Neues zu
-              entdecken.
+              {member
+                ? "Jeden Freitag gibt es hier etwas Neues für dich – und du siehst, was du auf dem Hof schon alles geschafft hast."
+                : "Hier gibt es jeden Freitag ab November etwas Neues für Mitglieder. Deine Abzeichen siehst du auch hier."}
             </p>
           </div>
           <div className={styles.kids} aria-hidden>
@@ -56,9 +65,31 @@ export function HofjahrScreen({ weekStates, now }: Props) {
           </div>
         </section>
 
+        <Shelf
+          kind="premium"
+          id="hj-monat"
+          label={member ? "Du bist Mitglied" : "Für Mitglieder"}
+          title={current ? `Im ${current.month}: ${current.theme}` : "Bald geht es los: November auf dem Hof"}
+          lead="Jeden Freitag ein neues Paket: Geschichten, Spiele, Lektionen und Abenteuer."
+        >
+          {!member && (
+            <Link href="/mitgliedschaft" className={styles.passLink}>
+              <span>Für Eltern: So wird man Mitglied</span>
+              <Icon name="parents" />
+            </Link>
+          )}
+          <ul className={styles.weeks}>
+            {releases.map((r) => (
+              <li key={r.slug}>
+                <WeekCard release={r} state={weekStates[r.slug] ?? "locked"} />
+              </li>
+            ))}
+          </ul>
+        </Shelf>
+
         <section aria-labelledby="hj-stand">
           <h2 id="hj-stand" className={styles.sectionTitle}>
-            Das hast du geschafft
+            Mein Fortschritt
           </h2>
           <dl className={styles.stats}>
             <div className={styles.stat}>
@@ -95,7 +126,7 @@ export function HofjahrScreen({ weekStates, now }: Props) {
 
         <section aria-labelledby="hj-abzeichen">
           <h2 id="hj-abzeichen" className={styles.sectionTitle}>
-            Meine Hofjahr-Abzeichen
+            Meine Abzeichen
           </h2>
           <ul className={styles.badges}>
             {hofjahrBadges.map((b, i) => {
@@ -111,19 +142,7 @@ export function HofjahrScreen({ weekStates, now }: Props) {
           </ul>
         </section>
 
-        <section aria-labelledby="hj-monat">
-          <h2 id="hj-monat" className={styles.sectionTitle}>
-            {current ? `Im ${current.month}: ${current.theme}` : "Bald geht es los: November auf dem Hof"}
-          </h2>
-          <p className={styles.sectionLead}>Vier Freitage. Vier neue Abenteuer.</p>
-          <ul className={styles.weeks}>
-            {releases.map((r) => (
-              <li key={r.slug}>
-                <WeekCard release={r} state={weekStates[r.slug] ?? "locked"} />
-              </li>
-            ))}
-          </ul>
-        </section>
+
 
         <Link href="/pass" className={styles.passLink}>
           <span>Zu meinem Abenteuerpass mit allen Stempeln</span>
@@ -131,7 +150,7 @@ export function HofjahrScreen({ weekStates, now }: Props) {
         </Link>
 
         <p className={styles.note}>
-          Dein Hofjahr wird nur auf diesem Gerät gespeichert. Es gibt kein Profil und keine Rangliste – es geht nur um dich und
+          Dein Fortschritt wird nur auf diesem Gerät gespeichert. Es gibt kein Profil und keine Rangliste – es geht nur um dich und
           die Pferde.
         </p>
       </div>

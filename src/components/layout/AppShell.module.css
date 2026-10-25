@@ -136,6 +136,25 @@
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Sechs Knöpfe auf schmalen Handys */
+@media (max-width: 420px) {
+  .nav {
+    padding-inline: var(--space-1);
+  }
+  .navItem {
+    padding-inline: 0;
+  }
+  .navIcon svg {
+    width: 27px;
+    height: 27px;
+  }
+  .navLabel {
+    font-size: 0.68rem;
+    letter-spacing: 0;
+  }
 }
 
 .active {

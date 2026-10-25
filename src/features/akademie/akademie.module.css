@@ -701,3 +701,124 @@
 .worldStats strong {
   white-space: nowrap;
 }
+
+/* ---------- Zwei Türen: Kleine und Große Akademie ---------- */
+
+.doors {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.doorPremium {
+  background: linear-gradient(160deg, var(--brown-deep), var(--brown));
+}
+
+.doorPremium .heroKicker {
+  color: var(--sand-light);
+}
+
+.doorMeta {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.doorState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.doorState svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Gesperrte Karte in der Großen Akademie */
+.lockedCard {
+  position: relative;
+}
+
+.lockBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--honey);
+  color: var(--forest-deep);
+  box-shadow: var(--shadow-card);
+  z-index: 2;
+}
+
+.lockBadge svg {
+  width: 19px;
+  height: 19px;
+}
+
+.unlockBox {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.unlockBox p {
+  margin: 0;
+}
+
+.unlockTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--forest-deep);
+}
+
+.comingList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comingItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(251, 248, 241, 0.8);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.comingItem svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  color: var(--brown);
+}
+
+.comingItem em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--brown-deep);
+  white-space: nowrap;
+}
+
+.intro {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-md);
+}

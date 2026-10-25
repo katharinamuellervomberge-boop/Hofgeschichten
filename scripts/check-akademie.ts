@@ -11,8 +11,10 @@
  * – IDs sind eindeutig und folgen dem Schema ra-w<n>-l<m>
  * – keine Platzhalter-Wörter
  */
-import { worlds } from "../src/content/akademie";
-import { academyGames } from "../src/content/akademie/spiele";
+import { readFileSync } from "node:fs";
+import { worlds as catalogWorlds, academyGames as catalogGames } from "../src/content/akademie";
+import { allAcademyGames as academyGames, freeWorlds, fullWorlds as worlds } from "../src/content/akademie/inhalte.server";
+import { buildCatalogSource, CATALOG_PATH } from "./akademie-katalog-lib";
 import { lessonActivity } from "../src/content/akademie/activity";
 import { forLevel, pick, type Activity, type ByLevel, type Level, type Step } from "../src/engine/types";
 import { RIDER_SCENES, SCENE_NAMES } from "../src/components/illustrations/akademie/scene-names";
@@ -160,6 +162,17 @@ if (lessonCount !== 40) err("Akademie", `${lessonCount} Lektionen (erwartet 40)`
 
 if (academyGames.length < 4) err("Spiele", `${academyGames.length} Spiele (erwartet mind. 4)`);
 for (const g of academyGames) checkActivity(`Spiel ${g.id}`, g.activity);
+
+/* ---------- Kleine / Große Akademie ---------- */
+if (freeWorlds.length !== 3) err("Akademie", `${freeWorlds.length} kostenlose Lernwelten (erwartet 3)`);
+if (readFileSync(CATALOG_PATH, "utf8") !== buildCatalogSource())
+  err("Katalog", `${CATALOG_PATH} passt nicht mehr zu den Inhalten – bitte \`npm run akademie:katalog\` ausführen`);
+if (catalogWorlds.map((w) => w.id).join() !== worlds.map((w) => w.id).join()) err("Katalog", "Reihenfolge der Lernwelten weicht ab");
+if (catalogGames.length !== academyGames.length) err("Katalog", "Anzahl der Mini-Spiele weicht ab");
+for (const w of catalogWorlds) {
+  const full = worlds.find((x) => x.id === w.id);
+  if (!full || full.lessons.map((l) => l.id).join() !== w.lessons.map((l) => l.id).join()) err("Katalog", `Lektionen von ${w.id} weichen ab`);
+}
 
 console.log(`Reitakademie: ${worlds.length} Welten, ${lessonCount} Lektionen, ${questionCount} Quizfragen (beide Stufen zusammen), ${academyGames.length} Spiele.`);
 if (warn.length) console.log(`\nHinweise (${warn.length}):\n- ` + warn.join("\n- "));

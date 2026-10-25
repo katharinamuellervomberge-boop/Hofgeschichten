@@ -110,3 +110,8 @@
   justify-content: center;
   margin-bottom: var(--space-5);
 }
+
+.shelves {
+  display: grid;
+  gap: var(--space-5);
+}

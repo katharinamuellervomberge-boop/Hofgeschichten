@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
     inputs:
       abenteuer:
-        description: "Abenteuer"
+        description: "Abenteuer oder Paket"
         required: true
         type: choice
-        options: [geisterstall, geisterweide]
+        options: [geisterstall, geisterweide, grosse-akademie]
       anzahl:
         description: "Wie viele Codes?"
         required: true

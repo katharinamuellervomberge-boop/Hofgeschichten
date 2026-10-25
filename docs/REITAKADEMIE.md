@@ -68,3 +68,15 @@ Es gibt bewusst noch keine Wiedergabe. Wenn Hörfassungen kommen, Dateien z. B. 
 - Neuer Dokument-Stil `lesson` für Merksatz und Fachbegriffe.
 - Bild-Symbole mit Präfix `ak-` (`AkIcons.tsx`) und Szenen mit Präfix `ak-` (`scenes.tsx`, Liste in `scene-names.ts`).
   Suchbilder brauchen die volle Szene, nicht die Nahansichten (`…-nah`); das Prüfskript achtet darauf.
+
+## Kleine und Große Akademie (ab 25.10.2026)
+
+- Eigener Bereich `/akademie` (Knopf „Akademie“ in der Leiste), alte Adressen `/spielen/akademie/...` leiten weiter.
+- **Kleine Akademie** (`/akademie/klein`, kostenlos): Lernwelten 1–3, Spiele „Der perfekte Reitersitz“, „Hilfen-Detektiv“.
+- **Große Akademie** (`/akademie/gross`): Lernwelten 4–8, „Gangarten-Quiz“, „Bahnfiguren-Meister“, Monatslektionen.
+  Freigeschaltet mit der Mitgliedschaft ODER per Einzelkauf (Paket `grosse-akademie`, `src/content/products.ts`:
+  Preis, Shop-Handle, `checkoutUrl` – solange null, kein Kauf-Knopf). Codes: `npm run codes -- grosse-akademie <anzahl>`.
+- Inhalte der Großen Akademie sind server-only (`welten/w4…w8.server.ts`, `spiele-gross.server.ts`), geladen über
+  `inhalte.server.ts`. Der Browser bekommt nur die Übersicht `katalog-gross.generated.ts`.
+  **Nach jeder Änderung an Welten 4–8 oder deren Spielen:** `npm run akademie:katalog`, dann `npm run check:akademie`.
+- Der frühere „Lernpfad“ (gemischt gratis/premium) ist entfernt.

@@ -23,6 +23,13 @@ const nextConfig: NextConfig = {
     "/api/voice/[id]": ["./private/voice/**/*"],
   },
   poweredByHeader: false,
+  // Die Reitakademie hat einen eigenen Bereich bekommen – alte Links (auch gedruckte) leiten weiter
+  async redirects() {
+    return [
+      { source: "/spielen/akademie", destination: "/akademie", permanent: true },
+      { source: "/spielen/akademie/:path*", destination: "/akademie/:path*", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

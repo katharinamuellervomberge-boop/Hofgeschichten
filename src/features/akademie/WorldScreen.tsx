@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getWorld } from "@/content/akademie";
+import { ACADEMY_TIERS, getWorld } from "@/content/akademie";
 import { academyStamps } from "@/content/akademie/stamps";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
@@ -23,7 +23,7 @@ export function WorldScreen({ slug }: { slug: string }) {
 
   return (
     <div className="page">
-      <PageHeader title={world.title} backHref="/spielen/akademie" backLabel="Zurück zur Reitakademie" />
+      <PageHeader title={world.title} backHref={ACADEMY_TIERS[world.tier].href} backLabel={`Zurück zur ${ACADEMY_TIERS[world.tier].short}`} />
       <div className={styles.stack}>
         <section className={styles.worldHead} style={{ background: world.tint }} aria-label="Abzeichen dieser Lernwelt">
           <div>

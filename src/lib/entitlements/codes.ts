@@ -2,6 +2,7 @@ import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { adventures, isVisible } from "@/content/adventures";
 import { membership } from "@/content/membership";
+import { productSlugs } from "@/content/products";
 
 /**
  * Freischaltcodes. Werden mit `npm run codes` erzeugt (Einzelfälle, Geschenke,
@@ -91,7 +92,10 @@ export function verifyAnyCode(input: string): CodeResult | null {
     return { kind: "membership", code: c, until };
   }
   const a = adventures.find((x) => isVisible(x) && x.access === "premium" && adventureCodeId(x.slug) === id);
-  return a ? { kind: "adventure", slug: a.slug } : null;
+  if (a) return { kind: "adventure", slug: a.slug };
+  // Pakete wie die Große Reitakademie: gleiches Codeformat wie Einzelabenteuer
+  const p = productSlugs.find((slug) => adventureCodeId(slug) === id);
+  return p ? { kind: "adventure", slug: p } : null;
 }
 
 /** Kompatibel zur bisherigen Schnittstelle: nur Einzel-Abenteuer */

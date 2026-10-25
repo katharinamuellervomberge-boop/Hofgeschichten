@@ -5,9 +5,10 @@ import { useMemo } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getLesson, lessonActivity, worlds } from "@/content/akademie";
+import { ACADEMY_TIERS, getWorld, worlds } from "@/content/akademie";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
+import type { AcademyLesson } from "@/content/akademie/types";
 import { pick, type Activity } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
@@ -15,36 +16,39 @@ import { progressActions, useProgress } from "@/lib/progress/store";
 import { lessonHref, worldDone, worldHref } from "./progress";
 import styles from "./akademie.module.css";
 
-/** Eine Lektion: Startbild mit Stufenwahl, dann der Ablauf im Spielkern, am Ende Merksatz und Abzeichen. */
-export function LessonScreen({ world: worldSlug, lesson: lessonSlug }: { world: string; lesson: string }) {
-  const found = useMemo(() => getLesson(worldSlug, lessonSlug), [worldSlug, lessonSlug]);
+/**
+ * Eine Lektion: Startbild mit Stufenwahl, dann der Ablauf im Spielkern, am Ende Merksatz und Abzeichen.
+ * Lektion und Ablauf kommen vom Server (bei der Großen Akademie erst nach der Freischaltung).
+ */
+export function LessonScreen({ worldSlug, lesson, activity: base }: { worldSlug: string; lesson: AcademyLesson; activity: Activity }) {
+  const world = getWorld(worldSlug);
   const progress = useProgress();
   const level = progress.settings.level ?? "leicht";
 
-  const activity: Activity | null = useMemo(() => {
-    if (!found) return null;
-    const base = lessonActivity(found.lesson);
-    const { lesson } = found;
-    return {
+  const activity: Activity = useMemo(
+    () => ({
       ...base,
       intro: {
         leicht: `Lektion ${lesson.number}: ${lesson.title}. Tippe auf Start!`,
         mittel: `Lektion ${lesson.number}: ${lesson.title}. Einstieg, Erklärung, Übung, Quiz und Merksatz – los geht's!`,
       },
-    };
-  }, [found]);
+    }),
+    [base, lesson],
+  );
 
-  if (!found || !activity) return null;
-  const { world, lesson } = found;
+  if (!world) return null;
 
   const idx = world.lessons.findIndex((l) => l.id === lesson.id);
   const nextInWorld = world.lessons[idx + 1];
+  // Nächste Lernwelt nur innerhalb derselben Akademie – von der Kleinen geht es zur Übersicht der Großen
   const nextWorld = worlds[worlds.findIndex((w) => w.id === world.id) + 1];
   const next = nextInWorld
     ? { href: lessonHref(world, nextInWorld), label: "Nächste Lektion" }
-    : nextWorld
+    : nextWorld && nextWorld.tier === world.tier
       ? { href: worldHref(nextWorld), label: "Nächste Lernwelt" }
-      : { href: "/spielen/akademie", label: "Zur Reitakademie" };
+      : nextWorld
+        ? { href: ACADEMY_TIERS[nextWorld.tier].href, label: `Zur ${ACADEMY_TIERS[nextWorld.tier].short}` }
+        : { href: ACADEMY_TIERS[world.tier].href, label: `Zur ${ACADEMY_TIERS[world.tier].short}` };
 
   return (
     <div className="page">

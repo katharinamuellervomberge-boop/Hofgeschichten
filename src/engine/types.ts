@@ -11,8 +11,8 @@
 export type Level = "leicht" | "mittel";
 
 export const LEVELS: Array<{ id: Level; label: string; ages: string; stars: number }> = [
-  { id: "leicht", label: "Leicht", ages: "4–6 Jahre", stars: 1 },
-  { id: "mittel", label: "Mittel", ages: "7–9 Jahre", stars: 2 },
+  { id: "leicht", label: "Leicht", ages: "4–7 Jahre", stars: 1 },
+  { id: "mittel", label: "Mittel", ages: "8–12 Jahre", stars: 2 },
 ];
 
 /** Wert, der sich je Stufe unterscheiden kann. */

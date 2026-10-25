@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { site } from "@/content/site";
 import { notFound } from "next/navigation";
 import { getRelease } from "@/content/membership";
 import { loadPremiumContent } from "@/content/premium/registry.server";
@@ -14,7 +15,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: getRelease(slug)?.title ?? "Mein Hofjahr" };
+  return { title: getRelease(slug)?.title ?? site.clubName };
 }
 
 export default async function Page({ params }: { params: Promise<Params> }) {

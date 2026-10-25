@@ -355,3 +355,8 @@ a.mission:active {
   font-weight: 700;
   color: var(--brown);
 }
+
+.shelves {
+  display: grid;
+  gap: var(--space-5);
+}

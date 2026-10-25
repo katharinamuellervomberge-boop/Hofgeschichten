@@ -1,5 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
+import { grosseAkademie } from "@/content/products";
 import { membership } from "@/content/membership";
 
 /**
@@ -125,6 +126,7 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   const unlocked = adventures
     .filter((a) => isVisible(a) && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
     .map((a) => a.slug);
+  if (grosseAkademie.shopifyProductHandle && handles.has(grosseAkademie.shopifyProductHandle)) unlocked.push(grosseAkademie.slug);
   const membershipOrder = handles.has(membership.shopifyProductHandle)
     ? { id: order.id, processedAt: new Date(order.processedAt) }
     : null;

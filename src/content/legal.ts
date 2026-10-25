@@ -37,7 +37,7 @@ export const terms: { title: string; subtitle: string; asOf: string; sections: L
           paragraphs: [
             "(1) Diese Allgemeinen Geschäftsbedingungen gelten für sämtliche kostenpflichtigen Mitgliedschaften und digitalen Angebote der Plattform „Hof Stories“.",
             "(2) Anbieter und Vertragspartner ist die KMVB UG (haftungsbeschränkt), Rothenburger Straße 29, 14612 Falkensee, Deutschland, vertreten durch die Geschäftsführung: K. Müller vom Berge. E-Mail: infohorseandharmonie@gmail.com",
-            "(3) Hof Stories richtet sich insbesondere an Kinder im Alter von 5 bis 9 Jahren. Kostenpflichtige Verträge können ausschließlich von volljährigen Personen abgeschlossen werden.",
+            "(3) Hof Stories richtet sich insbesondere an Kinder im Alter von 4 bis 12 Jahren. Kostenpflichtige Verträge können ausschließlich von volljährigen Personen abgeschlossen werden.",
           ],
         },
       ],

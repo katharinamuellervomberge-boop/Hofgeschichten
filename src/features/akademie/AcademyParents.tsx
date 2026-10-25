@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { StampSeal } from "@/components/illustrations/StampSeal";
-import { ACADEMY_TITLE, PROFI_TITLE, worlds } from "@/content/akademie";
-import { academyGames } from "@/content/akademie/spiele";
+import { ACADEMY_TIERS, ACADEMY_TITLE, academyGames, PROFI_TITLE, worlds } from "@/content/akademie";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
@@ -48,15 +47,18 @@ export function AcademyParents() {
       <section className={parents.card} aria-labelledby="p-akademie">
         <h2 id="p-akademie">{ACADEMY_TITLE}</h2>
         <p>
-          Kostenlos und ohne Freischaltung: 8 Lernwelten mit je 5 Lektionen und 4 Mini-Spiele. Jede Lektion hat einen
-          Einstieg, eine Erklärung mit Bild, eine Übung, mindestens drei Quizfragen mit Rückmeldung und einen Merksatz – in
-          den Stufen Leicht (4–6) und Mittel (7–9).
+          Zwei Teile: Die <strong>{ACADEMY_TIERS.klein.short}</strong> ist kostenlos (Lernwelten 1–3 und zwei Mini-Spiele).
+          Die <strong>{ACADEMY_TIERS.gross.short}</strong> (Lernwelten 4–8, zwei weitere Mini-Spiele, später Animationen und
+          Lernvideos) ist in der Mitgliedschaft enthalten oder einzeln erhältlich. Jede Lektion hat einen Einstieg, eine
+          Erklärung mit Bild, eine Übung, mindestens drei Quizfragen mit Rückmeldung und einen Merksatz – in den Stufen
+          Leicht (4–7) und Mittel (8–12).
         </p>
         <ul className={styles.worldStats} aria-label="Fortschritt je Lernwelt">
           {worlds.map((w) => (
             <li key={w.id}>
               <span>
                 {w.number}. {w.title}
+                {w.tier === "gross" ? " (Große Akademie)" : ""}
               </span>
               <strong>
                 {worldDoneCount(progress, w)} / {w.lessons.length}
@@ -73,7 +75,10 @@ export function AcademyParents() {
           ))}
           {academyGames.map((g) => (
             <li key={g.id}>
-              <strong>Spiel: {g.title}</strong>
+              <strong>
+                Spiel: {g.title}
+                {g.tier === "gross" ? " (Große Akademie)" : ""}
+              </strong>
               <p>{g.learns}</p>
             </li>
           ))}

@@ -11,14 +11,19 @@ import styles from "./AppShell.module.css";
 
 type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[] };
 
+/**
+ * Feste Reihenfolge der Bereiche – überall gleich (Leiste, Startseite):
+ * Start · Pferde · Spiele · Akademie · Abenteuer · Mein Hof (Mitgliederbereich)
+ */
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
   { href: "/hoeren", label: "Hören", icon: "headphones", hidden: !site.features.audio },
   { href: "/pferde", label: "Pferde", icon: "horseshoe" },
-  { href: "/spielen", label: "Spielen", icon: "puzzle" },
+  { href: "/spielen", label: "Spiele", icon: "puzzle" },
+  { href: "/akademie", label: "Akademie", icon: "academy" },
   { href: "/abenteuer", label: "Abenteuer", icon: "lupe" },
-  /* Mein Hofjahr: Fortschritt, Abzeichen, Freitagsfolgen – der Abenteuerpass ist von dort erreichbar */
-  { href: "/hofjahr", label: "Hofjahr", icon: "pass", also: ["/pass"] },
+  /* Mitgliederbereich: Wochenpakete, Abzeichen, Fortschritt – der Abenteuerpass ist von dort erreichbar */
+  { href: "/hofjahr", label: site.clubName, icon: "barn", also: ["/pass", "/mitgliedschaft"] },
 ];
 const NAV = ALL_NAV.filter((n) => !n.hidden);
 

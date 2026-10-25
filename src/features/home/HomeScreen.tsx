@@ -16,14 +16,15 @@ import styles from "./HomeScreen.module.css";
 
 const featured = publishedAdventures[0];
 
-type Tile = { href: string; label: string; spoken: string; icon: IconName; tone: string; hidden?: boolean };
+type Tile = { href: string; label: string; spoken: string; icon: IconName; tone: string; sub?: string; hidden?: boolean };
 
 const ALL_TILES: Tile[] = [
   { href: "/hoeren", label: "Hörspiele", spoken: UI_SPEECH.tileListen, icon: "headphones", tone: "forest", hidden: !site.features.audio },
   { href: "/pferde", label: "Die Pferde", spoken: UI_SPEECH.tileHorses, icon: "horseshoe", tone: "brown" },
-  { href: "/spielen", label: "Spielen", spoken: UI_SPEECH.tileGames, icon: "puzzle", tone: "forest" },
+  { href: "/spielen", label: "Spiele", spoken: UI_SPEECH.tileGames, icon: "puzzle", tone: "forest" },
+  { href: "/akademie", label: "Reitakademie", spoken: UI_SPEECH.tileAcademy, icon: "academy", tone: "sage" },
   { href: "/abenteuer", label: "Abenteuer", spoken: UI_SPEECH.tileAdventures, icon: "lupe", tone: "sand" },
-  { href: "/hofjahr", label: "Mein Hofjahr", spoken: "Mein Hofjahr. Hier siehst du deine Abzeichen und was es jeden Freitag Neues gibt.", icon: "pass", tone: "ivory" },
+  { href: "/hofjahr", label: site.clubName, spoken: UI_SPEECH.tileClub, icon: "barn", tone: "club", sub: "Jede Woche etwas Neues für Mitglieder" },
 ];
 const TILES = ALL_TILES.filter((t) => !t.hidden);
 
@@ -96,7 +97,10 @@ export function HomeScreen() {
               <span className={styles.tileIcon}>
                 <Icon name={t.icon} />
               </span>
-              <span className={styles.tileLabel}>{t.label}</span>
+              <span className={styles.tileLabel}>
+                {t.label}
+                {t.sub && <span className={styles.tileSub}>{t.sub}</span>}
+              </span>
             </Link>
             <SpeakButton text={t.spoken} label={`${t.label} vorlesen`} size="sm" className={styles.tileSpeak} />
           </div>

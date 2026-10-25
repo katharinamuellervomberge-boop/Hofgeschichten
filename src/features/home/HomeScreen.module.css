@@ -174,9 +174,11 @@
 .forest { background: var(--forest); color: #fbf8f1; --paper: var(--forest); }
 .brown { background: var(--brown); color: #fbf8f1; --paper: var(--brown); }
 .sand { background: var(--sand); color: var(--forest-deep); --paper: var(--sand); }
+.sage { background: var(--sage); color: var(--forest-deep); --paper: var(--sage); }
 .ivory { background: var(--paper); color: var(--forest-deep); box-shadow: inset 0 0 0 2px var(--sand), var(--shadow-card); }
 
 .sand .tileIcon,
+.sage .tileIcon,
 .ivory .tileIcon {
   background: rgba(52, 70, 56, 0.08);
 }
@@ -330,4 +332,38 @@
   width: 78%;
   height: auto;
   margin-bottom: -6%;
+}
+
+/* Mitgliederbereich: breite, goldene Kachel unter den Bereichen – klar zu finden */
+.club {
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, var(--honey), var(--sand));
+  color: var(--forest-deep);
+  --paper: var(--honey);
+}
+
+.club .tileLink {
+  flex-direction: row;
+  justify-content: flex-start;
+  min-height: 120px;
+  padding-right: 72px;
+  text-align: left;
+}
+
+.club .tileIcon {
+  flex: none;
+  background: rgba(251, 248, 241, 0.45);
+}
+
+.club .tileLabel {
+  text-align: left;
+}
+
+.tileSub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  opacity: 0.85;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { site } from "@/content/site";
 import { useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
@@ -53,7 +54,7 @@ export function HofTagGame({ release, parts }: { release: Release; parts: Part[]
                   <>
                     <StampSeal stamp={HOFHELD} earned tilt={-8} className={styles.doneSeal} />
                     <p className={styles.heroTitle}>DU BIST EIN ECHTER HOFHELD!</p>
-                    <p>Du hast einen ganzen Tag auf dem Hof geschafft. Das Abzeichen „Hofheld“ ist jetzt in deinem Hofjahr.</p>
+                    <p>Du hast einen ganzen Tag auf dem Hof geschafft. Das Abzeichen „Hofheld“ ist jetzt bei {site.clubName}.</p>
                   </>
                 ) : (
                   <>
@@ -75,7 +76,7 @@ export function HofTagGame({ release, parts }: { release: Release; parts: Part[]
                   ) : (
                     <Link href="/hofjahr" className={`${styles.btn} ${styles.btnPrimary}`}>
                       <Icon name="star" />
-                      Zu Mein Hofjahr
+                      Zu {site.clubName}
                     </Link>
                   )}
                   <button type="button" className={styles.btn} onClick={() => setActive(null)}>
@@ -92,7 +93,7 @@ export function HofTagGame({ release, parts }: { release: Release; parts: Part[]
 
   return (
     <div className="page">
-      <PageHeader title={release.title} backHref="/hofjahr" backLabel="Zurück zu Mein Hofjahr" />
+      <PageHeader title={release.title} backHref="/hofjahr" backLabel={`Zurück zu ${site.clubName}`} />
       <div className={styles.stack}>
         <div className={styles.heroArt}>
           <VisualView v={{ kind: "scene", scene: allDone ? "ht-abend" : "ht-morgen" }} />

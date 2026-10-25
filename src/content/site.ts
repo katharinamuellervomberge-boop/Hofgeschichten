@@ -5,6 +5,11 @@ export const site = {
   shopUrl: "https://horseandharmonie-shop.de",
   shopLabel: "horseandharmonie-shop.de",
   /**
+   * Name des Mitgliederbereichs (Leiste, Startseite, Überschriften).
+   * Steht der Name des Hofs fest, nur hier ändern – z. B. "Lindenhof".
+   */
+  clubName: "Mein Hof",
+  /**
    * Funktionsschalter. Hörspiele sind für den Launch ausgeblendet;
    * Code, Inhalte und Player bleiben erhalten (true = wieder sichtbar).
    */

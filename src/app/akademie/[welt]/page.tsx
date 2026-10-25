@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getWorld, worlds } from "@/content/akademie";
+import { getWorld } from "@/content/akademie";
+import { AcademyLocked } from "@/features/akademie/AcademyLocked";
 import { WorldScreen } from "@/features/akademie/WorldScreen";
+import { hasGrosseAkademie } from "@/lib/entitlements/server";
 
 type Params = { welt: string };
 
-export function generateStaticParams(): Params[] {
-  return worlds.map((w) => ({ welt: w.slug }));
-}
-
-export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { welt } = await params;
@@ -18,6 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { welt } = await params;
-  if (!getWorld(welt)) notFound();
+  const world = getWorld(welt);
+  if (!world) notFound();
+  if (world.tier === "gross" && !(await hasGrosseAkademie())) return <AcademyLocked title={world.title} />;
   return <WorldScreen slug={welt} />;
 }

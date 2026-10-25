@@ -15,8 +15,11 @@ import { pick } from "@/engine/types";
 import { useProgress } from "@/lib/progress/store";
 import { phrases } from "@/lib/voice/phrases";
 import { UI_SPEECH } from "@/content/ui-speech";
-import { AcademyTeaser } from "@/features/akademie/AcademyTeaser";
-import academy from "@/features/akademie/akademie.module.css";
+import { Shelf } from "@/components/ui/Shelf";
+import type { Release } from "@/content/membership";
+import { site } from "@/content/site";
+import { WeekCard, type WeekState } from "@/features/hofjahr/WeekCard";
+import hofjahr from "@/features/hofjahr/hofjahr.module.css";
 import styles from "./GameOverview.module.css";
 
 const ART: Record<GameInfo["art"], ReactNode> = {
@@ -37,19 +40,23 @@ const ART: Record<GameInfo["art"], ReactNode> = {
   ears: <HorseHead look={horses[2].look} mood="neugierig" className={styles.artHead} />,
 };
 
-export function GameOverview() {
+export type MemberGame = { release: Release; state: WeekState };
+
+/**
+ * Spiele: oben die kostenlosen Spiele der Hofwelt, darunter die Spiele für
+ * Mitglieder (aus den Freitagsfolgen, Kategorie „Hofspiel“). Nie gemischt.
+ */
+export function GameOverview({ memberGames }: { memberGames: MemberGame[] }) {
   const progress = useProgress();
   const level = progress.settings.level ?? "leicht";
   return (
     <div className="page">
-      <PageHeader title="Spielen" spoken={UI_SPEECH.gamesHeader} />
+      <PageHeader title="Spiele" spoken={UI_SPEECH.gamesHeader} />
       <div className={styles.level}>
         <LevelSwitch />
       </div>
-      <section aria-label="Die kleine Reitakademie">
-        <AcademyTeaser />
-      </section>
-      <h2 className={academy.categoryTitle}>Spiele der Hofwelt</h2>
+      <div className={styles.shelves}>
+      <Shelf kind="gratis" id="spiele-gratis" title="Spiele der Hofwelt">
       <ul className={styles.list}>
         {games.map((g) => {
           const done = (progress.games[g.id]?.completedCount ?? 0) > 0;
@@ -74,6 +81,20 @@ export function GameOverview() {
           );
         })}
       </ul>
+      </Shelf>
+
+      {memberGames.length > 0 && (
+        <Shelf kind="premium" id="spiele-mitglieder" title="Große Hofspiele" label={`Für ${site.clubName}-Mitglieder`} lead="Neue Spiele kommen jeden Monat dazu.">
+          <ul className={hofjahr.weeks}>
+            {memberGames.map((g) => (
+              <li key={g.release.slug}>
+                <WeekCard release={g.release} state={g.state} />
+              </li>
+            ))}
+          </ul>
+        </Shelf>
+      )}
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@ const MESSAGES = {
   unavailable: "Die Freischaltung ist gerade nicht erreichbar. Bitte versuchen Sie es später erneut.",
   not_found: "Wir haben keine passende Bestellung gefunden. Bitte prüfen Sie Bestellnummer und E-Mail-Adresse.",
   not_paid: "Diese Bestellung ist noch nicht bezahlt oder wurde storniert.",
-  no_product: "In dieser Bestellung ist kein Abenteuer und keine Mitgliedschaft enthalten.",
+  no_product: "In dieser Bestellung ist kein Abenteuer, keine Reitakademie und keine Mitgliedschaft enthalten.",
   bad_code: "Dieser Freischaltcode ist ungültig oder abgelaufen. Bitte prüfen Sie die Schreibweise (HG-XXXX-XXXX-XXXX).",
   device_full: `Dieser Mitgliedscode ist bereits auf einem anderen Gerät aktiv. Für einen Gerätewechsel entfernen Sie die Freischaltung zuerst auf dem alten Gerät (Elternbereich → „Freischaltung von diesem Gerät entfernen“). Ist das alte Gerät nicht mehr verfügbar, schreiben Sie bitte an ${plan.supportEmail} – wir setzen die Gerätebindung zurück.`,
   rate: "Zu viele Versuche. Bitte warten Sie 15 Minuten.",

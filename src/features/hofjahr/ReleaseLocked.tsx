@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { site } from "@/content/site";
 import { Icon } from "@/components/illustrations/Icons";
 import { ReleaseArt } from "@/components/illustrations/ReleaseArt";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -13,7 +14,7 @@ export function ReleaseLocked({ release, member }: { release: Release; member: b
   const date = release.dateLabel.replace(/ 2026$/, "");
   return (
     <div className="page">
-      <PageHeader title={release.title} backHref="/hofjahr" backLabel="Zurück zu Mein Hofjahr" />
+      <PageHeader title={release.title} backHref="/hofjahr" backLabel={`Zurück zu ${site.clubName}`} />
       <div className={styles.stack}>
         <div className={styles.heroArt}>
           <ReleaseArt art={release.art} />
@@ -26,7 +27,7 @@ export function ReleaseLocked({ release, member }: { release: Release; member: b
           <p className={styles.lockHint}>
             {member
               ? "Noch ein bisschen Geduld. Am Freitag öffnet sich dieses Abenteuer für dich."
-              : `Ab ${date} gehört dieses Abenteuer zur Hof-Mitgliedschaft. Deine Eltern können im Elternbereich mehr darüber lesen.`}
+              : `Ab ${date} gehört dieses Abenteuer zur Mitgliedschaft „${site.clubName}“. Deine Eltern können im Elternbereich mehr darüber lesen.`}
           </p>
           {!member && (
             <Link href="/eltern#mitgliedschaft" className={styles.parentLink}>

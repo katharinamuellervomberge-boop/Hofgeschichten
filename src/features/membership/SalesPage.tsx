@@ -21,7 +21,7 @@ const kids = characters.filter((c) => ["lea", "mila", "ben"].includes(c.slug));
 
 const FEATURES: Array<{ title: string; text: string; art: Visual | "adventure" | "badge" | "kids" }> = [
   { title: "Hofgeschichten", text: "Erlebe neue Abenteuer mit Lea, Mila, Ben und Krümel.", art: "kids" },
-  { title: "Reitakademie", text: "Lerne Pferde, ihre Sprache und den sicheren Umgang kennen.", art: { kind: "scene", scene: "ak-reiter-sitz" } },
+  { title: "Große Reitakademie", text: "Schritt, Trab, Galopp und Reiten in der Bahn – mit neuen Lektionen jeden Monat.", art: { kind: "scene", scene: "ak-reiter-sitz" } },
   { title: "Hofmissionen", text: "Übernimm spielerisch Verantwortung für den Hof.", art: { kind: "scene", scene: "ht-stallbox" } },
   { title: "Detektivabenteuer", text: "Löse spannende Rätsel und Geheimnisse.", art: "adventure" },
   { title: "Wissen & Spiele", text: "Entdecke spielerisch Neues über Tiere, Natur und das Leben.", art: { kind: "head", horse: "scrabble", mood: "neugierig" } },
@@ -210,7 +210,7 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
         </ul>
         <ul className={styles.facts}>
           {[
-            "Altersgruppe ca. 5–9 Jahre, in zwei Stufen (Leicht und Mittel)",
+            "Für Kinder von 4 bis 12 Jahren, in zwei Stufen: Leicht (4–7) und Mittel (8–12)",
             "Kindgerechte Bedienung mit großen Bildern und Knöpfen",
             "Keine Fremdwerbung im Kinderbereich",
             "Keine öffentlichen Kinderprofile, kein Kinderkonto",
@@ -288,7 +288,7 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
           <details>
             <summary>Was gibt es schon vor November?</summary>
             <p>
-              Mit der Mitgliedschaft sind sofort alle bisherigen Premium-Detektivfälle freigeschaltet. Die kostenlose Hofwelt und die
+              Mit der Mitgliedschaft sind sofort alle bisherigen Premium-Detektivfälle und die Große Reitakademie freigeschaltet. Die kostenlose Hofwelt und die
               kleine Reitakademie bleiben für alle kostenlos.
             </p>
           </details>

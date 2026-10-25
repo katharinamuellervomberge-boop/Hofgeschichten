@@ -9,6 +9,7 @@ import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import { pick, type Activity } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { site } from "@/content/site";
 import styles from "./hofjahr.module.css";
 
 /** Premium-Lektion der Reitakademie – gleicher Ablauf wie die kostenlosen Lektionen. */
@@ -17,7 +18,7 @@ export function PremiumLessonScreen({ release, lesson, activity }: { release: Re
   const level = progress.settings.level ?? "leicht";
   return (
     <div className="page">
-      <PageHeader title={lesson.title} backHref="/spielen/akademie" backLabel="Zur Reitakademie">
+      <PageHeader title={lesson.title} backHref="/akademie/gross" backLabel="Zur Großen Akademie">
         Reitakademie · {release.category === "Reitakademie" ? "Kapitel 1: Die Sprache der Pferde" : release.title}
       </PageHeader>
       <div className={styles.stack}>
@@ -32,7 +33,7 @@ export function PremiumLessonScreen({ release, lesson, activity }: { release: Re
                 <Icon name="check" />
               </span>
               <h2 className={styles.doneTitle}>Geschafft! Du verstehst die Sprache der Pferde.</h2>
-              <p>Das Abzeichen „Pferdeflüsterer“ ist jetzt in deinem Hofjahr.</p>
+              <p>Das Abzeichen „Pferdeflüsterer“ ist jetzt bei {site.clubName}.</p>
               <p>
                 <strong>Merksatz:</strong> {pick(lesson.merksatz, level)}
               </p>
@@ -43,7 +44,7 @@ export function PremiumLessonScreen({ release, lesson, activity }: { release: Re
                 </button>
                 <Link href="/hofjahr" className={`${styles.btn} ${styles.btnPrimary}`}>
                   <Icon name="star" />
-                  Zu Mein Hofjahr
+                  Zu {site.clubName}
                 </Link>
               </div>
             </div>

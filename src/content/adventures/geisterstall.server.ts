@@ -5,7 +5,7 @@ import type { AdventureContent, DocVisual } from "@/engine/types";
  * PREMIUM-INHALT: „Mystery Files · Die Nacht im Geisterstall“
  * Interaktive Fassung des Print-Falls Case 02 (Horse & Harmonie Mystery Files).
  *
- * Nur Stufe Mittel (7–9 Jahre). Alle Texte sind deshalb einfache Strings.
+ * Nur Stufe Mittel (ab 7, Stufe Mittel = 8–12 Jahre). Alle Texte sind deshalb einfache Strings.
  *
  * Welt: Lindenhof (frei erfunden) mit Hanna, Wilhelm, Tilda, Mats, Herrn Voss
  * und Oma Greta. Lea, Mila und Ben aus den Hofgeschichten sind zur

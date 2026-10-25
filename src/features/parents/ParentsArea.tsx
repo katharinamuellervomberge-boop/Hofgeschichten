@@ -109,10 +109,6 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
                 </p>
               </li>
             ))}
-            <li>
-              <strong>10–12 Jahre</strong> <span className={styles.age}>in Vorbereitung</span>
-              <p>Eine eigene Stufe mit komplexeren Hinweisen folgt. Bis dahin passt die Stufe „Mittel“ auch für Ältere.</p>
-            </li>
           </ul>
         </section>
 
@@ -130,8 +126,8 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
               </li>
             ))}
             <li>
-              <strong>Die kleine Reitakademie</strong>
-              <p>Reitwissen in 8 Lernwelten – von Sicherheit und Sitz über Hilfen und Gangarten bis zu fairem Umgang mit dem Pferd. Details weiter unten.</p>
+              <strong>Die Reitakademie</strong>
+              <p>Reitwissen in 8 Lernwelten – von Sicherheit und Sitz über Hilfen und Gangarten bis zu fairem Umgang mit dem Pferd. Welten 1–3 kostenlos, Welten 4–8 in der Großen Akademie. Details weiter unten.</p>
             </li>
           </ul>
         </section>

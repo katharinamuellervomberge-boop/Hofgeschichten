@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { Shelf } from "@/components/ui/Shelf";
+import { site } from "@/content/site";
 import type { AdventureMeta } from "@/content/types";
 import { AdventureCover } from "./AdventureCover";
 import { UI_SPEECH } from "@/content/ui-speech";
@@ -14,10 +16,39 @@ const SEASON: Record<AdventureMeta["season"], string> = {
   ganzjaehrig: "Ganzjährig",
 };
 
+/**
+ * Abenteuer = Add-ons. Gleiche Regel wie überall: kostenlose Abenteuer (falls
+ * vorhanden) oben im Gratis-Regal, die Detektivfälle zum Freischalten darunter.
+ */
 export function AdventureList({ list, owned }: { list: AdventureMeta[]; owned: string[] }) {
+  const free = list.filter((a) => a.access === "free");
+  const premium = list.filter((a) => a.access !== "free");
   return (
     <div className="page">
       <PageHeader title="Abenteuer" spoken={UI_SPEECH.adventuresHeader} />
+      <div className={styles.shelves}>
+        {free.length > 0 && (
+          <Shelf kind="gratis" id="abenteuer-gratis" title="Abenteuer für alle">
+            <Cards list={free} owned={owned} />
+          </Shelf>
+        )}
+        <Shelf
+          kind="premium"
+          id="abenteuer-premium"
+          title="Detektivfälle"
+          label="Zum Freischalten"
+          lead={`Jeder Fall einzeln – oder alle zusammen in der Mitgliedschaft „${site.clubName}“.`}
+        >
+          <Cards list={premium} owned={owned} />
+        </Shelf>
+      </div>
+      <p className={styles.soon}>Weitere Abenteuer folgen – im November und zu Weihnachten.</p>
+    </div>
+  );
+}
+
+function Cards({ list, owned }: { list: AdventureMeta[]; owned: string[] }) {
+  return (
       <ul className={styles.list}>
         {list.map((a) => {
           const has = a.access === "free" || owned.includes(a.slug);
@@ -42,7 +73,5 @@ export function AdventureList({ list, owned }: { list: AdventureMeta[]; owned: s
           );
         })}
       </ul>
-      <p className={styles.soon}>Weitere Abenteuer folgen – im November und zu Weihnachten.</p>
-    </div>
   );
 }

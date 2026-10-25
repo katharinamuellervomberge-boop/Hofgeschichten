@@ -1,3 +1,4 @@
+import "server-only";
 import { item, letterSpot, no, ok } from "../build";
 import { lessonsOf, scene, type AcademyWorld } from "../types";
 

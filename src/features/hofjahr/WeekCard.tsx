@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { ReleaseArt } from "@/components/illustrations/ReleaseArt";
 import type { Release } from "@/content/membership";
+import { site } from "@/content/site";
 import styles from "./hofjahr.module.css";
 
 export type WeekState = "open" | "upcoming" | "locked";
@@ -17,7 +18,7 @@ export function WeekCard({ release, state, audience = "kids" }: { release: Relea
         ? `Ab diesem Freitag verfügbar: ${shortDate(release)}`
         : state === "upcoming"
           ? `Ab ${shortDate(release)} für dich da`
-          : `Ab ${shortDate(release)} – mit der Hof-Mitgliedschaft`;
+          : `Ab ${shortDate(release)} – für ${site.clubName}-Mitglieder`;
 
   const inner = (
     <>

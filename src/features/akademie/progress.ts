@@ -1,5 +1,5 @@
 import { allLessons, worlds } from "@/content/akademie";
-import type { AcademyLesson, AcademyWorld } from "@/content/akademie/types";
+import type { AcademyTier, AcademyWorldInfo as AcademyWorld, LessonInfo as AcademyLesson } from "@/content/akademie/types";
 import type { Progress } from "@/lib/progress/types";
 
 /** Lektion mindestens einmal abgeschlossen? (gespeichert wie die Lernspiele unter progress.games) */
@@ -15,8 +15,8 @@ export function worldDone(p: Progress, world: AcademyWorld): boolean {
   return worldDoneCount(p, world) === world.lessons.length;
 }
 
-export function academyDoneCount(p: Progress): number {
-  return allLessons().filter((l) => lessonDone(p, l)).length;
+export function academyDoneCount(p: Progress, tier?: AcademyTier): number {
+  return allLessons(tier).filter((l) => lessonDone(p, l)).length;
 }
 
 export function worldsDoneCount(p: Progress): number {
@@ -29,9 +29,9 @@ export function nextLesson(p: Progress, world: AcademyWorld): AcademyLesson {
 }
 
 export function lessonHref(world: AcademyWorld, lesson: AcademyLesson): string {
-  return `/spielen/akademie/${world.slug}/${lesson.slug}`;
+  return `/akademie/${world.slug}/${lesson.slug}`;
 }
 
 export function worldHref(world: AcademyWorld): string {
-  return `/spielen/akademie/${world.slug}`;
+  return `/akademie/${world.slug}`;
 }
