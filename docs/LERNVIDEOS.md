@@ -5,7 +5,7 @@ Sechs animierte Lernvideos (1280 × 720, 25 Bilder/s), gerendert aus `src/video`
 ## Ton mit ElevenLabs einfügen
 
 1. Jeden Satz unten als eigene Datei einsprechen, Name = Nummer: `01.mp3`, `02.mp3` …
-2. Dateien ablegen unter `voice/<slug>/` (z. B. `voice/leichttraben/01.mp3`).
+2. Dateien ablegen unter `voice/video/<slug>/` (z. B. `voice/video/leichttraben/01.mp3`).
 3. `node scripts/video/voice.mjs <slug>` misst die Aufnahmen und passt die Bildzeiten an.
 4. `NODE_TOOLS=<pfad>/node_modules node scripts/video/render.mjs <slug>` rendert das Video neu und legt die Stimme darunter.
 5. In `src/content/akademie/videos.ts` `voiced: true` und die neue Länge eintragen.

@@ -8,7 +8,7 @@
  *
  * Braucht: esbuild und playwright (NODE_TOOLS=Pfad zu deren node_modules, Standard: ./node_modules),
  * ffmpeg im PATH. Ergebnis: private/akademie-video/<slug>.mp4 und .jpg (Vorschaubild).
- * Liegen Sprecheraufnahmen in voice/<slug>/NN.mp3, werden sie automatisch daruntergelegt.
+ * Liegen Sprecheraufnahmen in voice/video/<slug>/NN.mp3, werden sie automatisch daruntergelegt.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -95,7 +95,7 @@ for (const slug of list) {
     await page.screenshot({ path: path.join(dir, `${String(i).padStart(5, "0")}.jpg`), type: "jpeg", quality: 92 });
   }
   const mp4 = path.join(OUT, `${slug}.mp4`);
-  const voiceDir = path.join(ROOT, "voice", slug);
+  const voiceDir = path.join(ROOT, "voice", "video", slug);
   const clips = existsSync(voiceDir) ? lines.map((l, i) => ({ l, f: path.join(voiceDir, `${String(i + 1).padStart(2, "0")}.mp3`) })).filter((c) => existsSync(c.f)) : [];
   const vArgs = ["-framerate", String(FPS), "-i", path.join(dir, "%05d.jpg")];
   if (clips.length) {

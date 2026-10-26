@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Misst die Sprecheraufnahmen (voice/<slug>/01.mp3, 02.mp3 …) und trägt die
+ * Misst die Sprecheraufnahmen (voice/video/<slug>/01.mp3, 02.mp3 …) und trägt die
  * Längen in src/video/durations.json ein. Danach neu rendern:
  *
  *   node scripts/video/voice.mjs leichttraben
@@ -20,7 +20,7 @@ const file = path.join(ROOT, "src/video/durations.json");
 const all = JSON.parse(readFileSync(file, "utf8"));
 all[slug] = {};
 ids.forEach((id, i) => {
-  const f = path.join(ROOT, "voice", slug, `${String(i + 1).padStart(2, "0")}.mp3`);
+  const f = path.join(ROOT, "voice", "video", slug, `${String(i + 1).padStart(2, "0")}.mp3`);
   if (!existsSync(f)) return console.log(`fehlt: ${path.relative(ROOT, f)} (Satz ${id})`);
   const sec = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]).toString().trim());
   all[slug][id] = Math.round(sec * 100) / 100;
