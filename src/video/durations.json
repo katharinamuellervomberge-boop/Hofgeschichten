@@ -15,5 +15,48 @@
     "schwebe": 4.94,
     "spueren": 3.06,
     "merke": 5.88
+  },
+  "leichttraben": {
+    "titel": 2.04,
+    "paare": 5.75,
+    "tatam": 3,
+    "auf": 3.87,
+    "ab": 5.72,
+    "huefte": 6.84,
+    "haende": 3.71,
+    "ruecken": 3.58,
+    "tipp": 5.83,
+    "merke": 4.41
+  },
+  "richtiger-fuss": {
+    "titel": 2.4,
+    "seiten": 6.66,
+    "hand": 3.47,
+    "sitzen": 4.91,
+    "aufstehen": 3.32,
+    "schulter": 6.48,
+    "wechsel": 8.65,
+    "merke": 5.41
+  },
+  "galopp-dreitakt": {
+    "titel": 2.04,
+    "takte": 5.59,
+    "reihenfolge": 9.43,
+    "schwebe": 4.47,
+    "vorgreifen": 3.24,
+    "links": 4.91,
+    "hand": 6.64,
+    "merke": 6.11
+  },
+  "bahnfiguren": {
+    "titel": 3.21,
+    "bahn": 7.37,
+    "ganze": 8.31,
+    "wechsel": 7.58,
+    "zirkel": 6.77,
+    "volte": 5.67,
+    "schlange": 5.49,
+    "rund": 6.92,
+    "merke": 4.39
   }
 }
