@@ -251,6 +251,7 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
                   <span>Große Akademie kaufen</span>
                   <Icon name="external" />
                 </a>
+                <p className={styles.choiceText}>Den Freischaltcode erhalten Sie nach dem Kauf per E-Mail. Eingeben unten bei „Kauf freischalten“.</p>
               </>
             ) : (
               <p className={styles.choiceText}>Der Einzelkauf im Shop folgt in Kürze.</p>

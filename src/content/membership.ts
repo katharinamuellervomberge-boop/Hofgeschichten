@@ -76,8 +76,9 @@ export const hofpost = {
   shippingLabel: "Versand innerhalb Deutschlands inklusive",
   /** Shopify-Produkt (Handle). Bezahlte Bestellung = App-Mitgliedschaft wird freigeschaltet. */
   shopifyProductHandle: "hofpost-founder",
+  /** Shopify-Produkt gid://shopify/Product/10991826501965 (aktiv seit 26.10.2026, Bestand 100 = Founder-Plätze) */
   /** Link zum Kauf. null = kein Kauf-Knopf (erst setzen, wenn das Produkt im Shop aktiv ist). */
-  checkoutUrl: null as string | null,
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/hofpost-founder" as string | null,
 };
 
 /* ---------- Freitagsveröffentlichungen ---------- */
