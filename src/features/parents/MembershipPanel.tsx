@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
-import { membership as plan } from "@/content/membership";
+import { hofpost, membership as plan } from "@/content/membership";
 import type { MembershipStatus } from "@/lib/entitlements/server";
 import styles from "./ParentsArea.module.css";
 
@@ -21,6 +21,10 @@ export function MembershipPanel({ membership }: { membership: MembershipStatus }
             Premium-Abenteuer sind spielbar, neue Inhalte öffnen sich jeden Freitag ab {plan.firstReleaseLabel} automatisch.
           </p>
           <p className={styles.settingHint}>
+            Hofpost: Lieferadresse ändern oder Brief nicht angekommen? Schreiben Sie mit Ihrer Bestellnummer an {plan.supportEmail}. Adressen
+            speichern wir nur im Shop, nicht in der App.
+          </p>
+          <p className={styles.settingHint}>
             Kündigung: jederzeit über <a href="/kuendigen">„Verträge hier kündigen“</a>. Gerätewechsel: unten „Freischaltung von
             diesem Gerät entfernen“, dann auf dem neuen Gerät freischalten.
           </p>
@@ -32,8 +36,12 @@ export function MembershipPanel({ membership }: { membership: MembershipStatus }
             Reitakademie-Lektionen und Detektivfälle – dazu alle bisherigen Premium-Abenteuer. {plan.name}: {plan.price} einmalig für das ganze
             erste Jahr, danach {plan.followUpPrice} {plan.followUpInterval}.
           </p>
+          <p className={styles.productInfo}>
+            <strong>Neu: {hofpost.name}.</strong> Dazu jeden Monat ein echter Brief von unseren Pferden an Ihr Kind – {hofpost.price} für das
+            erste Jahr inklusive 12 Briefe und Versand. Der erste Brief kommt {hofpost.firstLetterLabel}.
+          </p>
           <Link href="/mitgliedschaft" className={styles.shopLink}>
-            <span>Mitgliedschaft ansehen</span>
+            <span>Mitgliedschaft und Hofpost ansehen</span>
             <Icon name="back" style={{ transform: "rotate(180deg)" }} />
           </Link>
         </>

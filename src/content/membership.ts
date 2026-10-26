@@ -46,6 +46,40 @@ export const membership = {
   supportEmail: "infohorseandharmonie@gmail.com",
 };
 
+/* ---------- Hofpost: Mitgliedschaft + echte Briefe ---------- */
+
+/**
+ * „Mein Hof + Hofpost“ – die App-Mitgliedschaft plus jeden Monat ein echter Brief.
+ * Founder-Verkauf läuft jetzt, der Briefversand beginnt im Januar 2027.
+ * Eine bezahlte Bestellung mit `shopifyProductHandle` schaltet die App-Mitgliedschaft frei
+ * (gleicher Mitgliedscode wie bei der reinen Mitgliedschaft). Konzept: Projekt-Datei „hofpost-auftrag.md“.
+ */
+export const hofpost = {
+  name: "Mein Hof + Hofpost",
+  founderName: "Founder-Jahresabo mit Hofpost",
+  /** Founder-Preis für die ersten 12 Monate inkl. 12 Briefe und Versand in Deutschland */
+  price: "119 €",
+  priceCents: 11900,
+  perMonthEquivalent: "9,92 €",
+  /** Regulärer Preis ab 2027 – zum Vergleich auf der Verkaufsseite */
+  regularPrice: "179 €",
+  /** Wert der Einzelteile: App 99 € + 12 Briefe à 8,90 € */
+  separateValue: "205,80 €",
+  followUpPrice: "17,90 €",
+  followUpInterval: "monatlich",
+  letters: 12,
+  founderSeats: 100,
+  /** Founder-Angebot endet */
+  founderUntilLabel: "31. Dezember 2026",
+  firstLetterLabel: "Anfang Januar 2027",
+  orderDeadlineJanuary: "27. Dezember 2026",
+  shippingLabel: "Versand innerhalb Deutschlands inklusive",
+  /** Shopify-Produkt (Handle). Bezahlte Bestellung = App-Mitgliedschaft wird freigeschaltet. */
+  shopifyProductHandle: "hofpost-founder",
+  /** Link zum Kauf. null = kein Kauf-Knopf (erst setzen, wenn das Produkt im Shop aktiv ist). */
+  checkoutUrl: null as string | null,
+};
+
 /* ---------- Freitagsveröffentlichungen ---------- */
 
 export type ReleaseCategory = "Hofgeschichte" | "Reitakademie" | "Hofspiel" | "Detektivabenteuer";

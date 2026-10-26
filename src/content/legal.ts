@@ -28,7 +28,7 @@ export type LegalSection = {
 export const terms: { title: string; subtitle: string; asOf: string; sections: LegalSection[] } = {
   title: "Allgemeine Geschäftsbedingungen (AGB)",
   subtitle: "Hof Stories – Digitale Kinderplattform",
-  asOf: "Stand: 22. Oktober 2026",
+  asOf: "Stand: 26. Oktober 2026",
   sections: [
     {
       heading: "§ 1 Anbieter und Geltungsbereich",
@@ -83,6 +83,19 @@ export const terms: { title: string; subtitle: string; asOf: string; sections: L
             "(4) Nach Ablauf der Mindestvertragslaufzeit wird die Mitgliedschaft auf unbestimmte Zeit fortgesetzt. Ab dem 13. Monat beträgt der Mitgliedschaftspreis 9,90 € monatlich. Die Abrechnung erfolgt monatlich.",
             "(5) Eine Kündigung zum Ende der Mindestvertragslaufzeit ist mit einer Frist von einem Monat möglich.",
             "(6) Nach Ablauf der Mindestvertragslaufzeit kann die Mitgliedschaft jederzeit mit einer Frist von höchstens einem Monat gekündigt werden.",
+            "(7) Nach Ablauf der ersten zwölf Monate kann der Kunde statt der monatlichen Zahlung den jeweils gültigen regulären Jahrespreis wählen.",
+          ],
+        },
+        {
+          subheading: "4.1a Founder-Jahresabo mit Hofpost",
+          paragraphs: [
+            "(1) Das Founder-Jahresabo mit Hofpost umfasst die Founders Membership nach Ziffer 4.1 sowie die Zusendung von zwölf Briefen mit Beilagen (Hofpost), einen Brief pro Monat, an eine Lieferadresse in Deutschland.",
+            "(2) Der Preis beträgt 119,00 € für die ersten zwölf Monate einschließlich der zwölf Briefe und des Versands innerhalb Deutschlands. Der Betrag wird zu Beginn vollständig berechnet. Das Angebot gilt für Bestellungen bis zum 31. Dezember 2026 und ist auf 100 Plätze begrenzt.",
+            "(3) Der App-Zugang kann sofort nach dem Kauf freigeschaltet werden. Der Briefversand beginnt im Januar 2027. Die Briefe werden in der Regel in den letzten Tagen des Vormonats versendet; ein bestimmter Zustelltag ist nicht geschuldet.",
+            "(4) Die anfängliche Mindestvertragslaufzeit beträgt zwölf Monate. Nach deren Ablauf wird das Abo auf unbestimmte Zeit fortgesetzt; ab dem 13. Monat beträgt der Preis 17,90 € monatlich einschließlich eines Briefs pro Monat. Ziffer 4.1 Abs. 5 bis 7 gilt entsprechend.",
+            "(5) Änderungen der Lieferadresse sind per E-Mail mitzuteilen. Eingänge bis zum 25. eines Monats werden beim nächsten Versand berücksichtigt.",
+            "(6) Geht ein Brief nachweislich verloren oder kommt er als unzustellbar zurück, ohne dass der Kunde dies zu vertreten hat, wird er mit dem nächsten Versand kostenlos ersetzt.",
+            "(7) Die Beilagen sind für Kinder ab 4 Jahren bestimmt.",
           ],
         },
         {
@@ -208,14 +221,15 @@ export const terms: { title: string; subtitle: string; asOf: string; sections: L
 
 export const withdrawal = {
   title: "Widerrufsbelehrung",
-  subtitle: "Für Verträge über digitale Inhalte und Mitgliedschaften von Hof Stories",
-  asOf: "Stand: 22. Oktober 2026",
+  subtitle: "Für Verträge über digitale Inhalte und Mitgliedschaften von Hof Stories, einschließlich Jahresabo mit Hofpost",
+  asOf: "Stand: 26. Oktober 2026",
   sections: [
     {
       heading: "Widerrufsrecht",
       paragraphs: [
         "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.",
         "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.",
+        "Für das Jahresabo mit Hofpost gilt: Soweit der Vertrag die regelmäßige Lieferung von Waren (Briefe mit Beilagen) über einen festgelegten Zeitraum umfasst, beträgt die Widerrufsfrist vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die erste Ware in Besitz genommen haben bzw. hat.",
         `Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (${provider.company}, ${provider.street}, ${provider.city}, Telefon: ${provider.phone}, E-Mail: ${provider.email}) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das unten stehende Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.`,
         "Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.",
       ],
@@ -224,6 +238,7 @@ export const withdrawal = {
       heading: "Folgen des Widerrufs",
       paragraphs: [
         "Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.",
+        "Haben Sie im Rahmen des Jahresabos mit Hofpost bereits Briefe erhalten, müssen Sie diese nicht zurücksenden; sie sind zum Verbleib bei Ihnen bestimmt.",
       ],
     },
     {

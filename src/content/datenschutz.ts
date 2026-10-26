@@ -3,9 +3,9 @@
  * Ergänzt am 22.10.: Hosting-Anbieter (Vercel), Abschnitte 8a (Shopify), 8b (Upstash, Resend), 10a (Kündigung).
  * Format: "## " = Überschrift, "- " = Aufzählung, **fett**. Leerzeile = neuer Absatz.
  */
-export const privacyAsOf = "Stand: 22. Oktober 2026";
+export const privacyAsOf = "Stand: 26. Oktober 2026";
 
-export const privacyText = `**Stand: 22. Oktober 2026**
+export const privacyText = `**Stand: 26. Oktober 2026**
 
 ## 1. Verantwortlicher
 
@@ -192,6 +192,14 @@ Kündigungsbestätigungen versenden wir über den E-Mail-Dienst Resend (Plus Fiv
 
 Mit beiden Dienstleistern werden Vereinbarungen zur Auftragsverarbeitung gemäß Art. 28 DSGVO geschlossen. Soweit Daten außerhalb des Europäischen Wirtschaftsraums verarbeitet werden, erfolgt dies nur unter Einhaltung der Art. 44 ff. DSGVO.
 
+## 8c. Jahresabo mit Hofpost (Briefversand)
+
+Für den Versand der Hofpost verarbeiten wir die Lieferadresse sowie den Vornamen des Kindes, den Sie bei der Bestellung für die Anrede im Brief angeben.
+
+Diese Daten werden ausschließlich in unserem Onlineshop (Shopify) gespeichert und nicht in der Web-App. Für den Versand übermitteln wir Name und Anschrift an die Deutsche Post AG; zum Drucken der Adressetiketten nutzen wir die Internetmarke der Deutschen Post.
+
+Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Vertragspartner ist ausschließlich die bestellende volljährige Person. Nach Ende des Abos löschen wir die Versanddaten, soweit keine gesetzlichen Aufbewahrungspflichten (z. B. für Rechnungen) bestehen.
+
 ## 9. Cookies und lokale Speichertechnologien
 
 Hof Stories kann technisch notwendige Cookies und vergleichbare Speichertechnologien verwenden.
@@ -331,5 +339,5 @@ Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich gesetzli
 
 Die jeweils aktuelle Fassung ist über Hof Stories abrufbar.
 
-**Stand: 22. Oktober 2026**
+**Stand: 26. Oktober 2026**
 `;

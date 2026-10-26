@@ -8,13 +8,14 @@ import { LegalLinks } from "@/components/layout/LegalPage";
 import { characters } from "@/content/characters";
 import { hofjahrBadges } from "@/content/hofjahr";
 import { horses } from "@/content/horses";
-import { membership as plan, releases, yearPlan } from "@/content/membership";
+import { hofpost, membership as plan, releases, yearPlan } from "@/content/membership";
 import { site } from "@/content/site";
 import type { Visual } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
 import { WeekCard } from "@/features/hofjahr/WeekCard";
 import { AdventureCover } from "@/features/adventure/AdventureCover";
 import type { MembershipStatus } from "@/lib/entitlements/server";
+import { HofpostHint, HofpostOffer } from "./HofpostOffer";
 import styles from "./SalesPage.module.css";
 
 const kids = characters.filter((c) => ["lea", "mila", "ben"].includes(c.slug));
@@ -88,6 +89,7 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
           </div>
           <Cta status={status} orderUnlock={orderUnlock} />
           <p className={styles.first}>Die ersten neuen Premium-Inhalte erscheinen im {plan.firstReleaseLabel}.</p>
+          <HofpostHint />
         </div>
         <div className={styles.heroArt} aria-hidden>
           <div className={styles.horses}>
@@ -104,6 +106,9 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
           </div>
         </div>
       </section>
+
+      {/* ---------- Hofpost ---------- */}
+      <HofpostOffer status={status} />
 
       {/* ---------- Enthalten ---------- */}
       <section aria-labelledby="sp-inhalt" className={styles.section}>
@@ -265,6 +270,17 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
             </dd>
           </div>
           <div>
+            <dt>Mit Hofpost</dt>
+            <dd>
+              {hofpost.founderName}: {hofpost.price} als einmaliger Jahresbeitrag für die ersten {plan.termMonths} Monate, inklusive{" "}
+              {hofpost.letters} Briefe (ein Brief pro Monat) und Versand innerhalb Deutschlands. Der Briefversand beginnt{" "}
+              {hofpost.firstLetterLabel}; die App-Mitgliedschaft ist ab der Freischaltung nutzbar. Laufzeit und Kündigung wie oben; ohne
+              Kündigung ab dem 13. Monat {hofpost.followUpPrice} {hofpost.followUpInterval} inklusive Brief, alternativ der dann gültige
+              Jahrespreis. Die Lieferadresse geben Sie im Shop an, den Vornamen des Kindes für die Anrede fragen wir per E-Mail ab; Adressänderungen bis zum 25. eines Monats per E-Mail
+              gelten für den nächsten Brief.
+            </dd>
+          </div>
+          <div>
             <dt>Spätere Preise</dt>
             <dd>
               Für spätere Neukundinnen und Neukunden planen wir {plan.plannedRegular.map((p) => p.price).join(" bzw. ")}. Diese Preise
@@ -290,6 +306,23 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
             <p>
               Mit der Mitgliedschaft sind sofort alle bisherigen Premium-Detektivfälle und die Große Reitakademie freigeschaltet. Die kostenlose Hofwelt und die
               kleine Reitakademie bleiben für alle kostenlos.
+            </p>
+          </details>
+          <details>
+            <summary>Was ist die Hofpost?</summary>
+            <p>
+              Mit dem Jahresabo mit Hofpost bekommt Ihr Kind zusätzlich zur App ein Jahr lang jeden Monat einen echten Brief von Tivoli,
+              Scrabble, Tonga oder Hofhund Krümel – mit Foto, einer Aufgabe, einem Sticker und einem Geheimwort, das in der App eine
+              Überraschung öffnet. Der erste Brief kommt {hofpost.firstLetterLabel}, im ersten Brief liegen eine Sammelmappe und ein
+              Stickerbogen. Für Kinder von 4 bis 12 Jahren.
+            </p>
+          </details>
+          <details>
+            <summary>Wann kommen die Briefe und wohin?</summary>
+            <p>
+              Einmal im Monat, meist in den ersten Tagen des Monats, an die Lieferadresse Ihrer Bestellung – nur innerhalb Deutschlands.
+              Für die Anrede fragen wir nur den Vornamen Ihres Kindes ab. Kommt ein Brief nicht an, schreiben Sie an{" "}
+              {plan.supportEmail}; wir schicken ihn mit dem nächsten Versand kostenlos nach.
             </p>
           </details>
           <details>

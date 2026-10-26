@@ -69,7 +69,7 @@ export function CancelForm({ online, email: providerEmail }: { online: boolean; 
   return (
     <form className={styles.form} onSubmit={submit}>
       <p className={styles.settingHint}>
-        Hier kündigen Sie Ihre Hof-Mitgliedschaft. Felder mit * sind Pflichtfelder. Ihre Angaben verwenden wir nur, um die
+        Hier kündigen Sie Ihre Hof-Mitgliedschaft – auch das Jahresabo mit Hofpost (Mitgliedschaft und Briefe enden dann gemeinsam). Felder mit * sind Pflichtfelder. Ihre Angaben verwenden wir nur, um die
         Kündigung zuzuordnen und Ihnen den Eingang zu bestätigen.
       </p>
 

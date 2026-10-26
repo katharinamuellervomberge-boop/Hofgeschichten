@@ -14,6 +14,7 @@ import { releases, yearPlan } from "@/content/membership";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
 import { academyDoneCount } from "@/features/akademie/progress";
+import { HofpostArt } from "@/components/illustrations/HofpostArt";
 import { WeekCard, type WeekState } from "./WeekCard";
 import styles from "./hofjahr.module.css";
 
@@ -86,6 +87,24 @@ export function HofjahrScreen({ weekStates, member, now }: Props) {
             ))}
           </ul>
         </Shelf>
+
+        <section className={styles.hofpostTeaser} aria-labelledby="hj-hofpost">
+          <HofpostArt className={styles.hofpostTeaserArt} label="Ein Brief vom Hof mit einem Pferdefoto" />
+          <div>
+            <p className={styles.hofpostTeaserKicker}>Neu ab Januar</p>
+            <h2 id="hj-hofpost" className={styles.sectionTitle} style={{ margin: 0 }}>
+              Post von Tivoli &amp; Co.
+            </h2>
+            <p className={styles.sectionLead}>
+              Bald kann dir jeden Monat ein echter Brief von unseren Pferden ins Haus flattern – mit Sticker und Geheimwort. Frag deine
+              Eltern!
+            </p>
+            <Link href="/mitgliedschaft#hofpost" className={styles.hofpostTeaserLink}>
+              <Icon name="parents" />
+              Für Eltern: mehr zur Hofpost
+            </Link>
+          </div>
+        </section>
 
         <section aria-labelledby="hj-stand">
           <h2 id="hj-stand" className={styles.sectionTitle}>

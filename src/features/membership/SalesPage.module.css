@@ -576,3 +576,107 @@
   padding: var(--space-2) 0;
   color: var(--text-muted);
 }
+
+/* ---------- Hofpost ---------- */
+.hofpost {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, var(--sand-light), var(--paper));
+  box-shadow: inset 0 0 0 2px rgba(201, 154, 78, 0.55), var(--shadow-card);
+  scroll-margin-top: 80px;
+}
+
+@media (min-width: 900px) {
+  .hofpost {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+    padding: var(--space-6);
+  }
+}
+
+.hofpostArt {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.hofpostBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--rust);
+  color: var(--paper);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+}
+
+.hofpostBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.shipNote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--sage);
+  color: var(--forest-deep);
+}
+
+.shipNote svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: var(--honey);
+}
+
+.ctaHofpost {
+  background: var(--brown);
+}
+
+.ctaHofpost:hover {
+  background: var(--brown-deep);
+}
+
+.hofpostHint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1.5px var(--sand-deep);
+}
+
+.hofpostHint svg {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  color: var(--brown);
+}
+
+.hofpost .facts {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .hofpostArt {
+    position: sticky;
+    top: 90px;
+  }
+}
