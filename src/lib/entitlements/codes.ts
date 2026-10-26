@@ -1,5 +1,5 @@
 import "server-only";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { adventures, isVisible } from "@/content/adventures";
 import { membership } from "@/content/membership";
 import { productSlugs } from "@/content/products";
@@ -126,4 +126,29 @@ export function membershipCodeForOrder(orderId: string, orderDate: Date): { code
 
 export function codesConfigured(): boolean {
   return getSecret() !== null;
+}
+
+/* ---------- Codes erzeugen (Admin-Seite, nur Server) ---------- */
+
+/**
+ * Erzeugt neue Freischaltcodes – gleiche Logik wie scripts/generate-codes.mjs.
+ *  slug = Abenteuer-Slug, Paket-Slug (z. B. „grosse-akademie“) oder „mitgliedschaft“
+ *  start = Startmonat der Mitgliedschaft (nur bei „mitgliedschaft“)
+ * Gibt formatierte Codes (HG-XXXX-XXXX-XXXX) zurück; null, wenn LICENSE_SECRET fehlt.
+ */
+export function generateCodes(slug: string, count: number, start?: Date): string[] | null {
+  const secret = getSecret();
+  if (!secret) return null;
+  const id = adventureCodeId(slug);
+  const isMembership = slug === membership.slug;
+  const month = isMembership ? encodeMonth(monthIndexOf(start ?? new Date())) : "";
+  const seen = new Set<string>();
+  const n = Math.min(50, Math.max(1, Math.floor(count)));
+  while (seen.size < n) {
+    const r = randomBytes(6);
+    const serial = Array.from(r, (b) => ALPHABET[b % 32]).join("").slice(0, isMembership ? 4 : 6);
+    const body = id + month + serial;
+    seen.add(formatCode(body + checksum(body, secret)));
+  }
+  return [...seen];
 }

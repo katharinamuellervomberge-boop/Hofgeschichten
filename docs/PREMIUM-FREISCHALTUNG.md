@@ -131,3 +131,10 @@ LICENSE_SECRET=<gleicher Wert wie bei Vercel> npm run codes -- geisterweide 200 
 - Kaufberechtigungen und Fortschritt in einer Datenbank (z. B. Postgres über Vercel Marketplace).
 - Mitgliedschaft als Shopify-Abo-Produkt; `verifyShopifyOrder` wird um Abo-Status ergänzt.
 - Der Fortschritt wechselt über einen zweiten `ProgressAdapter` (`src/lib/progress/types.ts`) auf den Server.
+
+## Codes per Admin-Seite (ab 26.10.2026)
+
+`/admin` (nicht verlinkt, `noindex`): Anmeldung mit `ADMIN_PASSWORD` (Vercel-Umgebungsvariable, mind. 12 Zeichen,
+Typ „Secret“, Production). Erzeugt Codes für Mitgliedschaft (auch Hofpost, mit Startmonat), Große Reitakademie und
+Premium-Abenteuer – direkt auf dem Server mit dem vorhandenen `LICENSE_SECRET`, ohne Terminal und ohne GitHub-Secret.
+Bei einem einzelnen Code wird ein fertiger E-Mail-Text angezeigt. Codes werden nicht gespeichert.
