@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
   // Premium-Aufnahmen liegen außerhalb von /public und müssen mit der Server-Funktion ausgeliefert werden
   outputFileTracingIncludes: {
     "/api/voice/[id]": ["./private/voice/**/*"],
+    "/api/akademie-video/[file]": ["./private/akademie-video/**/*"],
   },
   poweredByHeader: false,
   // Die Reitakademie hat einen eigenen Bereich bekommen – alte Links (auch gedruckte) leiten weiter

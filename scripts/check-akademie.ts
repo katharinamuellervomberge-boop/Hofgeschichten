@@ -174,6 +174,16 @@ for (const w of catalogWorlds) {
   if (!full || full.lessons.map((l) => l.id).join() !== w.lessons.map((l) => l.id).join()) err("Katalog", `Lektionen von ${w.id} weichen ab`);
 }
 
+/* ---------- Lernvideos ---------- */
+import { academyVideos } from "../src/content/akademie/videos";
+import { existsSync } from "node:fs";
+for (const v of academyVideos) {
+  const w = worlds.find((x) => x.slug === v.world);
+  if (!w || !w.lessons.some((l) => l.slug === v.lesson)) err("Video", `${v.slug}: Lektion ${v.world}/${v.lesson} gibt es nicht`);
+  if (w && freeWorlds.includes(w)) err("Video", `${v.slug}: gehört zur Großen Akademie, steht aber in einer kostenlosen Welt`);
+  for (const ext of ["mp4", "jpg"]) if (!existsSync(`private/akademie-video/${v.slug}.${ext}`)) err("Video", `private/akademie-video/${v.slug}.${ext} fehlt`);
+}
+
 console.log(`Reitakademie: ${worlds.length} Welten, ${lessonCount} Lektionen, ${questionCount} Quizfragen (beide Stufen zusammen), ${academyGames.length} Spiele.`);
 if (warn.length) console.log(`\nHinweise (${warn.length}):\n- ` + warn.join("\n- "));
 if (errors.length) {

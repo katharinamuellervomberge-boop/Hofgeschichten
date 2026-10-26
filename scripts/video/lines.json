@@ -1,0 +1,62 @@
+{
+  "schritt-viertakt": [
+    "titel",
+    "einzeln",
+    "reihenfolge",
+    "boden",
+    "ruhig",
+    "merke"
+  ],
+  "trab-zweitakt": [
+    "titel",
+    "paare",
+    "diagonal",
+    "takt",
+    "schwebe",
+    "spueren",
+    "merke"
+  ],
+  "leichttraben": [
+    "titel",
+    "paare",
+    "tatam",
+    "auf",
+    "ab",
+    "huefte",
+    "haende",
+    "ruecken",
+    "tipp",
+    "merke"
+  ],
+  "richtiger-fuss": [
+    "titel",
+    "seiten",
+    "hand",
+    "sitzen",
+    "aufstehen",
+    "schulter",
+    "wechsel",
+    "merke"
+  ],
+  "galopp-dreitakt": [
+    "titel",
+    "takte",
+    "reihenfolge",
+    "schwebe",
+    "vorgreifen",
+    "links",
+    "hand",
+    "merke"
+  ],
+  "bahnfiguren": [
+    "titel",
+    "bahn",
+    "ganze",
+    "wechsel",
+    "zirkel",
+    "volte",
+    "schlange",
+    "rund",
+    "merke"
+  ]
+}

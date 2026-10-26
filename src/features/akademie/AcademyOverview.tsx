@@ -14,6 +14,8 @@ import { site } from "@/content/site";
 import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
+import { academyVideos } from "@/content/akademie/videos";
+import { LessonVideo } from "./LessonVideo";
 import { academyDoneCount, lessonDone, worldHref } from "./progress";
 import styles from "./akademie.module.css";
 
@@ -142,6 +144,32 @@ export function AcademyTierScreen({ tier, unlocked, monthly = [] }: { tier: Acad
         <Shelf kind={premium ? "premium" : "gratis"} id={`ak-${tier}-spiele`} title="Mini-Spiele" label={premium ? (unlocked ? "Freigeschaltet" : "Premium") : undefined}>
           <GameList games={games} locked={locked} />
         </Shelf>
+
+        {premium && (
+          <Shelf kind="premium" id="ak-videos" title="Lernvideos" label={unlocked ? "Freigeschaltet" : "Premium"} lead="Sieh dir an, wie sich das Pferd bewegt – in Zeitlupe und mit Takt zum Mitzählen.">
+            {unlocked ? (
+              <ul className={styles.videoList}>
+                {academyVideos.map((v) => (
+                  <li key={v.slug}>
+                    <LessonVideo video={v} compact />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className={styles.comingList}>
+                {academyVideos.map((v) => (
+                  <li key={v.slug}>
+                    <span className={styles.comingItem}>
+                      <Icon name="lock" />
+                      <span>{v.title}</span>
+                      <em>{Math.round(v.seconds / 6) / 10} Min.</em>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Shelf>
+        )}
 
         {premium && monthly.length > 0 && (
           <Shelf kind="premium" id="ak-monat" title="Jeden Monat neu" label={`Für ${site.clubName}-Mitglieder`} lead="Neue Lektionen kommen über die Mitgliedschaft dazu – auch mit Animationen und Lernvideos.">

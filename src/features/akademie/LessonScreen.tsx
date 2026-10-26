@@ -9,6 +9,8 @@ import { ACADEMY_TIERS, getWorld, worlds } from "@/content/akademie";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import type { AcademyLesson } from "@/content/akademie/types";
+import type { AcademyVideo } from "@/content/akademie/videos";
+import { LessonVideo } from "./LessonVideo";
 import { pick, type Activity } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
@@ -20,7 +22,7 @@ import styles from "./akademie.module.css";
  * Eine Lektion: Startbild mit Stufenwahl, dann der Ablauf im Spielkern, am Ende Merksatz und Abzeichen.
  * Lektion und Ablauf kommen vom Server (bei der Großen Akademie erst nach der Freischaltung).
  */
-export function LessonScreen({ worldSlug, lesson, activity: base }: { worldSlug: string; lesson: AcademyLesson; activity: Activity }) {
+export function LessonScreen({ worldSlug, lesson, activity: base, video }: { worldSlug: string; lesson: AcademyLesson; activity: Activity; video?: AcademyVideo }) {
   const world = getWorld(worldSlug);
   const progress = useProgress();
   const level = progress.settings.level ?? "leicht";
@@ -60,6 +62,7 @@ export function LessonScreen({ worldSlug, lesson, activity: base }: { worldSlug:
             <span>In dieser Lektion gibt es mehr zu lesen. Lies sie am besten zusammen mit einem Erwachsenen.</span>
           </p>
         )}
+        {video && <LessonVideo video={video} />}
         <ActivityPlayer
           activity={activity}
           tint={world.tint}

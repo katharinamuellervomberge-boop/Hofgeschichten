@@ -822,3 +822,51 @@
   color: var(--text-muted);
   font-size: var(--text-md);
 }
+
+/* ---------- Lernvideos ---------- */
+.video {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.videoEl {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  background: var(--forest-deep);
+  box-shadow: var(--shadow-card);
+}
+
+.videoCap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--forest-deep);
+  font-size: var(--text-sm);
+}
+
+.videoCap svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--honey);
+}
+
+.videoList {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .videoList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.videoCompact .videoCap {
+  font-size: var(--text-xs);
+}

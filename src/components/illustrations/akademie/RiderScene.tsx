@@ -42,7 +42,7 @@ function torso(b: Body) {
   return `M${hx - nx - 2},${hy - ny + 4} L${sx - nx * 0.8},${sy - ny * 0.8} C${sx},${sy - 6} ${sx + 6},${sy - 4} ${sx + nx * 0.9},${sy + ny * 0.9} L${hx + nx + 2},${hy + ny + 4} Z`;
 }
 
-function Rider({ b, pose }: { b: Body; pose: RiderPose }) {
+export function Rider({ b, pose }: { b: Body; pose: RiderPose }) {
   const [hx, hy] = b.head;
   const tilt = Math.atan2(b.shoulder[0] - b.hip[0], b.hip[1] - b.shoulder[1]) * (180 / Math.PI);
   const footBall: P = [b.toe[0] - 7, b.toe[1] - 1];
@@ -99,7 +99,7 @@ function Rider({ b, pose }: { b: Body; pose: RiderPose }) {
   );
 }
 
-function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRein: boolean; stirrupsDown: boolean }) {
+export function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRein: boolean; stirrupsDown: boolean }) {
   const rein = hand
     ? `M${BIT[0]},${BIT[1]} Q${(BIT[0] + hand[0]) / 2},${(BIT[1] + hand[1]) / 2 + (longRein ? 26 : 3)} ${hand[0] + 2},${hand[1]}`
     : `M${BIT[0]},${BIT[1]} C330,140 300,128 262,104`;

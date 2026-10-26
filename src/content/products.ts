@@ -25,7 +25,7 @@ export const grosseAkademie = {
   checkoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Kurzbeschreibung für Eltern */
   parentInfo:
-    "Lernwelten 4–8 (Schritt, Trab, Galopp, Reiten in der Bahn, Fair zum Pferd) mit 25 Lektionen, die Mini-Spiele „Gangarten-Quiz“ und „Bahnfiguren-Meister“ und die Urkunde „Reitwissen-Profi“. Animationen und Lernvideos (z. B. Leichttraben, Bahnfiguren) kommen nach und nach dazu.",
+    "Lernwelten 4–8 (Schritt, Trab, Galopp, Reiten in der Bahn, Fair zum Pferd) mit 25 Lektionen, die Mini-Spiele „Gangarten-Quiz“ und „Bahnfiguren-Meister“ und die Urkunde „Reitwissen-Profi“. Dazu 6 animierte Lernvideos: Schritt, Trab, Leichttraben, Leichttraben auf dem richtigen Fuß, Galopp und Bahnfiguren.",
 };
 
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */

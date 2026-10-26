@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getWorld, lessonActivity } from "@/content/akademie";
 import { loadLesson } from "@/content/akademie/inhalte.server";
+import { videoForLesson } from "@/content/akademie/videos";
 import { AcademyLocked } from "@/features/akademie/AcademyLocked";
 import { LessonScreen } from "@/features/akademie/LessonScreen";
 import { hasGrosseAkademie } from "@/lib/entitlements/server";
@@ -21,5 +22,5 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   if (!found) notFound();
   // Große Akademie: Inhalte verlassen den Server erst nach bestätigter Freischaltung
   if (found.tier === "gross" && !(await hasGrosseAkademie())) return <AcademyLocked title={found.lesson.title} />;
-  return <LessonScreen worldSlug={found.world.slug} lesson={found.lesson} activity={lessonActivity(found.lesson)} />;
+  return <LessonScreen worldSlug={found.world.slug} lesson={found.lesson} activity={lessonActivity(found.lesson)} video={found.tier === "gross" ? videoForLesson(found.world.slug, found.lesson.slug) : undefined} />;
 }
