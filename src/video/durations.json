@@ -1,1 +1,19 @@
-{}
+{
+  "schritt-viertakt": {
+    "titel": 2.17,
+    "einzeln": 7.55,
+    "reihenfolge": 5.43,
+    "boden": 5.3,
+    "ruhig": 4.91,
+    "merke": 5.8
+  },
+  "trab-zweitakt": {
+    "titel": 2.19,
+    "paare": 6.16,
+    "diagonal": 6.97,
+    "takt": 4.49,
+    "schwebe": 4.94,
+    "spueren": 3.06,
+    "merke": 5.88
+  }
+}
