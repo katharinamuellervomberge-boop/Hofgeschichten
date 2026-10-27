@@ -2,6 +2,8 @@
  * Erwachsene und Jugendliche aus den Mystery-Files-Fällen (Lindenhof).
  * Sie sprechen in Geschichten (`speaker: "<slug>"`) und erscheinen als
  * Porträt (`{ kind: "person", person: "<slug>" }`). Alle frei erfunden.
+ * Hanna, Wilhelm, Tilda und Mats sind zugleich die festen Erwachsenen des Hofs
+ * (Hofbesitzerin, Stallmeister, Reitlehrerin, Stallhelfer) – gemalte Bilder seit 27.10.2026.
  */
 export type PersonLook = {
   skin: string;
@@ -23,6 +25,10 @@ export type Person = {
   /** Kurze Rolle für Karten, z. B. „Stallmeister, 62“ */
   role: string;
   look: PersonLook;
+  /** Gemaltes Porträt in /public/people (<base>-160|320|640.webp); ohne → SVG-Rückfall */
+  portrait?: { base: string; alt: string };
+  /** Gemalte Ganzkörperansicht (<base>-512|1024.webp, Hochformat 2:3) für Szenen und Cover */
+  fullBody?: { base: string; alt: string };
 };
 
 export const people: Person[] = [
@@ -31,6 +37,8 @@ export const people: Person[] = [
     name: "Hanna Lindner",
     role: "Stallbesitzerin, 41",
     look: { skin: "#E9C4A4", hair: "#2E211B", hairStyle: "bob", shirt: "#A4573A" },
+    portrait: { base: "/people/hanna", alt: "Hanna Lindner, Hofbesitzerin mit dunklem Bob und rostroter Fleecejacke" },
+    fullBody: { base: "/people/hanna-ganz", alt: "Hanna Lindner in rostroter Fleecejacke, Jeans und Stallstiefeln, mit Führstrick in der Hand" },
   },
   {
     slug: "wilhelm",
@@ -45,18 +53,24 @@ export const people: Person[] = [
       pencil: true,
       mustache: "#B9AFA2",
     },
+    portrait: { base: "/people/wilhelm", alt: "Wilhelm Brandt, Stallmeister mit grauem Schnurrbart, grüner Schiebermütze und Bleistift hinterm Ohr" },
+    fullBody: { base: "/people/wilhelm-ganz", alt: "Wilhelm Brandt in kariertem Flanellhemd und Gummistiefeln, auf eine Mistgabel gestützt" },
   },
   {
     slug: "tilda",
     name: "Tilda Sommer",
     role: "Reitlehrerin, 29",
     look: { skin: "#EFCDB0", hair: "#6E3B3F", hairStyle: "ponytail", shirt: "#344638", scarf: "#D9803E" },
+    portrait: { base: "/people/tilda", alt: "Tilda Sommer, Reitlehrerin mit rotbraunem Pferdeschwanz und orangefarbenem Halstuch" },
+    fullBody: { base: "/people/tilda-ganz", alt: "Tilda Sommer in grünem Shirt, Reithose und Reitstiefeln, mit Gerte in der Hand" },
   },
   {
     slug: "mats",
     name: "Mats Keller",
     role: "Stallhelfer, 14",
     look: { skin: "#EFCDB0", hair: "#C9A15E", hairStyle: "spiky", shirt: "#2C2A24", headphones: "#D9803E" },
+    portrait: { base: "/people/mats", alt: "Mats Keller, Stallhelfer mit blonden Strubbelhaaren und orangefarbenen Kopfhörern um den Hals" },
+    fullBody: { base: "/people/mats-ganz", alt: "Mats Keller in dunklem T-Shirt, Jeans und Gummistiefeln, mit einem Heunetz über der Schulter" },
   },
   {
     slug: "voss",

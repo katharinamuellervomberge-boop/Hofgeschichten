@@ -1,7 +1,41 @@
 import type { Person } from "@/content/people";
 
-/** Rundes Porträt einer Fallfigur – gleiche Bildsprache wie die Kinderporträts. */
-export function PersonPortrait({ person, className }: { person: Person; className?: string }) {
+/**
+ * Porträt einer erwachsenen Figur. Nutzt das gemalte Porträt aus /public/people,
+ * sonst die einfache SVG-Zeichnung als Rückfall (wie KidPortrait).
+ */
+export function PersonPortrait({
+  person,
+  className,
+  sizes = "110px",
+}: {
+  person: Person;
+  className?: string;
+  sizes?: string;
+}) {
+  if (person.portrait) {
+    const { base, alt } = person.portrait;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- statische WebP-Dateien mit srcset, kein Bildserver nötig
+      <img
+        src={`${base}-320.webp`}
+        srcSet={`${base}-160.webp 160w, ${base}-320.webp 320w, ${base}-640.webp 640w`}
+        sizes={sizes}
+        width={320}
+        height={320}
+        alt={alt}
+        className={className}
+        style={{ aspectRatio: "1", objectFit: "cover", background: "#FBF7EE" }}
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+    );
+  }
+  return <PersonSvg person={person} className={className} />;
+}
+
+function PersonSvg({ person, className }: { person: Person; className?: string }) {
   const { skin, hair, hairStyle, shirt, hat, glasses, pencil, mustache, scarf, headphones } = person.look;
   const line = "#2C2A24";
   return (
