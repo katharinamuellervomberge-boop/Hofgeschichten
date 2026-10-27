@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Andika, Fraunces } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import { site } from "@/content/site";
+import { Analytics } from "@vercel/analytics/next";
 import "@/styles/globals.css";
 
 /* Schriften werden beim Build selbst gehostet – keine Anfragen an Google aus dem Browser. */
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="de" className={`${fraunces.variable} ${andika.variable}`}>
       <body>
         <AppShell>{children}</AppShell>
+        <Analytics />
       </body>
     </html>
   );
