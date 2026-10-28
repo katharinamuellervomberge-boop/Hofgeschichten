@@ -4,7 +4,8 @@ import { getAcademyGameInfo, worlds } from "./index";
 import type { AcademyGameInfo, AcademyWorldInfo, LessonInfo } from "./types";
 
 /**
- * Die Reitakademie in sechs Modulen (seit 28.10.2026).
+ * Die Reitakademie in Modulen (seit 28.10.2026, ausgebaut am 29.10.2026 auf neun Module
+ * mit Dressur und Springen).
  *
  * Die Module liegen als Ordnung ÜBER den bestehenden Lernwelten und Lektionen.
  * Lektions-IDs (ra-w<n>-l<m>), Adressen (/akademie/<welt>/<lektion>), Abzeichen
@@ -51,17 +52,17 @@ export const academyModules: AcademyModule[] = [
     title: "Pferde verstehen",
     teaser: {
       kids: "Wie Pferde denken, fühlen und mit uns sprechen.",
-      grown: "Verhalten, Bedürfnisse und Kommunikation des Fluchttiers Pferd.",
+      grown: "Körpersprache, Herde, Sinne, Bedürfnisse und Verhalten des Fluchttiers Pferd.",
     },
     tint: "#E3E7DA",
     cover: scene("ak-zonen"),
-    trial: "ra-w8-l3",
+    trial: "ra-w9-l1",
     topics: [
-      { title: "Körpersprache", lessons: [] },
-      { title: "Verhalten", lessons: ["ra-w8-l3", "ra-w8-l4"] },
-      { title: "Bedürfnisse", lessons: ["ra-w8-l2"] },
-      { title: "Herdenleben", lessons: [] },
-      { title: "Kommunikation", lessons: ["ra-w8-l1"] },
+      { title: "Körpersprache", lessons: ["ra-w9-l1"] },
+      { title: "Herdenleben", lessons: ["ra-w9-l2"] },
+      { title: "Sinne und Kommunikation", lessons: ["ra-w9-l3", "ra-w8-l1"] },
+      { title: "Bedürfnisse", lessons: ["ra-w9-l4", "ra-w8-l2"] },
+      { title: "Verhalten beim Reiten", lessons: ["ra-w8-l3", "ra-w8-l4"] },
     ],
   },
   {
@@ -70,19 +71,19 @@ export const academyModules: AcademyModule[] = [
     slug: "umgang-mit-pferden",
     title: "Umgang mit Pferden",
     teaser: {
-      kids: "Sicher am Pferd: Helm, Sattel, Trense und mehr.",
-      grown: "Sicherheit am Boden, Ausrüstung und der Weg zum gesattelten Pferd.",
+      kids: "Putzen, Hufe, Führen, Satteln – sicher am Pferd.",
+      grown: "Sicherheit am Boden, Pflege, Führen und Anbinden, Satteln, Trensen und Versorgen.",
     },
     tint: "#EDE3CF",
     cover: scene("ak-sattelzeug"),
     trial: "ra-w1-l1",
     topics: [
       { title: "Sicherheit", lessons: ["ra-w1-l1", "ra-w1-l2"] },
-      { title: "Pferdepflege", lessons: [] },
-      { title: "Putzen", lessons: [] },
-      { title: "Hufe auskratzen", lessons: [] },
-      { title: "Führen", lessons: [] },
-      { title: "Satteln und Trensen", lessons: ["ra-w1-l3"] },
+      { title: "Putzen und Pflege", lessons: ["ra-w10-l1"] },
+      { title: "Hufe auskratzen", lessons: ["ra-w10-l2"] },
+      { title: "Führen und Anbinden", lessons: ["ra-w10-l3"] },
+      { title: "Satteln und Trensen", lessons: ["ra-w1-l3", "ra-w10-l4"] },
+      { title: "Nach dem Reiten", lessons: ["ra-w10-l5"] },
     ],
   },
   {
@@ -131,26 +132,87 @@ export const academyModules: AcademyModule[] = [
   {
     id: "m5",
     number: 5,
-    slug: "besser-reiten",
-    title: "Besser reiten",
+    slug: "bahnfiguren-und-bahnregeln",
+    title: "Bahnfiguren und Bahnregeln",
     teaser: {
-      kids: "Reiten in der Bahn: Zirkel, Volte und Handwechsel.",
-      grown: "Bahn- und Hufschlagfiguren, Takt und typische Anfängerfehler.",
+      kids: "Zirkel, Volte, Schlangenlinie – und die Regeln in der Reitbahn.",
+      grown: "Alle Hufschlag- und Bahnfiguren, Handwechsel, Bahnregeln und Abteilungsreiten.",
     },
-    tint: "#E6E0D2",
-    cover: scene("ak-bahn-zirkel"),
+    tint: "#E1E6DA",
+    cover: scene("ak-bahn-schlange-4"),
     trial: "ra-w7-l1",
     topics: [
-      { title: "Bahnfiguren", lessons: ["ra-w7-l1", "ra-w7-l3"] },
-      { title: "Hufschlagfiguren", lessons: ["ra-w7-l2", "ra-w7-l4"] },
-      { title: "Takt und Rhythmus", lessons: [] },
-      { title: "Häufige Anfängerfehler", lessons: [] },
-      { title: "Sicherer im Sattel werden", lessons: [] },
+      { title: "Die Reitbahn und Ecken", lessons: ["ra-w7-l1", "ra-w11-l1"] },
+      { title: "Handwechsel", lessons: ["ra-w7-l2", "ra-w11-l2"] },
+      { title: "Zirkel und Volten", lessons: ["ra-w7-l3", "ra-w11-l3", "ra-w11-l4"] },
+      { title: "Schlangenlinien", lessons: ["ra-w11-l5"] },
+      { title: "Bahnregeln", lessons: ["ra-w7-l4", "ra-w11-l6"] },
+      { title: "Abteilungsreiten", lessons: ["ra-w11-l7"] },
     ],
   },
   {
     id: "m6",
     number: 6,
+    slug: "besser-reiten",
+    title: "Besser reiten",
+    teaser: {
+      kids: "Im Takt, locker und sicher im Sattel.",
+      grown: "Takt und Rhythmus, Losgelassenheit, typische Fehler und mehr Sicherheit.",
+    },
+    tint: "#E6E0D2",
+    cover: scene("ak-reiter-sitz-linie"),
+    trial: "ra-w12-l3",
+    topics: [
+      { title: "Takt und Rhythmus", lessons: ["ra-w12-l1"] },
+      { title: "Losgelassenheit", lessons: ["ra-w12-l2"] },
+      { title: "Häufige Anfängerfehler", lessons: ["ra-w12-l3"] },
+      { title: "Sicherer im Sattel werden", lessons: ["ra-w12-l4"] },
+    ],
+  },
+  {
+    id: "m7",
+    number: 7,
+    slug: "dressur",
+    title: "Dressur",
+    teaser: {
+      kids: "Fein reiten wie die Profis – bis zu Piaffe und Passage.",
+      grown: "Skala der Ausbildung, Seitengänge, Wendungen, Galoppwechsel bis zur Hohen Schule – mit allen Hilfen.",
+    },
+    tint: "#E4E7DC",
+    cover: scene("ak-oben-schulterherein"),
+    trial: "ra-w13-l6",
+    topics: [
+      { title: "Grundlagen der Dressur", lessons: ["ra-w13-l1", "ra-w13-l2", "ra-w13-l3", "ra-w13-l4"] },
+      { title: "Wendungen und Rückwärtsrichten", lessons: ["ra-w13-l5", "ra-w13-l10"] },
+      { title: "Seitengänge", lessons: ["ra-w13-l6", "ra-w13-l7", "ra-w13-l8", "ra-w13-l9"] },
+      { title: "Galoppwechsel", lessons: ["ra-w13-l11"] },
+      { title: "Hohe Lektionen", lessons: ["ra-w13-l12"] },
+    ],
+  },
+  {
+    id: "m8",
+    number: 8,
+    slug: "springen",
+    title: "Springen",
+    teaser: {
+      kids: "Über den Sprung! Was Pferd und Reiter dabei machen.",
+      grown: "Springsitz, Sprungphasen, Hindernisarten, Distanzen, Kombinationen, Parcours und Regeln.",
+    },
+    tint: "#E9E2D0",
+    cover: scene("ak-sprung-flug"),
+    trial: "ra-w14-l2",
+    topics: [
+      { title: "Springsitz", lessons: ["ra-w14-l1"] },
+      { title: "Der Sprung", lessons: ["ra-w14-l2"] },
+      { title: "Hindernisse", lessons: ["ra-w14-l3", "ra-w14-l6"] },
+      { title: "Distanzen und Kombinationen", lessons: ["ra-w14-l4", "ra-w14-l5"] },
+      { title: "Parcours und Regeln", lessons: ["ra-w14-l7", "ra-w14-l8"] },
+      { title: "Sicherheit", lessons: ["ra-w14-l9"] },
+    ],
+  },
+  {
+    id: "m9",
+    number: 9,
     slug: "abschluss",
     title: "Akademie-Abschluss",
     teaser: {

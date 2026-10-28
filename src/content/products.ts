@@ -2,7 +2,7 @@
  * Einzeln kaufbare Pakete (außer Abenteuern, die stehen in adventures/index.ts).
  *
  * Die Reitakademie (früher „Große Reitakademie“) ist seit 28.10.2026 ein eigenes
- * Produkt: 14,90 € einmalig, dauerhafter Zugriff, kein Abo. Sie schaltet alle sechs
+ * Produkt: 14,90 € einmalig, dauerhafter Zugriff, kein Abo. Sie schaltet alle
  * Module frei; je Modul ist eine Probelektion kostenlos (module.ts).
  * Die Mitgliedschaft enthält die Akademie NICHT mehr (Schalter `includedInMembership`).
  *
@@ -31,7 +31,7 @@ export const grosseAkademie = {
   checkoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Kurzbeschreibung für Eltern */
   parentInfo:
-    "Alle sechs Module mit 40 interaktiven Lektionen – Pferde verstehen, Umgang mit Pferden, Reiten lernen, Reiterhilfen, Besser reiten und Akademie-Abschluss – mit Quiz, Übungen, 6 animierten Lernvideos und Teilnahmezertifikat. Drei Lernwege: Kids (6–11), Teen (12–17) und Adult (ab 18). Einmalzahlung, kein Abo.",
+    "Neun Module mit über 80 interaktiven Lektionen – Pferde verstehen, Umgang mit Pferden, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur (bis zu Piaffe und Passage), Springen (Springsitz, Sprungphasen, Hindernisse, Distanzen, Parcours) und Akademie-Abschluss – mit Quiz, Übungen, 6 animierten Lernvideos und Teilnahmezertifikat. Drei Lernwege: Kids (6–11), Teen (12–17) und Adult (ab 18). Einmalzahlung, kein Abo.",
 };
 
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */

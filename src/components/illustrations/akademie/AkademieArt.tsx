@@ -205,17 +205,7 @@ export function GaitScene({ gait, animate = true, numbers = true, title = true, 
 
 /* ---------- Reitbahn 20 × 40 m von oben ---------- */
 
-export type ArenaFigure =
-  | "buchstaben"
-  | "ganze-bahn"
-  | "handwechsel"
-  | "halbe-bahn"
-  | "laenge"
-  | "zirkel"
-  | "volte"
-  | "schlange"
-  | "hufschlag"
-  | "begegnung";
+export type ArenaFigure = (typeof import("./scene-names").ARENA_FIGURES)[number];
 
 /* 1 m = 17 px; Bahn von x 60–740, y 140–480. A links, C rechts. */
 const AX = 60;
@@ -287,7 +277,87 @@ function figurePath(f: ArenaFigure): { d: string; hand?: "links" | "rechts"; fai
       ];
     }
     case "begegnung":
+    case "abteilung":
       return [{ d: trackLeft, faint: true }];
+    case "zirkel-wechseln":
+      // Durch den Zirkel wechseln: S-förmig aus zwei halben Kreisen durch den Zirkelmittelpunkt
+      return [
+        { d: `M${px(10)} ${py(0.6)} A${9.4 * M} ${9.4 * M} 0 1 0 ${px(10) + 1} ${py(0.6)}`, faint: true },
+        { d: `M${px(10)} ${py(0.6)} A${4.7 * M} ${4.7 * M} 0 0 0 ${px(10)} ${py(10)} A${4.7 * M} ${4.7 * M} 0 0 1 ${px(10)} ${py(19.4)}` },
+      ];
+    case "aus-dem-zirkel":
+      // Aus dem Zirkel wechseln: am Punkt X vom einen Zirkel in den anderen
+      return [
+        { d: `M${px(10)} ${py(0.6)} A${9.4 * M} ${9.4 * M} 0 1 0 ${px(10) + 1} ${py(0.6)}`, faint: true },
+        { d: `M${px(30)} ${py(0.6)} A${9.4 * M} ${9.4 * M} 0 1 0 ${px(30) + 1} ${py(0.6)}`, faint: true },
+        { d: `M${px(10)} ${py(0.6)} A${9.4 * M} ${9.4 * M} 0 1 0 ${px(19.4)} ${py(10)} L${px(20.6)} ${py(10)} A${9.4 * M} ${9.4 * M} 0 1 1 ${px(30)} ${py(19.4)}` },
+      ];
+    case "kehrtvolte":
+      // Halbe Volte von der Bande weg, dann schräg zurück auf den Hufschlag – danach auf der anderen Hand
+      return [
+        { d: trackLeft, faint: true },
+        { d: `M${px(34)} ${py(T)} H${px(24)} A${3.5 * M} ${3.5 * M} 0 0 0 ${px(24)} ${py(8)} L${px(31)} ${py(T)} H${px(37)}` },
+      ];
+    case "acht":
+      // Zwei Volten, die sich bei X berühren
+      return [
+        { d: trackLeft, faint: true },
+        { d: `M${px(20)} ${py(10)} A${5 * M} ${5 * M} 0 1 0 ${px(20)} ${py(10.01)} A${5 * M} ${5 * M} 0 1 1 ${px(20)} ${py(10.02)}` },
+      ];
+    case "schlange-4": {
+      const n = 4;
+      const w = (40 - 2) / n;
+      const xs = Array.from({ length: n + 1 }, (_, i) => px(1 + i * w));
+      const yt = py(1);
+      const yb = py(19);
+      const ym = py(10);
+      let d = `M${xs[0]} ${ym}`;
+      for (let i = 0; i < n; i++) {
+        const y = i % 2 ? yb : yt;
+        d += ` Q${xs[i]} ${y} ${(xs[i] + xs[i + 1]) / 2} ${y} Q${xs[i + 1]} ${y} ${xs[i + 1]} ${ym}`;
+      }
+      return [{ d: trackLeft, faint: true }, { d }];
+    }
+    case "schlange-einfach":
+      // Einfache Schlangenlinie an der langen Seite: ein Bogen, am tiefsten Punkt bei E etwa 5 m von der Bande
+      return [
+        { d: trackLeft, faint: true },
+        { d: `M${px(38)} ${py(T)} H${px(34)} C${px(27)} ${py(T)} ${px(27)} ${py(6)} ${px(20)} ${py(6)} C${px(13)} ${py(6)} ${px(13)} ${py(T)} ${px(6)} ${py(T)} H${px(2)}` },
+      ];
+    case "schlange-doppelt":
+      // Doppelte Schlangenlinie: zwei flache Bögen
+      return [
+        { d: trackLeft, faint: true },
+        {
+          d: `M${px(38)} ${py(T)} H${px(34)} C${px(30.5)} ${py(T)} ${px(30.5)} ${py(3.5)} ${px(27)} ${py(3.5)} C${px(23.5)} ${py(3.5)} ${px(23.5)} ${py(T)} ${px(20)} ${py(T)} C${px(16.5)} ${py(T)} ${px(16.5)} ${py(3.5)} ${px(13)} ${py(3.5)} C${px(9.5)} ${py(3.5)} ${px(9.5)} ${py(T)} ${px(6)} ${py(T)} H${px(2)}`,
+        },
+      ];
+    case "zirkel-verkleinern": {
+      // Spirale nach innen: der Zirkel wird Runde für Runde kleiner
+      let d = "";
+      const steps = 120;
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const ang = -Math.PI / 2 - t * Math.PI * 4;
+        const r = 9.4 - t * 5;
+        const x = px(10 + Math.cos(ang) * r);
+        const y = py(10 + Math.sin(ang) * r);
+        d += `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+      }
+      return [{ d: `M${px(10)} ${py(0.6)} A${9.4 * M} ${9.4 * M} 0 1 0 ${px(10) + 1} ${py(0.6)}`, faint: true }, { d }];
+    }
+    case "ecken":
+      // Ecken als Viertelvolte (hervorgehoben) auf der ganzen Bahn
+      return [
+        { d: trackLeft, faint: true },
+        { d: `M${px(10)} ${py(T)} H${px(T + 4)} Q${px(T)} ${py(T)} ${px(T)} ${py(T + 4)} V${py(9)}` },
+      ];
+    case "mittellinie":
+      // Auf der Mittellinie von A nach C, dann abwenden
+      return [
+        { d: trackLeft, faint: true },
+        { d: `M${px(T)} ${py(6)} Q${px(T)} ${py(10)} ${px(4)} ${py(10)} H${px(36)} Q${px(40 - T)} ${py(10)} ${px(40 - T)} ${py(6)}` },
+      ];
     case "buchstaben":
       return [];
   }
@@ -357,6 +427,19 @@ export function ArenaScene({ figure, className }: { figure: ArenaFigure; classNa
           markerEnd={`url(#${p.faint ? `${id}-f` : id})`}
         />
       ))}
+      {figure === "abteilung" && (
+        <>
+          {[32, 24, 16, 8].map((m, i) => (
+            <RiderDot key={m} x={px(m)} y={py(T)} dir={180} color={i === 0 ? C.rust : C.forest} />
+          ))}
+          <Label x={px(30)} y={py(T) + 70} size={22} color={C.rust}>
+            Tete
+          </Label>
+          <Label x={px(14)} y={py(T) + 70} size={22} color={C.forest}>
+            Abstand: eine Pferdelänge
+          </Label>
+        </>
+      )}
       {figure === "begegnung" && (
         <>
           <RiderDot x={px(24)} y={py(T)} dir={180} color={C.forest} />

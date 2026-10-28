@@ -63,8 +63,8 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
           </h1>
           <p className={styles.heroText}>
             {isGrown
-              ? "Sechs Module vom ersten Kontakt mit dem Pferd bis zu Bahnfiguren und Hilfen – mit Erklärungen, Lernvideos, Übungen und Quiz."
-              : "Sechs Module rund ums Pferd: verstehen, pflegen, reiten. Mit Bildern, Spielen und Quiz."}
+              ? `${academyModules.length} Module vom ersten Kontakt mit dem Pferd über Bahnfiguren und Hilfen bis zu Dressur und Springen – mit Erklärungen, Lernvideos, Übungen und Quiz.`
+              : `${academyModules.length} Module rund ums Pferd: verstehen, pflegen, reiten – bis zu Dressur und Springen. Mit Bildern, Spielen und Quiz.`}
           </p>
           {done > 0 && (
             <div className={styles.progress}>
@@ -105,7 +105,7 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
         <section aria-labelledby="ak-modules">
           <div className={styles.sectionHead}>
             <h2 id="ak-modules" className={styles.sectionTitle}>
-              Die sechs Module
+              Die {academyModules.length} Module
             </h2>
             {!unlocked && <span className={styles.sectionMeta}>Je Modul eine Probelektion gratis</span>}
           </div>
@@ -218,7 +218,7 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         <ul className={styles.checks}>
           <li>
             <Icon name="check" />
-            Alle 6 Module mit 40 interaktiven Lektionen
+            Alle {academyModules.length} Module mit {allLessons().length} interaktiven Lektionen – von den Grundlagen bis zu Dressur und Springen
           </li>
           <li>
             <Icon name="check" />

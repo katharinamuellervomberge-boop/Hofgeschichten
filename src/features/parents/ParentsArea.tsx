@@ -127,7 +127,7 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
             ))}
             <li>
               <strong>Die Reitakademie</strong>
-              <p>Reitwissen in sechs Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Besser reiten, Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie 14,90 € einmalig. Details weiter unten.</p>
+              <p>Reitwissen in neun Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur, Springen und Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie 14,90 € einmalig. Details weiter unten.</p>
             </li>
           </ul>
         </section>

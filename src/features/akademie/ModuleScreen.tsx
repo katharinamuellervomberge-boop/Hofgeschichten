@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getModule, moduleLessons, type ModuleLesson } from "@/content/akademie/module";
+import { academyModules, getModule, moduleLessons, type ModuleLesson } from "@/content/akademie/module";
 import { getAcademyGameInfo } from "@/content/akademie";
 import { useProgress } from "@/lib/progress/store";
 import { AcademyBuyBox } from "./AcademyHome";
@@ -26,7 +26,7 @@ export function ModuleScreen({ slug, unlocked }: { slug: string; unlocked: boole
       <PageHeader title={m.title} backHref="/akademie" backLabel="Zurück zur Reitakademie" />
       <div className={styles.page}>
         <section className={styles.moduleHead} style={{ background: m.tint }}>
-          <p className={styles.eyebrow}>Modul {m.number} von 6</p>
+          <p className={styles.eyebrow}>Modul {m.number} von {academyModules.length}</p>
           <p className={styles.moduleHeadTitle}>{grown ? m.teaser.grown : m.teaser.kids}</p>
           <p className={styles.small}>
             {done} von {lessons.length} Lektionen geschafft

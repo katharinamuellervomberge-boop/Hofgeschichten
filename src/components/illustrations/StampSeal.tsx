@@ -134,6 +134,20 @@ const motifs: Record<StampInfo["motif"], ReactNode> = {
       <path d="M56 50h12" strokeLinecap="round" />
     </g>
   ),
+  dressage: (
+    <g fill="none" strokeWidth="4" strokeLinecap="round">
+      <path d="M28 66 72 34" strokeDasharray="2 7" />
+      <path d="M28 56 62 32" />
+      <path d="M38 68 72 44" />
+    </g>
+  ),
+  jump: (
+    <g>
+      <path d="M26 66V46M74 66V46" fill="none" strokeWidth="4.5" strokeLinecap="round" />
+      <path d="M26 52h48" fill="none" strokeWidth="5" strokeLinecap="round" />
+      <path d="M22 44c10-22 46-22 56 0" fill="none" strokeWidth="4" strokeLinecap="round" strokeDasharray="3 6" />
+    </g>
+  ),
   heart: <path d="M50 70S30 58 30 44c0-6 4-11 10-11 5 0 8 3 10 6 2-3 5-6 10-6 6 0 10 5 10 11 0 14-20 26-20 26Z" fill="currentColor" />,
   rosette: (
     <g>

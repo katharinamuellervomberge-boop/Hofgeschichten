@@ -6,7 +6,38 @@ import type { RiderMark, RiderPose } from "./geometry";
  */
 
 export const GAIT_NAMES = ["schritt", "trab", "galopp-rechts", "galopp-links"] as const;
-export const ARENA_FIGURES = ["buchstaben", "ganze-bahn", "handwechsel", "halbe-bahn", "laenge", "zirkel", "volte", "schlange", "hufschlag", "begegnung"] as const;
+export const ARENA_FIGURES = [
+  "buchstaben",
+  "ganze-bahn",
+  "handwechsel",
+  "halbe-bahn",
+  "laenge",
+  "zirkel",
+  "volte",
+  "schlange",
+  "hufschlag",
+  "begegnung",
+  /* Ausbau 29.10.2026 */
+  "zirkel-wechseln",
+  "aus-dem-zirkel",
+  "kehrtvolte",
+  "acht",
+  "schlange-4",
+  "schlange-einfach",
+  "schlange-doppelt",
+  "zirkel-verkleinern",
+  "abteilung",
+  "ecken",
+  "mittellinie",
+] as const;
+
+/* Ausbau 29.10.2026: Springen, Seitengänge (AusbauArt.tsx) */
+export const JUMP_PHASES = ["anreiten", "absprung", "flug", "landung", "weiter"] as const;
+export type JumpPhase = (typeof JUMP_PHASES)[number];
+export const OBSTACLES = ["steil", "oxer", "triplebarre", "mauer", "wasser", "kreuz", "cavaletti"] as const;
+export type ObstacleKind = (typeof OBSTACLES)[number];
+export const LATERAL_MOVES = ["gerade", "schenkelweichen", "schulterherein", "travers", "renvers", "traversale", "vorhandwendung", "hinterhandwendung", "rueckwaerts", "pirouette"] as const;
+export type LateralMove = (typeof LATERAL_MOVES)[number];
 export const HELMET_FITS = ["aufbau", "richtig", "offen", "schief", "muetze"] as const;
 export const HAND_STYLES = ["richtig", "verdeckt", "breit"] as const;
 
@@ -65,4 +96,10 @@ export const SCENE_NAMES: string[] = [
   ...GAIT_NAMES.map((g) => `ak-takt-${g}`),
   ...ARENA_FIGURES.map((f) => `ak-bahn-${f}`),
   ...Object.keys(RIDER_SCENES),
+  ...JUMP_PHASES.map((p) => `ak-sprung-${p}`),
+  ...OBSTACLES.map((o) => `ak-hindernis-${o}`),
+  ...LATERAL_MOVES.map((m) => `ak-oben-${m}`),
+  "ak-kombination",
+  "ak-distanz",
+  "ak-viereck-2060",
 ];

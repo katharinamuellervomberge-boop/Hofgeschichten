@@ -7,7 +7,7 @@ import type { AcademyGameInfo, AcademyTier, AcademyWorldInfo, LessonInfo } from 
 /**
  * Die Reitakademie – Übersicht für den Browser.
  *
- *  Seit 28.10.2026 ist die Akademie in sechs Module gegliedert (module.ts).
+ *  Seit 28.10.2026 ist die Akademie in Module gegliedert (module.ts), seit 29.10.2026 mit Dressur und Springen.
  *  Je Modul ist die erste Lektion kostenlos, alles andere gehört zur
  *  Reitakademie (14,90 € einmalig, products.ts).
  *

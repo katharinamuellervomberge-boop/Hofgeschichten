@@ -6,7 +6,7 @@ import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getWorld, worlds } from "@/content/akademie";
-import { academyOrder, moduleHref, moduleOfLesson } from "@/content/akademie/module";
+import { academyOrder, moduleHref, moduleOfLesson, pathInfo } from "@/content/akademie/module";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import type { AcademyLesson } from "@/content/akademie/types";
@@ -39,7 +39,8 @@ export function LessonScreen({
 }) {
   const world = getWorld(worldSlug);
   const progress = useProgress();
-  const level = progress.settings.level ?? "leicht";
+  const path = pathInfo(progress.settings.academyPath);
+  const level = path?.level ?? progress.settings.level ?? "leicht";
 
   const activity: Activity = useMemo(
     () => ({
@@ -84,6 +85,9 @@ export function LessonScreen({
         <ActivityPlayer
           activity={activity}
           tint={world.tint}
+          // Mit gewähltem Lernweg gilt dessen Textstufe; die Leicht/Mittel-Wahl entfällt in der Akademie
+          fixedLevel={path?.level}
+          ageNote={path ? `${path.title} · ${path.ages}` : undefined}
           introArt={<VisualView v={lesson.illustration} />}
           onComplete={() => progressActions.completeGame(lesson.id)}
           renderDone={({ replay }) => <LessonDone worldId={world.id} lessonId={lesson.id} merksatz={pick(lesson.merksatz, level)} next={next} replay={replay} />}
@@ -129,7 +133,7 @@ function LessonDone({
       <h2 className={styles.doneTitle}>{profi ? "Reitwissen-Profi!" : "Geschafft!"}</h2>
       <p className={styles.doneText}>
         {profi
-          ? "Du hast alle 40 Lektionen der Reitakademie geschafft. Die Auszeichnung „Hofgeschichten – Reitwissen-Profi“ ist in deinem Pass."
+          ? "Du hast alle 40 Lektionen des Grundkurses geschafft. Die Auszeichnung „Hofgeschichten – Reitwissen-Profi“ ist in deinem Pass."
           : badge
             ? `Eine ganze Lernreihe geschafft! Das Abzeichen „${worldStamp.title}“ ist in deinem Pass.`
             : "Lektion geschafft. Weiter so!"}

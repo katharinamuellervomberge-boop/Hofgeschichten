@@ -68,7 +68,7 @@ export function HomeScreen() {
               Die Reitakademie
             </span>
             <span className={styles.academyText}>
-              Sechs Module vom Pferdeverstehen bis zu Reiterhilfen und Bahnfiguren – mit Lernvideos, Übungen und Quiz.
+              Vom Pferdeverstehen über Bahnfiguren und Hilfen bis zu Dressur und Springen – mit Lernvideos, Übungen und Quiz.
             </span>
             <ul className={styles.paths} aria-label="Lernwege">
               {ACADEMY_PATHS.map((p) => (

@@ -52,3 +52,16 @@ Lektions-IDs, Freischaltungen und URLs bleiben erhalten und werden neu angeordne
   Große Akademie → Bestandsmitglieder informieren (juristisch prüfen).
 - App-Store-Veröffentlichung: Apple/Google verlangen für digitale Inhalte in Apps grundsätzlich In-App-Käufe;
   der Shop-Code-Weg muss vor Dezember geprüft werden.
+
+## Ausbau der Reitakademie (29.10.2026)
+- 41 neue Lektionen in sechs neuen Lernwelten (alle `review: entwurf`, fachliche Abnahme ausstehend):
+  w9 Pferde verstehen (4) · w10 Pflege und Umgang (5) · w11 Alle Bahnfiguren (7) · w12 Besser reiten (4) ·
+  w13 Dressur (12) · w14 Springen (9). Insgesamt jetzt 81 Lektionen.
+- Neun Module: Pferde verstehen · Umgang · Reiten lernen · Reiterhilfen · Bahnfiguren und Bahnregeln · Besser reiten ·
+  Dressur · Springen · Abschluss. Je Modul eine Probelektion (Dressur: Schenkelweichen, Springen: Sprungphasen).
+- Neue Bilder (`src/components/illustrations/akademie/AusbauArt.tsx`): Sprungphasen mit Pferd und Reiterin,
+  Hindernisarten, Kombination und Distanz, Seitengänge und Wendungen von oben (mit Hufspuren), Dressurviereck 20 × 60,
+  dazu neue Bahnfiguren (Zirkel wechseln, Kehrtvolte, Acht, Schlangenlinien, Abteilung, Ecken …).
+- Auszeichnung „Reitwissen-Profi“ und Zertifikat bleiben an den Grundkurs (Welten 1–8) gebunden, damit niemand eine
+  schon verdiente Auszeichnung verliert. Neue Welten haben eigene Abzeichen.
+- In Lektionen gilt jetzt die Textstufe des gewählten Lernwegs (keine Leicht/Mittel-Wahl mehr in der Akademie).

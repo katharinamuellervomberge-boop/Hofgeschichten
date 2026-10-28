@@ -1,5 +1,5 @@
 import type { StampInfo } from "../types";
-import { allLessons, lessonIds, worlds } from "./index";
+import { lessonIds, worlds } from "./index";
 
 export const PROFI_STAMP_ID = "ra-reitwissen-profi";
 
@@ -17,9 +17,10 @@ export function academyStamps(): StampInfo[] {
     {
       id: PROFI_STAMP_ID,
       title: "Reitwissen-Profi",
-      how: "Schließe alle 40 Lektionen der Reitakademie ab.",
+      how: "Schließe alle 40 Lektionen des Grundkurses (Lernwelten 1–8) ab.",
       motif: "rosette" as const,
-      rule: { type: "activities" as const, ids: allLessons().map((l) => l.id) },
+      // Bewusst nur der Grundkurs (Welten 1–8): so behalten alle, die die Auszeichnung schon haben, sie auch nach dem Ausbau
+      rule: { type: "activities" as const, ids: worlds.filter((w) => w.number <= 8).flatMap((w) => w.lessons.map((l) => l.id)) },
       academy: true,
     },
   ];

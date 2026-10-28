@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { StampSeal } from "@/components/illustrations/StampSeal";
-import { ACADEMY_TITLE, academyGames, allLessons, PROFI_TITLE } from "@/content/akademie";
+import { ACADEMY_TITLE, academyGames, allLessons, PROFI_TITLE, worlds } from "@/content/akademie";
 import { academyModules, moduleLessons, pathInfo } from "@/content/akademie/module";
 import { grosseAkademie } from "@/content/products";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
@@ -21,7 +21,7 @@ export function AcademyParents() {
   const progress = useProgress();
   const earned = earnedStamps(progress);
   const profi = earned.has(PROFI_STAMP_ID);
-  const doneLessons = allLessons().filter((l) => lessonDone(progress, l)).length;
+  const doneBasic = worlds.filter((w) => w.number <= 8).flatMap((w) => w.lessons).filter((l) => lessonDone(progress, l)).length;
   const path = pathInfo(progress.settings.academyPath);
   const [name, setName] = useState("");
   const [today, setToday] = useState("");
@@ -50,7 +50,8 @@ export function AcademyParents() {
       <section className={parents.card} aria-labelledby="p-akademie">
         <h2 id="p-akademie">{ACADEMY_TITLE}</h2>
         <p>
-          Sechs Module mit 40 Lektionen, {grosseAkademie.price ?? "14,90 €"} einmalig (kein Abo). Die erste Lektion jedes
+          {academyModules.length} Module mit {allLessons().length} Lektionen – Grundlagen, Bahnfiguren, Dressur und Springen –{" "}
+          {grosseAkademie.price ?? "14,90 €"} einmalig (kein Abo). Die erste Lektion jedes
           Moduls ist kostenlos. Jede Lektion hat einen Einstieg, eine Erklärung mit Bild, eine Übung, mindestens drei
           Quizfragen mit Rückmeldung und einen Merksatz. Lernwege: Kids (6–11) mit einfacher Sprache, Teen (12–17) und
           Adult (ab 18) mit ausführlicheren Fachtexten.
@@ -96,7 +97,7 @@ export function AcademyParents() {
         <h2 id="p-urkunde">Teilnahmezertifikat „Reitwissen-Profi“</h2>
         {profi ? (
           <div className={styles.certForm}>
-            <p>Alle 40 Lektionen sind geschafft. Sie können das Zertifikat mit einem frei gewählten Namen drucken.</p>
+            <p>Alle 40 Lektionen des Grundkurses sind geschafft. Sie können das Zertifikat mit einem frei gewählten Namen drucken.</p>
             <label>
               <span className="eyebrow">Name auf der Urkunde</span>
               <input
@@ -117,7 +118,8 @@ export function AcademyParents() {
           </div>
         ) : (
           <p>
-            Das Zertifikat wird freigeschaltet, sobald alle 40 Lektionen abgeschlossen sind ({doneLessons} von 40 geschafft).
+            Das Zertifikat wird freigeschaltet, sobald alle 40 Lektionen des Grundkurses (Lernwelten 1–8) abgeschlossen sind ({doneBasic} von
+            40 geschafft). Für Dressur, Springen und die weiteren Module gibt es eigene Abzeichen im Pass.
           </p>
         )}
         <p className={styles.practice} style={{ textAlign: "left" }}>
@@ -133,7 +135,7 @@ export function AcademyParents() {
             <p className={cert.title}>{PROFI_TITLE}</p>
             <p className={cert.for}>für</p>
             <p className={cert.name}>{name.trim() || " "}</p>
-            <p className={cert.text}>hat alle sechs Module der Reitakademie mit 40 Lektionen und den Wissenstests erfolgreich abgeschlossen.</p>
+            <p className={cert.text}>hat den Grundkurs der Reitakademie mit 40 Lektionen und den Wissenstests erfolgreich abgeschlossen.</p>
             <div className={cert.seals}>
               {badges.map((s, i) => (
                 <div key={s.id} className={cert.sealItem}>

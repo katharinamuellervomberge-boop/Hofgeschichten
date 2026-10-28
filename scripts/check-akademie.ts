@@ -124,11 +124,12 @@ const lessonIds = new Set<string>();
 let lessonCount = 0;
 let questionCount = 0;
 
-if (worlds.length !== 8) err("Akademie", `${worlds.length} Lernwelten (erwartet 8)`);
+if (worlds.length < 8) err("Akademie", `${worlds.length} Lernwelten (erwartet mindestens 8)`);
 
 worlds.forEach((world, wi) => {
   if (world.id !== `w${wi + 1}`) err(world.id, `Welt-ID sollte w${wi + 1} sein`);
-  if (world.lessons.length !== 5) err(world.id, `${world.lessons.length} Lektionen (erwartet 5)`);
+  // Welten 1–8: je 5 Lektionen (Grundkurs); Ausbau-Welten ab 9: 4 bis 12 Lektionen
+  if (wi < 8 ? world.lessons.length !== 5 : world.lessons.length < 4 || world.lessons.length > 12) err(world.id, `${world.lessons.length} Lektionen`);
   checkVisual(world.id, world.cover);
   const slugs = new Set<string>();
   world.lessons.forEach((l, li) => {
@@ -159,7 +160,7 @@ worlds.forEach((world, wi) => {
   });
 });
 
-if (lessonCount !== 40) err("Akademie", `${lessonCount} Lektionen (erwartet 40)`);
+if (lessonCount < 40) err("Akademie", `${lessonCount} Lektionen (erwartet mindestens 40)`);
 
 if (academyGames.length < 4) err("Spiele", `${academyGames.length} Spiele (erwartet mind. 4)`);
 for (const g of academyGames) checkActivity(`Spiel ${g.id}`, g.activity);
@@ -178,7 +179,7 @@ if (freeWorlds.length !== 3) err("Akademie", `${freeWorlds.length} Lernwelten 1�
     if (!m.topics.some((t) => t.lessons.includes(m.trial))) err("Module", `${m.id}: Probelektion ${m.trial} gehört nicht zum Modul`);
   }
   for (const w of worlds) for (const l of w.lessons) if (!seen.has(l.id)) err("Module", `Lektion ${l.id} ist keinem Modul zugeordnet`);
-  if (academyModules.length !== 6) err("Module", `${academyModules.length} Module (erwartet 6)`);
+  if (academyModules.length < 6) err("Module", `${academyModules.length} Module (erwartet mindestens 6)`);
 }
 if (readFileSync(CATALOG_PATH, "utf8") !== buildCatalogSource())
   err("Katalog", `${CATALOG_PATH} passt nicht mehr zu den Inhalten – bitte \`npm run akademie:katalog\` ausführen`);

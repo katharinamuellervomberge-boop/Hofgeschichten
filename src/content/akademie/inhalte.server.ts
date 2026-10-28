@@ -10,6 +10,12 @@ import { welt5 } from "./welten/w5-trab.server";
 import { welt6 } from "./welten/w6-galopp.server";
 import { welt7 } from "./welten/w7-reitbahn.server";
 import { welt8 } from "./welten/w8-fair.server";
+import { welt9 } from "./welten/w9-pferde-verstehen.server";
+import { welt10 } from "./welten/w10-pflege-umgang.server";
+import { welt11 } from "./welten/w11-bahnfiguren.server";
+import { welt12 } from "./welten/w12-besser-reiten.server";
+import { welt13 } from "./welten/w13-dressur.server";
+import { welt14 } from "./welten/w14-springen.server";
 
 /**
  * Alle Inhalte der Reitakademie – NUR auf dem Server.
@@ -18,7 +24,7 @@ import { welt8 } from "./welten/w8-fair.server";
  */
 
 export const freeWorlds: AcademyWorld[] = [welt1, welt2, welt3];
-export const grossWorlds: AcademyWorld[] = [welt4, welt5, welt6, welt7, welt8];
+export const grossWorlds: AcademyWorld[] = [welt4, welt5, welt6, welt7, welt8, welt9, welt10, welt11, welt12, welt13, welt14];
 export const fullWorlds: AcademyWorld[] = [...freeWorlds, ...grossWorlds];
 
 export const allAcademyGames: AcademyGame[] = [...freeAcademyGames, ...grossAcademyGames];

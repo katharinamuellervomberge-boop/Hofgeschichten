@@ -156,7 +156,10 @@ export type StampMotif =
   | "canter"
   | "arena"
   | "heart"
-  | "rosette";
+  | "rosette"
+  /* Ausbau Reitakademie: Dressur, Springen */
+  | "dressage"
+  | "jump";
 
 export type StampRule =
   | { type: "activity"; id: string }
