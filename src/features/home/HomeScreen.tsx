@@ -11,6 +11,8 @@ import { VisualView } from "@/engine/VisualView";
 import { ContinueCard } from "./ContinueCard";
 import styles from "./HomeScreen.module.css";
 
+const SHORT_PATH = { kids: "Kids · 6–11", teen: "Teens · 12–17", adult: "Erwachsene · 18+" } as const;
+
 /* Position der Pferde in der Landschaft (Prozent der Bühne) */
 const STAGE = [
   { left: "2%", bottom: "13%", width: "38%", flip: false, z: 3 },
@@ -70,9 +72,7 @@ export function HomeScreen() {
             </span>
             <ul className={styles.paths} aria-label="Lernwege">
               {ACADEMY_PATHS.map((p) => (
-                <li key={p.id}>
-                  {p.title.replace(" Academy", "")} · {p.ages.replace(" Jahre", "").replace("ab 18 Jahren", "18+")}
-                </li>
+                <li key={p.id}>{SHORT_PATH[p.id]}</li>
               ))}
             </ul>
             <span className={styles.academyCta}>
@@ -124,7 +124,7 @@ export function HomeScreen() {
         </aside>
       </div>
 
-      <footer style={{ marginTop: "var(--space-6)" }}>
+      <footer style={{ marginTop: "var(--space-6)", paddingInline: "var(--gutter)" }}>
         <LegalLinks />
       </footer>
     </div>

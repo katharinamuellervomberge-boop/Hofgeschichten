@@ -95,7 +95,6 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
           </div>
         </section>
 
-        {!unlocked && <AcademyBuyBox path={path} />}
         {unlocked && (
           <p className={styles.owned}>
             <Icon name="check" />
@@ -118,6 +117,8 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
             ))}
           </ul>
         </section>
+
+        {!unlocked && <AcademyBuyBox path={path} />}
 
         <section aria-labelledby="ak-videos">
           <div className={styles.sectionHead}>

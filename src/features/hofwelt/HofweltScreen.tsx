@@ -12,7 +12,6 @@ import { hofpost, membership, releases, yearPlan } from "@/content/membership";
 import { people } from "@/content/people";
 import { site } from "@/content/site";
 import type { AdventureMeta } from "@/content/types";
-import hofjahr from "@/features/hofjahr/hofjahr.module.css";
 import styles from "./hofwelt.module.css";
 
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
@@ -151,7 +150,7 @@ export function HofweltScreen({ weekStates, member, owned, adventures, now }: Pr
           </Link>
         </div>
         <p className={styles.sub}>Geschichten, große Hofspiele und Pferdewissen für Mitglieder.</p>
-        <ul className={hofjahr.weeks}>
+        <ul className={styles.weekScroll}>
           {upcoming.map((r) => (
             <li key={r.slug}>
               <WeekCard release={r} state={weekStates[r.slug] ?? "locked"} />
