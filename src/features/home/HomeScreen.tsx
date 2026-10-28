@@ -1,32 +1,15 @@
 import Link from "next/link";
 import { FarmBackdrop } from "@/components/illustrations/FarmBackdrop";
 import { Horse } from "@/components/illustrations/Horse";
-import { Icon, type IconName } from "@/components/illustrations/Icons";
-import { KidPortrait } from "@/components/illustrations/KidPortrait";
-import { SpeakButton } from "@/components/ui/SpeakButton";
-import { characters } from "@/content/characters";
-import { horses } from "@/content/horses";
-import { site } from "@/content/site";
-import { LevelSwitch } from "@/components/ui/LevelSwitch";
-import { publishedAdventures } from "@/content/adventures";
-import { AdventureCover } from "@/features/adventure/AdventureCover";
-import { UI_SPEECH } from "@/content/ui-speech";
+import { Icon } from "@/components/illustrations/Icons";
 import { LegalLinks } from "@/components/layout/LegalPage";
+import { ACADEMY_PATHS } from "@/content/akademie/module";
+import { horses } from "@/content/horses";
+import { membership } from "@/content/membership";
+import { grosseAkademie } from "@/content/products";
+import { VisualView } from "@/engine/VisualView";
+import { ContinueCard } from "./ContinueCard";
 import styles from "./HomeScreen.module.css";
-
-const featured = publishedAdventures[0];
-
-type Tile = { href: string; label: string; spoken: string; icon: IconName; tone: string; sub?: string; hidden?: boolean };
-
-const ALL_TILES: Tile[] = [
-  { href: "/hoeren", label: "Hörspiele", spoken: UI_SPEECH.tileListen, icon: "headphones", tone: "forest", hidden: !site.features.audio },
-  { href: "/pferde", label: "Die Pferde", spoken: UI_SPEECH.tileHorses, icon: "horseshoe", tone: "brown" },
-  { href: "/spielen", label: "Spiele", spoken: UI_SPEECH.tileGames, icon: "puzzle", tone: "forest" },
-  { href: "/akademie", label: "Reitakademie", spoken: UI_SPEECH.tileAcademy, icon: "academy", tone: "sage" },
-  { href: "/abenteuer", label: "Abenteuer", spoken: UI_SPEECH.tileAdventures, icon: "lupe", tone: "sand" },
-  { href: "/hofjahr", label: site.clubName, spoken: UI_SPEECH.tileClub, icon: "barn", tone: "club", sub: "Jede Woche etwas Neues für Mitglieder" },
-];
-const TILES = ALL_TILES.filter((t) => !t.hidden);
 
 /* Position der Pferde in der Landschaft (Prozent der Bühne) */
 const STAGE = [
@@ -35,6 +18,11 @@ const STAGE = [
   { left: "62%", bottom: "11%", width: "37%", flip: true, z: 4 },
 ];
 
+/**
+ * Startseite (seit 28.10.2026): in wenigen Sekunden verstehen –
+ * Reiten lernen (Reitakademie, am stärksten hervorgehoben), Wissen spielerisch testen,
+ * Teil der Hofwelt werden. Die Pferde der Bühne führen zu ihren Steckbriefen.
+ */
 export function HomeScreen() {
   return (
     <div className={styles.home}>
@@ -59,84 +47,82 @@ export function HomeScreen() {
         </div>
 
         <div className={styles.titleCard}>
-          <p className={styles.producer}>{site.producer}</p>
-          <h1 id="home-title" className={styles.title}>
-            Die Hof&shy;geschichten
+          <p className={styles.welcome}>Willkommen bei Hofgeschichten</p>
+          <h1 id="home-title" className={styles.headline}>
+            <span>Reiten lernen.</span>
+            <span>Pferde verstehen.</span>
+            <span>Abenteuer erleben.</span>
           </h1>
-          <p className={styles.claim}>{site.claim}</p>
-          <SpeakButton
-            className={styles.titleSpeak}
-            text={UI_SPEECH.welcome}
-            label="Begrüßung vorlesen"
-          />
         </div>
       </section>
 
-      <div className={styles.levelRow}>
-        <p className={styles.levelLabel}>Wie schwer soll es sein?</p>
-        <LevelSwitch />
-      </div>
+      <div className={styles.content}>
+        <ContinueCard />
 
-      {featured && (
-        <Link href={`/abenteuer/${featured.slug}`} className={styles.featured}>
-          <div className={styles.featuredArt}>
-            <AdventureCover slug={featured.slug} />
+        <Link href="/akademie" className={styles.academy} aria-labelledby="home-academy">
+          <div className={styles.academyBody}>
+            <span className={styles.academyKicker}>Unser Lernprodukt</span>
+            <span id="home-academy" className={styles.academyTitle}>
+              Die Reitakademie
+            </span>
+            <span className={styles.academyText}>
+              Sechs Module vom Pferdeverstehen bis zu Reiterhilfen und Bahnfiguren – mit Lernvideos, Übungen und Quiz.
+            </span>
+            <ul className={styles.paths} aria-label="Lernwege">
+              {ACADEMY_PATHS.map((p) => (
+                <li key={p.id}>
+                  {p.title.replace(" Academy", "")} · {p.ages.replace(" Jahre", "").replace("ab 18 Jahren", "18+")}
+                </li>
+              ))}
+            </ul>
+            <span className={styles.academyCta}>
+              Jetzt entdecken
+              <Icon name="play" />
+            </span>
+            <span className={styles.academyNote}>
+              Probelektionen kostenlos · ganze Akademie {grosseAkademie.price ?? "14,90 €"} einmalig, kein Abo
+            </span>
           </div>
-          <div className={styles.featuredBody}>
-            <span className={styles.featuredKicker}>Neues Detektiv-Abenteuer</span>
-            <span className={styles.featuredTitle}>{featured.title}</span>
-            <span className={styles.featuredTeaser}>{featured.teaser}</span>
+          <div className={styles.academyArt} aria-hidden>
+            <VisualView v={{ kind: "scene", scene: "ak-reiter-sitz" }} decorative />
           </div>
         </Link>
-      )}
 
-      <section className={styles.tiles} aria-label="Bereiche">
-        {TILES.map((t) => (
-          <div key={t.href} className={`${styles.tile} ${styles[t.tone]}`}>
-            <Link href={t.href} className={styles.tileLink}>
-              <span className={styles.tileIcon}>
-                <Icon name={t.icon} />
-              </span>
-              <span className={styles.tileLabel}>
-                {t.label}
-                {t.sub && <span className={styles.tileSub}>{t.sub}</span>}
-              </span>
-            </Link>
-            <SpeakButton text={t.spoken} label={`${t.label} vorlesen`} size="sm" className={styles.tileSpeak} />
-          </div>
-        ))}
-      </section>
+        <Link href="/spielen" className={`${styles.tile} ${styles.games}`}>
+          <span className={styles.tileIcon} aria-hidden>
+            <Icon name="puzzle" />
+          </span>
+          <span>
+            <span className={styles.tileTitle}>Spielen &amp; Wissen</span>
+            <span className={styles.tileText}>Quiz, Gangarten erkennen, Pferdepflege und kleine Challenges.</span>
+          </span>
+          <Icon name="back" className={styles.arrow} aria-hidden />
+        </Link>
 
-      <section className={styles.kids} aria-labelledby="kids-title">
-        <h2 id="kids-title" className={styles.kidsTitle}>
-          Die Hofkinder & Krümel
-        </h2>
-        <ul className={styles.kidList}>
-          {characters.map((c) => (
-            <li key={c.slug} className={styles.kid}>
-              <KidPortrait kid={c} className={styles.kidPortrait} />
-              <span className={styles.kidName}>{c.name}</span>
-            </li>
-          ))}
-          <li className={styles.kid}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- statische WebP-Dateien mit srcset */}
-            <img
-              src="/kids/kruemel-320.webp"
-              srcSet="/kids/kruemel-160.webp 160w, /kids/kruemel-320.webp 320w, /kids/kruemel-640.webp 640w"
-              sizes="110px"
-              width={320}
-              height={320}
-              alt="Krümel, ein fröhlicher Hund mit hellem Fell und braunen Schlappohren"
-              className={styles.kidPortrait}
-              style={{ aspectRatio: "1", objectFit: "cover", background: "#FBF7EE" }}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-            />
-            <span className={styles.kidName}>Krümel</span>
-          </li>
-        </ul>
-      </section>
+        <Link href="/hofwelt" className={`${styles.tile} ${styles.world}`}>
+          <span className={styles.tileIcon} aria-hidden>
+            <Icon name="barn" />
+          </span>
+          <span>
+            <span className={styles.tileTitle}>Die Hofgeschichten-Welt</span>
+            <span className={styles.tileText}>Tivoli, Tonga und Scrabble, die Hofkinder und echte Detektivfälle.</span>
+          </span>
+          <Icon name="back" className={styles.arrow} aria-hidden />
+        </Link>
+
+        <aside className={styles.founder} aria-label="Founder-Mitgliedschaft">
+          <span className={styles.founderText}>
+            <span className={styles.founderKicker}>Founder-Angebot 2026</span>
+            <span className={styles.founderTitle}>Mitglied der Hofwelt werden</span>
+            <span className={styles.founderSub}>
+              Jeden Freitag neue Geschichten, Hofspiele und Detektivfälle – {membership.price} für das erste Jahr.
+            </span>
+          </span>
+          <Link href="/mitgliedschaft" className={styles.founderLink}>
+            Mehr erfahren
+          </Link>
+        </aside>
+      </div>
 
       <footer style={{ marginTop: "var(--space-6)" }}>
         <LegalLinks />

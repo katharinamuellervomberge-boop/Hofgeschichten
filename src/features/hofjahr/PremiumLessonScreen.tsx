@@ -18,7 +18,7 @@ export function PremiumLessonScreen({ release, lesson, activity }: { release: Re
   const level = progress.settings.level ?? "leicht";
   return (
     <div className="page">
-      <PageHeader title={lesson.title} backHref="/akademie/gross" backLabel="Zur Großen Akademie">
+      <PageHeader title={lesson.title} backHref="/hofwelt" backLabel="Zur Hofwelt">
         Reitakademie · {release.category === "Reitakademie" ? "Kapitel 1: Die Sprache der Pferde" : release.title}
       </PageHeader>
       <div className={styles.stack}>

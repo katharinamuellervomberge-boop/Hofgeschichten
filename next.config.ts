@@ -29,6 +29,10 @@ const nextConfig: NextConfig = {
     return [
       { source: "/spielen/akademie", destination: "/akademie", permanent: true },
       { source: "/spielen/akademie/:path*", destination: "/akademie/:path*", permanent: true },
+      // Neustruktur 28.10.2026: Kleine und Große Akademie sind jetzt eine Reitakademie mit sechs Modulen.
+      // Nicht permanent, damit die Adressen später wieder frei verwendbar sind.
+      { source: "/akademie/klein", destination: "/akademie", permanent: false },
+      { source: "/akademie/gross", destination: "/akademie", permanent: false },
     ];
   },
   async headers() {

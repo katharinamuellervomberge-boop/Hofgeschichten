@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ACADEMY_TITLE } from "@/content/akademie";
-import { AcademyHome } from "@/features/akademie/AcademyOverview";
+import { AcademyHome } from "@/features/akademie/AcademyHome";
 import { hasGrosseAkademie } from "@/lib/entitlements/server";
 
 export const metadata: Metadata = { title: ACADEMY_TITLE };

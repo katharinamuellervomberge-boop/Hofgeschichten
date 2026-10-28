@@ -24,6 +24,23 @@ export type Settings = {
   speech: boolean;
   /** Schwierigkeitsstufe; null = noch nicht gewählt */
   level: Level | null;
+  /**
+   * Lernweg der Reitakademie (Kids 6–11, Teen 12–17, Adult ab 18).
+   * Nur eine grobe Gruppe, kein Alter, kein Name – bleibt auf dem Gerät.
+   * Fehlt bei älteren Spielständen (undefined = noch nicht gewählt).
+   */
+  academyPath?: AcademyPath | null;
+};
+
+export type AcademyPath = "kids" | "teen" | "adult";
+
+/** Wo zuletzt gelernt oder gespielt wurde – für „Dort weitermachen, wo du aufgehört hast“ */
+export type LastPlace = {
+  href: string;
+  title: string;
+  /** Bereich, z. B. „Reitakademie“ oder „Detektivfall“ */
+  area: string;
+  at: number;
 };
 
 /**
@@ -41,6 +58,8 @@ export type Progress = {
   /** Stempel, die das Kind im Pass schon gesehen hat (für "Neu!") */
   seenStamps: string[];
   settings: Settings;
+  /** Zuletzt geöffnete Lektion/Spiel/Mission (optional, ältere Spielstände haben es nicht) */
+  last?: LastPlace | null;
 };
 
 export const emptyProgress: Progress = {

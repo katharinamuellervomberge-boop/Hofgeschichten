@@ -15,6 +15,7 @@ import { readFileSync } from "node:fs";
 import { worlds as catalogWorlds, academyGames as catalogGames } from "../src/content/akademie";
 import { allAcademyGames as academyGames, freeWorlds, fullWorlds as worlds } from "../src/content/akademie/inhalte.server";
 import { buildCatalogSource, CATALOG_PATH } from "./akademie-katalog-lib";
+import { academyModules, isTrialLesson } from "../src/content/akademie/module";
 import { lessonActivity } from "../src/content/akademie/activity";
 import { forLevel, pick, type Activity, type ByLevel, type Level, type Step } from "../src/engine/types";
 import { RIDER_SCENES, SCENE_NAMES } from "../src/components/illustrations/akademie/scene-names";
@@ -163,8 +164,22 @@ if (lessonCount !== 40) err("Akademie", `${lessonCount} Lektionen (erwartet 40)`
 if (academyGames.length < 4) err("Spiele", `${academyGames.length} Spiele (erwartet mind. 4)`);
 for (const g of academyGames) checkActivity(`Spiel ${g.id}`, g.activity);
 
-/* ---------- Kleine / Große Akademie ---------- */
-if (freeWorlds.length !== 3) err("Akademie", `${freeWorlds.length} kostenlose Lernwelten (erwartet 3)`);
+/* ---------- Module (seit 28.10.2026) ---------- */
+if (freeWorlds.length !== 3) err("Akademie", `${freeWorlds.length} Lernwelten 1–3 (erwartet 3)`);
+{
+  const seen = new Map<string, string>();
+  for (const m of academyModules) {
+    for (const t of m.topics) for (const id of t.lessons) {
+      if (seen.has(id)) err("Module", `${id} steht in ${seen.get(id)} und ${m.id}`);
+      seen.set(id, m.id);
+      if (!worlds.some((w) => w.lessons.some((l) => l.id === id))) err("Module", `${m.id}: Lektion ${id} gibt es nicht`);
+      for (const g of t.games ?? []) if (!academyGames.some((x) => x.slug === g)) err("Module", `${m.id}: Spiel ${g} gibt es nicht`);
+    }
+    if (!m.topics.some((t) => t.lessons.includes(m.trial))) err("Module", `${m.id}: Probelektion ${m.trial} gehört nicht zum Modul`);
+  }
+  for (const w of worlds) for (const l of w.lessons) if (!seen.has(l.id)) err("Module", `Lektion ${l.id} ist keinem Modul zugeordnet`);
+  if (academyModules.length !== 6) err("Module", `${academyModules.length} Module (erwartet 6)`);
+}
 if (readFileSync(CATALOG_PATH, "utf8") !== buildCatalogSource())
   err("Katalog", `${CATALOG_PATH} passt nicht mehr zu den Inhalten – bitte \`npm run akademie:katalog\` ausführen`);
 if (catalogWorlds.map((w) => w.id).join() !== worlds.map((w) => w.id).join()) err("Katalog", "Reihenfolge der Lernwelten weicht ab");
@@ -180,7 +195,8 @@ import { existsSync } from "node:fs";
 for (const v of academyVideos) {
   const w = worlds.find((x) => x.slug === v.world);
   if (!w || !w.lessons.some((l) => l.slug === v.lesson)) err("Video", `${v.slug}: Lektion ${v.world}/${v.lesson} gibt es nicht`);
-  if (w && freeWorlds.includes(w)) err("Video", `${v.slug}: gehört zur Großen Akademie, steht aber in einer kostenlosen Welt`);
+  const l = w?.lessons.find((x) => x.slug === v.lesson);
+  if (l && isTrialLesson(l.id)) err("Video", `${v.slug}: Videos gibt es nur in der gekauften Akademie, ${l.id} ist aber eine Probelektion`);
   for (const ext of ["mp4", "jpg"]) if (!existsSync(`private/akademie-video/${v.slug}.${ext}`)) err("Video", `private/akademie-video/${v.slug}.${ext} fehlt`);
 }
 

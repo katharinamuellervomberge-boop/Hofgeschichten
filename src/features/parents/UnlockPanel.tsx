@@ -82,7 +82,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
     <section className={`${styles.card} ${styles.premium}`} aria-labelledby="abenteuer" id="abenteuer">
       <h2 id="abenteuer">Premium-Inhalte &amp; Freischaltung</h2>
 
-      <AcademyProduct has={member || owned.includes(grosseAkademie.slug)} member={member} owned={owned.includes(grosseAkademie.slug)} />
+      <AcademyProduct has={owned.includes(grosseAkademie.slug) || (grosseAkademie.includedInMembership && member)} member={member} owned={owned.includes(grosseAkademie.slug)} />
 
       {premium.map((a) => {
         const has = accessible.includes(a.slug);
@@ -229,41 +229,33 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
   );
 }
 
-/** Die Große Reitakademie: in der Mitgliedschaft enthalten oder einzeln kaufbar */
+/** Die Reitakademie: eigenes Produkt, 14,90 € einmalig (seit 28.10.2026 nicht mehr in der Mitgliedschaft) */
 function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean; owned: boolean }) {
   return (
     <div className={styles.product} id="akademie">
       <div className={styles.productHead}>
         <strong>{grosseAkademie.name}</strong>
         <span className={`${styles.pill} ${has ? styles.pillOk : ""}`}>
-          {has ? (member && !owned ? "In der Mitgliedschaft enthalten" : "Auf diesem Gerät freigeschaltet") : grosseAkademie.price ?? "Premium"}
+          {has ? (member && !owned ? "In der Mitgliedschaft enthalten" : "Auf diesem Gerät freigeschaltet") : grosseAkademie.price ? `${grosseAkademie.price} einmalig` : "Premium"}
         </span>
       </div>
-      <p className={styles.productInfo}>{grosseAkademie.parentInfo} Die Kleine Akademie (Lernwelten 1–3) bleibt kostenlos.</p>
+      <p className={styles.productInfo}>{grosseAkademie.parentInfo} Die erste Lektion jedes Moduls ist kostenlos.</p>
       {!has && (
         <div className={styles.choice}>
-          <div className={styles.choiceOption}>
-            <p className={styles.choiceLabel}>Nur die Große Akademie</p>
+          <div className={`${styles.choiceOption} ${styles.choiceBest}`}>
+            <p className={styles.choiceLabel}>Reitakademie</p>
             {grosseAkademie.checkoutUrl && grosseAkademie.price ? (
               <>
-                <p className={styles.choicePrice}>{grosseAkademie.price} einmalig</p>
+                <p className={styles.choicePrice}>{grosseAkademie.price} einmalig · kein Abo</p>
                 <a href={grosseAkademie.checkoutUrl} target="_blank" rel="noopener noreferrer" className={styles.shopLink}>
-                  <span>Große Akademie kaufen</span>
+                  <span>Reitakademie kaufen</span>
                   <Icon name="external" />
                 </a>
                 <p className={styles.choiceText}>Den Freischaltcode erhalten Sie nach dem Kauf per E-Mail. Eingeben unten bei „Kauf freischalten“.</p>
               </>
             ) : (
-              <p className={styles.choiceText}>Der Einzelkauf im Shop folgt in Kürze.</p>
+              <p className={styles.choiceText}>Der Kauf im Shop folgt in Kürze.</p>
             )}
-          </div>
-          <div className={`${styles.choiceOption} ${styles.choiceBest}`}>
-            <p className={styles.choiceLabel}>Oder: {plan.name}</p>
-            <p className={styles.choicePrice}>{plan.price} für das ganze erste Jahr</p>
-            <p className={styles.choiceText}>Enthält die Große Akademie, alle Detektivabenteuer und jeden Freitag etwas Neues.</p>
-            <a href="/mitgliedschaft" className={styles.shopLink}>
-              <span>Mitgliedschaft ansehen</span>
-            </a>
           </div>
         </div>
       )}

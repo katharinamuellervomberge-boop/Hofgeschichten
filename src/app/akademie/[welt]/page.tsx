@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getWorld } from "@/content/akademie";
-import { AcademyLocked } from "@/features/akademie/AcademyLocked";
 import { WorldScreen } from "@/features/akademie/WorldScreen";
 import { hasGrosseAkademie } from "@/lib/entitlements/server";
 
@@ -18,6 +17,6 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const { welt } = await params;
   const world = getWorld(welt);
   if (!world) notFound();
-  if (world.tier === "gross" && !(await hasGrosseAkademie())) return <AcademyLocked title={world.title} />;
-  return <WorldScreen slug={welt} />;
+  // Lernwelten bleiben als Adresse erhalten (Abzeichen, alte Links); gesperrt wird je Lektion
+  return <WorldScreen slug={welt} unlocked={await hasGrosseAkademie()} />;
 }

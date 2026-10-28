@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getWorld, lessonActivity } from "@/content/akademie";
+import { isTrialLesson } from "@/content/akademie/module";
 import { loadLesson } from "@/content/akademie/inhalte.server";
 import { videoForLesson } from "@/content/akademie/videos";
 import { AcademyLocked } from "@/features/akademie/AcademyLocked";
@@ -20,7 +21,16 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const { welt, lektion } = await params;
   const found = loadLesson(welt, lektion);
   if (!found) notFound();
-  // Große Akademie: Inhalte verlassen den Server erst nach bestätigter Freischaltung
-  if (found.tier === "gross" && !(await hasGrosseAkademie())) return <AcademyLocked title={found.lesson.title} />;
-  return <LessonScreen worldSlug={found.world.slug} lesson={found.lesson} activity={lessonActivity(found.lesson)} video={found.tier === "gross" ? videoForLesson(found.world.slug, found.lesson.slug) : undefined} />;
+  // Inhalte verlassen den Server erst nach bestätigter Freischaltung – außer bei den Probelektionen (eine je Modul)
+  const unlocked = await hasGrosseAkademie();
+  if (!unlocked && !isTrialLesson(found.lesson.id)) return <AcademyLocked title={found.lesson.title} lessonId={found.lesson.id} />;
+  return (
+    <LessonScreen
+      worldSlug={found.world.slug}
+      lesson={found.lesson}
+      activity={lessonActivity(found.lesson)}
+      video={unlocked ? videoForLesson(found.world.slug, found.lesson.slug) : undefined}
+      unlocked={unlocked}
+    />
+  );
 }

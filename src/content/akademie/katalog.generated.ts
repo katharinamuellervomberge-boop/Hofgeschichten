@@ -1,8 +1,161 @@
 /* Automatisch erzeugt mit `npm run akademie:katalog` – nicht von Hand ändern. */
 import type { AcademyGameInfo, AcademyWorldInfo } from "./types";
 
-/** Große Akademie: Übersicht ohne Inhalte (die Inhalte liegen in welten/*.server.ts) */
-export const grossWorldsInfo: AcademyWorldInfo[] = [
+/** Alle Lernwelten: Übersicht ohne Inhalte (die Inhalte liegen in welten/*.server.ts) */
+export const worldsInfo: AcademyWorldInfo[] = [
+  {
+    "id": "w1",
+    "number": 1,
+    "slug": "bevor-du-aufsteigst",
+    "title": "Bevor du aufsteigst",
+    "teaser": "Sicher am Pferd, Helm, Ausrüstung und Aufsteigen.",
+    "learns": "Sicheres Verhalten am Pferd (tote Winkel, Abstand), Sinn und Sitz des Reithelms, Teile von Sattel und Trense, Ablauf beim Auf- und Absteigen.",
+    "tint": "#DDE3D6",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-zonen"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w1",
+      "title": "Sicherheits-Profi",
+      "motif": "helmet"
+    },
+    "tier": "klein",
+    "lessons": [
+      {
+        "id": "ra-w1-l1",
+        "slug": "sicher-am-pferd",
+        "number": 1,
+        "title": "Sicher am Pferd"
+      },
+      {
+        "id": "ra-w1-l2",
+        "slug": "reithelm",
+        "number": 2,
+        "title": "Warum wir einen Reithelm tragen"
+      },
+      {
+        "id": "ra-w1-l3",
+        "slug": "sattel-und-trense",
+        "number": 3,
+        "title": "Sattel, Trense und Ausrüstung"
+      },
+      {
+        "id": "ra-w1-l4",
+        "slug": "aufsteigen-absteigen",
+        "number": 4,
+        "title": "Sicheres Aufsteigen und Absteigen"
+      },
+      {
+        "id": "ra-w1-l5",
+        "slug": "sicherheitsquiz",
+        "number": 5,
+        "title": "Sicherheitsquiz"
+      }
+    ]
+  },
+  {
+    "id": "w2",
+    "number": 2,
+    "slug": "der-richtige-reitersitz",
+    "title": "Der richtige Reitersitz",
+    "teaser": "Ausbalanciert sitzen – von Kopf bis Absatz.",
+    "learns": "Grundsitz (Linie Ohr–Schulter–Hüfte–Absatz), Bein- und Fußhaltung, Fäuste und Zügelhaltung, Blickrichtung und angemessene Körperspannung.",
+    "tint": "#E8DCC4",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-reiter-sitz-linie"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w2",
+      "title": "Sitz-Profi",
+      "motif": "seat"
+    },
+    "tier": "klein",
+    "lessons": [
+      {
+        "id": "ra-w2-l1",
+        "slug": "ausbalancierter-sitz",
+        "number": 1,
+        "title": "Der ausbalancierte Sitz"
+      },
+      {
+        "id": "ra-w2-l2",
+        "slug": "beine-und-absaetze",
+        "number": 2,
+        "title": "Beine und Absätze"
+      },
+      {
+        "id": "ra-w2-l3",
+        "slug": "haende-und-zuegel",
+        "number": 3,
+        "title": "Hände und Zügelhaltung"
+      },
+      {
+        "id": "ra-w2-l4",
+        "slug": "blick-und-koerperspannung",
+        "number": 4,
+        "title": "Blickrichtung und Körperspannung"
+      },
+      {
+        "id": "ra-w2-l5",
+        "slug": "sitz-quiz",
+        "number": 5,
+        "title": "Sitz-Quiz"
+      }
+    ]
+  },
+  {
+    "id": "w3",
+    "number": 3,
+    "slug": "die-sprache-der-hilfen",
+    "title": "Die Sprache der Hilfen",
+    "teaser": "Wie Reiter und Pferd sich verständigen.",
+    "learns": "Was Reiterhilfen sind; Schenkel-, Gewichts-, Zügel- und Stimmhilfen als feine, koordinierte Signale; das Zusammenspiel beim Anreiten, Anhalten und Wenden.",
+    "tint": "#EADBC8",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-reiter-hilfen"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w3",
+      "title": "Hilfen-Versteher",
+      "motif": "signals"
+    },
+    "tier": "klein",
+    "lessons": [
+      {
+        "id": "ra-w3-l1",
+        "slug": "was-sind-hilfen",
+        "number": 1,
+        "title": "Was sind Reiterhilfen?"
+      },
+      {
+        "id": "ra-w3-l2",
+        "slug": "schenkelhilfen",
+        "number": 2,
+        "title": "Schenkelhilfen"
+      },
+      {
+        "id": "ra-w3-l3",
+        "slug": "gewichtshilfen",
+        "number": 3,
+        "title": "Gewichtshilfen"
+      },
+      {
+        "id": "ra-w3-l4",
+        "slug": "zuegel-und-stimme",
+        "number": 4,
+        "title": "Zügel- und Stimmhilfen"
+      },
+      {
+        "id": "ra-w3-l5",
+        "slug": "zusammenspiel",
+        "number": 5,
+        "title": "Zusammenspiel der Hilfen"
+      }
+    ]
+  },
   {
     "id": "w4",
     "number": 4,

@@ -7,7 +7,7 @@ import type { MembershipStatus } from "@/lib/entitlements/server";
 import styles from "./SalesPage.module.css";
 
 const INSIDE = [
-  "Alles aus der Founder-Mitgliedschaft „Mein Hof“: jeden Freitag Neues, Große Reitakademie, alle Detektivfälle",
+  "Alles aus der Founder-Mitgliedschaft „Mein Hof“: jeden Freitag Neues, alle Detektivfälle, Hofspiele und Pferdewissen",
   "12 echte Briefe – jeden Monat einer von Tivoli, Scrabble, Tonga oder Hofhund Krümel",
   "In jedem Brief: Pferdefoto, eine Aufgabe zum Malen, Basteln oder Entdecken, ein Sticker",
   "Ein Geheimwort im Brief öffnet eine Überraschung in der App",

@@ -17,7 +17,7 @@ export function academyStamps(): StampInfo[] {
     {
       id: PROFI_STAMP_ID,
       title: "Reitwissen-Profi",
-      how: "Schließe alle acht Lernwelten der Reitakademie ab.",
+      how: "Schließe alle 40 Lektionen der Reitakademie ab.",
       motif: "rosette" as const,
       rule: { type: "activities" as const, ids: allLessons().map((l) => l.id) },
       academy: true,

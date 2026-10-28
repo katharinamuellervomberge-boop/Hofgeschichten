@@ -22,7 +22,7 @@ const kids = characters.filter((c) => ["lea", "mila", "ben"].includes(c.slug));
 
 const FEATURES: Array<{ title: string; text: string; art: Visual | "adventure" | "badge" | "kids" }> = [
   { title: "Hofgeschichten", text: "Erlebe neue Abenteuer mit Lea, Mila, Ben und Krümel.", art: "kids" },
-  { title: "Große Reitakademie", text: "Schritt, Trab, Galopp und Reiten in der Bahn – mit neuen Lektionen jeden Monat.", art: { kind: "scene", scene: "ak-reiter-sitz" } },
+  { title: "Pferdewissen jeden Monat", text: "Neue Wissens-Lektionen rund ums Pferd – zum Beispiel die Sprache der Pferde.", art: { kind: "scene", scene: "ak-reiter-sitz" } },
   { title: "Hofmissionen", text: "Übernimm spielerisch Verantwortung für den Hof.", art: { kind: "scene", scene: "ht-stallbox" } },
   { title: "Detektivabenteuer", text: "Löse spannende Rätsel und Geheimnisse.", art: "adventure" },
   { title: "Wissen & Spiele", text: "Entdecke spielerisch Neues über Tiere, Natur und das Leben.", art: { kind: "head", horse: "scrabble", mood: "neugierig" } },
@@ -304,8 +304,15 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
           <details>
             <summary>Was gibt es schon vor November?</summary>
             <p>
-              Mit der Mitgliedschaft sind sofort alle bisherigen Premium-Detektivfälle und die Große Reitakademie freigeschaltet. Die kostenlose Hofwelt und die
-              kleine Reitakademie bleiben für alle kostenlos.
+              Mit der Mitgliedschaft sind sofort alle bisherigen Premium-Detektivfälle freigeschaltet. Die kostenlose Hofwelt bleibt für alle
+              kostenlos.
+            </p>
+          </details>
+          <details>
+            <summary>Ist die Reitakademie in der Mitgliedschaft enthalten?</summary>
+            <p>
+              Nein. Die Reitakademie ist ein eigenes Produkt: einmalig 14,90 €, kein Abo, dauerhafter Zugriff. Die erste Lektion jedes
+              Moduls ist kostenlos.
             </p>
           </details>
           <details>

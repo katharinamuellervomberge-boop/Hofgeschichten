@@ -46,7 +46,7 @@ export function HofjahrScreen({ weekStates, member, now }: Props) {
 
   return (
     <div className="page">
-      <PageHeader title={site.clubName} spoken={`${site.clubName}. Hier gibt es jeden Freitag etwas Neues. Und du siehst deine Abzeichen.`} />
+      <PageHeader title={site.clubName} backHref="/hofwelt" backLabel="Zur Hofwelt" spoken={`${site.clubName}. Hier gibt es jeden Freitag etwas Neues. Und du siehst deine Abzeichen.`} />
       <div className={styles.stack}>
         <section className={styles.greeting} aria-labelledby="hj-hallo">
           <div>

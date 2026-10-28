@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ACADEMY_TIERS } from "@/content/akademie";
 import type { AcademyGameInfo } from "@/content/akademie/types";
 import type { Activity } from "@/engine/types";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
@@ -13,10 +13,14 @@ import styles from "./akademie.module.css";
 
 /** Rahmen für die Mini-Spiele der Reitakademie. */
 export function AcademyGameScreen({ game, activity }: { game: AcademyGameInfo; activity: Activity }) {
-  const home = ACADEMY_TIERS[game.tier];
+  useEffect(() => {
+    progressActions.setLast({ href: `/akademie/spiele/${game.slug}`, title: game.title, area: "Spielen" });
+  }, [game.slug, game.title]);
+  // Seit der Neustruktur stehen die Akademie-Spiele im Bereich „Spielen“
+  const home = { href: "/spielen", label: "Zurück zu Spielen", cta: "Weitere Spiele" };
   return (
     <div className="page">
-      <PageHeader title={game.title} backHref={home.href} backLabel={`Zurück zur ${home.short}`} />
+      <PageHeader title={game.title} backHref={home.href} backLabel={home.label} />
       <ActivityPlayer
         activity={activity}
         tint={game.tint}
@@ -35,8 +39,8 @@ export function AcademyGameScreen({ game, activity }: { game: AcademyGameInfo; a
                 Nochmal
               </button>
               <Link href={home.href} className={`${styles.btn} ${styles.btnPrimary}`}>
-                <Icon name="academy" />
-                Zur {home.short}
+                <Icon name="puzzle" />
+                {home.cta}
               </Link>
             </div>
           </div>

@@ -127,7 +127,7 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
             ))}
             <li>
               <strong>Die Reitakademie</strong>
-              <p>Reitwissen in 8 Lernwelten – von Sicherheit und Sitz über Hilfen und Gangarten bis zu fairem Umgang mit dem Pferd. Welten 1–3 kostenlos, Welten 4–8 in der Großen Akademie. Details weiter unten.</p>
+              <p>Reitwissen in sechs Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Besser reiten, Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie 14,90 € einmalig. Details weiter unten.</p>
             </li>
           </ul>
         </section>

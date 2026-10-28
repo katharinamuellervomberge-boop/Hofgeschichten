@@ -15,7 +15,7 @@ export function EpisodeLibrary({ episodes }: { episodes: Episode[] }) {
 
   return (
     <div className="page">
-      <PageHeader title="Hörspiele" spoken="Hörspiele. Tippe auf eine Folge, um sie zu hören." />
+      <PageHeader title="Hörspiele" backHref="/hofwelt" backLabel="Zur Hofwelt" spoken="Hörspiele. Tippe auf eine Folge, um sie zu hören." />
       <ul className={styles.list}>
         {episodes.map((ep) => {
           const horse = getHorse(ep.horse);

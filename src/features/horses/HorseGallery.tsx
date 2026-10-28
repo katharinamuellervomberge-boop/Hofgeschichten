@@ -11,6 +11,8 @@ export function HorseGallery({ horses }: { horses: HorseT[] }) {
     <div className="page">
       <PageHeader
         title="Die Pferde"
+        backHref="/hofwelt"
+        backLabel="Zur Hofwelt"
         spoken={phrases.horsesHeader(horses.map((h) => h.name))}
       />
       <ul className={styles.grid}>

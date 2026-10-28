@@ -1,9 +1,10 @@
 /**
  * Einzeln kaufbare Pakete (außer Abenteuern, die stehen in adventures/index.ts).
  *
- * Die Große Reitakademie ist auf zwei Wegen erhältlich:
- *  1. in der Hof-Mitgliedschaft enthalten
- *  2. einzeln kaufbar (eigenes Shop-Produkt + Freischaltcode)
+ * Die Reitakademie (früher „Große Reitakademie“) ist seit 28.10.2026 ein eigenes
+ * Produkt: 14,90 € einmalig, dauerhafter Zugriff, kein Abo. Sie schaltet alle sechs
+ * Module frei; je Modul ist eine Probelektion kostenlos (module.ts).
+ * Die Mitgliedschaft enthält die Akademie NICHT mehr (Schalter `includedInMembership`).
  *
  * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf für den
  * Einzelkauf (keine Platzhalter-Buttons) – nur den Weg über die Mitgliedschaft.
@@ -11,7 +12,12 @@
 export const grosseAkademie = {
   /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
   slug: "grosse-akademie",
-  name: "Die große Reitakademie",
+  name: "Die Reitakademie",
+  /**
+   * true = Mitglieder bekommen die Akademie automatisch dazu (bis 27.10.2026 so).
+   * Seit 28.10.2026 auf Wunsch der Inhaberin false – für alle Mitglieder, auch bestehende.
+   */
+  includedInMembership: false,
   /** Preis für den Einzelkauf, z. B. "9,90 €". null = noch nicht festgelegt */
   price: "14,90 €" as string | null,
   /** Shopify-Produkt (Handle). Eine bezahlte Bestellung damit schaltet die Große Akademie frei. */
@@ -25,7 +31,7 @@ export const grosseAkademie = {
   checkoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Kurzbeschreibung für Eltern */
   parentInfo:
-    "Lernwelten 4–8 (Schritt, Trab, Galopp, Reiten in der Bahn, Fair zum Pferd) mit 25 Lektionen, die Mini-Spiele „Gangarten-Quiz“ und „Bahnfiguren-Meister“ und die Urkunde „Reitwissen-Profi“. Dazu 6 animierte Lernvideos: Schritt, Trab, Leichttraben, Leichttraben auf dem richtigen Fuß, Galopp und Bahnfiguren.",
+    "Alle sechs Module mit 40 interaktiven Lektionen – Pferde verstehen, Umgang mit Pferden, Reiten lernen, Reiterhilfen, Besser reiten und Akademie-Abschluss – mit Quiz, Übungen, 6 animierten Lernvideos und Teilnahmezertifikat. Drei Lernwege: Kids (6–11), Teen (12–17) und Adult (ab 18). Einmalzahlung, kein Abo.",
 };
 
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */

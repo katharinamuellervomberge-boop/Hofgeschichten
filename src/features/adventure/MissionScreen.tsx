@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -35,6 +35,10 @@ export function MissionScreen({ meta, mission, clues }: Props) {
   const missionStamp = stamps.find((s) => s.id === `${meta.slug}:${mission.id}`)!;
   const finalStamp = stamps[stamps.length - 1];
   const firstScene = mission.steps.find((s): s is StoryStep => s.type === "story" && !!s.visual)?.visual;
+
+  useEffect(() => {
+    if (!locked) progressActions.setLast({ href: `/abenteuer/${meta.slug}/${mission.id}`, title: `${meta.title}: ${mission.title}`, area: "Detektivfall" });
+  }, [locked, meta.slug, meta.title, mission.id, mission.title]);
 
   return (
     <ClueContext.Provider value={{ clues, collected }}>

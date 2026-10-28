@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ACADEMY_TIERS, getWorld, worlds } from "@/content/akademie";
+import { getWorld, worlds } from "@/content/akademie";
+import { academyOrder, moduleHref, moduleOfLesson } from "@/content/akademie/module";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import type { AcademyLesson } from "@/content/akademie/types";
@@ -15,14 +16,27 @@ import { pick, type Activity } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { progressActions, useProgress } from "@/lib/progress/store";
-import { lessonHref, worldDone, worldHref } from "./progress";
+import { lessonHref, worldDone } from "./progress";
 import styles from "./akademie.module.css";
 
 /**
  * Eine Lektion: Startbild mit Stufenwahl, dann der Ablauf im Spielkern, am Ende Merksatz und Abzeichen.
  * Lektion und Ablauf kommen vom Server (bei der Großen Akademie erst nach der Freischaltung).
  */
-export function LessonScreen({ worldSlug, lesson, activity: base, video }: { worldSlug: string; lesson: AcademyLesson; activity: Activity; video?: AcademyVideo }) {
+export function LessonScreen({
+  worldSlug,
+  lesson,
+  activity: base,
+  video,
+  unlocked,
+}: {
+  worldSlug: string;
+  lesson: AcademyLesson;
+  activity: Activity;
+  video?: AcademyVideo;
+  /** Reitakademie gekauft? Sonst sind nur die Probelektionen offen. */
+  unlocked: boolean;
+}) {
   const world = getWorld(worldSlug);
   const progress = useProgress();
   const level = progress.settings.level ?? "leicht";
@@ -38,23 +52,27 @@ export function LessonScreen({ worldSlug, lesson, activity: base, video }: { wor
     [base, lesson],
   );
 
+  useEffect(() => {
+    if (world) progressActions.setLast({ href: lessonHref(world, lesson), title: lesson.title, area: "Reitakademie" });
+  }, [world, lesson]);
+
   if (!world) return null;
 
-  const idx = world.lessons.findIndex((l) => l.id === lesson.id);
-  const nextInWorld = world.lessons[idx + 1];
-  // Nächste Lernwelt nur innerhalb derselben Akademie – von der Kleinen geht es zur Übersicht der Großen
-  const nextWorld = worlds[worlds.findIndex((w) => w.id === world.id) + 1];
-  const next = nextInWorld
-    ? { href: lessonHref(world, nextInWorld), label: "Nächste Lektion" }
-    : nextWorld && nextWorld.tier === world.tier
-      ? { href: worldHref(nextWorld), label: "Nächste Lernwelt" }
-      : nextWorld
-        ? { href: ACADEMY_TIERS[nextWorld.tier].href, label: `Zur ${ACADEMY_TIERS[nextWorld.tier].short}` }
-        : { href: ACADEMY_TIERS[world.tier].href, label: `Zur ${ACADEMY_TIERS[world.tier].short}` };
+  // Reihenfolge der Module: nächste Lektion im Modul, danach das nächste Modul
+  const mod = moduleOfLesson(lesson.id);
+  const order = academyOrder();
+  const pos = order.findIndex((x) => x.lesson.id === lesson.id);
+  const following = order[pos + 1];
+  const backHref = mod ? moduleHref(mod) : "/akademie";
+  const next = !following
+    ? { href: "/akademie", label: "Zur Reitakademie" }
+    : !unlocked && !following.trial
+      ? { href: "/akademie#ak-buy", label: "Alle Lektionen freischalten" }
+      : { href: lessonHref(following.world, following.lesson), label: mod && moduleOfLesson(following.lesson.id)?.id !== mod.id ? "Nächstes Modul" : "Nächste Lektion" };
 
   return (
     <div className="page">
-      <PageHeader title={lesson.title} backHref={worldHref(world)} backLabel={`Zurück zu „${world.title}“`} />
+      <PageHeader title={lesson.title} backHref={backHref} backLabel={mod ? `Zurück zu „${mod.title}“` : "Zurück zur Reitakademie"} />
       <div className={styles.stack}>
         {level === "leicht" && lesson.readTogether && (
           <p className={styles.hint}>
@@ -111,9 +129,9 @@ function LessonDone({
       <h2 className={styles.doneTitle}>{profi ? "Reitwissen-Profi!" : "Geschafft!"}</h2>
       <p className={styles.doneText}>
         {profi
-          ? "Du hast alle acht Lernwelten geschafft. Die Auszeichnung „Hofgeschichten – Reitwissen-Profi“ ist in deinem Pass."
+          ? "Du hast alle 40 Lektionen der Reitakademie geschafft. Die Auszeichnung „Hofgeschichten – Reitwissen-Profi“ ist in deinem Pass."
           : badge
-            ? `Du hast die ganze Lernwelt geschafft! Das Abzeichen „${worldStamp.title}“ ist in deinem Pass.`
+            ? `Eine ganze Lernreihe geschafft! Das Abzeichen „${worldStamp.title}“ ist in deinem Pass.`
             : "Lektion geschafft. Weiter so!"}
       </p>
       <div className={styles.merk}>

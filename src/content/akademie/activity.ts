@@ -17,7 +17,7 @@ function questionStep(lessonId: string, q: AcademyQuestion): ChoiceStep {
 
 /**
  * Macht aus einer Lektion einen spielbaren Ablauf für den vorhandenen Spielkern:
- * Einstieg → Erklärung mit Bild → (Fachbegriffe) → Übung → Quiz → Merksatz.
+ * Einstieg → Erklärung mit Bild → („Schon gewusst?“ mit Fachbegriffen) → Übung → Quiz → Merksatz.
  */
 export function lessonActivity(lesson: AcademyLesson): Activity {
   const id = lesson.id;
@@ -45,10 +45,10 @@ export function lessonActivity(lesson: AcademyLesson): Activity {
       id: `${id}-fachbegriffe`,
       levels: ["mittel"],
       speaker: "erzaehler",
-      text: "Diese Fachbegriffe solltest du kennen.",
+      text: "Schon gewusst? Diese Fachbegriffe hörst du im Stall und in der Reitstunde.",
       visual: {
         kind: "doc",
-        doc: { style: "lesson", title: "Fachbegriffe", lines: lesson.terms.map((t) => `${t.term}: ${t.meaning}`) },
+        doc: { style: "lesson", label: "Schon gewusst?", title: "Fachbegriffe", lines: lesson.terms.map((t) => `${t.term}: ${t.meaning}`) },
       },
     });
   }

@@ -30,6 +30,11 @@ function migrate(raw: unknown): Progress | null {
     games: r.games ?? {},
     adventures: r.adventures ?? {},
     seenStamps: Array.isArray(r.seenStamps) ? r.seenStamps : [],
+    // Nur interne Adressen übernehmen
+    last:
+      r.last && typeof r.last.href === "string" && r.last.href.startsWith("/") && !r.last.href.startsWith("//") && typeof r.last.title === "string"
+        ? r.last
+        : null,
     version: PROGRESS_VERSION,
   };
 }

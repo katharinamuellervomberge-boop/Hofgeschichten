@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -28,6 +28,9 @@ type Props = {
 /** Gemeinsamer Rahmen für alle kostenlosen Lernspiele. */
 export function GameScreen({ activity, stampId, backHref, backLabel, tint, introArt, more }: Props) {
   const stamp = freeStamps.find((s) => s.id === stampId)!;
+  useEffect(() => {
+    progressActions.setLast({ href: window.location.pathname, title: activity.title, area: "Spielen" });
+  }, [activity.title]);
   return (
     <div className="page">
       <PageHeader title={activity.title} backHref={backHref} backLabel={backLabel} />

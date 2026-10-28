@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { StampSeal } from "@/components/illustrations/StampSeal";
-import { ACADEMY_TIERS, ACADEMY_TITLE, academyGames, PROFI_TITLE, worlds } from "@/content/akademie";
+import { ACADEMY_TITLE, academyGames, allLessons, PROFI_TITLE } from "@/content/akademie";
+import { academyModules, moduleLessons, pathInfo } from "@/content/akademie/module";
+import { grosseAkademie } from "@/content/products";
 import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
-import { worldDoneCount, worldsDoneCount } from "./progress";
+import { lessonDone } from "./progress";
 import parents from "@/features/parents/ParentsArea.module.css";
 import styles from "./akademie.module.css";
 import cert from "./certificate.module.css";
@@ -19,7 +21,8 @@ export function AcademyParents() {
   const progress = useProgress();
   const earned = earnedStamps(progress);
   const profi = earned.has(PROFI_STAMP_ID);
-  const doneWorlds = worldsDoneCount(progress);
+  const doneLessons = allLessons().filter((l) => lessonDone(progress, l)).length;
+  const path = pathInfo(progress.settings.academyPath);
   const [name, setName] = useState("");
   const [today, setToday] = useState("");
 
@@ -47,38 +50,37 @@ export function AcademyParents() {
       <section className={parents.card} aria-labelledby="p-akademie">
         <h2 id="p-akademie">{ACADEMY_TITLE}</h2>
         <p>
-          Zwei Teile: Die <strong>{ACADEMY_TIERS.klein.short}</strong> ist kostenlos (Lernwelten 1–3 und zwei Mini-Spiele).
-          Die <strong>{ACADEMY_TIERS.gross.short}</strong> (Lernwelten 4–8, zwei weitere Mini-Spiele, später Animationen und
-          Lernvideos) ist in der Mitgliedschaft enthalten oder einzeln erhältlich. Jede Lektion hat einen Einstieg, eine
-          Erklärung mit Bild, eine Übung, mindestens drei Quizfragen mit Rückmeldung und einen Merksatz – in den Stufen
-          Leicht (4–7) und Mittel (8–12).
+          Sechs Module mit 40 Lektionen, {grosseAkademie.price ?? "14,90 €"} einmalig (kein Abo). Die erste Lektion jedes
+          Moduls ist kostenlos. Jede Lektion hat einen Einstieg, eine Erklärung mit Bild, eine Übung, mindestens drei
+          Quizfragen mit Rückmeldung und einen Merksatz. Lernwege: Kids (6–11) mit einfacher Sprache, Teen (12–17) und
+          Adult (ab 18) mit ausführlicheren Fachtexten.
+          {path ? ` Auf diesem Gerät gewählt: ${path.title}.` : ""}
         </p>
-        <ul className={styles.worldStats} aria-label="Fortschritt je Lernwelt">
-          {worlds.map((w) => (
-            <li key={w.id}>
-              <span>
-                {w.number}. {w.title}
-                {w.tier === "gross" ? " (Große Akademie)" : ""}
-              </span>
-              <strong>
-                {worldDoneCount(progress, w)} / {w.lessons.length}
-              </strong>
-            </li>
-          ))}
+        <ul className={styles.worldStats} aria-label="Fortschritt je Modul">
+          {academyModules.map((m) => {
+            const lessons = moduleLessons(m);
+            return (
+              <li key={m.id}>
+                <span>
+                  {m.number}. {m.title}
+                </span>
+                <strong>
+                  {lessons.filter((x) => lessonDone(progress, x.lesson)).length} / {lessons.length}
+                </strong>
+              </li>
+            );
+          })}
         </ul>
         <ul className={parents.learnList}>
-          {worlds.map((w) => (
-            <li key={w.id}>
-              <strong>{w.title}</strong>
-              <p>{w.learns}</p>
+          {academyModules.map((m) => (
+            <li key={m.id}>
+              <strong>{m.title}</strong>
+              <p>{m.teaser.grown} Themen: {m.topics.map((t) => t.title).join(", ")}.</p>
             </li>
           ))}
           {academyGames.map((g) => (
             <li key={g.id}>
-              <strong>
-                Spiel: {g.title}
-                {g.tier === "gross" ? " (Große Akademie)" : ""}
-              </strong>
+              <strong>Übung: {g.title}</strong>
               <p>{g.learns}</p>
             </li>
           ))}
@@ -91,10 +93,10 @@ export function AcademyParents() {
       </section>
 
       <section className={parents.card} aria-labelledby="p-urkunde">
-        <h2 id="p-urkunde">Urkunde „Reitwissen-Profi“</h2>
+        <h2 id="p-urkunde">Teilnahmezertifikat „Reitwissen-Profi“</h2>
         {profi ? (
           <div className={styles.certForm}>
-            <p>Alle acht Lernwelten sind geschafft. Sie können eine Urkunde mit einem frei gewählten Namen drucken.</p>
+            <p>Alle 40 Lektionen sind geschafft. Sie können das Zertifikat mit einem frei gewählten Namen drucken.</p>
             <label>
               <span className="eyebrow">Name auf der Urkunde</span>
               <input
@@ -115,8 +117,7 @@ export function AcademyParents() {
           </div>
         ) : (
           <p>
-            Die Urkunde wird freigeschaltet, sobald alle acht Lernwelten abgeschlossen sind ({doneWorlds} von {worlds.length}{" "}
-            geschafft).
+            Das Zertifikat wird freigeschaltet, sobald alle 40 Lektionen abgeschlossen sind ({doneLessons} von 40 geschafft).
           </p>
         )}
         <p className={styles.practice} style={{ textAlign: "left" }}>
@@ -132,7 +133,7 @@ export function AcademyParents() {
             <p className={cert.title}>{PROFI_TITLE}</p>
             <p className={cert.for}>für</p>
             <p className={cert.name}>{name.trim() || " "}</p>
-            <p className={cert.text}>hat alle acht Lernwelten der kleinen Reitakademie mit 40 Lektionen erfolgreich abgeschlossen.</p>
+            <p className={cert.text}>hat alle sechs Module der Reitakademie mit 40 Lektionen und den Wissenstests erfolgreich abgeschlossen.</p>
             <div className={cert.seals}>
               {badges.map((s, i) => (
                 <div key={s.id} className={cert.sealItem}>

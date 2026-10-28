@@ -64,6 +64,8 @@ export function AdventurePass({ owned }: { owned: string[] }) {
     <div className="page">
       <PageHeader
         title="Mein Abenteuerpass"
+        backHref="/profil"
+        backLabel="Zum Profil"
         spoken={[phrases.passIntro, phrases.passCount(count, all.length), phrases.passTap]}
       />
 

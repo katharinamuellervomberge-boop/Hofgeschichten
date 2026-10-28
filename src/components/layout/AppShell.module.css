@@ -139,7 +139,7 @@
   white-space: nowrap;
 }
 
-/* Sechs Knöpfe auf schmalen Handys */
+/* Fünf Knöpfe auf schmalen Handys */
 @media (max-width: 420px) {
   .nav {
     padding-inline: var(--space-1);

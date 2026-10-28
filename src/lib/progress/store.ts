@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import type { Level } from "@/engine/types";
 import { localAdapter } from "./localAdapter";
-import { emptyProgress, type Progress, type ProgressAdapter } from "./types";
+import { emptyProgress, type AcademyPath, type LastPlace, type Progress, type ProgressAdapter } from "./types";
 
 /**
  * Kleiner, abhängigkeitsfreier Store für den lokalen Fortschritt.
@@ -110,6 +110,17 @@ export const progressActions = {
   },
   setLevel(level: Level) {
     update((p) => (p.settings.level === level ? p : { ...p, settings: { ...p.settings, level } }));
+  },
+  /** Lernweg der Reitakademie wählen – setzt passend die Textstufe (Kids = Leicht, Teen/Adult = Mittel) */
+  setAcademyPath(path: AcademyPath) {
+    const level: Level = path === "kids" ? "leicht" : "mittel";
+    update((p) =>
+      p.settings.academyPath === path && p.settings.level === level ? p : { ...p, settings: { ...p.settings, academyPath: path, level } },
+    );
+  },
+  /** Merkt sich die zuletzt geöffnete Lektion/Mission/das Spiel */
+  setLast(place: Omit<LastPlace, "at">) {
+    update((p) => (p.last?.href === place.href ? p : { ...p, last: { ...place, at: Date.now() } }));
   },
   markStampsSeen(ids: string[]) {
     update((p) => {

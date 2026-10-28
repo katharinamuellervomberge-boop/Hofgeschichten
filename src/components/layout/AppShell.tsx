@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/illustrations/Icons";
-import { site } from "@/content/site";
 import { useProgress } from "@/lib/progress/store";
 import { newStamps } from "@/lib/progress/stamps";
 import styles from "./AppShell.module.css";
@@ -12,18 +11,18 @@ import styles from "./AppShell.module.css";
 type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[] };
 
 /**
- * Feste Reihenfolge der Bereiche – überall gleich (Leiste, Startseite):
- * Start · Pferde · Spiele · Akademie · Abenteuer · Mein Hof (Mitgliederbereich)
+ * Feste Leiste seit 28.10.2026 – fünf Punkte, überall gleich:
+ * Start · Reitakademie · Spielen · Hofwelt · Profil
+ * `also`: Seiten, bei denen der Punkt ebenfalls als aktiv markiert wird.
  */
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
-  { href: "/hoeren", label: "Hören", icon: "headphones", hidden: !site.features.audio },
-  { href: "/pferde", label: "Pferde", icon: "horseshoe" },
-  { href: "/spielen", label: "Spiele", icon: "puzzle" },
-  { href: "/akademie", label: "Akademie", icon: "academy" },
-  { href: "/abenteuer", label: "Abenteuer", icon: "lupe" },
-  /* Mitgliederbereich: Wochenpakete, Abzeichen, Fortschritt – der Abenteuerpass ist von dort erreichbar */
-  { href: "/hofjahr", label: site.clubName, icon: "barn", also: ["/pass", "/mitgliedschaft"] },
+  { href: "/akademie", label: "Reitakademie", icon: "academy" },
+  { href: "/spielen", label: "Spielen", icon: "puzzle" },
+  /* Geschichten, Pferde, Figuren, Detektivfälle, Wochenpakete und Mitgliedschaft */
+  { href: "/hofwelt", label: "Hofwelt", icon: "barn", also: ["/pferde", "/abenteuer", "/hofjahr", "/hoeren", "/mitgliedschaft"] },
+  /* Lernfortschritt, Pass, Käufe und Einstellungen */
+  { href: "/profil", label: "Profil", icon: "pass", also: ["/pass", "/eltern"] },
 ];
 const NAV = ALL_NAV.filter((n) => !n.hidden);
 
@@ -71,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 >
                   <span className={styles.navIcon}>
                     <Icon name={item.icon} />
-                    {item.href === "/hofjahr" && fresh > 0 && (
+                    {item.href === "/profil" && fresh > 0 && (
                       <span className={styles.dot} aria-label={`${fresh} neue Stempel`} />
                     )}
                   </span>

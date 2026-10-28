@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ACADEMY_TIERS, getWorld } from "@/content/akademie";
+import { getWorld } from "@/content/akademie";
+import { isTrialLesson } from "@/content/akademie/module";
 import { academyStamps } from "@/content/akademie/stamps";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { useProgress } from "@/lib/progress/store";
@@ -12,7 +13,7 @@ import { lessonDone, lessonHref, nextLesson, worldDoneCount } from "./progress";
 import styles from "./akademie.module.css";
 
 /** Eine Lernwelt mit ihren fünf Lektionen. */
-export function WorldScreen({ slug }: { slug: string }) {
+export function WorldScreen({ slug, unlocked }: { slug: string; unlocked: boolean }) {
   const world = getWorld(slug);
   const progress = useProgress();
   if (!world) return null;
@@ -23,7 +24,7 @@ export function WorldScreen({ slug }: { slug: string }) {
 
   return (
     <div className="page">
-      <PageHeader title={world.title} backHref={ACADEMY_TIERS[world.tier].href} backLabel={`Zurück zur ${ACADEMY_TIERS[world.tier].short}`} />
+      <PageHeader title={world.title} backHref="/akademie" backLabel="Zurück zur Reitakademie" />
       <div className={styles.stack}>
         <section className={styles.worldHead} style={{ background: world.tint }} aria-label="Abzeichen dieser Lernwelt">
           <div>
@@ -40,18 +41,19 @@ export function WorldScreen({ slug }: { slug: string }) {
           {world.lessons.map((l) => {
             const done = lessonDone(progress, l);
             const isNext = !has && l.id === next.id;
+            const open = unlocked || isTrialLesson(l.id);
             return (
               <li key={l.id}>
                 <Link href={lessonHref(world, l)} className={`${styles.lessonRow} ${isNext ? styles.lessonNext : ""}`}>
                   <span className={`${styles.lessonNum} ${done ? styles.lessonNumDone : ""}`} aria-hidden>
-                    {done ? <Icon name="check" /> : l.number}
+                    {done ? <Icon name="check" /> : open ? l.number : <Icon name="lock" />}
                   </span>
                   <span>
                     <span className={styles.lessonTitle}>{l.title}</span>
                     <br />
                     <span className={styles.lessonMeta}>
                       Lektion {l.number}
-                      {done ? " · geschafft" : isNext ? " · als Nächstes" : ""}
+                      {done ? " · geschafft" : !open ? " · in der Reitakademie" : !unlocked ? " · Probelektion" : isNext ? " · als Nächstes" : ""}
                     </span>
                   </span>
                   <Icon name="back" className={styles.lessonGo} aria-hidden />

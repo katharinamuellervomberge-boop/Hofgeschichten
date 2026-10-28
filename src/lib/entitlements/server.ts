@@ -36,13 +36,17 @@ export async function getOwnedAdventures(): Promise<string[]> {
 }
 
 /**
- * Große Reitakademie: Mitglieder haben sie automatisch, sonst nach Einzelkauf.
- * Wird von jeder Seite der Großen Akademie VOR der Auslieferung der Inhalte geprüft.
+ * Reitakademie freigeschaltet? (Kauf „Reitakademie“, Kennung `grosse-akademie`.)
+ * Mitglieder nur, solange `grosseAkademie.includedInMembership` true ist.
+ * Wird vor der Auslieferung jeder kostenpflichtigen Lektion geprüft.
  */
 export async function hasGrosseAkademie(): Promise<boolean> {
   const e = await getEntitlement();
-  return e.membership !== null || e.adventures.includes(grosseAkademie.slug);
+  return e.adventures.includes(grosseAkademie.slug) || (grosseAkademie.includedInMembership && e.membership !== null);
 }
+
+/** Neuer Name, gleiche Prüfung */
+export const hasAcademy = hasGrosseAkademie;
 
 /** Abenteuer, die auf diesem Gerät spielbar sind (gekauft oder über die Mitgliedschaft) */
 export async function getAccessibleAdventures(): Promise<string[]> {

@@ -25,7 +25,7 @@ export function AdventureList({ list, owned }: { list: AdventureMeta[]; owned: s
   const premium = list.filter((a) => a.access !== "free");
   return (
     <div className="page">
-      <PageHeader title="Abenteuer" spoken={UI_SPEECH.adventuresHeader} />
+      <PageHeader title="Abenteuer" spoken={UI_SPEECH.adventuresHeader} backHref="/hofwelt" backLabel="Zur Hofwelt" />
       <div className={styles.shelves}>
         {free.length > 0 && (
           <Shelf kind="gratis" id="abenteuer-gratis" title="Abenteuer für alle">
