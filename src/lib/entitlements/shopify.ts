@@ -63,6 +63,7 @@ const ORDER_QUERY = /* GraphQL */ `
         lineItems(first: 50) {
           nodes {
             quantity
+            title
             product {
               handle
             }
@@ -81,7 +82,7 @@ type OrderNode = {
   test: boolean;
   cancelledAt: string | null;
   displayFinancialStatus: string | null;
-  lineItems: { nodes: Array<{ quantity: number; product: { handle: string } | null }> };
+  lineItems: { nodes: Array<{ quantity: number; title: string | null; product: { handle: string } | null }> };
 };
 
 export type VerifyResult =
@@ -92,6 +93,27 @@ export type VerifyResult =
 export function normalizeOrderNumber(input: string): string | null {
   const n = input.trim().replace(/^#/, "");
   return /^[A-Za-z0-9-]{1,20}$/.test(n) ? n : null;
+}
+
+/**
+ * Rückfall, falls Shopify das Produkt einer Bestellposition nicht mitliefert
+ * (z. B. fehlender Scope `read_products` oder gelöschtes Produkt):
+ * Der Positionstitel ist eine Momentaufnahme vom Kaufzeitpunkt. Nur App-Produkte
+ * beginnen mit „Die Hofgeschichten –“ – so werden Druck-PDFs nie verwechselt.
+ */
+const TITLE_RULES: Array<[RegExp, () => string | null]> = [
+  [/reitakademie/i, () => grosseAkademie.shopifyProductHandle],
+  [/hofpost/i, () => hofpost.shopifyProductHandle],
+  [/mitgliedschaft/i, () => membership.shopifyProductHandle],
+  [/geisterweide/i, () => "das-geheimnis-der-geisterweide"],
+  [/geisterstall/i, () => "mystery-files-die-nacht-im-geisterstall-app"],
+];
+
+function handleFromTitle(title: string | null): string | null {
+  const t = (title ?? "").trim();
+  if (!/^Die Hofgeschichten\s+[–-]/.test(t)) return null;
+  for (const [re, handle] of TITLE_RULES) if (re.test(t)) return handle();
+  return null;
 }
 
 export async function verifyShopifyOrder(orderNumber: string, email: string): Promise<VerifyResult> {
@@ -122,7 +144,7 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   const testOk = !order.test || process.env.SHOPIFY_ALLOW_TEST_ORDERS === "1";
   if (!paid || order.cancelledAt || !testOk) return { ok: false, reason: "not_paid" };
 
-  const handles = new Set(order.lineItems.nodes.map((li) => li.product?.handle).filter(Boolean));
+  const handles = new Set(order.lineItems.nodes.map((li) => li.product?.handle ?? handleFromTitle(li.title)).filter(Boolean));
   const unlocked = adventures
     .filter((a) => isVisible(a) && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
     .map((a) => a.slug);
