@@ -1,6 +1,6 @@
 import "server-only";
 import { card, item, letterSpot, no, ok, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 13 – Dressur (Ausbau 29.10.2026) */
 export const welt13: AcademyWorld = {
@@ -1245,5 +1245,5 @@ export const welt13: AcademyWorld = {
       },
       readTogether: true,
     },
-  ]),
+  ], reviewed2026_10_29),
 };

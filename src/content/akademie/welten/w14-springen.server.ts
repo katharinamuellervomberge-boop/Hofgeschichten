@@ -1,6 +1,6 @@
 import "server-only";
 import { card, item, no, ok, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 14 – Springen (Ausbau 29.10.2026) */
 export const welt14: AcademyWorld = {
@@ -961,5 +961,5 @@ export const welt14: AcademyWorld = {
       },
       practiceNote: "Springen nur unter Anleitung einer qualifizierten Reitlehrkraft, mit Helm und Sicherheitsweste.",
     },
-  ]),
+  ], reviewed2026_10_29),
 };

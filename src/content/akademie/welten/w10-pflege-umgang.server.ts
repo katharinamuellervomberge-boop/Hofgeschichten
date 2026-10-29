@@ -1,6 +1,6 @@
 import "server-only";
 import { card, item, no, ok, spot, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 10 – Pflege und Umgang (Ausbau 29.10.2026) */
 export const welt10: AcademyWorld = {
@@ -527,5 +527,5 @@ export const welt10: AcademyWorld = {
         mittel: "Trockenreiten, kontrollieren, versorgen, aufräumen: Die Reitstunde endet erst, wenn das Pferd gut versorgt ist.",
       },
     },
-  ]),
+  ], reviewed2026_10_29),
 };

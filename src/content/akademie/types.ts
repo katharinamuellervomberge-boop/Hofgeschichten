@@ -139,19 +139,22 @@ export const noAudio = (): LessonAudio => ({
 
 export const draft: ReviewStatus = { status: "entwurf", note: "Fachliche Abnahme durch Reitlehrerin ausstehend" };
 
+/** Fachlich abgenommen (Bestätigung der Inhaberin am 29.10.2026 für die Lernwelten 9–14) */
+export const reviewed2026_10_29: ReviewStatus = { status: "geprueft", date: "2026-10-29", note: "Fachliche Abnahme laut Inhaberin erfolgt" };
+
 type LessonInput = Omit<AcademyLesson, "audio" | "review" | "id" | "number"> & {
   audio?: LessonAudio;
   review?: ReviewStatus;
 };
 
 /** Baut die Lektionen einer Welt und vergibt die festen IDs ra-w<n>-l<m>. */
-export function lessonsOf(world: number, list: LessonInput[]): AcademyLesson[] {
+export function lessonsOf(world: number, list: LessonInput[], defaultReview: ReviewStatus = draft): AcademyLesson[] {
   return list.map((l, i) => ({
     ...l,
     id: `ra-w${world}-l${i + 1}`,
     number: i + 1,
     audio: l.audio ?? noAudio(),
-    review: l.review ?? draft,
+    review: l.review ?? defaultReview,
   }));
 }
 

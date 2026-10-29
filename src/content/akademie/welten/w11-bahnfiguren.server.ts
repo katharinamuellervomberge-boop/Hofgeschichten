@@ -1,6 +1,6 @@
 import "server-only";
 import { card, item, letterSpot, no, ok, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 11 – Alle Bahnfiguren und Bahnregeln (Ausbau 29.10.2026) */
 export const welt11: AcademyWorld = {
@@ -736,5 +736,5 @@ export const welt11: AcademyWorld = {
         mittel: "Ankündigen, vorbereiten, ausführen: „Ganze Abteilung“ = alle zugleich, sonst nacheinander am Punkt der Tete.",
       },
     },
-  ]),
+  ], reviewed2026_10_29),
 };

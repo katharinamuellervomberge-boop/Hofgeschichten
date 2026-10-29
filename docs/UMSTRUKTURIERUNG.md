@@ -54,7 +54,7 @@ Lektions-IDs, Freischaltungen und URLs bleiben erhalten und werden neu angeordne
   der Shop-Code-Weg muss vor Dezember geprüft werden.
 
 ## Ausbau der Reitakademie (29.10.2026)
-- 41 neue Lektionen in sechs neuen Lernwelten (alle `review: entwurf`, fachliche Abnahme ausstehend):
+- 41 neue Lektionen in sechs neuen Lernwelten (fachlich abgenommen laut Inhaberin am 29.10.2026, `review: geprueft`):
   w9 Pferde verstehen (4) · w10 Pflege und Umgang (5) · w11 Alle Bahnfiguren (7) · w12 Besser reiten (4) ·
   w13 Dressur (12) · w14 Springen (9). Insgesamt jetzt 81 Lektionen.
 - Neun Module: Pferde verstehen · Umgang · Reiten lernen · Reiterhilfen · Bahnfiguren und Bahnregeln · Besser reiten ·

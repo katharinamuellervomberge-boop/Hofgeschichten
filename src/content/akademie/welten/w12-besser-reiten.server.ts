@@ -1,6 +1,6 @@
 import "server-only";
 import { card, item, no, ok, spot, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 12 – Besser reiten (Ausbau 29.10.2026) */
 export const welt12: AcademyWorld = {
@@ -436,5 +436,5 @@ export const welt12: AcademyWorld = {
       },
       practiceNote: "Sitzübungen ohne Bügel und alle Notfallübungen nur an der Longe bzw. unter Anleitung einer Reitlehrkraft.",
     },
-  ]),
+  ], reviewed2026_10_29),
 };

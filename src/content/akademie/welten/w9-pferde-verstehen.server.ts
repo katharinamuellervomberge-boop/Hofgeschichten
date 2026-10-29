@@ -1,6 +1,6 @@
 import "server-only";
 import { card, head, item, no, ok, tag } from "../build";
-import { lessonsOf, scene, type AcademyWorld } from "../types";
+import { lessonsOf, reviewed2026_10_29, scene, type AcademyWorld } from "../types";
 
 /** Welt 9 – Pferde verstehen (Ausbau 29.10.2026) */
 export const welt9: AcademyWorld = {
@@ -434,5 +434,5 @@ export const welt9: AcademyWorld = {
         mittel: "Raufutter ohne lange Pausen, Wasser, freie Bewegung, Artgenossen, Licht und Luft – plus regelmäßige Huf- und Gesundheitspflege.",
       },
     },
-  ]),
+  ], reviewed2026_10_29),
 };
