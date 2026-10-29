@@ -22,8 +22,15 @@ export function world(at: Pt, ang: number, s: number, p: Pt): Pt {
   return [at[0] + r[0], at[1] + r[1]];
 }
 /** Gebiss (lokal) bei Halsstellung `bend` */
-export function bitPoint(bend: number, side: -1 | 1): Pt {
-  const r = rot([60 - 14, side * 3.5], bend);
+export function bitPoint(bend: number, side: -1 | 1, poll = 0): Pt {
+  const h = rot([16, side * 3.5], poll);
+  const r = rot([30 + h[0], h[1]], bend);
+  return [14 + r[0], r[1]];
+}
+
+/** Genick (lokal) bei Halsstellung `bend` */
+export function pollPoint(bend: number): Pt {
+  const r = rot([44 - 14, 0], bend);
   return [14 + r[0], r[1]];
 }
 
@@ -45,13 +52,13 @@ function Ring({ at, k, col = COL.honey, r = 6 }: { at: Pt; k: number; col?: stri
 }
 
 /** `ang` Blickrichtung in Grad (0 = rechts), `bend` Halsstellung (negativ = nach links/innen) */
-export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, handPull = 0, outBack = 0 }: { at: Pt; ang: number; look: Look; step: number; s?: number; bend?: number; glow?: Glow; handPull?: number; outBack?: number }) {
+export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, handPull = 0, outBack = 0, poll = 0 }: { at: Pt; ang: number; look: Look; step: number; s?: number; bend?: number; glow?: Glow; handPull?: number; outBack?: number; poll?: number }) {
   const sw = Math.sin(step * Math.PI * 2) * 3;
   const nod = Math.sin(step * Math.PI * 4) * 1.0;
   const line = { stroke: "#3B2C22", strokeOpacity: 0.35, strokeWidth: 1.4 };
   const hIn: Pt = [HAND_IN[0] - 4 * handPull, HAND_IN[1]];
-  const bIn = bitPoint(bend, -1);
-  const bOut = bitPoint(bend, 1);
+  const bIn = bitPoint(bend, -1, poll);
+  const bOut = bitPoint(bend, 1, poll);
   const lo = legOut(outBack);
   const g = (k?: number) => clamp01(k ?? 0);
   return (
@@ -61,9 +68,13 @@ export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, ha
       {/* Hals und Kopf (drehen um den Widerrist) */}
       <g transform={`rotate(${bend} 14 0)`}>
         <path d={`M10 -11 Q26 -9 44 ${-5 + nod} L44 ${5 + nod} Q26 9 10 11 Z`} fill={look.coat} {...line} />
-        <ellipse cx="55" cy={nod} rx="13" ry="7.5" fill={look.coat} {...line} />
-        <path d={`M44 ${-5 + nod} l-3 -7 l8 3 Z M44 ${5 + nod} l-3 7 l8 -3 Z`} fill={look.coat} {...line} />
-        <path d={`M10 0 L46 ${nod}`} stroke={look.mane} strokeWidth="5" strokeLinecap="round" />
+        <path d={`M10 0 L44 ${nod}`} stroke={look.mane} strokeWidth="5" strokeLinecap="round" />
+        {/* Kopf dreht im Genick (Stellung) */}
+        <g transform={`rotate(${poll} 44 ${nod})`}>
+          <ellipse cx="55" cy={nod} rx="13" ry="7.5" fill={look.coat} {...line} />
+          <path d={`M44 ${-5 + nod} l-3 -7 l8 3 Z M44 ${5 + nod} l-3 7 l8 -3 Z`} fill={look.coat} {...line} />
+          <path d={`M42 ${nod} L47 ${nod}`} stroke={look.mane} strokeWidth="5" strokeLinecap="round" />
+        </g>
       </g>
       {/* Rumpf */}
       <path d="M-28 -6 Q-30 -15 -16 -15 L12 -15 Q24 -14 24 0 Q24 14 12 15 L-16 15 Q-30 15 -28 6 Z" fill={look.coat} {...line} />
