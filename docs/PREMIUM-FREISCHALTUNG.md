@@ -138,3 +138,8 @@ LICENSE_SECRET=<gleicher Wert wie bei Vercel> npm run codes -- geisterweide 200 
 Typ „Secret“, Production). Erzeugt Codes für Mitgliedschaft (auch Hofpost, mit Startmonat), Große Reitakademie und
 Premium-Abenteuer – direkt auf dem Server mit dem vorhandenen `LICENSE_SECRET`, ohne Terminal und ohne GitHub-Secret.
 Bei einem einzelnen Code wird ein fertiger E-Mail-Text angezeigt. Codes werden nicht gespeichert.
+
+## Stand 29.10.2026
+- Dev-Dashboard-App „Hofgeschichten Freischaltung“ (Scope `read_orders`) im Shop 3eacdc-b7 installiert.
+- Vercel (Production): `SHOPIFY_STORE_DOMAIN`, `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET` gesetzt →
+  Elternbereich zeigt „Bestellnummer + E-Mail“. Codes per Admin-Seite bleiben als Ersatzweg.
