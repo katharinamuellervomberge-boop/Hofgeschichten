@@ -103,11 +103,13 @@ function Leg({ leg, gait, time, bob, look, far, highlight, joints }: { leg: LegI
   const [tx, ty] = TOP[leg];
   const top: P = [tx, ty + bob];
   const foot = joints?.foot ?? hoofTarget(gait, leg, time);
-  const k = joints?.knee ?? knee(top, foot, LEN[front ? "V" : "H"], !front);
+  // Vorderbein: Vorderfußwurzelgelenk („Knie“) knickt nach vorn, die Röhre klappt nach hinten.
+  // Hinterbein: Sprunggelenk zeigt nach hinten, die Röhre schwingt nach vorn unter den Bauch.
+  const k = joints?.knee ?? knee(top, foot, LEN[front ? "V" : "H"], front);
   // Fesselung: im Stand leicht schräg nach vorn, in der Schwebe abgeknickt
   const lowerAng = Math.atan2(foot[1] - k[1], foot[0] - k[0]);
   const lifted = joints ? foot[1] < GROUND - 6 : foot[1] < GROUND - 1;
-  const pastAng = lifted ? lowerAng + (front ? -0.9 : 0.6) * Math.min(1, (GROUND - foot[1]) / 14) : Math.PI / 2 - 0.35;
+  const pastAng = lifted ? lowerAng + (front ? 0.8 : 0.5) * Math.min(1, (GROUND - foot[1]) / 14) : Math.PI / 2 - 0.35;
   const hoof: P = [foot[0] + 12 * Math.cos(pastAng), foot[1] + 12 * Math.sin(pastAng)];
   const coat = far ? look.coatShade : look.coat;
   const lower = look.points ? look.points : coat;
