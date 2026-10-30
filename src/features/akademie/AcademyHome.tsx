@@ -249,7 +249,7 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         checks: [
           `All ${modules} modules with ${allLessons().length} interactive lessons – from the basics to dressage and jumping`,
           "Explanations with pictures, exercises and quizzes with feedback",
-          "Final quiz and certificate of completion",
+          "Final quiz, knowledge tests and badges",
           "Permanent access – every lesson can be repeated",
         ],
         askParents: "Ask your parents – they can unlock the Riding Academy for you.",

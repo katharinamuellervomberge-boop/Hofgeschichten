@@ -92,7 +92,7 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
             </div>
             <p className={styles.productInfo}>
               Nine modules with 81 interactive lessons – understanding horses, handling and grooming, learning to ride, the aids, school
-              figures and arena rules, riding better, dressage (up to piaffe and passage), jumping, and the academy finale with a certificate.
+              figures and arena rules, riding better, dressage (up to piaffe and passage), jumping, and the academy finale with knowledge tests.
               Three learning tracks: Kids (6–11), Teens (12–17) and Adults (18+). The first lesson of every module is free.
             </p>
             {!has && (
