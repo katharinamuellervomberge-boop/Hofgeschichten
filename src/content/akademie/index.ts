@@ -1,4 +1,6 @@
+import type { Locale } from "@/i18n/locale";
 import { lessonActivity } from "./activity";
+import { loc } from "./l10n";
 import { gameInfo } from "./info";
 import { grossGamesInfo, worldsInfo } from "./katalog.generated";
 import { freeAcademyGames } from "./spiele";
@@ -28,8 +30,9 @@ export const ACADEMY_TIERS: Record<AcademyTier, { title: string; short: string; 
 };
 export const PROFI_TITLE = "Hofgeschichten – Reitwissen-Profi";
 
-export function getWorld(slug: string): AcademyWorldInfo | undefined {
-  return worlds.find((w) => w.slug === slug);
+export function getWorld(slug: string, locale: Locale = "de"): AcademyWorldInfo | undefined {
+  const w = worlds.find((x) => x.slug === slug);
+  return w && loc(w, locale);
 }
 
 export function worldsOf(tier: AcademyTier): AcademyWorldInfo[] {
@@ -40,8 +43,9 @@ export function gamesOf(tier: AcademyTier): AcademyGameInfo[] {
   return academyGames.filter((g) => g.tier === tier);
 }
 
-export function getAcademyGameInfo(slug: string): AcademyGameInfo | undefined {
-  return academyGames.find((g) => g.slug === slug);
+export function getAcademyGameInfo(slug: string, locale: Locale = "de"): AcademyGameInfo | undefined {
+  const g = academyGames.find((x) => x.slug === slug);
+  return g && loc(g, locale);
 }
 
 export function allLessons(tier?: AcademyTier): LessonInfo[] {

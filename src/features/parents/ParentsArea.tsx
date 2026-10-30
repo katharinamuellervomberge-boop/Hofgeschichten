@@ -1,5 +1,6 @@
 "use client";
 
+import { grosseAkademie } from "@/content/products";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { PlaceholderBadge } from "@/components/ui/PlaceholderBadge";
@@ -127,7 +128,7 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
             ))}
             <li>
               <strong>Die Reitakademie</strong>
-              <p>Reitwissen in neun Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur, Springen und Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie 14,90 € einmalig. Details weiter unten.</p>
+              <p>Reitwissen in neun Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur, Springen und Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie {grosseAkademie.price} einmalig. Details weiter unten.</p>
             </li>
           </ul>
         </section>

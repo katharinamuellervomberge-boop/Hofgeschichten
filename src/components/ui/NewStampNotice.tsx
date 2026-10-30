@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { useEffect, useRef, useState } from "react";
 import { StampSeal } from "@/components/illustrations/StampSeal";
 import { allStamps } from "@/content/stamps";

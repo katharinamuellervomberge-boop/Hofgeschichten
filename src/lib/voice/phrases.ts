@@ -59,3 +59,40 @@ export const phrases = {
   adventureLocked: (title: string, teaser: string) => [`${title}.`, teaser, "Dieses Abenteuer können deine Eltern freischalten."],
   gameTile: (title: string, intro: string) => [`${title}.`, intro],
 };
+
+const ORDINALS_EN = ["first", "second", "third", "fourth"] as const;
+
+/** Englische Fassung (gleiche Schlüssel) – für die englische Version der App */
+export const phrasesEn: typeof phrases = {
+  whereIs: (label) => `Where is ${label}?`,
+  andNowWhereIs: (label) => `And now: where is ${label}?`,
+  thisIs: (label) => `That is ${label}.`,
+  searchedIs: (label) => `We're looking for ${label}.`,
+  notHere: (label) => `${cap(label)} isn't here. Try somewhere else.`,
+  found: (label) => `Found: ${label}!`,
+  missDefault: "Nothing there. Take another close look at the picture.",
+  tryAgain: "Hmm, not quite. Try again!",
+  optionLabel: (label) => `${label.replace(/[.!?]$/, "")}.`,
+  doesNotFit: (item) => `${item} doesn't fit here.`,
+  tryOtherTask: "Try another one.",
+  digitLabel: (i) => `${cap(ORDINALS_EN[i])} number:`,
+  digitWrong: (i) => `The ${ORDINALS_EN[i]} number isn't right yet.`,
+  cipherPick: "Tap a symbol and then the matching letter.",
+  cipherWrong: (letter) => `The symbol for ${letter} looks different.`,
+  cipherRight: (letter) => `Right, that's a ${letter}!`,
+  newStamp: (title) => `Great! You've got a new stamp: ${title}.`,
+  gameDone: (title) => `Done! Well played. You've earned the stamp ${title}.`,
+  stampTitle: (title) => `${title}.`,
+  stampOwned: "You already have this one!",
+  missionDone: (next) => `Mission complete! On to mission ${next}.`,
+  caseSolved: (badge) => `Case solved! You're now ${badge}!`,
+  missionHeader: (n, title) => `Mission ${n}: ${title}`,
+  level: (label, ages) => `${label}. For ages ${ages.replace(/\s*–\s*/, " to ")}.`,
+  passIntro: "Your adventure pass.",
+  passCount: (count, total) => `You have ${count} of ${total} stamps.`,
+  passTap: "Tap a stamp.",
+  horsesHeader: (names) => `The horses on the farm: ${names.join(", ")}. Tap a horse.`,
+  adventureHeader: (title, teaser) => [`${title}.`, teaser, "Tap a mission."],
+  adventureLocked: (title, teaser) => [`${title}.`, teaser, "Your parents can unlock this adventure."],
+  gameTile: (title, intro) => [`${title}.`, intro],
+};

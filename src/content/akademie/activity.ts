@@ -19,8 +19,9 @@ function questionStep(lessonId: string, q: AcademyQuestion): ChoiceStep {
  * Macht aus einer Lektion einen spielbaren Ablauf für den vorhandenen Spielkern:
  * Einstieg → Erklärung mit Bild → („Schon gewusst?“ mit Fachbegriffen) → Übung → Quiz → Merksatz.
  */
-export function lessonActivity(lesson: AcademyLesson): Activity {
+export function lessonActivity(lesson: AcademyLesson, locale: "de" | "en" = "de"): Activity {
   const id = lesson.id;
+  const en = locale === "en";
   const steps: Step[] = [];
 
   steps.push({ type: "story", id: `${id}-einstieg`, speaker: lesson.speaker, text: lesson.intro });
@@ -45,10 +46,12 @@ export function lessonActivity(lesson: AcademyLesson): Activity {
       id: `${id}-fachbegriffe`,
       levels: ["mittel"],
       speaker: "erzaehler",
-      text: "Schon gewusst? Diese Fachbegriffe hörst du im Stall und in der Reitstunde.",
+      text: en
+        ? "Did you know? You'll hear these terms at the yard and in your riding lessons."
+        : "Schon gewusst? Diese Fachbegriffe hörst du im Stall und in der Reitstunde.",
       visual: {
         kind: "doc",
-        doc: { style: "lesson", label: "Schon gewusst?", title: "Fachbegriffe", lines: lesson.terms.map((t) => `${t.term}: ${t.meaning}`) },
+        doc: { style: "lesson", label: en ? "Did you know?" : "Schon gewusst?", title: en ? "Key terms" : "Fachbegriffe", lines: lesson.terms.map((t) => `${t.term}: ${t.meaning}`) },
       },
     });
   }
@@ -63,8 +66,14 @@ export function lessonActivity(lesson: AcademyLesson): Activity {
       id: `${id}-merksatz-${level}`,
       levels: [level],
       speaker: lesson.speaker,
-      text: level === "leicht" ? "Super! Diesen Merksatz nimmst du mit." : "Gut gemacht! Diesen Merksatz nimmst du mit.",
-      visual: { kind: "doc", doc: { style: "lesson", label: "Merksatz", title: merksatz, lines: [] } },
+      text: en
+        ? level === "leicht"
+          ? "Great! Here's something to remember."
+          : "Well done! Here's your key takeaway."
+        : level === "leicht"
+          ? "Super! Diesen Merksatz nimmst du mit."
+          : "Gut gemacht! Diesen Merksatz nimmst du mit.",
+      visual: { kind: "doc", doc: { style: "lesson", label: en ? "Key takeaway" : "Merksatz", title: merksatz, lines: [] } },
     });
   });
 

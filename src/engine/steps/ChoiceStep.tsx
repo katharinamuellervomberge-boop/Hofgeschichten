@@ -1,8 +1,9 @@
 "use client";
 
+import { usePhrases } from "@/engine/texts";
 import { useMemo, useState } from "react";
 import { speak } from "@/lib/speech";
-import { phrases } from "@/lib/voice/phrases";
+
 import { forLevel, pick, type ChoiceStep as S } from "../types";
 import { VisualView } from "../VisualView";
 import { Feedback, NextButton, Prompt, useAutoSpeak, type StepProps } from "./shared";
@@ -10,6 +11,7 @@ import styles from "../engine.module.css";
 
 /** Multiple Choice mit Bildern oder Texten. Falsche Antworten geben einen Tipp, nie eine Strafe. */
 export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
+  const ph = usePhrases();
   const options = useMemo(() => forLevel(step.options, level), [step.options, level]);
   const [wrong, setWrong] = useState<string[]>([]);
   const [solved, setSolved] = useState(false);
@@ -19,7 +21,7 @@ export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
   // Antworten mit ganzen Szenen (z. B. Reitbahn-Figuren) bekommen große Bildkarten
   const sceneOptions = pictures && options.some((o) => o.visual?.kind === "scene");
 
-  useAutoSpeak(pictures ? prompt : [prompt, ...options.map((o) => phrases.optionLabel(o.label))], level);
+  useAutoSpeak(pictures ? prompt : [prompt, ...options.map((o) => ph.optionLabel(o.label))], level);
 
   const choose = (id: string) => {
     if (solved) return;
@@ -31,7 +33,7 @@ export function ChoiceStep({ step, level, onDone }: StepProps<S>) {
       speak(text);
     } else {
       setWrong((w) => (w.includes(id) ? w : [...w, id]));
-      const text = o.feedback ?? phrases.tryAgain;
+      const text = o.feedback ?? ph.tryAgain;
       setMsg({ text, tone: "hint" });
       speak(text);
     }

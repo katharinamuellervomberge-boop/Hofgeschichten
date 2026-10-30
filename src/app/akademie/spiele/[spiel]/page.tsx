@@ -4,6 +4,7 @@ import { getAcademyGameInfo } from "@/content/akademie";
 import { loadAcademyGame } from "@/content/akademie/inhalte.server";
 import { AcademyGameScreen } from "@/features/akademie/AcademyGameScreen";
 import { AcademyLocked } from "@/features/akademie/AcademyLocked";
+import { getLocale } from "@/i18n/server";
 import { hasGrosseAkademie } from "@/lib/entitlements/server";
 
 type Params = { spiel: string };
@@ -12,12 +13,13 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { spiel } = await params;
-  return { title: getAcademyGameInfo(spiel)?.title ?? "Reitakademie" };
+  const locale = await getLocale();
+  return { title: getAcademyGameInfo(spiel, locale)?.title ?? (locale === "en" ? "Riding Academy" : "Reitakademie") };
 }
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { spiel } = await params;
-  const found = loadAcademyGame(spiel);
+  const found = loadAcademyGame(spiel, await getLocale());
   if (!found) notFound();
   if (found.tier === "gross" && !(await hasGrosseAkademie())) return <AcademyLocked title={found.game.title} />;
   const { activity, ...info } = found.game;

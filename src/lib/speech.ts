@@ -25,8 +25,11 @@ export const voiceEnabled: boolean = site.features.voice;
 
 type Manifest = { version: number; voice: string | null; clips: Record<string, string> };
 const clips = (manifest as Manifest).clips;
+/** Sprache der Vorlesestimme ("de" oder "en"), gesetzt vom LocaleProvider */
+let speechLang = "de";
 
 function clipUrl(text: string): string | null {
+  if (speechLang !== "de") return null; // Aufnahmen gibt es bisher nur auf Deutsch
   const id = speechId(text);
   const access = clips[id];
   if (!access) return null;
@@ -47,12 +50,19 @@ export function hasRecording(text: Speech): boolean {
 
 let cachedVoice: SpeechSynthesisVoice | null | undefined;
 
+export function setSpeechLang(lang: string) {
+  if (lang === speechLang) return;
+  speechLang = lang;
+  cachedVoice = undefined;
+}
+
 function pickVoice(): SpeechSynthesisVoice | null {
   if (cachedVoice !== undefined) return cachedVoice;
   const voices = window.speechSynthesis.getVoices();
   if (!voices.length) return null; // noch nicht geladen – später erneut versuchen
-  const german = voices.filter((v) => v.lang?.toLowerCase().startsWith("de") && v.localService);
-  cachedVoice = german.find((v) => v.lang === "de-DE") ?? german[0] ?? null;
+  const local = voices.filter((v) => v.lang?.toLowerCase().startsWith(speechLang) && v.localService);
+  const preferred = speechLang === "en" ? ["en-GB", "en-US"] : ["de-DE"];
+  cachedVoice = preferred.map((l) => local.find((v) => v.lang === l)).find(Boolean) ?? local[0] ?? null;
   return cachedVoice;
 }
 

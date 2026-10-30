@@ -1,5 +1,6 @@
 "use client";
 
+import { useEngineTexts } from "@/engine/texts";
 import { useMemo, useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { speak } from "@/lib/speech";
@@ -13,6 +14,7 @@ import styles from "../engine.module.css";
  * Falsche Antworten werden erklärt und abgewählt – nie bestraft.
  */
 export function MultiStep({ step, level, onDone }: StepProps<S>) {
+  const tx = useEngineTexts();
   const options = useMemo(() => forLevel(step.options, level), [step.options, level]);
   const [chosen, setChosen] = useState<string[]>([]);
   const [ruledOut, setRuledOut] = useState<string[]>([]);
@@ -31,7 +33,7 @@ export function MultiStep({ step, level, onDone }: StepProps<S>) {
     const wrong = options.filter((o) => !o.correct && chosen.includes(o.id));
     const missing = options.filter((o) => o.correct && !chosen.includes(o.id));
     if (wrong.length) {
-      const text = wrong.map((o) => o.feedback ?? `„${o.label}“ passt hier nicht.`).join(" ");
+      const text = wrong.map((o) => o.feedback ?? tx.notHere(o.label)).join(" ");
       setRuledOut((r) => [...r, ...wrong.map((o) => o.id)]);
       setChosen((c) => c.filter((id) => !wrong.some((o) => o.id === id)));
       setMsg({ text, tone: "hint" });
@@ -58,7 +60,7 @@ export function MultiStep({ step, level, onDone }: StepProps<S>) {
           <VisualView v={step.visual} />
         </div>
       )}
-      <ul className={styles.options} role="group" aria-label="Mehrere Antworten möglich">
+      <ul className={styles.options} role="group" aria-label={tx.multi}>
         {options.map((o) => {
           const on = chosen.includes(o.id) || (solved && o.correct);
           const out = ruledOut.includes(o.id);
@@ -87,7 +89,7 @@ export function MultiStep({ step, level, onDone }: StepProps<S>) {
       </ul>
       {!solved && (
         <button type="button" className={styles.checkBtn} onClick={check} disabled={chosen.length === 0}>
-          Prüfen
+          {tx.check}
         </button>
       )}
       <Feedback text={msg?.text ?? null} tone={msg?.tone ?? "good"} />

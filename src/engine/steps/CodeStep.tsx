@@ -1,10 +1,11 @@
 "use client";
 
+import { usePhrases } from "@/engine/texts";
 import { useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { SpeakButton } from "@/components/ui/SpeakButton";
 import { speak } from "@/lib/speech";
-import { ORDINALS, phrases } from "@/lib/voice/phrases";
+import { ORDINALS } from "@/lib/voice/phrases";
 import { pick, type CodeStep as S } from "../types";
 import { VisualView } from "../VisualView";
 import { Feedback, NextButton, Prompt, useAutoSpeak, type StepProps } from "./shared";
@@ -14,6 +15,7 @@ const ORDINAL = ORDINALS;
 
 /** Zahlenschloss: jede Ziffer hat ein eigenes Rätsel. Falsche Ziffern bekommen einen gezielten Tipp. */
 export function CodeStep({ step, level, onDone }: StepProps<S>) {
+  const ph = usePhrases();
   const [values, setValues] = useState<number[]>(() => step.digits.map(() => 0));
   const [wrongIdx, setWrongIdx] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -36,7 +38,7 @@ export function CodeStep({ step, level, onDone }: StepProps<S>) {
       speak(text);
     } else {
       setWrongIdx(idx);
-      const parts = [phrases.digitWrong(idx), pick(step.digits[idx].hint, level)];
+      const parts = [ph.digitWrong(idx), pick(step.digits[idx].hint, level)];
       setMsg({ text: parts.join(" "), tone: "hint" });
       speak(parts);
     }
@@ -61,7 +63,7 @@ export function CodeStep({ step, level, onDone }: StepProps<S>) {
                   <VisualView v={visual} decorative />
                 </span>
               )}
-              <SpeakButton text={[phrases.digitLabel(i), riddle]} size="sm" />
+              <SpeakButton text={[ph.digitLabel(i), riddle]} size="sm" />
             </li>
           );
         })}
