@@ -56,7 +56,7 @@ export function academyPriceLabel(locale: "de" | "en" = "de"): string {
 
 export function academyCheckoutUrl(locale: "de" | "en" = "de"): string | null {
   if (!grosseAkademie.checkoutUrl || !grosseAkademie.shopifyProductHandle) return grosseAkademie.checkoutUrl;
-  return locale === "en" ? `${SHOP_BASE}/en-gb/products/${grosseAkademie.shopifyProductHandle}` : grosseAkademie.checkoutUrl;
+  return locale === "en" ? `${SHOP_BASE}/en/products/${grosseAkademie.shopifyProductHandle}` : grosseAkademie.checkoutUrl;
 }
 
 /** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link */
@@ -70,7 +70,8 @@ export function regionalCheckoutUrl(): string {
   } catch {
     us = false;
   }
-  return `${SHOP_BASE}/${us ? "en-us" : "en-gb"}/products/${handle}`;
+  // /en-us und /en-gb leiten Besucher aus anderen Ländern auf die deutsche Seite um – dann lieber /en (Shopify zeigt die Landeswährung)
+  return `${SHOP_BASE}/${us ? "en-us" : "en"}/products/${handle}`;
 }
 
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
