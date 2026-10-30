@@ -106,7 +106,22 @@ export function ModuleScreen({ slug, unlocked }: { slug: string; unlocked: boole
                     </li>
                   );
                 })}
-                {t.link && (
+                {/* Das Zertifikat ist bisher deutsch – in der englischen Version als „bald“ */}
+                {t.link && en && (
+                  <li>
+                    <span className={`${styles.row} ${styles.rowSoon}`}>
+                      <span className={styles.rowIcon} aria-hidden>
+                        <Icon name="star" />
+                      </span>
+                      <span>
+                        <span className={styles.rowTitle}>{t.link.label}</span>
+                        <span className={styles.rowMeta}>English certificate coming soon</span>
+                      </span>
+                      <span />
+                    </span>
+                  </li>
+                )}
+                {t.link && !en && (
                   <li>
                     <Link href={t.link.href} className={styles.row}>
                       <span className={styles.rowIcon} aria-hidden>
