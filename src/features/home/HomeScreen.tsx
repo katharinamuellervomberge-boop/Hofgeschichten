@@ -6,7 +6,7 @@ import { LegalLinks } from "@/components/layout/LegalPage";
 import { ACADEMY_PATHS } from "@/content/akademie/module";
 import { horses } from "@/content/horses";
 import { membership } from "@/content/membership";
-import { grosseAkademie } from "@/content/products";
+import { academyPriceLabel, grosseAkademie } from "@/content/products";
 import { VisualView } from "@/engine/VisualView";
 import type { Locale } from "@/i18n/locale";
 import { ContinueCard } from "./ContinueCard";
@@ -139,7 +139,7 @@ export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
  * Hofwelt, Spiele und Mitgliedschaft folgen auf Englisch später.
  */
 function HomeScreenEn() {
-  const price = "€14.90";
+  const price = academyPriceLabel("en");
   return (
     <div className={styles.home}>
       <section className={styles.hero} aria-labelledby="home-title">

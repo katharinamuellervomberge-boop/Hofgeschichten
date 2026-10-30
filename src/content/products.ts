@@ -9,6 +9,9 @@
  * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf für den
  * Einzelkauf (keine Platzhalter-Buttons) – nur den Weg über die Mitgliedschaft.
  */
+/** 1.11.2026, 00:00 Uhr in Deutschland (MEZ) */
+const PRICE_CHANGE_AT = Date.parse("2026-10-31T23:00:00Z");
+
 export const grosseAkademie = {
   /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
   slug: "grosse-akademie",
@@ -18,8 +21,13 @@ export const grosseAkademie = {
    * Seit 28.10.2026 auf Wunsch der Inhaberin false – für alle Mitglieder, auch bestehende.
    */
   includedInMembership: false,
-  /** Preis für den Einzelkauf, z. B. "9,90 €". null = noch nicht festgelegt */
-  price: "14,90 €" as string | null,
+  /**
+   * Preis für den Einzelkauf. Einführungspreis 14,90 € bis 31.10.2026,
+   * ab 1.11.2026 (00:00 Uhr deutscher Zeit) 19,90 € – Stand Produktseite im Shop.
+   */
+  get price(): string | null {
+    return Date.now() >= PRICE_CHANGE_AT ? "19,90 €" : "14,90 €";
+  },
   /** Shopify-Produkt (Handle). Eine bezahlte Bestellung damit schaltet die Große Akademie frei. */
   shopifyProductHandle: "die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Shopify-Produkt gid://shopify/Product/10990621163853 (angelegt 25.10.2026, aktiv seit 26.10.2026) */
@@ -42,8 +50,8 @@ export const grosseAkademie = {
 const SHOP_BASE = "https://www.horseandharmonie-shop.de";
 
 export function academyPriceLabel(locale: "de" | "en" = "de"): string {
-  if (locale === "en") return grosseAkademie.price ? `€${grosseAkademie.price.replace(/\s*€/, "").replace(",", ".")}` : "€14.90";
-  return grosseAkademie.price ?? "14,90 €";
+  const de = grosseAkademie.price ?? "19,90 €";
+  return locale === "en" ? `€${de.replace(/\s*€/, "").replace(",", ".")}` : de;
 }
 
 export function academyCheckoutUrl(locale: "de" | "en" = "de"): string | null {

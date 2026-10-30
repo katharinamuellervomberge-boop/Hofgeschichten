@@ -1,3 +1,4 @@
+import { grosseAkademie } from "@/content/products";
 import Link from "next/link";
 import { HorsePortrait } from "@/components/illustrations/HorsePortrait";
 import { Icon } from "@/components/illustrations/Icons";
@@ -311,7 +312,7 @@ export function SalesPage({ status, orderUnlock = false }: { status: MembershipS
           <details>
             <summary>Ist die Reitakademie in der Mitgliedschaft enthalten?</summary>
             <p>
-              Nein. Die Reitakademie ist ein eigenes Produkt: einmalig 14,90 €, kein Abo, dauerhafter Zugriff. Die erste Lektion jedes
+              Nein. Die Reitakademie ist ein eigenes Produkt: einmalig {grosseAkademie.price}, kein Abo, dauerhafter Zugriff. Die erste Lektion jedes
               Moduls ist kostenlos.
             </p>
           </details>
