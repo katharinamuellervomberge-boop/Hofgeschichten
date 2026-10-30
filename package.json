@@ -15,7 +15,9 @@
     "voice:generate": "node scripts/voice-generate.mjs",
     "voice:manifest": "node scripts/voice-manifest.mjs",
     "support": "node scripts/support.mjs",
-    "check:premium": "tsx --conditions=react-server scripts/check-premium.ts"
+    "check:premium": "tsx --conditions=react-server scripts/check-premium.ts",
+    "en:extract": "tsx --conditions=react-server scripts/en-extract.ts",
+    "check:en": "tsx --conditions=react-server scripts/en-extract.ts --check"
   },
   "engines": {
     "node": ">=20.9.0"

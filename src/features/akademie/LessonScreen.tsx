@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { useEffect, useMemo } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { StampSeal } from "@/components/illustrations/StampSeal";
@@ -17,6 +17,7 @@ import { VisualView } from "@/engine/VisualView";
 import { earnedStamps } from "@/lib/progress/stamps";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { lessonHref, worldDone } from "./progress";
+import { useLocale } from "@/i18n/LocaleProvider";
 import styles from "./akademie.module.css";
 
 /**
@@ -37,48 +38,69 @@ export function LessonScreen({
   /** Reitakademie gekauft? Sonst sind nur die Probelektionen offen. */
   unlocked: boolean;
 }) {
-  const world = getWorld(worldSlug);
+  const locale = useLocale();
+  const en = locale === "en";
+  const world = getWorld(worldSlug, locale);
   const progress = useProgress();
-  const path = pathInfo(progress.settings.academyPath);
+  const path = pathInfo(progress.settings.academyPath, locale);
   const level = path?.level ?? progress.settings.level ?? "leicht";
 
   const activity: Activity = useMemo(
     () => ({
       ...base,
-      intro: {
-        leicht: `Lektion ${lesson.number}: ${lesson.title}. Tippe auf Start!`,
-        mittel: `Lektion ${lesson.number}: ${lesson.title}. Einstieg, Erklärung, Übung, Quiz und Merksatz – los geht's!`,
-      },
+      intro: en
+        ? {
+            leicht: `Lesson ${lesson.number}: ${lesson.title}. Tap start!`,
+            mittel: `Lesson ${lesson.number}: ${lesson.title}. Introduction, explanation, exercise, quiz and key takeaway – let's go!`,
+          }
+        : {
+            leicht: `Lektion ${lesson.number}: ${lesson.title}. Tippe auf Start!`,
+            mittel: `Lektion ${lesson.number}: ${lesson.title}. Einstieg, Erklärung, Übung, Quiz und Merksatz – los geht's!`,
+          },
     }),
-    [base, lesson],
+    [base, lesson, en],
   );
 
   useEffect(() => {
-    if (world) progressActions.setLast({ href: lessonHref(world, lesson), title: lesson.title, area: "Reitakademie" });
-  }, [world, lesson]);
+    if (world) progressActions.setLast({ href: lessonHref(world, lesson), title: lesson.title, area: en ? "Riding Academy" : "Reitakademie" });
+  }, [world, lesson, en]);
 
   if (!world) return null;
 
   // Reihenfolge der Module: nächste Lektion im Modul, danach das nächste Modul
-  const mod = moduleOfLesson(lesson.id);
-  const order = academyOrder();
+  const mod = moduleOfLesson(lesson.id, locale);
+  const order = academyOrder(locale);
   const pos = order.findIndex((x) => x.lesson.id === lesson.id);
   const following = order[pos + 1];
   const backHref = mod ? moduleHref(mod) : "/akademie";
   const next = !following
-    ? { href: "/akademie", label: "Zur Reitakademie" }
+    ? { href: "/akademie", label: en ? "To the Riding Academy" : "Zur Reitakademie" }
     : !unlocked && !following.trial
-      ? { href: "/akademie#ak-buy", label: "Alle Lektionen freischalten" }
-      : { href: lessonHref(following.world, following.lesson), label: mod && moduleOfLesson(following.lesson.id)?.id !== mod.id ? "Nächstes Modul" : "Nächste Lektion" };
+      ? { href: "/akademie#ak-buy", label: en ? "Unlock all lessons" : "Alle Lektionen freischalten" }
+      : {
+          href: lessonHref(following.world, following.lesson),
+          label:
+            mod && moduleOfLesson(following.lesson.id)?.id !== mod.id
+              ? en
+                ? "Next module"
+                : "Nächstes Modul"
+              : en
+                ? "Next lesson"
+                : "Nächste Lektion",
+        };
 
   return (
     <div className="page">
-      <PageHeader title={lesson.title} backHref={backHref} backLabel={mod ? `Zurück zu „${mod.title}“` : "Zurück zur Reitakademie"} />
+      <PageHeader title={lesson.title} backHref={backHref} backLabel={en ? (mod ? `Back to “${mod.title}”` : "Back to the Riding Academy") : mod ? `Zurück zu „${mod.title}“` : "Zurück zur Reitakademie"} />
       <div className={styles.stack}>
         {level === "leicht" && lesson.readTogether && (
           <p className={styles.hint}>
             <Icon name="parents" />
-            <span>In dieser Lektion gibt es mehr zu lesen. Lies sie am besten zusammen mit einem Erwachsenen.</span>
+            <span>
+              {en
+                ? "There is a bit more to read in this lesson. It's best to read it together with a grown-up."
+                : "In dieser Lektion gibt es mehr zu lesen. Lies sie am besten zusammen mit einem Erwachsenen."}
+            </span>
           </p>
         )}
         {video && <LessonVideo video={video} />}
@@ -90,20 +112,24 @@ export function LessonScreen({
           ageNote={path ? `${path.title} · ${path.ages}` : undefined}
           introArt={<VisualView v={lesson.illustration} />}
           onComplete={() => progressActions.completeGame(lesson.id)}
-          renderDone={({ replay }) => <LessonDone worldId={world.id} lessonId={lesson.id} merksatz={pick(lesson.merksatz, level)} next={next} replay={replay} />}
+          renderDone={({ replay }) => <LessonDone en={en} badgeTitle={world.badge.title} worldId={world.id} lessonId={lesson.id} merksatz={pick(lesson.merksatz, level)} next={next} replay={replay} />}
         />
-        {lesson.practiceNote && <p className={styles.practice}>Hinweis für Erwachsene: {lesson.practiceNote}</p>}
+        {lesson.practiceNote && <p className={styles.practice}>{en ? "Note for adults" : "Hinweis für Erwachsene"}: {lesson.practiceNote}</p>}
       </div>
     </div>
   );
 }
 
 function LessonDone({
+  en,
+  badgeTitle,
   worldId,
   merksatz,
   next,
   replay,
 }: {
+  en: boolean;
+  badgeTitle: string;
   worldId: string;
   lessonId: string;
   merksatz: string;
@@ -130,30 +156,36 @@ function LessonDone({
           <Icon name="check" />
         </span>
       )}
-      <h2 className={styles.doneTitle}>{profi ? "Reitwissen-Profi!" : "Geschafft!"}</h2>
+      <h2 className={styles.doneTitle}>{en ? (profi ? "Riding Knowledge Pro!" : "Well done!") : profi ? "Reitwissen-Profi!" : "Geschafft!"}</h2>
       <p className={styles.doneText}>
-        {profi
+        {en
+          ? profi
+            ? "You've completed all 40 lessons of the foundation course. The “Riding Knowledge Pro” award is now in your pass."
+            : badge
+              ? `You've completed a whole learning world! The “${badgeTitle}” badge is now in your pass.`
+              : "Lesson complete. Keep it up!"
+          : profi
           ? "Du hast alle 40 Lektionen des Grundkurses geschafft. Die Auszeichnung „Hofgeschichten – Reitwissen-Profi“ ist in deinem Pass."
           : badge
             ? `Eine ganze Lernreihe geschafft! Das Abzeichen „${worldStamp.title}“ ist in deinem Pass.`
             : "Lektion geschafft. Weiter so!"}
       </p>
       <div className={styles.merk}>
-        <p className={styles.merkLabel}>Merksatz</p>
+        <p className={styles.merkLabel}>{en ? "Key takeaway" : "Merksatz"}</p>
         <p className={styles.merkText}>{merksatz}</p>
       </div>
       <div className={styles.actions}>
         <button type="button" className={styles.btn} onClick={replay}>
           <Icon name="replay" />
-          Nochmal
+          {en ? "Again" : "Nochmal"}
         </button>
-        {badge || profi ? (
+        {(badge || profi) && !en ? (
           <Link href="/pass" className={`${styles.btn} ${styles.btnPrimary}`}>
             <Icon name="pass" />
             Zum Pass
           </Link>
         ) : null}
-        <Link href={next.href} className={`${styles.btn} ${badge || profi ? "" : styles.btnPrimary} ${styles.btnNext}`}>
+        <Link href={next.href} className={`${styles.btn} ${(badge || profi) && !en ? "" : styles.btnPrimary} ${styles.btnNext}`}>
           {next.label}
           <Icon name="back" />
         </Link>

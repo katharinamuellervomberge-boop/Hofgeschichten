@@ -1,6 +1,8 @@
 import type { Level, Visual } from "@/engine/types";
 import type { AcademyPath } from "@/lib/progress/types";
+import type { Locale } from "@/i18n/locale";
 import { getAcademyGameInfo, worlds } from "./index";
+import { loc } from "./l10n";
 import type { AcademyGameInfo, AcademyWorldInfo, LessonInfo } from "./types";
 
 /**
@@ -257,8 +259,18 @@ export const ACADEMY_PATHS: AcademyPathInfo[] = [
   { id: "adult", title: "Adult Academy", ages: "ab 18 Jahren", level: "mittel", text: "Fundiert, verständlich und praxisnah – für Wiedereinsteiger und Reitanfänger." },
 ];
 
-export function pathInfo(path: AcademyPath | null | undefined): AcademyPathInfo | undefined {
-  return ACADEMY_PATHS.find((p) => p.id === path);
+export function pathInfo(path: AcademyPath | null | undefined, locale: Locale = "de"): AcademyPathInfo | undefined {
+  return academyPaths(locale).find((p) => p.id === path);
+}
+
+/** Lernwege in der gewünschten Sprache */
+export function academyPaths(locale: Locale = "de"): AcademyPathInfo[] {
+  return loc(ACADEMY_PATHS, locale);
+}
+
+/** Module in der gewünschten Sprache (gleiche Reihenfolge, IDs und Slugs) */
+export function modulesIn(locale: Locale = "de"): AcademyModule[] {
+  return loc(academyModules, locale);
 }
 
 /* ---------- Abfragen ---------- */
@@ -268,27 +280,27 @@ export type ModuleLesson = { lesson: LessonInfo; world: AcademyWorldInfo; topic:
 const lessonIndex = new Map<string, { lesson: LessonInfo; world: AcademyWorldInfo }>();
 for (const w of worlds) for (const l of w.lessons) lessonIndex.set(l.id, { lesson: l, world: w });
 
-export function getModule(slug: string): AcademyModule | undefined {
-  return academyModules.find((m) => m.slug === slug);
+export function getModule(slug: string, locale: Locale = "de"): AcademyModule | undefined {
+  return modulesIn(locale).find((m) => m.slug === slug);
 }
 
-/** Alle Lektionen eines Moduls in Lernreihenfolge */
-export function moduleLessons(m: AcademyModule): ModuleLesson[] {
+/** Alle Lektionen eines Moduls in Lernreihenfolge (Titel in der Sprache des Moduls bzw. `locale`) */
+export function moduleLessons(m: AcademyModule, locale: Locale = "de"): ModuleLesson[] {
   return m.topics.flatMap((t) =>
     t.lessons.flatMap((id) => {
       const hit = lessonIndex.get(id);
-      return hit ? [{ ...hit, topic: t.title, trial: id === m.trial }] : [];
+      return hit ? [{ lesson: loc(hit.lesson, locale), world: loc(hit.world, locale), topic: t.title, trial: id === m.trial }] : [];
     }),
   );
 }
 
-export function moduleGames(m: AcademyModule): AcademyGameInfo[] {
-  return m.topics.flatMap((t) => (t.games ?? []).flatMap((slug) => getAcademyGameInfo(slug) ?? []));
+export function moduleGames(m: AcademyModule, locale: Locale = "de"): AcademyGameInfo[] {
+  return m.topics.flatMap((t) => (t.games ?? []).flatMap((slug) => getAcademyGameInfo(slug, locale) ?? []));
 }
 
 /** Modul, zu dem eine Lektion gehört */
-export function moduleOfLesson(lessonId: string): AcademyModule | undefined {
-  return academyModules.find((m) => m.topics.some((t) => t.lessons.includes(lessonId)));
+export function moduleOfLesson(lessonId: string, locale: Locale = "de"): AcademyModule | undefined {
+  return modulesIn(locale).find((m) => m.topics.some((t) => t.lessons.includes(lessonId)));
 }
 
 /** Kostenlose Probelektionen (je Modul eine) */
@@ -303,6 +315,6 @@ export function moduleHref(m: AcademyModule): string {
 }
 
 /** Lektionen über alle Module in Lernreihenfolge – für „Nächste Lektion“ */
-export function academyOrder(): ModuleLesson[] {
-  return academyModules.flatMap(moduleLessons);
+export function academyOrder(locale: Locale = "de"): ModuleLesson[] {
+  return modulesIn(locale).flatMap((m) => moduleLessons(m, locale));
 }

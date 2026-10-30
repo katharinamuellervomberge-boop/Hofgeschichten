@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getWorld } from "@/content/akademie";
 import { WorldScreen } from "@/features/akademie/WorldScreen";
+import { getLocale } from "@/i18n/server";
 import { hasGrosseAkademie } from "@/lib/entitlements/server";
 
 type Params = { welt: string };
@@ -10,7 +11,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { welt } = await params;
-  return { title: getWorld(welt)?.title ?? "Reitakademie" };
+  const locale = await getLocale();
+  return { title: getWorld(welt, locale)?.title ?? (locale === "en" ? "Riding Academy" : "Reitakademie") };
 }
 
 export default async function Page({ params }: { params: Promise<Params> }) {

@@ -1,9 +1,10 @@
 "use client";
 
+import { useEngineTexts, usePhrases } from "@/engine/texts";
 import { useMemo, useRef, useState, type PointerEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { speak } from "@/lib/speech";
-import { phrases } from "@/lib/voice/phrases";
+
 import { forLevel, pick, type HotspotStep as S } from "../types";
 import { viewBoxOf, VisualView } from "../VisualView";
 import { Feedback, NextButton, Prompt, useAutoSpeak, type StepProps } from "./shared";
@@ -14,6 +15,8 @@ import styles from "../engine.module.css";
  * Jedes Ziel ist ein fokussierbarer Knopf – barrierearm und ohne Ziehen.
  */
 export function HotspotStep({ step, level, onDone }: StepProps<S>) {
+  const ph = usePhrases();
+  const tx = useEngineTexts();
   const targets = useMemo(() => forLevel(step.targets, level), [step.targets, level]);
   const decoys = useMemo(() => forLevel(step.decoys ?? [], level), [step.decoys, level]);
   const [found, setFound] = useState<string[]>([]);
@@ -25,7 +28,7 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
   const current = sequence ? targets[found.length] : undefined;
   const complete = found.length === targets.length;
 
-  useAutoSpeak(sequence && current ? phrases.whereIs(current.label) : prompt, level);
+  useAutoSpeak(sequence && current ? ph.whereIs(current.label) : prompt, level);
 
   const say = (text: string | string[], tone: "good" | "hint") => {
     setMsg({ text: typeof text === "string" ? text : text.join(" "), tone });
@@ -40,15 +43,15 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
       return;
     }
     if (sequence && current && current.id !== id) {
-      say([phrases.thisIs(t.label), phrases.searchedIs(current.label)], "hint");
+      say([ph.thisIs(t.label), ph.searchedIs(current.label)], "hint");
       return;
     }
     const next = [...found, id];
     setFound(next);
-    const text = t.say ? pick(t.say, level) : phrases.found(t.label);
+    const text = t.say ? pick(t.say, level) : ph.found(t.label);
     if (sequence && next.length < targets.length) {
       setMsg({ text, tone: "good" });
-      speak([text, phrases.andNowWhereIs(targets[next.length].label)]);
+      speak([text, ph.andNowWhereIs(targets[next.length].label)]);
     } else {
       say(text, "good");
     }
@@ -72,8 +75,8 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
     setMiss({ x: p.x, y: p.y, k: Date.now() });
     say(
       sequence && current
-        ? phrases.notHere(current.label)
-        : (step.missHint ?? phrases.missDefault),
+        ? ph.notHere(current.label)
+        : (step.missHint ?? ph.missDefault),
       "hint",
     );
   };
@@ -95,7 +98,7 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
 
       <div className={styles.stage}>
         <VisualView v={step.scene} />
-        <svg ref={svgRef} viewBox={viewBoxOf(step.scene)} className={styles.overlay} role="group" aria-label="Bild zum Antippen">
+        <svg ref={svgRef} viewBox={viewBoxOf(step.scene)} className={styles.overlay} role="group" aria-label={tx.tapPicture}>
           <rect x={vb[0]} y={vb[1]} width={vb[2]} height={vb[3]} fill="transparent" onPointerDown={onBackgroundTap} />
           {miss && <circle key={miss.k} cx={miss.x} cy={miss.y} r={(vb[2] / 800) * 26} className={styles.missDot} />}
           {decoys.map((d) => (
@@ -119,7 +122,7 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
                 key={t.id}
                 role="button"
                 tabIndex={0}
-                aria-label={isFound ? `${t.label} (gefunden)` : sequence ? t.label : "Etwas Interessantes"}
+                aria-label={isFound ? `${t.label} (${tx.found})` : sequence ? t.label : tx.somethingInteresting}
                 className={styles.hit}
                 onClick={() => hitTarget(t.id)}
                 onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), hitTarget(t.id))}
@@ -145,7 +148,7 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
         </svg>
       </div>
 
-      <ul className={styles.chips} aria-label="Gefunden">
+      <ul className={styles.chips} aria-label={tx.foundList}>
         {targets.map((t) =>
           found.includes(t.id) ? (
             <li key={t.id} className={styles.chip}>
@@ -153,7 +156,7 @@ export function HotspotStep({ step, level, onDone }: StepProps<S>) {
               {t.label}
             </li>
           ) : (
-            <li key={t.id} className={`${styles.chip} ${styles.chipEmpty}`} aria-label="Noch nicht gefunden">
+            <li key={t.id} className={`${styles.chip} ${styles.chipEmpty}`} aria-label={tx.notFound}>
               ?
             </li>
           ),

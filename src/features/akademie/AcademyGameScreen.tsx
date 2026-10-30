@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { useEffect } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -10,14 +10,18 @@ import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import { VisualView } from "@/engine/VisualView";
 import { progressActions } from "@/lib/progress/store";
 import styles from "./akademie.module.css";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 /** Rahmen für die Mini-Spiele der Reitakademie. */
 export function AcademyGameScreen({ game, activity }: { game: AcademyGameInfo; activity: Activity }) {
+  const en = useLocale() === "en";
   useEffect(() => {
-    progressActions.setLast({ href: `/akademie/spiele/${game.slug}`, title: game.title, area: "Spielen" });
-  }, [game.slug, game.title]);
-  // Seit der Neustruktur stehen die Akademie-Spiele im Bereich „Spielen“
-  const home = { href: "/spielen", label: "Zurück zu Spielen", cta: "Weitere Spiele" };
+    progressActions.setLast({ href: `/akademie/spiele/${game.slug}`, title: game.title, area: en ? "Riding Academy" : "Spielen" });
+  }, [game.slug, game.title, en]);
+  // Seit der Neustruktur stehen die Akademie-Spiele im Bereich „Spielen“ (englisch: in der Reitakademie, Modul Abschluss)
+  const home = en
+    ? { href: "/akademie/modul/abschluss", label: "Back to the academy finale", cta: "More exercises" }
+    : { href: "/spielen", label: "Zurück zu Spielen", cta: "Weitere Spiele" };
   return (
     <div className="page">
       <PageHeader title={game.title} backHref={home.href} backLabel={home.label} />
@@ -31,12 +35,14 @@ export function AcademyGameScreen({ game, activity }: { game: AcademyGameInfo; a
             <span className={styles.doneCheck} aria-hidden>
               <Icon name="star" />
             </span>
-            <h2 className={styles.doneTitle}>Super gespielt!</h2>
-            <p className={styles.doneText}>Du hast „{game.title}“ geschafft. Willst du es noch einmal versuchen?</p>
+            <h2 className={styles.doneTitle}>{en ? "Great job!" : "Super gespielt!"}</h2>
+            <p className={styles.doneText}>
+              {en ? `You've completed “${game.title}”. Want to try again?` : `Du hast „${game.title}“ geschafft. Willst du es noch einmal versuchen?`}
+            </p>
             <div className={styles.actions}>
               <button type="button" className={styles.btn} onClick={replay}>
                 <Icon name="replay" />
-                Nochmal
+                {en ? "Again" : "Nochmal"}
               </button>
               <Link href={home.href} className={`${styles.btn} ${styles.btnPrimary}`}>
                 <Icon name="puzzle" />

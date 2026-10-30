@@ -1,9 +1,10 @@
 "use client";
 
+import { usePhrases } from "@/engine/texts";
 import { useMemo, useState } from "react";
 import { CipherGlyph } from "@/components/illustrations/CipherGlyph";
 import { speak } from "@/lib/speech";
-import { phrases } from "@/lib/voice/phrases";
+
 import { pick, type CipherStep as S } from "../types";
 import { Feedback, NextButton, Prompt, useAutoSpeak, type StepProps } from "./shared";
 import styles from "../engine.module.css";
@@ -17,6 +18,7 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
  * Nachricht mit jedem Treffer schneller lesbar.
  */
 export function CipherStep({ step, level, onDone }: StepProps<S>) {
+  const ph = usePhrases();
   const words = useMemo(() => step.message.toUpperCase().split(/\s+/).filter(Boolean), [step.message]);
   const letters = useMemo(() => Array.from(new Set(words.join(""))), [words]);
   const [solved, setSolved] = useState<string[]>(() =>
@@ -39,8 +41,8 @@ export function CipherStep({ step, level, onDone }: StepProps<S>) {
   const choose = (key: string) => {
     if (complete) return;
     if (!selectedLetter) {
-      setMsg({ text: phrases.cipherPick, tone: "hint" });
-      speak(phrases.cipherPick);
+      setMsg({ text: ph.cipherPick, tone: "hint" });
+      speak(ph.cipherPick);
       return;
     }
     if (key === selectedLetter) {
@@ -53,13 +55,13 @@ export function CipherStep({ step, level, onDone }: StepProps<S>) {
         setMsg({ text, tone: "good" });
         speak(text);
       } else {
-        const text = phrases.cipherRight(key);
+        const text = ph.cipherRight(key);
         setMsg({ text, tone: "good" });
         speak(text);
       }
     } else {
       setWrongKey(key);
-      const parts = [phrases.cipherWrong(key), pick(step.hint, level)];
+      const parts = [ph.cipherWrong(key), pick(step.hint, level)];
       setMsg({ text: parts.join(" "), tone: "hint" });
       speak(parts);
     }

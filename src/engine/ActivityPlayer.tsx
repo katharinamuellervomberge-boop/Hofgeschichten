@@ -1,5 +1,6 @@
 "use client";
 
+import { useEngineTexts } from "@/engine/texts";
 import { useMemo, useState, type ReactNode } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { LevelSwitch } from "@/components/ui/LevelSwitch";
@@ -56,6 +57,7 @@ function renderStep(step: Step, level: Level, onDone: (clues?: string[]) => void
 /** Spielt eine Activity Schritt für Schritt ab – für Lernspiele und Missionen. */
 export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete, renderDone, onClues, fixedLevel, ageNote }: Props) {
   const { settings } = useProgress();
+  const t = useEngineTexts();
   const chosenLevel: Level = fixedLevel ?? settings.level ?? "leicht";
   const [phase, setPhase] = useState<"intro" | "play" | "done">(autoStart ? "play" : "intro");
   const [runLevel, setRunLevel] = useState<Level>(chosenLevel);
@@ -102,7 +104,7 @@ export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete
             start();
             speak(introText);
           }}
-          aria-label="Spiel starten"
+          aria-label={t.start}
         >
           <Icon name="play" />
         </button>
@@ -127,7 +129,7 @@ export function ActivityPlayer({ activity, introArt, tint, autoStart, onComplete
           aria-valuemin={1}
           aria-valuemax={steps.length}
           aria-valuenow={index + 1}
-          aria-label="Fortschritt"
+          aria-label={t.progress}
         >
           <div className={styles.progressFill} style={{ width: `${pct}%` }} />
         </div>

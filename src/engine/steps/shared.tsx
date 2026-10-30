@@ -1,5 +1,6 @@
 "use client";
 
+import { useEngineTexts } from "@/engine/texts";
 import { useEffect } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { SpeakButton } from "@/components/ui/SpeakButton";
@@ -45,10 +46,11 @@ export function Feedback({ text, tone }: { text: string | null; tone: "good" | "
   );
 }
 
-export function NextButton({ onClick, label = "Weiter" }: { onClick: () => void; label?: string }) {
+export function NextButton({ onClick, label }: { onClick: () => void; label?: string }) {
+  const t = useEngineTexts();
   return (
     <button type="button" className={styles.next} onClick={onClick}>
-      {label}
+      {label ?? t.next}
       <Icon name="back" />
     </button>
   );

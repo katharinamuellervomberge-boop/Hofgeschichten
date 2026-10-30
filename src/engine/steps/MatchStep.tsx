@@ -1,8 +1,9 @@
 "use client";
 
+import { useEngineTexts, usePhrases } from "@/engine/texts";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as RPointerEvent } from "react";
 import { speak } from "@/lib/speech";
-import { phrases } from "@/lib/voice/phrases";
+
 import { shuffle } from "../shuffle";
 import { forLevel, pick, type MatchStep as S } from "../types";
 import { VisualView } from "../VisualView";
@@ -17,6 +18,8 @@ type Drag = { id: string; x: number; y: number; startX: number; startY: number; 
  * Funktioniert auch mit Tastatur und Screenreader (alles sind Knöpfe).
  */
 export function MatchStep({ step, level, onDone }: StepProps<S>) {
+  const ph = usePhrases();
+  const tx = useEngineTexts();
   const targets = useMemo(() => forLevel(step.targets, level), [step.targets, level]);
   const items = useMemo(() => shuffle(forLevel(step.items, level)), [step.items, level]);
   const [placed, setPlaced] = useState<Record<string, string>>({}); // itemId -> targetId
@@ -41,7 +44,7 @@ export function MatchStep({ step, level, onDone }: StepProps<S>) {
       setMsg({ text: item.say, tone: "good" });
       speak(item.say);
     } else {
-      const parts = item.wrong ? [item.wrong] : [phrases.doesNotFit(item.label), phrases.tryOtherTask];
+      const parts = item.wrong ? [item.wrong] : [ph.doesNotFit(item.label), ph.tryOtherTask];
       setMsg({ text: parts.join(" "), tone: "hint" });
       speak(parts);
     }
@@ -114,7 +117,7 @@ export function MatchStep({ step, level, onDone }: StepProps<S>) {
                   if (selected) tryPlace(selected, t.id);
                   else speak(t.label);
                 }}
-                aria-label={selected ? `Hierhin legen: ${t.label}` : t.label}
+                aria-label={selected ? `${tx.dropHere}: ${t.label}` : t.label}
               >
                 {t.visual && <VisualView v={t.visual} decorative />}
                 <span>{t.label}</span>
@@ -130,7 +133,7 @@ export function MatchStep({ step, level, onDone }: StepProps<S>) {
       </ul>
 
       {!complete && (
-        <ul className={styles.tray} aria-label="Putzkiste">
+        <ul className={styles.tray} aria-label={tx.tray}>
           {remaining.map((i) => (
             <li key={i.id}>
               <button
@@ -146,7 +149,7 @@ export function MatchStep({ step, level, onDone }: StepProps<S>) {
                   speak(i.label);
                 }}
                 aria-pressed={selected === i.id}
-                aria-label={`${i.label}${selected === i.id ? " – ausgewählt, jetzt eine Aufgabe antippen" : ""}`}
+                aria-label={`${i.label}${selected === i.id ? tx.selected : ""}`}
               >
                 <VisualView v={i.visual} decorative />
                 <span>{i.label}</span>

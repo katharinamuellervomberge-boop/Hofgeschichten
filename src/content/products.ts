@@ -34,5 +34,36 @@ export const grosseAkademie = {
     "Neun Module mit über 80 interaktiven Lektionen – Pferde verstehen, Umgang mit Pferden, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur (bis zu Piaffe und Passage), Springen (Springsitz, Sprungphasen, Hindernisse, Distanzen, Parcours) und Akademie-Abschluss – mit Quiz, Übungen, 6 animierten Lernvideos und Teilnahmezertifikat. Drei Lernwege: Kids (6–11), Teen (12–17) und Adult (ab 18). Einmalzahlung, kein Abo.",
 };
 
+/**
+ * Englische Version (seit 30.10.2026): gleiches Shopify-Produkt, englische Shop-Seite
+ * über die Märkte USA (/en-us, US-Dollar) und Vereinigtes Königreich (/en-gb, Pfund).
+ * Die Freischaltung läuft dadurch unverändert über Bestellnummer + E-Mail.
+ */
+const SHOP_BASE = "https://www.horseandharmonie-shop.de";
+
+export function academyPriceLabel(locale: "de" | "en" = "de"): string {
+  if (locale === "en") return grosseAkademie.price ? `€${grosseAkademie.price.replace(/\s*€/, "").replace(",", ".")}` : "€14.90";
+  return grosseAkademie.price ?? "14,90 €";
+}
+
+export function academyCheckoutUrl(locale: "de" | "en" = "de"): string | null {
+  if (!grosseAkademie.checkoutUrl || !grosseAkademie.shopifyProductHandle) return grosseAkademie.checkoutUrl;
+  return locale === "en" ? `${SHOP_BASE}/en-gb/products/${grosseAkademie.shopifyProductHandle}` : grosseAkademie.checkoutUrl;
+}
+
+/** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link */
+export function regionalCheckoutUrl(): string {
+  const handle = grosseAkademie.shopifyProductHandle ?? "";
+  let us = false;
+  try {
+    const lang = navigator.language || "";
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    us = lang === "en-US" || tz.startsWith("America/");
+  } catch {
+    us = false;
+  }
+  return `${SHOP_BASE}/${us ? "en-us" : "en-gb"}/products/${handle}`;
+}
+
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
 export const productSlugs: string[] = [grosseAkademie.slug];

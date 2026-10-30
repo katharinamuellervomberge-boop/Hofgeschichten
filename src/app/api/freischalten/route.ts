@@ -31,7 +31,8 @@ const MESSAGES = {
 } as const;
 
 function fail(key: keyof typeof MESSAGES, status = 400) {
-  return NextResponse.json({ ok: false, message: MESSAGES[key] }, { status });
+  // `reason` erlaubt der englischen Oberfläche eine eigene Meldung
+  return NextResponse.json({ ok: false, reason: key, message: MESSAGES[key] }, { status });
 }
 
 /** Freischaltung prüfen (nur Server) und signiertes Cookie setzen. */

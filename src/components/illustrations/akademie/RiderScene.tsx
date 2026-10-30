@@ -1,3 +1,4 @@
+import { useSvgLabel } from "@/i18n/svg-labels";
 import { Horse } from "../Horse";
 import { getHorse } from "@/content/horses";
 import { BIT, BODIES, BOX, riderPoint, toScene, type Body, type P, type RiderMark, type RiderPose } from "./geometry";
@@ -135,6 +136,7 @@ export function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRei
 }
 
 function Mark({ at, n, label, left }: { at: P; n: number; label?: string; left?: boolean }) {
+  const t = useSvgLabel();
   return (
     <g>
       <circle cx={at[0]} cy={at[1]} r="15" fill={C.gold} opacity=".22" />
@@ -144,7 +146,7 @@ function Mark({ at, n, label, left }: { at: P; n: number; label?: string; left?:
       </text>
       {label && (
         <text x={left ? at[0] - 18 : at[0] + 18} y={at[1] + 5} textAnchor={left ? "end" : "start"} fontSize="15" fontWeight="700" fill="#26342A" fontFamily="system-ui, sans-serif" paintOrder="stroke" stroke="#FBF8F1" strokeWidth="4">
-          {label}
+          {t(label)}
         </text>
       )}
     </g>

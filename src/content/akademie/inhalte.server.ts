@@ -2,6 +2,11 @@ import "server-only";
 import { grossAcademyGames } from "./spiele-gross.server";
 import { freeAcademyGames } from "./spiele";
 import type { AcademyGame, AcademyLesson, AcademyTier, AcademyWorld } from "./types";
+import type { Locale } from "@/i18n/locale";
+import { translateDeep, type Dict } from "@/i18n/translate";
+import { EN_WORLD_DICTS } from "./en/welten.server";
+import spieleEn from "./en/spiele.json";
+import katalogEn from "./en/katalog.json";
 import { welt1 } from "./welten/w1-bevor-du-aufsteigst.server";
 import { welt2 } from "./welten/w2-reitersitz.server";
 import { welt3 } from "./welten/w3-hilfen.server";
@@ -38,13 +43,24 @@ export function tierOfGame(g: AcademyGame): AcademyTier {
   return grossAcademyGames.includes(g) ? "gross" : "klein";
 }
 
-export function loadLesson(worldSlug: string, lessonSlug: string): { world: AcademyWorld; lesson: AcademyLesson; tier: AcademyTier } | undefined {
+export function loadLesson(
+  worldSlug: string,
+  lessonSlug: string,
+  locale: Locale = "de",
+): { world: AcademyWorld; lesson: AcademyLesson; tier: AcademyTier } | undefined {
   const world = fullWorlds.find((w) => w.slug === worldSlug);
   const lesson = world?.lessons.find((l) => l.slug === lessonSlug);
-  return world && lesson ? { world, lesson, tier: tierOfWorld(world) } : undefined;
+  if (!world || !lesson) return undefined;
+  const tier = tierOfWorld(world);
+  if (locale !== "en") return { world, lesson, tier };
+  // Englisch: Lektionstexte aus dem Wörterbuch der Lernwelt, Titel aus dem Katalog
+  const dict: Dict = { ...(katalogEn as Dict), ...(EN_WORLD_DICTS[world.id] ?? {}) };
+  return { world: translateDeep({ ...world, lessons: [] }, dict), lesson: translateDeep(lesson, dict), tier };
 }
 
-export function loadAcademyGame(slug: string): { game: AcademyGame; tier: AcademyTier } | undefined {
+export function loadAcademyGame(slug: string, locale: Locale = "de"): { game: AcademyGame; tier: AcademyTier } | undefined {
   const game = allAcademyGames.find((g) => g.slug === slug);
-  return game ? { game, tier: tierOfGame(game) } : undefined;
+  if (!game) return undefined;
+  const tier = tierOfGame(game);
+  return { game: locale === "en" ? translateDeep(game, { ...(katalogEn as Dict), ...(spieleEn as Dict) }) : game, tier };
 }

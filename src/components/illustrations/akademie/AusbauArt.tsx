@@ -1,3 +1,4 @@
+import { useSvgLabel } from "@/i18n/svg-labels";
 import type { ReactNode } from "react";
 import { getHorse } from "@/content/horses";
 import { AnimHorse, type LegId, type LegJoints } from "./AnimHorse";
@@ -32,9 +33,10 @@ const C = {
 const FONT = "system-ui, -apple-system, 'Segoe UI', sans-serif";
 
 function Label({ x, y, children, anchor = "middle", size = 26, color = C.forestDeep }: { x: number; y: number; children: ReactNode; anchor?: "start" | "middle" | "end"; size?: number; color?: string }) {
+  const t = useSvgLabel();
   return (
     <text x={x} y={y} textAnchor={anchor} fontSize={size} fontWeight={700} fill={color} fontFamily={FONT} paintOrder="stroke" stroke={C.paper} strokeWidth={size / 5} strokeLinejoin="round">
-      {children}
+      {typeof children === "string" ? t(children) : children}
     </text>
   );
 }
