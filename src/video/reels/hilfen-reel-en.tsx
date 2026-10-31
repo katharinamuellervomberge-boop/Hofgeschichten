@@ -1,4 +1,4 @@
-import { Arrow, COL, Caption, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, T, W, H, back, clamp01, ease, seq, sm, win } from "./rkit";
+import { Arrow, COL, Caption, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, T, W, H, back, clamp01, ease, sm, win, type VLine } from "./rkit";
 import { HAND_IN, LEG_IN, LOOKS, TopHorse, legOut, world, type Pt } from "./top";
 
 /* Reel 18 ENGLISCH (9:16): „Every riding aid in 40 seconds“ – gleiche Szenen wie hilfen-reel.tsx.
@@ -6,19 +6,27 @@ import { HAND_IN, LEG_IN, LOOKS, TopHorse, legOut, world, type Pt } from "./top"
    Pferd von oben, linke Hand. Gewicht · Schenkel · Zügel (+ Stimme). Endkarte = Spickzettel zum Screenshotten.
    Was in der Akademie bleibt: wie die Hilfen zusammenspielen und wie man sie im Sattel gibt. */
 
-/** Estimated timing (~14 chars/s) – replace with real times from the English ElevenLabs recording (as in the German version) */
+/** Timing from the recording (Jessica v4 EN, 31.10.), voice starts at 0.4 s in the reel */
 const VO = 0.4;
-export const HILFEN_LINES_EN = seq([
-  ["hook", "Every riding aid in 40 seconds – save this!", 3.0],
-  ["drei", "You talk to your horse with three aids: your weight, your legs and your reins.", 5.0],
-  ["g", "One: your weight. You sit on both seat bones, on just one – or you lighten your seat.", 6.0],
-  ["s", "Two: your legs. At the girth, they drive forward. A little behind it, they push sideways – or they guard.", 7.0],
-  ["z", "Three: your reins. They take, they give, they hold – or they show the way.", 5.2],
-  ["stimme", "And your voice? It praises and calms.", 2.6],
-  ["merke", "Remember: weight before legs, legs before reins.", 3.4],
-  ["tease", "How it all works together? Your child learns that in the Riding Academy.", 4.2],
-]);
-const MARKS: Record<string, number> = {};
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "Every riding aid in 40 seconds – save this!", 0, 3.41],
+  ["drei", "You talk to your horse with three aids: your weight, your legs and your reins.", 3.87, 8.61],
+  ["g", "One: your weight. You sit on both seat bones, on just one – or you lighten your seat.", 9.09, 15.18],
+  ["s", "Two: your legs. At the girth, they drive forward. A little behind it, they push sideways – or they guard.", 15.68, 23.07],
+  ["z", "Three: your reins. They take, they give, they hold – or they show the way.", 23.56, 29.64],
+  ["stimme", "And your voice? It praises and calms.", 30.1, 32.93],
+  ["merke", "Remember: weight before legs, legs before reins.", 33.34, 36.92],
+  ["tease", "How it all works together? Your child learns that in the Riding Academy.", 37.31, 41.1],
+];
+export const HILFEN_LINES_EN: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
+/** Word marks from the recording (pauses measured) */
+const MARKS: Record<string, number> = {
+  "drei|weight,": 6.3, "drei|legs and": 7.2, "drei|reins.": 7.9,
+  "g|both": 11.6, "g|just one": 12.6, "g|lighten": 14.4,
+  "s|At the girth": 17.49, "s|A little behind": 19.8, "s|or they guard": 22.13,
+  "z|take": 25.53, "z|give": 26.39, "z|hold": 27.35, "z|show the way": 28.34,
+  "merke|weight before": 34.2,
+};
 const L = HILFEN_LINES_EN;
 export const HILFEN_EN_TOTAL = E(L, "tease") + 2.6;
 
