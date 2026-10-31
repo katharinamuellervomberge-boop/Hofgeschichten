@@ -78,10 +78,24 @@ const TX = {
   },
 };
 
+/** Echte Aufnahmezeiten [Start, Ende] je Satz + Wortmarken (Jessica v4); ohne Eintrag: Schätzung */
+const VO = 0.4;
+const REC: Record<Lang, { lines?: Record<string, [number, number]>; marks?: Record<string, number> }> = {
+  de: {
+    lines: { hook: [0, 3.74], problem: [4.12, 9.13], loesung: [9.48, 15.01], umfang: [15.34, 19.97], wege: [20.26, 22.25], preis: [22.54, 27.89], cta: [28.19, 30.2] },
+    marks: { "loesung|Lernvideos": 13.0, "loesung|Bildern": 13.85, "loesung|Quiz": 14.55, "umfang|einundachtzig": 16.2, "wege|Kindern": 20.55, "wege|Teens": 21.15, "wege|Erwachsene": 21.6, "preis|Probelektion": 26.6 },
+  },
+  en: {},
+};
 function make(lang: Lang) {
   const x = TX[lang];
-  const L: VLine[] = seq(x.lines, 0.4, 0.35);
+  const rec = REC[lang];
+  const L: VLine[] = rec.lines
+    ? x.lines.map(([id, text]) => ({ id, text, start: rec.lines![id][0] + VO, dur: rec.lines![id][1] - rec.lines![id][0] }))
+    : seq(x.lines, 0.4, 0.35);
   const at = (id: string, word: string) => {
+    const m = rec.marks?.[`${id}|${word}`];
+    if (m !== undefined) return m + VO;
     const l = L.find((q) => q.id === id)!;
     const i = Math.max(0, l.text.indexOf(word));
     return l.start + (l.dur * i) / l.text.length;
