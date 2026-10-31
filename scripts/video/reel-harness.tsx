@@ -2,10 +2,12 @@ import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import type { ReactNode } from "react";
 import { ZIRKEL_TOTAL, renderZirkel } from "@/video/reels/zirkel-reel";
+import { HILFEN_TOTAL, renderHilfen } from "@/video/reels/hilfen-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
+  hilfen: { total: () => HILFEN_TOTAL, render: renderHilfen },
   stellung: { total: () => STELLUNG_TOTAL, render: renderStellung },
 };
 
