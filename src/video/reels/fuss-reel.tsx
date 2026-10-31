@@ -2,25 +2,27 @@ import { GAIT_DEFS, legPhase } from "@/components/illustrations/akademie/AnimHor
 import { Rider, Tack } from "@/components/illustrations/akademie/RiderScene";
 import { getHorse } from "@/content/horses";
 import { riderBody, riseAmount } from "../leichttraben";
-import { Arrow, ArenaHorse, COL, Caption, Chip, E, FONT_BODY, Header, Merk, PAPER, S, SkyDefs, T, W, H, back, clamp01, ease, seq, sm, win, type VLine } from "./rkit";
+import { Arrow, ArenaHorse, COL, Caption, Chip, E, FONT_BODY, Header, Merk, PAPER, S, SkyDefs, T, W, H, back, clamp01, ease, sm, win, type VLine } from "./rkit";
 
 /* Reel 19 (9:16): „Falscher Fuß! – Was heißt das beim Leichttraben?“
    Seitenansicht, linke Hand (innen = links = HL/VL sichtbar vorn). Was: Beinpaare, einsitzen wenn inneres Hinterbein fußt.
    Warum: inneres Hinterbein trägt in der Kurve, Gewicht + Schenkel helfen genau dann. Falscher Fuß: Gleichgewicht, schief.
    Bleibt in der Akademie: wie man ohne Hinschauen merkt, ob man richtig ist, und wie man den Fuß wechselt. */
 
-/** Geschätzte Zeiten (~14 Zeichen/s) – nach der ElevenLabs-Aufnahme durch echte Zeiten ersetzen */
-export const FUSS_LINES: VLine[] = seq([
-  ["hook", "„Falscher Fuß!“ – Was heißt das eigentlich beim Leichttraben?", 3.6],
-  ["was", "Im Trab bewegen sich immer zwei Beine zusammen. Bei einem Paar sitzt du ein – beim anderen stehst du auf.", 6.4],
-  ["richtig", "Richtig ist: Du sitzt ein, wenn das innere Hinterbein auf dem Boden ist.", 4.6],
-  ["warum", "Warum? In der Kurve trägt das innere Hinterbein am meisten. Genau dann hilft ihm dein Gewicht – und dein Bein kann treiben.", 7.4],
-  ["falsch", "Auf dem falschen Fuß sitzt du aufs äußere Hinterbein. Dein Pferd verliert leichter das Gleichgewicht – und wird auf Dauer schief.", 7.6],
-  ["wechsel", "Deshalb wechselst du bei jedem Handwechsel den Fuß.", 3.2],
-  ["merke", "Merke: Innen hinten am Boden – du sitzt.", 3.0],
-  ["q", "Und wie du ohne Hinschauen merkst, ob du richtig bist?", 3.4],
-  ["tease", "Das lernt dein Kind in der Reitakademie.", 2.6],
-]);
+/** Zeiten aus der Aufnahme (Jessica v4, 31.10.), Stimme beginnt bei 0,4 s im Reel */
+const VO = 0.4;
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "„Falscher Fuß!“ – Was heißt das eigentlich beim Leichttraben?", 0, 3.84],
+  ["was", "Im Trab bewegen sich immer zwei Beine zusammen. Bei einem Paar sitzt du ein – beim anderen stehst du auf.", 4.27, 10.49],
+  ["richtig", "Richtig ist: Du sitzt ein, wenn das innere Hinterbein auf dem Boden ist.", 10.9, 15.24],
+  ["warum", "Warum? In der Kurve trägt das innere Hinterbein am meisten. Genau dann hilft ihm dein Gewicht – und dein Bein kann treiben.", 15.63, 23.09],
+  ["falsch", "Auf dem falschen Fuß sitzt du aufs äußere Hinterbein. Dein Pferd verliert leichter das Gleichgewicht – und wird auf Dauer schief.", 23.48, 30.53],
+  ["wechsel", "Deshalb wechselst du bei jedem Handwechsel den Fuß.", 30.85, 33.61],
+  ["merke", "Merke: Innen hinten am Boden – du sitzt.", 34.01, 37.12],
+  ["q", "Und wie du ohne Hinschauen merkst, ob du richtig bist?", 37.52, 40.05],
+  ["tease", "Das lernt dein Kind in der Reitakademie.", 40.37, 42.68],
+];
+export const FUSS_LINES: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
 const L = FUSS_LINES;
 export const FUSS_TOTAL = E(L, "tease") + 2.6;
 
@@ -148,8 +150,8 @@ export function renderFuss(t: number) {
   const highlight = pairsO > 0.3
     ? { HL: pA ? COL.pairA : COL.sand, VR: pA ? COL.pairA : COL.sand, HR: pA ? COL.sand : COL.pairB, VL: pA ? COL.sand : COL.pairB }
     : outO > 0.3 ? { HR: OUT } : inO > 0.3 ? { HL: IN } : {};
-  const calf = win(t, S(L, "warum") + 2.6, E(L, "warum")) * sit;
-  const weight = win(t, S(L, "warum") + 2.0, E(L, "warum"));
+  const calf = win(t, S(L, "warum") + 5.9, E(L, "warum")) * sit;
+  const weight = win(t, S(L, "warum") + 4.0, E(L, "warum"));
   const bahn = win(t, S(L, "wechsel"), E(L, "wechsel") + 0.2);
   const merkAt = S(L, "merke") - 0.2;
   const merkO = 1 - sm((t - S(L, "q") + 0.2) / 0.3);
@@ -187,10 +189,10 @@ export function renderFuss(t: number) {
         <g opacity={outO}>
           <path d="M370 1140 L 345 1250" stroke={OUT} strokeWidth="5" strokeLinecap="round" />
           <Chip x={360} y={1110} text="äußeres Hinterbein" fill={OUT} size={30} />
-          <g opacity={ease((t - S(L, "falsch") - 3.2) / 0.4)}>
+          <g opacity={ease((t - S(L, "falsch") - 5.0) / 0.4)}>
             <Chip x={800} y={1080} text="Gleichgewicht wackelt" fill={COL.forestDeep} size={30} />
           </g>
-          <g opacity={ease((t - S(L, "falsch") - 5.4) / 0.4)}>
+          <g opacity={ease((t - S(L, "falsch") - 6.3) / 0.4)}>
             <Chip x={800} y={1170} text="auf Dauer: schief" fill={OUT} size={30} />
           </g>
         </g>
