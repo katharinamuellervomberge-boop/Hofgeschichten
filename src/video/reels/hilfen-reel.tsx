@@ -1,26 +1,37 @@
-import { Arrow, COL, Caption, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, T, W, H, back, clamp01, ease, seq, sm, win } from "./rkit";
+import { Arrow, COL, Caption, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, T, W, H, back, clamp01, ease, sm, win, type VLine } from "./rkit";
 import { HAND_IN, LEG_IN, LOOKS, TopHorse, legOut, world, type Pt } from "./top";
 
 /* Reel 18 (9:16): „Alle Reiterhilfen in 40 Sekunden“ – Spickzettel zum Speichern (Format wie „Die Reitbahn in 40 Sekunden“).
    Pferd von oben, linke Hand. Gewicht · Schenkel · Zügel (+ Stimme). Endkarte = Spickzettel zum Screenshotten.
    Was in der Akademie bleibt: wie die Hilfen zusammenspielen und wie man sie im Sattel gibt. */
 
-/** Geschätzte Zeiten (~14 Zeichen/s) – nach der ElevenLabs-Aufnahme durch echte Zeiten ersetzen */
-export const HILFEN_LINES = seq([
-  ["hook", "Alle Reiterhilfen in 40 Sekunden – speicher dir das!", 3.2],
-  ["drei", "Du sprichst mit deinem Pferd über drei Hilfen: Gewicht, Schenkel und Zügel.", 5.2],
-  ["g", "Eins: das Gewicht. Du belastest beide Gesäßknochen, nur einen – oder du entlastest den Rücken.", 6.6],
-  ["s", "Zwei: die Schenkel. Am Gurt treiben sie vorwärts. Etwas dahinter treiben sie seitwärts – oder passen auf.", 7.2],
-  ["z", "Drei: die Zügel. Sie nehmen an, geben nach, halten durch – oder zeigen den Weg.", 5.8],
-  ["stimme", "Und deine Stimme? Die lobt und beruhigt.", 2.8],
-  ["merke", "Merke: Gewicht vor Schenkel, Schenkel vor Zügel.", 3.6],
-  ["tease", "Wie das zusammenspielt, lernt dein Kind in der Reitakademie.", 3.8],
-]);
+/** Zeiten aus der Aufnahme (Jessica v4, 31.10.), Stimme beginnt bei 0,4 s im Reel */
+const VO = 0.4;
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "Alle Reiterhilfen in 40 Sekunden – speicher dir das!", 0, 3.62],
+  ["drei", "Du sprichst mit deinem Pferd über drei Hilfen: Gewicht, Schenkel und Zügel.", 4.09, 8.82],
+  ["g", "Eins: das Gewicht. Du belastest beide Gesäßknochen, nur einen – oder du entlastest den Rücken.", 9.25, 15.93],
+  ["s", "Zwei: die Schenkel. Am Gurt treiben sie vorwärts. Etwas dahinter treiben sie seitwärts – oder passen auf.", 16.33, 23.65],
+  ["z", "Drei: die Zügel. Sie nehmen an, geben nach, halten durch – oder zeigen den Weg.", 24.12, 30.11],
+  ["stimme", "Und deine Stimme? Die lobt und beruhigt.", 30.51, 33.19],
+  ["merke", "Merke: Gewicht vor Schenkel, Schenkel vor Zügel.", 33.56, 36.96],
+  ["tease", "Wie das zusammenspielt, lernt dein Kind in der Reitakademie.", 37.32, 40.67],
+];
+export const HILFEN_LINES: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
+/** Wortzeitpunkte aus der Aufnahme (Pausen gemessen, Rest geschätzt) */
+const MARKS: Record<string, number> = {
+  "drei|Gewicht": 6.75, "drei|Schenkel": 7.5, "drei|Zügel": 8.2,
+  "g|beide": 12.0, "g|nur einen": 13.0, "g|entlastest": 14.6,
+  "s|Am Gurt": 18.1, "s|Etwas dahinter": 20.1, "s|oder passen": 22.4,
+  "z|nehmen an": 25.9, "z|geben nach": 26.8, "z|halten durch": 27.8, "z|zeigen den Weg": 29.0,
+  "merke|Gewicht vor": 34.4,
+};
 const L = HILFEN_LINES;
 export const HILFEN_TOTAL = E(L, "tease") + 2.6;
 
 /** Zeitpunkt eines Wortes im Satz (anteilig nach Zeichen) */
 function at(id: string, word: string) {
+  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`] + VO;
   const l = L.find((x) => x.id === id)!;
   const i = Math.max(0, l.text.indexOf(word));
   return l.start + (l.dur * i) / l.text.length;
@@ -259,7 +270,7 @@ function Title({ t, id, top, sub, color = COL.forestDeep }: { t: number; id: str
   );
 }
 
-const TRIO: Array<[string, string, string]> = [["Gewicht", "Gewicht", COL.honey], ["Schenkel", "Schenkel", COL.forest], ["Zügel", "Zügel und", COL.rust]];
+const TRIO: Array<[string, string, string]> = [["Gewicht", "Gewicht", COL.honey], ["Schenkel", "Schenkel", COL.forest], ["Zügel", "Zügel", COL.rust]];
 
 function Drei({ t }: { t: number }) {
   const o = win(t, S(L, "drei"), E(L, "drei"));
@@ -370,8 +381,8 @@ export function renderHilfen(t: number) {
     seat: Math.max(all * sm((t - at("drei", "Gewicht")) / 0.3), gw * 0.5),
     innerLeg: Math.max(all * sm((t - at("drei", "Schenkel")) / 0.3), sw * 0.6),
     outerLeg: Math.max(all * sm((t - at("drei", "Schenkel")) / 0.3), sw * 0.6),
-    innerRein: Math.max(all * sm((t - at("drei", "Zügel und")) / 0.3), zw),
-    outerRein: Math.max(all * sm((t - at("drei", "Zügel und")) / 0.3), zw * 0.6),
+    innerRein: Math.max(all * sm((t - at("drei", "Zügel")) / 0.3), zw),
+    outerRein: Math.max(all * sm((t - at("drei", "Zügel")) / 0.3), zw * 0.6),
     pull: r.ann,
   };
   const spans: Array<[number, number]> = ["g", "s", "z"].map((id) => [S(L, id), E(L, id)]);
