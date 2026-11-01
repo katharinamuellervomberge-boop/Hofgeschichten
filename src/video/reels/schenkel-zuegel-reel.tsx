@@ -1,4 +1,4 @@
-import { Arrow, COL, Caption, E, FONT_BODY, Header, PAPER, S, T, W, H, ease, seq, sm, win, type VLine } from "./rkit";
+import { Arrow, COL, Caption, E, FONT_BODY, Header, PAPER, S, T, W, H, ease, sm, win, type VLine } from "./rkit";
 import { Callout, HAND_IN, HAND_OUT, LEG_IN, LOOKS, TopHorse, world, type Pt } from "./top";
 
 /* Reel (9:16): „Innerer Schenkel, äußerer Zügel – was heißt das?“ – Pferd von oben auf dem Zirkel, linke Hand
@@ -7,24 +7,34 @@ import { Callout, HAND_IN, HAND_OUT, LEG_IN, LOOKS, TopHorse, world, type Pt } f
    Fehler: am inneren Zügel ziehen → Hals knickt ab, Pferd fällt über die äußere Schulter.
    Bleibt in der Akademie: wie sich das im Sattel anfühlt. Ergänzt Reel 17 (Stellung). */
 
-/** Zeiten GESCHÄTZT (noch keine Aufnahme) – nach der Aufnahme durch echte Zeiten ersetzen wie in koerper-reel.tsx */
-export const SZ_LINES: VLine[] = seq([
-  ["hook", "Innerer Schenkel, äußerer Zügel – was heißt das eigentlich?", 3.6],
-  ["was", "Auf gebogenen Linien gibt es innen und außen. Innen ist die Seite zur Mitte der Kurve.", 5.0],
-  ["schenkel", "Der innere Schenkel liegt am Gurt. Er treibt das innere Hinterbein nach vorn – und das Pferd biegt sich um ihn herum.", 6.6],
-  ["zuegel", "Der äußere Zügel fängt diese Energie auf. Er begrenzt die äußere Schulter und hält das Tempo.", 5.6],
-  ["band", "Stell es dir vor wie ein Band: schräg durchs Pferd, vom inneren Schenkel zum äußeren Zügel.", 5.4],
-  ["fehler", "Und der innere Zügel? Der stellt nur kurz – dann gibt er nach. Ziehst du innen, knickt nur der Hals ab, und das Pferd fällt über die äußere Schulter.", 8.4],
-  ["merke", "Merke: Innen treiben, außen begrenzen – die innere Hand bleibt leicht.", 4.2],
-  ["tease", "Wie sich das im Sattel anfühlt? Das lernt dein Kind in der Reitakademie.", 4.0],
-], 0.4, 0.4);
+/** Zeiten aus der Aufnahme (Jessica v4, 01.11.), Stimme beginnt bei 0,4 s im Reel */
+const VO = 0.4;
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "Innerer Schenkel, äußerer Zügel – was heißt das eigentlich?", 0, 4.41],
+  ["was", "Auf gebogenen Linien gibt es innen und außen. Innen ist die Seite zur Mitte der Kurve.", 4.84, 10.37],
+  ["schenkel", "Der innere Schenkel liegt am Gurt. Er treibt das innere Hinterbein nach vorn – und das Pferd biegt sich um ihn herum.", 10.71, 17.28],
+  ["zuegel", "Der äußere Zügel fängt diese Energie auf. Er begrenzt die äußere Schulter und hält das Tempo.", 17.65, 23.26],
+  ["band", "Stell es dir vor wie ein Band: schräg durchs Pferd, vom inneren Schenkel zum äußeren Zügel.", 23.59, 29.37],
+  ["fehler", "Und der innere Zügel? Der stellt nur kurz – dann gibt er nach. Ziehst du innen, knickt nur der Hals ab, und das Pferd fällt über die äußere Schulter.", 29.73, 38.5],
+  ["merke", "Merke: Innen treiben, außen begrenzen – die innere Hand bleibt leicht.", 38.89, 44.28],
+  ["tease", "Wie sich das im Sattel anfühlt? Das lernt dein Kind in der Reitakademie.", 44.65, 48.67],
+];
+export const SZ_LINES: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
 const L = SZ_LINES;
 export const SZ_TOTAL = E(L, "tease") + 2.6;
 
-/** Wortmarken – nach der Aufnahme echte Zeiten eintragen (ohne VO-Versatz), sonst anteilig nach Zeichen */
-const MARKS: Record<string, number> = {};
+/** Wortmarken aus der Aufnahme (Pausen gemessen, innerhalb der Teilsätze anteilig) */
+const MARKS: Record<string, number> = {
+  "hook|Innerer": 0.05, "hook|äußerer": 1.25, "hook|was heißt": 3.06,
+  "was|innen und": 6.72, "was|außen.": 7.37,
+  "schenkel|am Gurt": 12.18, "schenkel|treibt": 12.94, "schenkel|biegt sich": 15.94,
+  "zuegel|fängt": 18.7, "zuegel|begrenzt": 20.68, "zuegel|hält": 22.4,
+  "band|schräg": 25.59, "band|vom inneren": 26.91, "band|äußeren Zügel": 28.49,
+  "fehler|stellt nur": 31.47, "fehler|dann gibt": 32.58, "fehler|Ziehst du": 33.93, "fehler|knickt": 34.83, "fehler|fällt über": 37.17,
+  "merke|Innen treiben": 39.89,
+};
 function at(id: string, word: string) {
-  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`];
+  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`] + VO;
   const l = L.find((x) => x.id === id)!;
   const i = Math.max(0, l.text.indexOf(word));
   return l.start + (l.dur * i) / l.text.length;
@@ -131,28 +141,25 @@ function Title({ t, id, top, sub, color = COL.forestDeep, start, end }: { t: num
   );
 }
 
-/** Hook: dunkle Titelkarte wie Reel 18 */
+/** Hook direkt auf der Grafik (ohne dunkle Titelkarte): Frage oben, Schenkel + Zügel leuchten am Pferd */
 function Hook({ t }: { t: number }) {
   const o = win(t, 0, E(L, "hook") + 0.1, 0.35);
   if (o <= 0) return null;
-  const k = (d: number) => ease((t + 0.4 - d) / 0.45);
+  const k = (a: number) => ease((t - a) / 0.4);
+  const a1 = at("hook", "Innerer") - 0.9; // erste Zeile schon im ersten Bild (Vorschaubild)
+  const a2 = at("hook", "äußerer");
+  const a3 = at("hook", "was heißt");
   return (
     <g opacity={o}>
-      <rect width={W} height={H} fill={COL.forestDeep} />
-      <rect x={250} y={420} width={580} height={1080} rx="20" fill={COL.forest} opacity=".55" />
-      <rect x={290} y={460} width={500} height={1000} rx="12" fill="none" stroke={COL.sand} strokeWidth="4" strokeDasharray="14 14" opacity=".35" />
-      <g opacity={k(0)} transform={`translate(0 ${(1 - k(0)) * 40})`}>
-        <T x={540} y={760} size={100} color={IN_COL}>innerer Schenkel</T>
+      <g opacity={k(a1)} transform={`translate(0 ${(1 - k(a1)) * 30})`}>
+        <T x={540} y={250} size={92} color={COL.brownDeep}>innerer Schenkel</T>
+        <rect x={250} y={268} width={580 * k(a1)} height={10} rx="5" fill={IN_COL} />
       </g>
-      <g opacity={k(0.15)} transform={`translate(0 ${(1 - k(0.15)) * 40})`}>
-        <T x={540} y={880} size={100} color={COL.sage}>äußerer Zügel</T>
+      <g opacity={k(a2)} transform={`translate(0 ${(1 - k(a2)) * 30})`}>
+        <T x={540} y={372} size={92} color={OUT_COL}>äußerer Zügel</T>
       </g>
-      <g opacity={k(0.35)} transform={`translate(0 ${(1 - k(0.35)) * 40})`}>
-        <T x={540} y={1010} size={76} color={PAPER} italic>was heißt das?</T>
-      </g>
-      <g opacity={ease((t - 0.8) / 0.4)}>
-        <path d="M132 1098 h28 v44 l-14 -10 l-14 10 Z" fill={COL.rust} />
-        <T x={560} y={1132} size={38} font={FONT_BODY} weight={700} color={COL.sand}>Speichern für die nächste Reitstunde</T>
+      <g opacity={k(a3)} transform={`translate(0 ${(1 - k(a3)) * 30})`}>
+        <T x={540} y={456} size={56} color={COL.rust} italic>was heißt das?</T>
       </g>
     </g>
   );
@@ -223,8 +230,9 @@ export function renderSchenkelZuegel(t: number) {
   const zO = win(t, S(L, "zuegel"), E(L, "zuegel"));
   const bandO = win(t, S(L, "band"), E(L, "band"));
   const fO = win(t, S(L, "fehler"), E(L, "fehler"));
-  const legGlow = Math.max(sO, bandO);
-  const reinGlow = Math.max(zO, bandO);
+  const hookOn = win(t, 0, E(L, "hook"));
+  const legGlow = Math.max(sO, bandO, hookOn * ease((t - at("hook", "Innerer")) / 0.4));
+  const reinGlow = Math.max(zO, bandO, hookOn * ease((t - at("hook", "äußerer")) / 0.4));
   const inRein = st.stell + st.badIn;
 
   const leg = P(LEG_IN);
@@ -294,6 +302,12 @@ export function renderSchenkelZuegel(t: number) {
         { text: "hält das Tempo", at: at("zuegel", "hält") },
       ]} />
 
+      {hookOn > 0 && (
+        <g opacity={hookOn}>
+          <Callout k={ease((t - at("hook", "Innerer") - 0.3) / 0.4)} from={leg} to={[leg[0] - 240, leg[1] + 170]} text="innerer Schenkel" color={COL.brownDeep} size={30} />
+          <Callout k={ease((t - at("hook", "äußerer") - 0.2) / 0.4)} from={hand} to={[hand[0] + 230, hand[1] - 120]} text="äußerer Zügel" color={OUT_COL} size={30} />
+        </g>
+      )}
       {/* Band */}
       {bandO > 0 && bandU > 0.01 && (
         <g opacity={bandO}>
