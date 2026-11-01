@@ -3,31 +3,40 @@ import { Rider, Tack } from "@/components/illustrations/akademie/RiderScene";
 import { getHorse } from "@/content/horses";
 import type { HorseLook } from "@/content/types";
 import { riderBody } from "../leichttraben";
-import { ArenaHorse, Arrow, COL, Caption, Chip, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, SkyDefs, T, W, H, back, ease, seq, sm, toScreen, win, type VLine } from "./rkit";
+import { ArenaHorse, Arrow, COL, Caption, Chip, Dots, E, FONT_BODY, Header, PAPER, PointHead, S, SkyDefs, T, W, H, back, ease, sm, toScreen, win, type VLine } from "./rkit";
 
 /* Reel (9:16): „Vorhand, Mittelhand, Hinterhand in 30 Sekunden“ – Spickzettel zum Speichern (Format wie Reel 18).
    Pferd in Seitenansicht (Kopf rechts), Schritt. Die drei Abschnitte färben sich ein:
    Vorhand = honey (trägt mehr Gewicht), Mittelhand = forest (hier sitzt du), Hinterhand = rust (der Motor).
    Bleibt in der Akademie: wie man die Hinterhand mit den Hilfen aktiviert. */
 
-/** Zeiten GESCHÄTZT (noch keine Aufnahme) – nach der Aufnahme durch echte Zeiten ersetzen wie in hilfen-reel.tsx */
-export const KOERPER_LINES: VLine[] = seq([
-  ["hook", "Vorhand, Mittelhand, Hinterhand – in 30 Sekunden. Speichern!", 3.5],
-  ["drei", "Jedes Pferd hat drei Teile: vorne, in der Mitte und hinten.", 4.0],
-  ["vor", "Die Vorhand: Kopf, Hals, Schultern und Vorderbeine. Sie trägt mehr als die Hälfte vom Gewicht.", 6.2],
-  ["mitte", "Die Mittelhand: vom Widerrist über den Rücken bis zur Lende. Genau hier sitzt du.", 5.6],
-  ["hinter", "Die Hinterhand: Kruppe, Hüfte und Hinterbeine. Das ist der Motor – sie schiebt das Pferd nach vorne.", 6.4],
-  ["warum", "Deshalb treibst du von hinten nach vorne – und ziehst nicht vorne am Zügel.", 4.4],
-  ["merke", "Merke: Hinten der Motor, in der Mitte du, vorne das Lenkrad.", 4.2],
-  ["tease", "Wie du die Hinterhand aktivierst? Das lernt dein Kind in der Reitakademie.", 4.4],
-], 0.4, 0.4);
+/** Zeiten aus der Aufnahme (Jessica v4, 01.11.), Stimme beginnt bei 0,4 s im Reel */
+const VO = 0.4;
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "Vorhand, Mittelhand, Hinterhand – in 30 Sekunden. Speichern!", 0, 5.18],
+  ["drei", "Jedes Pferd hat drei Teile: vorne, in der Mitte und hinten.", 5.75, 10.07],
+  ["vor", "Die Vorhand: Kopf, Hals, Schultern und Vorderbeine. Sie trägt mehr als die Hälfte vom Gewicht.", 10.55, 17.12],
+  ["mitte", "Die Mittelhand: vom Widerrist über den Rücken bis zur Lende. Genau hier sitzt du.", 17.59, 22.8],
+  ["hinter", "Die Hinterhand: Kruppe, Hüfte und Hinterbeine. Das ist der Motor – sie schiebt das Pferd nach vorne.", 23.27, 29.72],
+  ["warum", "Deshalb treibst du von hinten nach vorne – und ziehst nicht vorne am Zügel.", 30.08, 34.07],
+  ["merke", "Merke: Hinten der Motor, in der Mitte du, vorne das Lenkrad.", 34.48, 39.01],
+  ["tease", "Wie du die Hinterhand aktivierst? Das lernt dein Kind in der Reitakademie.", 39.49, 43.73],
+];
+export const KOERPER_LINES: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
 const L = KOERPER_LINES;
 export const KOERPER_TOTAL = E(L, "tease") + 2.6;
 
-/** Wortmarken – nach der Aufnahme hier echte Zeiten eintragen (ohne VO-Versatz), sonst anteilig nach Zeichen */
-const MARKS: Record<string, number> = {};
+/** Wortmarken aus der Aufnahme (Pausen gemessen, innerhalb der Teilsätze anteilig) */
+const MARKS: Record<string, number> = {
+  "drei|vorne": 7.77, "drei|Mitte": 8.81, "drei|hinten": 9.55,
+  "vor|Kopf": 11.72, "vor|Hals": 12.17, "vor|Schultern": 12.62, "vor|Vorderbeine": 13.67, "vor|Sie trägt": 14.93, "vor|mehr als": 15.45,
+  "mitte|Widerrist": 18.97, "mitte|Rücken": 20.08, "mitte|Lende": 20.95, "mitte|Genau hier": 21.63,
+  "hinter|Kruppe": 24.46, "hinter|Hüfte": 25.0, "hinter|Hinterbeine": 25.7, "hinter|Das ist": 26.85, "hinter|Motor": 27.5, "hinter|schiebt": 28.17,
+  "warum|von hinten": 31.06, "warum|ziehst nicht": 32.69,
+  "merke|Hinten der Motor": 35.33,
+};
 function at(id: string, word: string) {
-  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`];
+  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`] + VO;
   const l = L.find((x) => x.id === id)!;
   const i = Math.max(0, l.text.indexOf(word));
   return l.start + (l.dur * i) / l.text.length;
