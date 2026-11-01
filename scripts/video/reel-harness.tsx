@@ -7,6 +7,7 @@ import { FUSS_TOTAL, renderFuss } from "@/video/reels/fuss-reel";
 import { HILFEN_EN_TOTAL, renderHilfenEn } from "@/video/reels/hilfen-reel-en";
 import { HILFEN_TOTAL, renderHilfen } from "@/video/reels/hilfen-reel";
 import { KOERPER_TOTAL, renderKoerper } from "@/video/reels/koerper-reel";
+import { SPRUNG_TOTAL, renderSprung } from "@/video/reels/sprung-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
@@ -17,6 +18,7 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   "hilfen-en": { total: () => HILFEN_EN_TOTAL, render: renderHilfenEn },
   hilfen: { total: () => HILFEN_TOTAL, render: renderHilfen },
   stellung: { total: () => STELLUNG_TOTAL, render: renderStellung },
+  sprung: { total: () => SPRUNG_TOTAL, render: renderSprung },
   koerper: { total: () => KOERPER_TOTAL, render: renderKoerper },
 };
 
