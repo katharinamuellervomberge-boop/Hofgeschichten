@@ -1,4 +1,4 @@
-import { Caption, Chip, COL, E, FONT_BODY, Header, PAPER, S, T, W, H, back, clamp01, ease, lerp, seq, sm, win, type VLine } from "./rkit";
+import { Caption, Chip, COL, E, FONT_BODY, Header, PAPER, S, T, W, H, back, clamp01, ease, lerp, sm, win, type VLine } from "./rkit";
 import { LOOKS, world, type Pt } from "./top";
 
 /* Reihe „Warum eigentlich …?“ · Folge 1 (9:16): „Warum steigt man von links aufs Pferd?“
@@ -6,23 +6,30 @@ import { LOOKS, world, type Pt } from "./top";
    Von links: rechtes Bein schwingt frei über die Kruppe, Schwert bleibt außen. Von rechts: Schwert müsste übers Pferd.
    Heute: Gewohnheit (führen, satteln, aufsteigen von links) – Tipp: beide Seiten üben. */
 
-/** Zeiten GESCHÄTZT (noch keine Aufnahme) – nach der Aufnahme durch echte Zeiten ersetzen wie in koerper-reel.tsx */
-export const LINKS_LINES: VLine[] = seq([
-  ["hook", "Warum steigt man eigentlich immer von links aufs Pferd?", 3.6],
-  ["frueher", "Das kommt aus der Zeit der Ritter und Reitersoldaten.", 3.4],
-  ["schwert", "Die meisten waren Rechtshänder – also hing das Schwert links am Gürtel.", 4.2],
-  ["auf", "Von links konnte das rechte Bein frei über das Pferd schwingen. Von rechts wäre das Schwert im Weg gewesen.", 6.2],
-  ["heute", "Heute ist es Gewohnheit – darum führen und satteln wir meist auch von links.", 4.6],
-  ["tipp", "Aber ein gutes Pferd lernt beide Seiten kennen!", 2.8],
-  ["tease", "Wusstest du's? Mehr Pferdewissen gibt's in der Reitakademie.", 3.6],
-], 0.4, 0.4);
+/** Zeiten aus der Aufnahme (Jessica v4, 01.11.), Stimme beginnt bei 0,4 s im Reel */
+const VO = 0.4;
+const REC: Array<[string, string, number, number]> = [
+  ["hook", "Warum steigt man eigentlich immer von links aufs Pferd?", 0, 3.06],
+  ["frueher", "Das kommt aus der Zeit der Ritter und Reitersoldaten.", 3.64, 6.43],
+  ["schwert", "Die meisten waren Rechtshänder – also hing das Schwert links am Gürtel.", 6.87, 10.77],
+  ["auf", "Von links konnte das rechte Bein frei über das Pferd schwingen. Von rechts wäre das Schwert im Weg gewesen.", 11.22, 17.01],
+  ["heute", "Heute ist es Gewohnheit – darum führen und satteln wir meist auch von links.", 17.46, 21.71],
+  ["tipp", "Aber ein gutes Pferd lernt beide Seiten kennen!", 22.06, 24.52],
+  ["tease", "Wusstest du's? Mehr Pferdewissen gibt's in der Reitakademie.", 24.97, 28.53],
+];
+export const LINKS_LINES: VLine[] = REC.map(([id, text, a, b]) => ({ id, text, start: a + VO, dur: b - a }));
 const L = LINKS_LINES;
 export const LINKS_TOTAL = E(L, "tease") + 2.6;
 
-/** Wortmarken – nach der Aufnahme echte Zeiten eintragen (ohne VO-Versatz), sonst anteilig nach Zeichen */
-const MARKS: Record<string, number> = {};
+/** Wortmarken aus der Aufnahme (Pausen gemessen, innerhalb der Teilsätze anteilig) */
+const MARKS: Record<string, number> = {
+  "frueher|Ritter": 5.01,
+  "schwert|Rechtshänder": 8.02, "schwert|also hing": 8.79, "schwert|Schwert links": 9.51,
+  "auf|Von links": 11.22, "auf|rechte Bein": 12.33, "auf|Von rechts": 14.89,
+  "heute|Gewohnheit": 18.17, "heute|führen": 19.41, "heute|satteln": 19.99,
+};
 function at(id: string, word: string) {
-  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`];
+  if (MARKS[`${id}|${word}`] !== undefined) return MARKS[`${id}|${word}`] + VO;
   const l = L.find((x) => x.id === id)!;
   const i = Math.max(0, l.text.indexOf(word));
   return l.start + (l.dur * i) / l.text.length;
