@@ -10,6 +10,8 @@ import { KOERPER_TOTAL, renderKoerper } from "@/video/reels/koerper-reel";
 import { SPRUNG_TOTAL, renderSprung } from "@/video/reels/sprung-reel";
 import { LINKS_TOTAL, renderLinks } from "@/video/reels/links-reel";
 import { SZ_TOTAL, renderSchenkelZuegel } from "@/video/reels/schenkel-zuegel-reel";
+import { ERBRECHEN_TOTAL, renderErbrechen } from "@/video/reels/erbrechen-reel";
+import { ECKE_TOTAL, renderEcke } from "@/video/reels/ecke-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
@@ -24,6 +26,8 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   links: { total: () => LINKS_TOTAL, render: renderLinks },
   sprung: { total: () => SPRUNG_TOTAL, render: renderSprung },
   koerper: { total: () => KOERPER_TOTAL, render: renderKoerper },
+  ecke: { total: () => ECKE_TOTAL, render: renderEcke },
+  erbrechen: { total: () => ERBRECHEN_TOTAL, render: renderErbrechen },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
