@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
 import { membership as plan } from "@/content/membership";
@@ -31,6 +31,24 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string; code?: string } | null>(null);
   const [confirmRemove, setConfirmRemove] = useState(false);
+
+  /**
+   * Geschenkkarten (z. B. Christmas Letter Edition): Der QR-Code führt auf
+   * /eltern?freischalten=code – dann gleich das Code-Feld öffnen und hinscrollen.
+   * Ändert nichts an der Prüfung selbst (weiterhin nur serverseitig).
+   */
+  useEffect(() => {
+    if (!codeUnlockAvailable) return;
+    const wanted = new URLSearchParams(window.location.search).get("freischalten");
+    if (wanted !== "code") return;
+    setMode("code");
+    const t = window.setTimeout(() => {
+      const input = document.getElementById("unlock-code");
+      input?.scrollIntoView({ behavior: "smooth", block: "center" });
+      input?.focus({ preventScroll: true });
+    }, 150);
+    return () => window.clearTimeout(t);
+  }, [codeUnlockAvailable]);
 
   /** Nur Codes eingerichtet (einfacher Launch-Weg): keine Reiter, direkt das Code-Feld */
   const codeOnly = codeUnlockAvailable && !orderUnlockAvailable;
