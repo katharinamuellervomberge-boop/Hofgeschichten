@@ -14,6 +14,13 @@ import { ERBRECHEN_TOTAL, renderErbrechen } from "@/video/reels/erbrechen-reel";
 import { ECKE_TOTAL, renderEcke } from "@/video/reels/ecke-reel";
 import { ECKE_EN_TOTAL, renderEckeEn } from "@/video/reels/ecke-reel-en";
 import { ERBRECHEN_EN_TOTAL, renderErbrechenEn } from "@/video/reels/erbrechen-reel-en";
+import { N01_TOTAL, renderN01 } from "@/video/reels/nov01-erkennen-reel";
+import { N02_TOTAL, renderN02 } from "@/video/reels/nov02-ohren-reel";
+import { N03_TOTAL, renderN03 } from "@/video/reels/nov03-fuss-gefuehl-reel";
+import { N04_TOTAL, renderN04 } from "@/video/reels/nov04-zuhause-reel";
+import { N05_TOTAL, renderN05 } from "@/video/reels/nov05-galopp-quiz-reel";
+import { N06_TOTAL, renderN06 } from "@/video/reels/nov06-bahnfiguren-reel";
+import { N07_TOTAL, renderN07 } from "@/video/reels/nov07-45minuten-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
@@ -31,6 +38,13 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   ecke: { total: () => ECKE_TOTAL, render: renderEcke },
   "ecke-en": { total: () => ECKE_EN_TOTAL, render: renderEckeEn },
   "erbrechen-en": { total: () => ERBRECHEN_EN_TOTAL, render: renderErbrechenEn },
+  n01: { total: () => N01_TOTAL, render: renderN01 },
+  n02: { total: () => N02_TOTAL, render: renderN02 },
+  n03: { total: () => N03_TOTAL, render: renderN03 },
+  n04: { total: () => N04_TOTAL, render: renderN04 },
+  n05: { total: () => N05_TOTAL, render: renderN05 },
+  n06: { total: () => N06_TOTAL, render: renderN06 },
+  n07: { total: () => N07_TOTAL, render: renderN07 },
   erbrechen: { total: () => ERBRECHEN_TOTAL, render: renderErbrechen },
 };
 
