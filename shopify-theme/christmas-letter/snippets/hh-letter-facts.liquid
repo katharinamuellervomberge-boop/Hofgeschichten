@@ -15,3 +15,14 @@
   <li><span>Versand</span><span>Vorbestellung: Versand per Post ab 1. Dezember 2026. Versandkosten werden im Checkout berechnet</span></li>
   <li><span>Kauf</span><span>Einmalkauf, kein Abo</span></li>
 </ul>
+<script>
+  /* Kaufbutton der Edition: „Jetzt als Weihnachtsgeschenk bestellen“ (nur wenn kaufbar, nicht bei „Ausverkauft“) */
+  (function () {
+    function init() {
+      var btn = document.querySelector('form[data-type="add-to-cart-form"] [name="add"]');
+      var label = btn ? btn.querySelector('span') : null;
+      if (label && !btn.disabled) label.textContent = 'Jetzt als Weihnachtsgeschenk bestellen';
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+</script>
