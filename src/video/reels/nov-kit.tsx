@@ -1,4 +1,4 @@
-import { AnimHorse, type Gait } from "@/components/illustrations/akademie/AnimHorse";
+import { AnimHorse, type Gait, type LegId } from "@/components/illustrations/akademie/AnimHorse";
 import type { HorseLook } from "@/content/types";
 import type { ReactNode } from "react";
 import { COL, FONT_BODY, PAPER, T, W, back, clamp01, ease, win, wrapText, type VLine } from "./nov-base";
@@ -191,32 +191,42 @@ function seam(off: number, rev = false) {
   const b = `L${x(200) + dx},${200 + dy}`;
   return rev ? `${b} ${a}` : `${a} ${b}`;
 }
-export function NodHorse({ t, pl, look, nod = 0, gait = "stand", id, children, flip, blink = 0 }: { t: number; pl: Place; look: HorseLook; nod?: number; gait?: Gait; id: string; children?: ReactNode; flip?: boolean; blink?: number }) {
-  const horse = <AnimHorse look={look} gait={gait} time={t}>{children}</AnimHorse>;
+export function NodHorse({ t, pl, look, nod = 0, gait = "stand", id, children, flip, blink = 0, reach = 0, highlight, strideK, slices = 5 }: { t: number; pl: Place; look: HorseLook; nod?: number; gait?: Gait; id: string; children?: ReactNode; flip?: boolean; blink?: number; reach?: number; highlight?: Partial<Record<LegId, string>>; strideK?: number; slices?: number }) {
+  const horse = <AnimHorse look={look} gait={gait} time={t} highlight={highlight} strideK={strideK}>{children}</AnimHorse>;
   const tr = flip ? `translate(460 0) scale(-1 1)` : undefined;
+  const n = slices;
+  const step = 35 / n;
+  const ov = n > 5 ? 2.5 : 4;
+  const SL = n === 5 ? SLICES : Array.from({ length: n }, (_, i) => i);
   return (
     <svg x={pl.x} y={pl.y} width={320 * pl.k} height={292 * pl.k} viewBox="70 20 320 292" overflow="visible">
       <defs>
-        <clipPath id={`${id}-rest`}><path d={`M0,-60 ${seam(8)} L460,200 L460,420 L0,420 Z`} /></clipPath>
-        {SLICES.map((i) => (
+        <clipPath id={`${id}-rest`}><path d={`M0,-60 ${seam(n === 5 ? 8 : step + 1)} L460,200 L460,420 L0,420 Z`} /></clipPath>
+        {SL.map((i) => (
           <clipPath key={i} id={`${id}-s${i}`}>
-            <path d={i === SLICES.length - 1 ? `M${seam(i * 7).slice(1)} L460,200 L460,-60 Z` : `M${seam(i * 7).slice(1)} ${seam((i + 1) * 7 + 4, true)} Z`} />
+            <path d={i === n - 1 ? `M${seam(i * step).slice(1)} L460,200 L460,-60 Z` : `M${seam(i * step).slice(1)} ${seam((i + 1) * step + ov, true)} Z`} />
           </clipPath>
         ))}
       </defs>
       <g transform={tr}>
         <g clipPath={`url(#${id}-rest)`}>{horse}</g>
-        {SLICES.map((i) => (
-          <g key={i} transform={`rotate(${(nod * (i + 1)) / SLICES.length} 284 110)`}>
+        {SL.map((i) => (
+          <g key={i} transform={`translate(${(reach * (i + 1)) / n} 0) rotate(${(nod * (i + 1)) / n} 284 110)`}>
             <g clipPath={`url(#${id}-s${i})`}>
               {horse}
-              {i === SLICES.length - 1 && blink > 0.01 && <ellipse cx="330" cy="78" rx="5.4" ry={5.4 * blink} fill={look.coat} />}
+              {i === n - 1 && blink > 0.01 && <ellipse cx="330" cy="78" rx="5.4" ry={5.4 * blink} fill={look.coat} />}
             </g>
           </g>
         ))}
       </g>
     </svg>
   );
+}
+/** Wo liegt ein Punkt am Kopf (z. B. Trensenring) nach Nicken/Vorstrecken? (Pferde-Koordinaten, ohne Rumpf-Wippen) */
+export function headPoint([x, y]: [number, number], nod = 0, reach = 0): [number, number] {
+  const a = (nod * Math.PI) / 180;
+  const dx = x - 284, dy = y - 110;
+  return [284 + dx * Math.cos(a) - dy * Math.sin(a) + reach, 110 + dx * Math.sin(a) + dy * Math.cos(a)];
 }
 /** Pferde-Koordinaten → Bildschirm */
 export const hs = (pl: Place, [x, y]: [number, number], flip = false): [number, number] => [pl.x + ((flip ? 460 - x : x) - 70) * pl.k, pl.y + (y - 20) * pl.k];

@@ -56,7 +56,7 @@ export function legsOnGround(gait: Gait, time: number): LegId[] {
 
 const ease = (s: number) => 0.5 - 0.5 * Math.cos(Math.PI * s);
 
-function hoofTarget(gait: Gait, leg: LegId, time: number): P {
+function hoofTarget(gait: Gait, leg: LegId, time: number, strideK = 1): P {
   const [tx] = TOP[leg];
   const front = leg[0] === "V";
   // Im Galopp greifen die Beine der führenden Seite weiter vor
@@ -65,7 +65,7 @@ function hoofTarget(gait: Gait, leg: LegId, time: number): P {
   if (gait === "stand") return [nx, GROUND];
   const g = GAIT_DEFS[gait];
   const { p } = legPhase(gait, leg, time);
-  const S = g.stride;
+  const S = g.stride * strideK;
   if (p < g.duty) return [nx + S / 2 - S * (p / g.duty), GROUND];
   const s = (p - g.duty) / (1 - g.duty);
   // Vorderbein klappt in der ersten Hälfte stärker nach hinten-oben (Karpalgelenk beugt)
@@ -98,11 +98,11 @@ function segment(a: P, b: P, wa: number, wb: number) {
 /** Feste Gelenkpunkte eines Beins (für Standbilder wie die Phasen eines Sprungs) */
 export type LegJoints = { knee: P; foot: P };
 
-function Leg({ leg, gait, time, bob, look, far, highlight, joints }: { leg: LegId; gait: Gait; time: number; bob: number; look: HorseLook; far: boolean; highlight?: string; joints?: LegJoints }) {
+function Leg({ leg, gait, time, bob, look, far, highlight, joints, strideK = 1 }: { leg: LegId; gait: Gait; time: number; bob: number; look: HorseLook; far: boolean; highlight?: string; joints?: LegJoints; strideK?: number }) {
   const front = leg[0] === "V";
   const [tx, ty] = TOP[leg];
   const top: P = [tx, ty + bob];
-  const foot = joints?.foot ?? hoofTarget(gait, leg, time);
+  const foot = joints?.foot ?? hoofTarget(gait, leg, time, strideK);
   // Vorderbein: Vorderfußwurzelgelenk („Knie“) knickt nach vorn, die Röhre klappt nach hinten.
   // Hinterbein: Sprunggelenk zeigt nach hinten, die Röhre schwingt nach vorn unter den Bauch.
   const k = joints?.knee ?? knee(top, foot, LEN[front ? "V" : "H"], front);
@@ -150,6 +150,8 @@ export type AnimHorseProps = {
   pivot?: P;
   /** Bodenschatten ausblenden (z. B. in der Flugphase) */
   noShadow?: boolean;
+  /** Schrittlänge skalieren (1 = normal) */
+  strideK?: number;
 };
 
 /** Auf- und Abbewegung des Rumpfes für eine Gangart */
@@ -169,7 +171,7 @@ function bodyTilt(gait: Gait, time: number) {
   return 2.6 * Math.sin(2 * Math.PI * (p - 0.05));
 }
 
-export function AnimHorse({ look, gait, time, highlight = {}, children, lift = 0, legs = {}, rotate = 0, pivot = [200, 200], noShadow }: AnimHorseProps) {
+export function AnimHorse({ look, gait, time, highlight = {}, children, lift = 0, legs = {}, rotate = 0, pivot = [200, 200], noShadow, strideK = 1 }: AnimHorseProps) {
   const bob = bodyBob(gait, time) - lift;
   const tilt = bodyTilt(gait, time);
   const nod = 0;
@@ -179,8 +181,8 @@ export function AnimHorse({ look, gait, time, highlight = {}, children, lift = 0
       {!noShadow && <ellipse cx="195" cy="305" rx="118" ry="6" fill="#80634D" opacity="0.2" />}
       <g transform={rotate ? `rotate(${rotate} ${pivot[0]} ${pivot[1]})` : undefined}>
       {/* ferne Beine */}
-      <Leg leg="VR" gait={gait} time={time} bob={bob} look={look} far highlight={highlight.VR} joints={legs.VR} />
-      <Leg leg="HR" gait={gait} time={time} bob={bob} look={look} far highlight={highlight.HR} joints={legs.HR} />
+      <Leg leg="VR" gait={gait} time={time} bob={bob} look={look} far highlight={highlight.VR} joints={legs.VR} strideK={strideK} />
+      <Leg leg="HR" gait={gait} time={time} bob={bob} look={look} far highlight={highlight.HR} joints={legs.HR} strideK={strideK} />
       <g transform={`translate(0 ${bob}) rotate(${tilt} 200 150)`}>
         <g transform={`rotate(${tailSwing} 108 130)`}>
           <path d={TAIL} fill={look.mane} />
@@ -214,8 +216,8 @@ export function AnimHorse({ look, gait, time, highlight = {}, children, lift = 0
         </g>
       </g>
       {/* nahe Beine */}
-      <Leg leg="HL" gait={gait} time={time} bob={bob} look={look} far={false} highlight={highlight.HL} joints={legs.HL} />
-      <Leg leg="VL" gait={gait} time={time} bob={bob} look={look} far={false} highlight={highlight.VL} joints={legs.VL} />
+      <Leg leg="HL" gait={gait} time={time} bob={bob} look={look} far={false} highlight={highlight.HL} joints={legs.HL} strideK={strideK} />
+      <Leg leg="VL" gait={gait} time={time} bob={bob} look={look} far={false} highlight={highlight.VL} joints={legs.VL} strideK={strideK} />
       <g transform={`translate(0 ${bob}) rotate(${tilt} 200 150)`}>{children}</g>
       </g>
     </g>

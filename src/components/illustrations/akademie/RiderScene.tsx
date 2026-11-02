@@ -99,7 +99,7 @@ export function Rider({ b, pose }: { b: Body; pose: RiderPose }) {
   );
 }
 
-export function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRein: boolean; stirrupsDown: boolean }) {
+export function Tack({ hand, longRein, stirrupsDown, noRein }: { hand: P | null; longRein: boolean; stirrupsDown: boolean; noRein?: boolean }) {
   const rein = hand
     ? `M${BIT[0]},${BIT[1]} Q${(BIT[0] + hand[0]) / 2},${(BIT[1] + hand[1]) / 2 + (longRein ? 26 : 3)} ${hand[0] + 2},${hand[1]}`
     : `M${BIT[0]},${BIT[1]} C330,140 300,128 262,104`;
@@ -129,7 +129,7 @@ export function Tack({ hand, longRein, stirrupsDown }: { hand: P | null; longRei
       </g>
       <circle cx={BIT[0]} cy={BIT[1]} r="3.6" fill="none" stroke={C.metal} strokeWidth="2" />
       {/* Zügel */}
-      <path d={rein} fill="none" stroke={C.leatherDark} strokeWidth="2.4" strokeLinecap="round" />
+      {!noRein && <path d={rein} fill="none" stroke={C.leatherDark} strokeWidth="2.4" strokeLinecap="round" />}
     </g>
   );
 }
