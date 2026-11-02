@@ -1,0 +1,72 @@
+{
+  "leichttraben-komplett": [
+    ["frage", "Warum stehen Reiter im Trab immer wieder auf und setzen sich hin?"],
+    ["warum", "Das ist das Leichttraben. Es entlastet den Rücken deines Pferdes – und für dich wird der Trab viel angenehmer."],
+    ["zweitakt", "Der Trab ist ein Zweitakt: Immer zwei Beine fußen gleichzeitig auf, schräg gegenüber."],
+    ["wie", "Beim Leichttraben gehst du bei einem Takt aus der Hüfte nach vorn-oben – und beim nächsten setzt du dich weich wieder hin."],
+    ["aufab", "Auf, ab, auf, ab – im Rhythmus deines Pferdes."],
+    ["haende", "Deine Hände bleiben ruhig an derselben Stelle. Das Knie federt, der Absatz bleibt tief."],
+    ["treiben", "Und wann treibst du? Immer beim Hinsetzen! Kurz mit beiden Waden drücken – beim Aufstehen bleiben die Beine locker."],
+    ["warumtreiben", "Denn wenn du sitzt, stößt sich das innere Hinterbein gerade ab. Genau dann hilft dein Bein."],
+    ["fuss", "Jetzt fehlt nur noch der richtige Fuß."],
+    ["schulter", "Du stehst auf, wenn die äußere Schulter deines Pferdes nach vorn geht."],
+    ["falsch", "Falscher Fuß? Kein Problem: Bleib einfach einen Takt länger sitzen – und schon passt es wieder."],
+    ["wechsel", "Bei jedem Handwechsel wechselst du auch den Fuß."],
+    ["merke", "Merke: Äußere Schulter vor – du bist oben. Und beim Hinsetzen treiben."]
+  ],
+  "leichter-sitz": [
+    ["frage", "Warum stehen Reiter im Galopp manchmal halb auf?"],
+    ["was", "Das ist der leichte Sitz. Dein Gewicht geht aus dem Sattel – so kann dein Pferd seinen Rücken frei bewegen."],
+    ["wann", "Du nutzt ihn zum Beispiel zum Aufwärmen, im Gelände oder beim Springen."],
+    ["p1", "Eins: Po ein kleines bisschen hoch. Dein Gewicht geht in die Steigbügel."],
+    ["p2", "Zwei: Den Oberkörper leicht nach vorn neigen."],
+    ["p3", "Drei: Absatz tief. Deine Knie federn wie eine Sprungfeder."],
+    ["p4", "Vier: Die Hände gehen mit dem Pferdehals mit."],
+    ["wichtig", "Ganz wichtig: Du hältst dich nicht am Zügel fest. Deine Balance kommt aus deinen Beinen."],
+    ["merke", "Merke: Po hoch, Absatz tief, Hände gehen mit."]
+  ],
+  "pferd-lenken": [
+    ["frage", "Wie lenkt man eigentlich ein Pferd?"],
+    ["koerper", "Nicht nur mit dem Zügel! Du lenkst mit deinem ganzen Körper."],
+    ["blick", "Eins: Schau dahin, wo du hinwillst."],
+    ["gewicht", "Zwei: Dein Gewicht geht ein kleines bisschen nach innen."],
+    ["schenkel", "Drei: Der innere Schenkel treibt am Gurt, der äußere liegt etwas dahinter."],
+    ["zuegel", "Vier: Der innere Zügel zeigt den Weg, der äußere gibt nach – bleibt aber dran."],
+    ["nie", "Zieh nie nur an einem Zügel! Sonst dreht dein Pferd den Kopf, aber nicht den Körper."],
+    ["merke", "Merke: Erst schauen, dann sitzen, dann Bein und Hand."]
+  ],
+  "innen-aussen": [
+    ["frage", "Innerer Schenkel, äußerer Zügel – was heißt eigentlich innen und außen?"],
+    ["innen", "Innen ist die Seite, zu der dein Pferd gebogen ist. Auf dem Zirkel ist das die Seite zur Mitte."],
+    ["schenkelin", "Der innere Schenkel treibt am Gurt. Um ihn herum biegt sich dein Pferd."],
+    ["schenkelaus", "Der äußere Schenkel liegt etwas dahinter und passt auf, dass die Hinterhand nicht wegrutscht."],
+    ["zuegel", "Der äußere Zügel hält die Schulter. Der innere stellt nur ein bisschen – du siehst gerade so das innere Auge."],
+    ["fehler", "Ziehst du nur innen, biegt sich der Hals – aber die Schulter rutscht nach außen weg."],
+    ["rahmen", "Die Lösung heißt einrahmen: Dein Pferd läuft zwischen deinen Hilfen – wie zwischen zwei Schienen."],
+    ["merke", "Merke: Innen treibt, außen hält – so bleibt die Schulter, wo sie liegt."]
+  ],
+  "anreiten-durchparieren": [
+    ["frage", "Wie sagst du deinem Pferd eigentlich: Jetzt geht's los – oder: Jetzt wird's langsamer?"],
+    ["hilfen", "Dafür hast du drei Hilfen: dein Gewicht, deine Schenkel und deine Zügel. Sie arbeiten immer zusammen."],
+    ["hp", "Vor jedem Wechsel der Gangart kommt eine halbe Parade. Sie heißt: Achtung, gleich passiert was!"],
+    ["hpwie", "So geht sie: Du sitzt kurz tief und spannst deinen Bauch an. Deine Schenkel bleiben dran. Und die Hand nimmt kurz an – und gibt gleich wieder nach."],
+    ["hpzieh", "Wichtig: Die Hand zieht nicht. Sie hält nur kurz aus und wird dann wieder weich."],
+    ["schritt", "Vom Halten in den Schritt: Erst eine halbe Parade. Dann treiben beide Schenkel am Gurt. Dein Becken geht mit nach vorn, und die Hand gibt ein kleines bisschen nach – damit dein Pferd losgehen kann."],
+    ["schritt2", "Sobald es geht, liegen deine Schenkel wieder ruhig an."],
+    ["trab", "Vom Schritt in den Trab: Wieder eine halbe Parade. Dann treiben beide Schenkel etwas deutlicher, und die Hand lässt dein Pferd nach vorn."],
+    ["trab2", "Die ersten Tritte sitzt du aus. Danach kannst du leichttraben."],
+    ["galopp", "Vom Trab in den Galopp: Du sitzt aus und gibst eine halbe Parade – am besten in einer Ecke oder auf dem Zirkel."],
+    ["galopp2", "Dein Gewicht geht etwas mehr auf die innere Seite. Der innere Schenkel treibt am Gurt. Der äußere Schenkel liegt eine Handbreit dahinter."],
+    ["galopp3", "Der innere Zügel stellt dein Pferd ein bisschen nach innen, der äußere hält – und im Moment des Angaloppierens gibt die Hand nach."],
+    ["galopp4", "Und schon springt dein Pferd an – mit dem äußeren Hinterbein zuerst."],
+    ["runter", "Langsamer wirst du mit mehreren halben Paraden hintereinander. Das nennt man durchparieren."],
+    ["gt", "Vom Galopp in den Trab: Du sitzt tief, die Schenkel bleiben dran, die Hand nimmt an und gibt nach – so lange, bis dein Pferd trabt. Dann wird die Hand sofort wieder leicht."],
+    ["ts", "Vom Trab in den Schritt: Du sitzt aus und gibst wieder ein paar halbe Paraden, bis dein Pferd Schritt geht."],
+    ["warum", "Und warum bleiben die Schenkel beim Langsamerwerden dran? Damit dein Pferd mit den Hinterbeinen schön unter den Bauch tritt und nicht einfach auf die Vorhand fällt."],
+    ["gp", "Vom Schritt ins Halten: Das ist die ganze Parade. Mehrere halbe Paraden kurz hintereinander, bis dein Pferd steht."],
+    ["gp2", "Steht es ruhig auf allen vier Beinen, wird deine Hand leicht. Und du lobst dein Pferd."],
+    ["treppe", "Vom Galopp bis ins Halten gehst du am Anfang Stufe für Stufe hinunter: Galopp, Trab, Schritt, Halt. Bei jedem Schritt der Treppe gibst du halbe Paraden."],
+    ["profi", "Erfahrene Reiter und gut ausgebildete Pferde schaffen später auch größere Sprünge – zum Beispiel direkt vom Galopp in den Schritt."],
+    ["merke", "Merke: Halbe Parade heißt Achtung. Ganze Parade heißt Halt. Treiben bringt dich vorwärts – und nach jeder Hilfe wird die Hand wieder leicht."]
+  ]
+}

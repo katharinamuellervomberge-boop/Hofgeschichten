@@ -1,0 +1,1082 @@
+{
+ "leichttraben-komplett": {
+  "audio": "a4",
+  "total": 69.53,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 4.29,
+    "chunks": [
+     {
+      "text": "Warum stehen Reiter im Trab immer wieder auf und setzen sich hin?",
+      "start": 0.4,
+      "end": 4.29
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "warum",
+    "start": 4.72,
+    "end": 11.0,
+    "chunks": [
+     {
+      "text": "Das ist das Leichttraben.",
+      "start": 4.72,
+      "end": 6.58
+     },
+     {
+      "text": "Es entlastet den Rücken deines Pferdes",
+      "start": 6.58,
+      "end": 8.45
+     },
+     {
+      "text": "und für dich wird der Trab viel angenehmer.",
+      "start": 8.45,
+      "end": 11.0
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "zweitakt",
+    "start": 11.45,
+    "end": 16.84,
+    "chunks": [
+     {
+      "text": "Der Trab ist ein Zweitakt: Immer zwei Beine fußen gleichzeitig auf, schräg gegenüber.",
+      "start": 11.45,
+      "end": 16.84
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wie",
+    "start": 17.25,
+    "end": 23.52,
+    "chunks": [
+     {
+      "text": "Beim Leichttraben gehst du bei einem Takt aus der Hüfte nach vorn-oben",
+      "start": 17.25,
+      "end": 20.59
+     },
+     {
+      "text": "und beim nächsten setzt du dich weich wieder hin.",
+      "start": 20.59,
+      "end": 23.52
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "aufab",
+    "start": 23.89,
+    "end": 27.5,
+    "chunks": [
+     {
+      "text": "Auf, ab, auf, ab – im Rhythmus deines Pferdes.",
+      "start": 23.89,
+      "end": 27.5
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "haende",
+    "start": 27.88,
+    "end": 33.84,
+    "chunks": [
+     {
+      "text": "Deine Hände bleiben ruhig an derselben Stelle.",
+      "start": 27.88,
+      "end": 31.18
+     },
+     {
+      "text": "Das Knie federt, der Absatz bleibt tief.",
+      "start": 31.18,
+      "end": 33.84
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "treiben",
+    "start": 34.2,
+    "end": 40.87,
+    "chunks": [
+     {
+      "text": "Und wann treibst du?",
+      "start": 34.2,
+      "end": 35.35
+     },
+     {
+      "text": "Immer beim Hinsetzen!",
+      "start": 35.35,
+      "end": 37.26
+     },
+     {
+      "text": "Kurz mit beiden Waden drücken",
+      "start": 37.26,
+      "end": 38.56
+     },
+     {
+      "text": "beim Aufstehen bleiben die Beine locker.",
+      "start": 38.56,
+      "end": 40.87
+     }
+    ],
+    "nseg": 4
+   },
+   {
+    "id": "warumtreiben",
+    "start": 41.22,
+    "end": 46.54,
+    "chunks": [
+     {
+      "text": "Denn wenn du sitzt, stößt sich das innere Hinterbein gerade ab.",
+      "start": 41.22,
+      "end": 44.53
+     },
+     {
+      "text": "Genau dann hilft dein Bein.",
+      "start": 44.53,
+      "end": 46.54
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "fuss",
+    "start": 46.88,
+    "end": 48.85,
+    "chunks": [
+     {
+      "text": "Jetzt fehlt nur noch der richtige Fuß.",
+      "start": 46.88,
+      "end": 48.85
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "schulter",
+    "start": 49.22,
+    "end": 52.77,
+    "chunks": [
+     {
+      "text": "Du stehst auf, wenn die äußere Schulter deines Pferdes nach vorn geht.",
+      "start": 49.22,
+      "end": 52.77
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "falsch",
+    "start": 53.07,
+    "end": 58.38,
+    "chunks": [
+     {
+      "text": "Falscher Fuß? Kein Problem: Bleib einfach einen Takt länger sitzen",
+      "start": 53.07,
+      "end": 56.93
+     },
+     {
+      "text": "und schon passt es wieder.",
+      "start": 56.93,
+      "end": 58.38
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wechsel",
+    "start": 58.73,
+    "end": 61.32,
+    "chunks": [
+     {
+      "text": "Bei jedem Handwechsel wechselst du auch den Fuß.",
+      "start": 58.73,
+      "end": 61.32
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "merke",
+    "start": 61.71,
+    "end": 67.01,
+    "chunks": [
+     {
+      "text": "Merke: Äußere Schulter vor – du bist oben.",
+      "start": 61.71,
+      "end": 65.47
+     },
+     {
+      "text": "Und beim Hinsetzen treiben.",
+      "start": 65.47,
+      "end": 67.01
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "leichter-sitz": {
+  "audio": "a1",
+  "total": 43.51,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 3.57,
+    "chunks": [
+     {
+      "text": "Warum stehen Reiter im Galopp manchmal halb auf?",
+      "start": 0.4,
+      "end": 3.57
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "was",
+    "start": 4.02,
+    "end": 9.8,
+    "chunks": [
+     {
+      "text": "Das ist der leichte Sitz.",
+      "start": 4.02,
+      "end": 5.4
+     },
+     {
+      "text": "Dein Gewicht geht aus dem Sattel",
+      "start": 5.4,
+      "end": 7.22
+     },
+     {
+      "text": "so kann dein Pferd seinen Rücken frei bewegen.",
+      "start": 7.22,
+      "end": 9.8
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "wann",
+    "start": 10.19,
+    "end": 14.2,
+    "chunks": [
+     {
+      "text": "Du nutzt ihn zum Beispiel zum Aufwärmen, im Gelände oder beim Springen.",
+      "start": 10.19,
+      "end": 14.2
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "p1",
+    "start": 14.61,
+    "end": 19.14,
+    "chunks": [
+     {
+      "text": "Eins: Po ein kleines bisschen hoch.",
+      "start": 14.61,
+      "end": 16.96
+     },
+     {
+      "text": "Dein Gewicht geht in die Steigbügel.",
+      "start": 16.96,
+      "end": 19.14
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "p2",
+    "start": 19.56,
+    "end": 22.6,
+    "chunks": [
+     {
+      "text": "Zwei: Den Oberkörper leicht nach vorn neigen.",
+      "start": 19.56,
+      "end": 22.6
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "p3",
+    "start": 23.0,
+    "end": 27.58,
+    "chunks": [
+     {
+      "text": "Drei: Absatz tief.",
+      "start": 23.0,
+      "end": 25.22
+     },
+     {
+      "text": "Deine Knie federn wie eine Sprungfeder.",
+      "start": 25.22,
+      "end": 27.58
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "p4",
+    "start": 27.97,
+    "end": 30.68,
+    "chunks": [
+     {
+      "text": "Vier: Die Hände gehen mit dem Pferdehals mit.",
+      "start": 27.97,
+      "end": 30.68
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wichtig",
+    "start": 31.07,
+    "end": 38.17,
+    "chunks": [
+     {
+      "text": "Ganz wichtig: Du hältst dich nicht am Zügel fest.",
+      "start": 31.07,
+      "end": 34.87
+     },
+     {
+      "text": "Deine Balance kommt aus deinen Beinen.",
+      "start": 34.87,
+      "end": 38.17
+     }
+    ],
+    "nseg": 4
+   },
+   {
+    "id": "merke",
+    "start": 38.56,
+    "end": 41.31,
+    "chunks": [
+     {
+      "text": "Merke: Po hoch, Absatz tief, Hände gehen mit.",
+      "start": 38.56,
+      "end": 41.31
+     }
+    ],
+    "nseg": 2
+   }
+  ]
+ },
+ "pferd-lenken": {
+  "audio": "a2",
+  "total": 36.95,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 2.48,
+    "chunks": [
+     {
+      "text": "Wie lenkt man eigentlich ein Pferd?",
+      "start": 0.4,
+      "end": 2.48
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "koerper",
+    "start": 2.8,
+    "end": 6.47,
+    "chunks": [
+     {
+      "text": "Nicht nur mit dem Zügel!",
+      "start": 2.8,
+      "end": 4.49
+     },
+     {
+      "text": "Du lenkst mit deinem ganzen Körper.",
+      "start": 4.49,
+      "end": 6.47
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "blick",
+    "start": 6.93,
+    "end": 9.4,
+    "chunks": [
+     {
+      "text": "Eins: Schau dahin, wo du hinwillst.",
+      "start": 6.93,
+      "end": 9.4
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gewicht",
+    "start": 9.78,
+    "end": 13.87,
+    "chunks": [
+     {
+      "text": "Zwei: Dein Gewicht geht ein kleines bisschen nach innen.",
+      "start": 9.78,
+      "end": 13.87
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "schenkel",
+    "start": 14.23,
+    "end": 19.06,
+    "chunks": [
+     {
+      "text": "Drei: Der innere Schenkel treibt am Gurt, der äußere liegt etwas dahinter.",
+      "start": 14.23,
+      "end": 19.06
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "zuegel",
+    "start": 19.46,
+    "end": 23.82,
+    "chunks": [
+     {
+      "text": "Vier: Der innere Zügel zeigt den Weg, der äußere gibt nach",
+      "start": 19.46,
+      "end": 22.42
+     },
+     {
+      "text": "bleibt aber dran.",
+      "start": 22.42,
+      "end": 23.82
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "nie",
+    "start": 24.14,
+    "end": 30.23,
+    "chunks": [
+     {
+      "text": "Zieh nie nur an einem Zügel!",
+      "start": 24.14,
+      "end": 26.07
+     },
+     {
+      "text": "Sonst dreht dein Pferd den Kopf, aber nicht den Körper.",
+      "start": 26.07,
+      "end": 30.23
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "merke",
+    "start": 30.65,
+    "end": 34.75,
+    "chunks": [
+     {
+      "text": "Merke: Erst schauen, dann sitzen, dann Bein und Hand.",
+      "start": 30.65,
+      "end": 34.75
+     }
+    ],
+    "nseg": 3
+   }
+  ]
+ },
+ "innen-aussen": {
+  "audio": "a5",
+  "total": 47.19,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 6.19,
+    "chunks": [
+     {
+      "text": "Innerer Schenkel, äußerer Zügel",
+      "start": 0.4,
+      "end": 2.62
+     },
+     {
+      "text": "was heißt eigentlich innen und außen?",
+      "start": 2.62,
+      "end": 6.19
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "innen",
+    "start": 6.61,
+    "end": 11.94,
+    "chunks": [
+     {
+      "text": "Innen ist die Seite, zu der dein Pferd gebogen ist.",
+      "start": 6.61,
+      "end": 9.27
+     },
+     {
+      "text": "Auf dem Zirkel ist das die Seite zur Mitte.",
+      "start": 9.27,
+      "end": 11.94
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "schenkelin",
+    "start": 12.32,
+    "end": 16.38,
+    "chunks": [
+     {
+      "text": "Der innere Schenkel treibt am Gurt.",
+      "start": 12.32,
+      "end": 14.2
+     },
+     {
+      "text": "Um ihn herum biegt sich dein Pferd.",
+      "start": 14.2,
+      "end": 16.38
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "schenkelaus",
+    "start": 16.78,
+    "end": 21.52,
+    "chunks": [
+     {
+      "text": "Der äußere Schenkel liegt etwas dahinter und passt auf, dass die Hinterhand nicht wegrutscht.",
+      "start": 16.78,
+      "end": 21.52
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "zuegel",
+    "start": 21.88,
+    "end": 28.43,
+    "chunks": [
+     {
+      "text": "Der äußere Zügel hält die Schulter.",
+      "start": 21.88,
+      "end": 24.43
+     },
+     {
+      "text": "Der innere stellt nur ein bisschen",
+      "start": 24.43,
+      "end": 26.24
+     },
+     {
+      "text": "du siehst gerade so das innere Auge.",
+      "start": 26.24,
+      "end": 28.43
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "fehler",
+    "start": 28.79,
+    "end": 33.34,
+    "chunks": [
+     {
+      "text": "Ziehst du nur innen, biegt sich der Hals",
+      "start": 28.79,
+      "end": 30.7
+     },
+     {
+      "text": "aber die Schulter rutscht nach außen weg.",
+      "start": 30.7,
+      "end": 33.34
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "rahmen",
+    "start": 33.72,
+    "end": 39.33,
+    "chunks": [
+     {
+      "text": "Die Lösung heißt einrahmen: Dein Pferd läuft zwischen deinen Hilfen",
+      "start": 33.72,
+      "end": 37.5
+     },
+     {
+      "text": "wie zwischen zwei Schienen.",
+      "start": 37.5,
+      "end": 39.33
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "merke",
+    "start": 39.72,
+    "end": 44.99,
+    "chunks": [
+     {
+      "text": "Merke: Innen treibt, außen hält",
+      "start": 39.72,
+      "end": 42.38
+     },
+     {
+      "text": "so bleibt die Schulter, wo sie liegt.",
+      "start": 42.38,
+      "end": 44.99
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "anreiten-durchparieren": {
+  "audio": "a3",
+  "total": 177.05,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 5.56,
+    "chunks": [
+     {
+      "text": "Wie sagst du deinem Pferd eigentlich: Jetzt geht's los",
+      "start": 0.4,
+      "end": 3.27
+     },
+     {
+      "text": "oder: Jetzt wird's langsamer?",
+      "start": 3.27,
+      "end": 5.56
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "hilfen",
+    "start": 6.07,
+    "end": 12.8,
+    "chunks": [
+     {
+      "text": "Dafür hast du drei Hilfen: dein Gewicht, deine Schenkel und deine Zügel.",
+      "start": 6.07,
+      "end": 10.62
+     },
+     {
+      "text": "Sie arbeiten immer zusammen.",
+      "start": 10.62,
+      "end": 12.8
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "hp",
+    "start": 13.29,
+    "end": 19.09,
+    "chunks": [
+     {
+      "text": "Vor jedem Wechsel der Gangart kommt eine halbe Parade.",
+      "start": 13.29,
+      "end": 16.05
+     },
+     {
+      "text": "Sie heißt: Achtung, gleich passiert was!",
+      "start": 16.05,
+      "end": 19.09
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "hpwie",
+    "start": 19.64,
+    "end": 29.01,
+    "chunks": [
+     {
+      "text": "So geht sie: Du sitzt kurz tief und spannst deinen Bauch an.",
+      "start": 19.64,
+      "end": 23.47
+     },
+     {
+      "text": "Deine Schenkel bleiben dran.",
+      "start": 23.47,
+      "end": 25.53
+     },
+     {
+      "text": "Und die Hand nimmt kurz an",
+      "start": 25.53,
+      "end": 27.11
+     },
+     {
+      "text": "und gibt gleich wieder nach.",
+      "start": 27.11,
+      "end": 29.01
+     }
+    ],
+    "nseg": 5
+   },
+   {
+    "id": "hpzieh",
+    "start": 29.59,
+    "end": 34.9,
+    "chunks": [
+     {
+      "text": "Wichtig: Die Hand zieht nicht.",
+      "start": 29.59,
+      "end": 32.34
+     },
+     {
+      "text": "Sie hält nur kurz aus und wird dann wieder weich.",
+      "start": 32.34,
+      "end": 34.9
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "schritt",
+    "start": 35.49,
+    "end": 47.33,
+    "chunks": [
+     {
+      "text": "Vom Halten in den Schritt: Erst eine halbe Parade.",
+      "start": 35.49,
+      "end": 39.32
+     },
+     {
+      "text": "Dann treiben beide Schenkel am Gurt.",
+      "start": 39.32,
+      "end": 41.79
+     },
+     {
+      "text": "Dein Becken geht mit nach vorn, und die Hand gibt ein kleines bisschen nach",
+      "start": 41.79,
+      "end": 45.24
+     },
+     {
+      "text": "damit dein Pferd losgehen kann.",
+      "start": 45.24,
+      "end": 47.33
+     }
+    ],
+    "nseg": 5
+   },
+   {
+    "id": "schritt2",
+    "start": 47.87,
+    "end": 50.9,
+    "chunks": [
+     {
+      "text": "Sobald es geht, liegen deine Schenkel wieder ruhig an.",
+      "start": 47.87,
+      "end": 50.9
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "trab",
+    "start": 51.48,
+    "end": 59.52,
+    "chunks": [
+     {
+      "text": "Vom Schritt in den Trab: Wieder eine halbe Parade.",
+      "start": 51.48,
+      "end": 55.25
+     },
+     {
+      "text": "Dann treiben beide Schenkel etwas deutlicher, und die Hand lässt dein Pferd nach vorn.",
+      "start": 55.25,
+      "end": 59.52
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "trab2",
+    "start": 60.1,
+    "end": 63.77,
+    "chunks": [
+     {
+      "text": "Die ersten Tritte sitzt du aus.",
+      "start": 60.1,
+      "end": 61.75
+     },
+     {
+      "text": "Danach kannst du leichttraben.",
+      "start": 61.75,
+      "end": 63.77
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "galopp",
+    "start": 64.25,
+    "end": 71.03,
+    "chunks": [
+     {
+      "text": "Vom Trab in den Galopp: Du sitzt aus und gibst eine halbe Parade",
+      "start": 64.25,
+      "end": 68.2
+     },
+     {
+      "text": "am besten in einer Ecke oder auf dem Zirkel.",
+      "start": 68.2,
+      "end": 71.03
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp2",
+    "start": 71.57,
+    "end": 80.02,
+    "chunks": [
+     {
+      "text": "Dein Gewicht geht etwas mehr auf die innere Seite.",
+      "start": 71.57,
+      "end": 74.3
+     },
+     {
+      "text": "Der innere Schenkel treibt am Gurt.",
+      "start": 74.3,
+      "end": 76.77
+     },
+     {
+      "text": "Der äußere Schenkel liegt eine Handbreit dahinter.",
+      "start": 76.77,
+      "end": 80.02
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp3",
+    "start": 80.67,
+    "end": 87.83,
+    "chunks": [
+     {
+      "text": "Der innere Zügel stellt dein Pferd ein bisschen nach innen, der äußere hält",
+      "start": 80.67,
+      "end": 84.6
+     },
+     {
+      "text": "und im Moment des Angaloppierens gibt die Hand nach.",
+      "start": 84.6,
+      "end": 87.83
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp4",
+    "start": 88.4,
+    "end": 92.13,
+    "chunks": [
+     {
+      "text": "Und schon springt dein Pferd an",
+      "start": 88.4,
+      "end": 89.89
+     },
+     {
+      "text": "mit dem äußeren Hinterbein zuerst.",
+      "start": 89.89,
+      "end": 92.13
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "runter",
+    "start": 92.61,
+    "end": 97.8,
+    "chunks": [
+     {
+      "text": "Langsamer wirst du mit mehreren halben Paraden hintereinander.",
+      "start": 92.61,
+      "end": 95.82
+     },
+     {
+      "text": "Das nennt man durchparieren.",
+      "start": 95.82,
+      "end": 97.8
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gt",
+    "start": 98.42,
+    "end": 109.23,
+    "chunks": [
+     {
+      "text": "Vom Galopp in den Trab: Du sitzt tief, die Schenkel bleiben dran, die Hand nimmt an und gibt nach",
+      "start": 98.42,
+      "end": 104.3
+     },
+     {
+      "text": "so lange, bis dein Pferd trabt.",
+      "start": 104.3,
+      "end": 106.45
+     },
+     {
+      "text": "Dann wird die Hand sofort wieder leicht.",
+      "start": 106.45,
+      "end": 109.23
+     }
+    ],
+    "nseg": 5
+   },
+   {
+    "id": "ts",
+    "start": 109.82,
+    "end": 116.11,
+    "chunks": [
+     {
+      "text": "Vom Trab in den Schritt: Du sitzt aus und gibst wieder ein paar halbe Paraden, bis dein Pferd Schritt geht.",
+      "start": 109.82,
+      "end": 116.11
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "warum",
+    "start": 116.64,
+    "end": 125.01,
+    "chunks": [
+     {
+      "text": "Und warum bleiben die Schenkel beim Langsamerwerden dran?",
+      "start": 116.64,
+      "end": 120.05
+     },
+     {
+      "text": "Damit dein Pferd mit den Hinterbeinen schön unter den Bauch tritt und nicht einfach auf die Vorhand fällt.",
+      "start": 120.05,
+      "end": 125.01
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gp",
+    "start": 125.58,
+    "end": 133.06,
+    "chunks": [
+     {
+      "text": "Vom Schritt ins Halten: Das ist die ganze Parade.",
+      "start": 125.58,
+      "end": 129.43
+     },
+     {
+      "text": "Mehrere halbe Paraden kurz hintereinander, bis dein Pferd steht.",
+      "start": 129.43,
+      "end": 133.06
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "gp2",
+    "start": 133.58,
+    "end": 138.81,
+    "chunks": [
+     {
+      "text": "Steht es ruhig auf allen vier Beinen, wird deine Hand leicht.",
+      "start": 133.58,
+      "end": 137.0
+     },
+     {
+      "text": "Und du lobst dein Pferd.",
+      "start": 137.0,
+      "end": 138.81
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "treppe",
+    "start": 139.46,
+    "end": 152.17,
+    "chunks": [
+     {
+      "text": "Vom Galopp bis ins Halten gehst du am Anfang Stufe für Stufe hinunter: Galopp, Trab, Schritt, Halt.",
+      "start": 139.46,
+      "end": 147.66
+     },
+     {
+      "text": "Bei jedem Schritt der Treppe gibst du halbe Paraden.",
+      "start": 147.66,
+      "end": 152.17
+     }
+    ],
+    "nseg": 7
+   },
+   {
+    "id": "profi",
+    "start": 152.73,
+    "end": 161.61,
+    "chunks": [
+     {
+      "text": "Erfahrene Reiter und gut ausgebildete Pferde schaffen später auch größere Sprünge",
+      "start": 152.73,
+      "end": 158.16
+     },
+     {
+      "text": "zum Beispiel direkt vom Galopp in den Schritt.",
+      "start": 158.16,
+      "end": 161.61
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "merke",
+    "start": 162.23,
+    "end": 174.85,
+    "chunks": [
+     {
+      "text": "Merke: Halbe Parade heißt Achtung.",
+      "start": 162.23,
+      "end": 166.17
+     },
+     {
+      "text": "Ganze Parade heißt Halt.",
+      "start": 166.17,
+      "end": 168.62
+     },
+     {
+      "text": "Treiben bringt dich vorwärts",
+      "start": 168.62,
+      "end": 171.06
+     },
+     {
+      "text": "und nach jeder Hilfe wird die Hand wieder leicht.",
+      "start": 171.06,
+      "end": 174.85
+     }
+    ],
+    "nseg": 6
+   }
+  ]
+ }
+}

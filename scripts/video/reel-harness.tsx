@@ -22,6 +22,7 @@ import { N05_TOTAL, renderN05 } from "@/video/reels/nov05-galopp-quiz-reel";
 import { N06_TOTAL, renderN06 } from "@/video/reels/nov06-bahnfiguren-reel";
 import { N07_TOTAL, renderN07 } from "@/video/reels/nov07-45minuten-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
+import { LERN } from "@/video/lern/lern-videos";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -46,6 +47,7 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   n06: { total: () => N06_TOTAL, render: renderN06 },
   n07: { total: () => N07_TOTAL, render: renderN07 },
   erbrechen: { total: () => ERBRECHEN_TOTAL, render: renderErbrechen },
+  ...LERN,
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
