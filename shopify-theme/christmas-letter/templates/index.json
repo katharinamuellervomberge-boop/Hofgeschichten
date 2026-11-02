@@ -1,0 +1,277 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hh-kids-hero",
+      "settings": {
+        "product": "hofpost-founder",
+        "product_2": "die-hofgeschichten-die-hofwelt-kostenlos-spielen",
+        "stamp": "Nur 100|Plätze",
+        "eyebrow": "Die Hofgeschichten · Pferde-App für Kinder",
+        "heading": "Pferde verstehen.|Reiten [lernen.]",
+        "as_h1": true,
+        "text": "Die Hofgeschichten-App: Mit unseren echten Hofpferden Tivoli, Scrabble und Tonga Pferde verstehen, Reiten lernen und Abenteuer erleben – direkt im Browser auf Handy, Tablet oder Computer. Neu: die Hofpost mit einem echten Brief von den Pferden – jeden Monat.",
+        "button_label_1": "Alle App-Angebote",
+        "button_link_1": "/collections/die-hofgeschichten-detektiv-app",
+        "button_external_1": false,
+        "button_label_2": "App kostenlos öffnen",
+        "button_link_2": "https://hofgeschichten.vercel.app",
+        "button_external_2": true,
+        "note": "Hofpost-Jahresabo: App + 12 echte Briefe für 119 € statt 179 € · nur bis 31.12.",
+        "facts": "Ohne Werbung|Ohne Kinderkonto|Keine Chats|4–12 Jahre",
+        "color_scheme": "scheme-1",
+        "padding_top": 88,
+        "padding_bottom": 136
+      }
+    },
+    "kids": {
+      "type": "hh-kids-products",
+      "blocks": {
+        "p1": {
+          "type": "card",
+          "settings": {
+            "product": "hofpost-founder",
+            "title": "Hofpost: App + 12 echte Briefe",
+            "badge": "Neu · nur 100 Plätze",
+            "text": "Die ganze App und jeden Monat ein echter Brief von Tivoli, Scrabble, Tonga oder Krümel – mit Pferdefoto, Bastelaufgabe, Sticker und Geheimwort.",
+            "facts": "Founder-Jahr|Versand inklusive|Erster Brief Januar 2027",
+            "button_label": "Platz sichern",
+            "button_url": "/products/hofpost-founder",
+            "button_external": false,
+            "highlight": true
+          }
+        },
+        "p2": {
+          "type": "card",
+          "settings": {
+            "product": "hof-stories-founder-jahresmitgliedschaft",
+            "title": "Mitgliedschaft „Mein Hof“",
+            "badge": "Die ganze App",
+            "text": "Ein Jahr lang jeden Freitag Neues – mit der großen Reitakademie und allen Detektivabenteuern.",
+            "facts": "39,90 € im ersten Jahr|4–12 Jahre",
+            "button_label": "Ansehen",
+            "button_url": "/products/hof-stories-founder-jahresmitgliedschaft",
+            "button_external": false,
+            "highlight": false
+          }
+        },
+        "p3": {
+          "type": "card",
+          "settings": {
+            "product": "die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs",
+            "title": "Große Reitakademie",
+            "badge": "Reiten lernen",
+            "text": "Schritt, Trab, Galopp und Reiten in der Bahn: 25 Lektionen, 6 animierte Lernvideos und 2 Mini-Spiele.",
+            "facts": "Einmalkauf|4–12 Jahre",
+            "button_label": "",
+            "button_url": "",
+            "button_external": false,
+            "highlight": false
+          }
+        },
+        "p4": {
+          "type": "card",
+          "settings": {
+            "product": "die-hofgeschichten-die-hofwelt-kostenlos-spielen",
+            "title": "Hofwelt",
+            "badge": "Kostenlos",
+            "text": "Der Einstieg: Pferde kennenlernen, Pflege, Pferdesprache und Quiz – ohne Anmeldung.",
+            "facts": "Sofort spielen|ohne Anmeldung",
+            "button_label": "Kostenlos spielen",
+            "button_url": "https://hofgeschichten.vercel.app",
+            "button_external": true,
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "anchor": "app",
+        "eyebrow": "Die Hofgeschichten-App",
+        "heading": "Alles aus der App|auf einen [Blick.]",
+        "text": "<p>Mit echten Briefen vom Hof, die ganze App für ein Jahr, der Reitkurs einzeln – oder einfach kostenlos starten. Alle Angebote laufen in derselben App.</p>",
+        "link_label": "Alle App-Angebote – auch die Detektivfälle",
+        "link_url": "/collections/die-hofgeschichten-detektiv-app",
+        "columns": "4",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "limited": {
+      "type": "hh-limited-collection",
+      "settings": {
+        "collection": "pferde-schmuck",
+        "products_to_show": 4,
+        "low_stock": 12,
+        "eyebrow": "The Limited Collection",
+        "heading": "Wenn sie weg sind,|sind sie [weg.]",
+        "text": "<p>Goldfarbener Schmuck aus Edelstahl, den wir nur in kleiner Stückzahl ins Sortiment nehmen – fürs Büro genauso wie für den Abend.</p>",
+        "notes": "Edelstahl 316 bzw. 316L, goldfarben oder 18K vergoldet|Anlaufbeständig und alltagstauglich|Im Set günstiger als einzeln",
+        "button_label": "Zur Kollektion",
+        "color_scheme": "scheme-5",
+        "padding_top": 136,
+        "padding_bottom": 136
+      }
+    },
+    "gift": {
+      "type": "hh-editorial-feature",
+      "settings": {
+        "product": "geschenkgutschein-ausritt-1-person-60-minuten",
+        "caption": "Geschenkgutschein",
+        "layout": "right",
+        "eyebrow": "Gutscheine",
+        "heading": "Ein Ausritt.|Zum [Verschenken.]",
+        "text": "<p>Für eine Person oder zu zweit, 60 oder 90 Minuten im Sattel – ein Geschenk, das man nicht ins Regal stellt, sondern erlebt.</p>",
+        "details": "Dauer: 60 oder 90 Minuten|Für: 1 oder 2 Personen|Preis: ab 89 €",
+        "show_price": false,
+        "button_label": "Alle Gutscheine",
+        "button_link": "shopify://collections/gutscheine",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "worlds": {
+      "type": "hh-worlds",
+      "blocks": {
+        "w_kids": {
+          "type": "world",
+          "settings": {
+            "collection": "die-hofgeschichten-detektiv-app",
+            "eyebrow": "Für Kinder",
+            "title": "Die Hofgeschichten-App",
+            "cta": "Alle App-Angebote",
+            "link": ""
+          }
+        },
+        "w_schmuck": {
+          "type": "world",
+          "settings": {
+            "collection": "pferde-schmuck",
+            "eyebrow": "Limited Collection",
+            "title": "Schmuck",
+            "cta": "Entdecken",
+            "link": ""
+          }
+        },
+        "w_ausritt": {
+          "type": "world",
+          "settings": {
+            "collection": "gutscheine",
+            "eyebrow": "Erlebnisse",
+            "title": "Ausritte verschenken",
+            "cta": "Gutscheine",
+            "link": ""
+          }
+        },
+        "w_kunst": {
+          "type": "world",
+          "settings": {
+            "collection": "pferde-wandbilder-kalender",
+            "eyebrow": "Zuhause & Papeterie",
+            "title": "Für dein Zuhause",
+            "cta": "Entdecken",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "w_kids",
+        "w_schmuck",
+        "w_ausritt",
+        "w_kunst"
+      ],
+      "settings": {
+        "eyebrow": "Horse & Harmonie",
+        "heading": "Unsere [Welten]",
+        "text": "Die Pferde-App für Kinder, Schmuck in kleiner Auflage, Ausritte zum Verschenken und schöne Dinge fürs Zuhause.",
+        "color_scheme": "scheme-1",
+        "padding_top": 136,
+        "padding_bottom": 120
+      }
+    },
+    "about": {
+      "type": "rich-text",
+      "blocks": {
+        "eyebrow": {
+          "type": "caption",
+          "settings": {
+            "caption": "Unsere Geschichte",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ruhe. Verbindung. Echte Momente.",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Horse & Harmonie ist aus unserer Arbeit in der Reittherapie und in begleiteten Workshops entstanden. Im Shop findest du, was uns Freude macht: Jedes Stück ist bewusst ausgewählt – ein schönes Detail für deinen Alltag.</p><p>Ein Teil unserer Einnahmen fließt in einen Fonds, der Menschen Zugang zu Reittherapie ermöglicht.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Mehr über uns",
+            "button_link": "shopify://pages/abou-us",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "christmas": {
+      "type": "hh-editorial-feature",
+      "settings": {
+        "product": "reitakademie-verschenken-christmas-letter-edition",
+        "caption": "Christmas Letter Edition",
+        "layout": "left",
+        "eyebrow": "Weihnachten auf dem Hof",
+        "heading": "A Little Gift.|A Big [Adventure.]",
+        "text": "<p>Ein wunderschöner Weihnachtsbrief. Eine ganze Welt voller Pferdewissen. Im cremeweißen Umschlag: eine Geschenkkarte mit QR-Code und persönlichem Freischaltcode für die Reitakademie – für Kinder, Jugendliche und Erwachsene.</p><p><strong>Einmal schenken. Dauerhaft lernen.</strong></p>",
+        "details": "Im Brief: Geschenkkarte, Umschlag, Freischaltcode|Reitakademie: 81 Lektionen, 3 Lernwege|Preis: 26,90 € zzgl. Versand",
+        "show_price": false,
+        "button_label": "Reitabenteuer verschenken",
+        "button_link": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "christmas",
+    "kids",
+    "limited",
+    "gift",
+    "worlds",
+    "about"
+  ]
+}

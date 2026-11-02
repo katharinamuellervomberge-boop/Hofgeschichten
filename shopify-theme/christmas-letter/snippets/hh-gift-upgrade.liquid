@@ -1,0 +1,127 @@
+{%- comment -%}
+  Christmas Letter Edition – Geschenkauswahl auf der Reitakademie-Produktseite.
+
+  Funktionsweise:
+  - Zwei Auswahlkarten: „Digitaler Zugang“ (Reitakademie, kein Versand) und
+    „Christmas Letter Edition“ (eigenes Produkt, mit Versand).
+  - Bei Auswahl des Weihnachtsbriefs wird NUR die Varianten-ID im vorhandenen
+    Warenkorb-Formular ausgetauscht. Im Warenkorb landet genau ein Artikel:
+    entweder die digitale Reitakademie ODER die Christmas Letter Edition –
+    nie beide, kein doppelter Akademie-Zugang.
+  - Express-Kaufbuttons (PayPal/Apple Pay …) werden beim Weihnachtsbrief
+    ausgeblendet, damit sie nicht die digitale Variante kaufen.
+  - Ist die Edition nicht verfügbar (Entwurf, nicht veröffentlicht, ausverkauft),
+    wird gar nichts angezeigt – die Seite bleibt wie bisher.
+
+  Aufruf (Block „Benutzerdefiniertes Liquid“ in templates/product.json):
+    {% render 'hh-gift-upgrade', product: product, section_id: section.id %}
+{%- endcomment -%}
+{%- liquid
+  assign academy_handle = 'die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs'
+  assign letter_handle = 'reitakademie-verschenken-christmas-letter-edition'
+  assign hh_show = false
+  if product.handle == academy_handle
+    assign letter = all_products[letter_handle]
+    if letter != blank and letter.available
+      assign hh_show = true
+      assign letter_variant = letter.selected_or_first_available_variant
+      assign digital_variant = product.selected_or_first_available_variant
+      assign diff = letter_variant.price | minus: digital_variant.price
+    endif
+  endif
+-%}
+{%- if hh_show -%}
+
+<div class="hh-gift" data-hh-gift data-section="{{ section_id }}" data-digital="{{ digital_variant.id }}" data-letter="{{ letter_variant.id }}">
+  <p class="hh-gift__eyebrow">Du möchtest die Reitakademie verschenken?</p>
+  <p class="hh-gift__lead">Mach aus deinem digitalen Zugang ein echtes Weihnachtsgeschenk.</p>
+
+  <fieldset class="hh-gift__options">
+    <legend class="visually-hidden">Wie möchtest du die Reitakademie kaufen?</legend>
+
+    <label class="hh-gift__option">
+      <input type="radio" name="hh-gift-choice-{{ section_id }}" value="digital" checked>
+      <span class="hh-gift__card">
+        <span class="hh-gift__row">
+          <span class="hh-gift__name">Digitaler Zugang</span>
+          <span class="hh-gift__price">{{ digital_variant.price | money }}</span>
+        </span>
+        <span class="hh-gift__text">Sofort digital verfügbar, ohne physischen Versand.</span>
+      </span>
+    </label>
+
+    <label class="hh-gift__option">
+      <input type="radio" name="hh-gift-choice-{{ section_id }}" value="letter">
+      <span class="hh-gift__card">
+        <span class="hh-gift__row">
+          <span class="hh-gift__name">Als Weihnachtsbrief verschenken</span>
+          <span class="hh-gift__price">{{ letter_variant.price | money }} <small>zzgl. Versand</small></span>
+        </span>
+        <span class="hh-gift__text">Akademie-Zugang plus hochwertiger Geschenkbrief mit QR-Code und persönlichem Freischaltcode – per Post.</span>
+        <span class="hh-gift__badge">nur {{ diff | money }} Aufpreis</span>
+      </span>
+    </label>
+  </fieldset>
+
+  <p class="hh-gift__note" data-hh-gift-note hidden>
+    Im Warenkorb liegt dann nur die <a href="{{ letter.url }}">Christmas Letter Edition</a> – der Akademie-Zugang ist darin enthalten und wird nicht zusätzlich berechnet. Freigeschaltet wird mit dem Code auf der Karte, nach Erhalt des Briefes.
+  </p>
+</div>
+
+<style>
+  .hh-gift { margin: 2rem 0 1.6rem; padding: 2rem 1.8rem 1.6rem; background: #f1eee9; border: 1px solid rgba(34, 51, 43, .14); }
+  .hh-gift__eyebrow { margin: 0 0 .4rem; font-size: 1.15rem; letter-spacing: .14em; text-transform: uppercase; color: #22332b; }
+  .hh-gift__lead { margin: 0 0 1.6rem; font-family: var(--font-heading-family); font-size: 2.2rem; line-height: 1.2; color: #141414; }
+  .hh-gift__options { border: 0; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .hh-gift__option { position: relative; display: block; cursor: pointer; }
+  .hh-gift__option input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .hh-gift__card { display: block; padding: 1.4rem 1.6rem 1.4rem 4.4rem; background: #fbfaf8; border: 1px solid rgba(20, 20, 20, .2); transition: border-color .2s, box-shadow .2s; position: relative; }
+  .hh-gift__card::before { content: ""; position: absolute; left: 1.6rem; top: 1.65rem; width: 1.6rem; height: 1.6rem; border: 1px solid #22332b; border-radius: 50%; background: #fbfaf8; }
+  .hh-gift__option input:checked + .hh-gift__card { border-color: #22332b; box-shadow: inset 0 0 0 1px #22332b; }
+  .hh-gift__option input:checked + .hh-gift__card::before { background: radial-gradient(circle, #22332b 0 42%, #fbfaf8 46%); }
+  .hh-gift__option input:focus-visible + .hh-gift__card { outline: 2px solid #22332b; outline-offset: 2px; }
+  .hh-gift__row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .hh-gift__name { font-weight: 600; font-size: 1.5rem; color: #141414; }
+  .hh-gift__price { font-size: 1.5rem; color: #141414; white-space: nowrap; }
+  .hh-gift__price small { font-size: 1.2rem; color: rgba(20, 20, 20, .7); }
+  .hh-gift__text { display: block; margin-top: .4rem; font-size: 1.35rem; line-height: 1.5; color: rgba(20, 20, 20, .78); }
+  .hh-gift__badge { display: inline-block; margin-top: .8rem; padding: .25rem .7rem; font-size: 1.15rem; letter-spacing: .06em; text-transform: uppercase; color: #22332b; border: 1px solid #b59b6d; }
+  .hh-gift__note { margin: 1.2rem 0 0; font-size: 1.3rem; line-height: 1.5; color: rgba(20, 20, 20, .78); }
+  .hh-gift__note a { color: #22332b; }
+  @media screen and (max-width: 749px) {
+    .hh-gift { padding: 1.6rem 1.4rem 1.4rem; margin-left: 0; margin-right: 0; }
+    .hh-gift__lead { font-size: 1.9rem; }
+    .hh-gift__card { padding: 1.3rem 1.3rem 1.3rem 4rem; }
+    .hh-gift__card::before { left: 1.3rem; }
+  }
+</style>
+
+<script>
+  (function () {
+    var box = document.currentScript.previousElementSibling.previousElementSibling;
+    if (!box || !box.hasAttribute('data-hh-gift')) return;
+    var sectionId = box.getAttribute('data-section');
+    var form = document.getElementById('product-form-' + sectionId) || document.querySelector('form[data-type="add-to-cart-form"]');
+    if (!form) { box.hidden = true; return; }
+    var idInput = form.querySelector('input[name="id"]');
+    var button = form.querySelector('[name="add"]');
+    var label = button ? button.querySelector('span') : null;
+    var originalLabel = label ? label.textContent : '';
+    var payment = form.querySelector('.shopify-payment-button');
+    var note = box.querySelector('[data-hh-gift-note]');
+    var digital = box.getAttribute('data-digital');
+    var letter = box.getAttribute('data-letter');
+    if (!idInput) { box.hidden = true; return; }
+
+    box.addEventListener('change', function (e) {
+      if (!e.target || e.target.type !== 'radio') return;
+      var isLetter = e.target.value === 'letter';
+      idInput.value = isLetter ? letter : digital;
+      idInput.disabled = false;
+      if (label) label.textContent = isLetter ? 'Als Weihnachtsbrief bestellen' : originalLabel;
+      if (payment) payment.style.display = isLetter ? 'none' : '';
+      if (note) note.hidden = !isLetter;
+    });
+  })();
+</script>
+{%- endif -%}

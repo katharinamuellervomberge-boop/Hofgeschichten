@@ -1,0 +1,115 @@
+{%- comment -%}
+  Warenkorb: Upgrade „Digitale Reitakademie“ → „Christmas Letter Edition“.
+
+  Wird nur angezeigt, wenn
+  - die digitale Reitakademie im Warenkorb liegt,
+  - die Christmas Letter Edition NICHT bereits im Warenkorb liegt,
+  - die Edition verfügbar (aktiv, veröffentlicht, nicht ausverkauft) ist.
+
+  Der Tausch läuft in EINER Anfrage an /cart/update.js:
+    Reitakademie-Menge → 0, Edition-Menge → bisherige Reitakademie-Menge.
+  Damit wird der digitale Artikel ersetzt und nie zusätzlich berechnet.
+  Schlägt die Anfrage fehl, bleibt der Warenkorb unverändert.
+{%- endcomment -%}
+{%- liquid
+  assign academy_handle = 'die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs'
+  assign letter_handle = 'reitakademie-verschenken-christmas-letter-edition'
+  assign academy_item = blank
+  assign has_letter = false
+  for item in cart.items
+    if item.product.handle == academy_handle
+      assign academy_item = item
+    endif
+    if item.product.handle == letter_handle
+      assign has_letter = true
+    endif
+  endfor
+  assign letter = all_products[letter_handle]
+  assign hh_show = false
+  if academy_item != blank and has_letter == false and letter != blank and letter.available
+    assign hh_show = true
+    assign letter_variant = letter.selected_or_first_available_variant
+    assign diff = letter_variant.price | minus: academy_item.variant.price
+  endif
+-%}
+
+{%- if hh_show -%}
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width hh-cartgift" data-hh-cartgift data-academy="{{ academy_item.variant.id }}" data-letter="{{ letter_variant.id }}" data-qty="{{ academy_item.quantity }}">
+    <div class="hh-cartgift__media">
+      {%- if letter.featured_media != blank -%}
+        {{ letter.featured_media | image_url: width: 320 | image_tag: loading: 'lazy', alt: letter.featured_media.alt, widths: '160, 240, 320', sizes: '120px' }}
+      {%- endif -%}
+    </div>
+    <div class="hh-cartgift__body">
+      <p class="hh-cartgift__eyebrow">Ein Geschenk?</p>
+      <p class="hh-cartgift__title">Die Reitakademie als Weihnachtsbrief verschenken</p>
+      <p class="hh-cartgift__text">Statt des digitalen Zugangs: ein hochwertiger Geschenkbrief mit QR-Code und persönlichem Freischaltcode, per Post. Der Akademie-Zugang ist enthalten – wir ersetzen den digitalen Artikel, nichts wird doppelt berechnet.</p>
+      <p class="hh-cartgift__price">{{ letter_variant.price | money }} statt {{ academy_item.variant.price | money }} · zzgl. Versand</p>
+      <button type="button" class="button button--secondary hh-cartgift__btn" data-hh-cartgift-btn>
+        Als Weihnachtsbrief verschenken – {{ diff | money }} Aufpreis
+      </button>
+      <p class="hh-cartgift__error" data-hh-cartgift-error hidden role="alert">Das hat leider nicht geklappt. Dein Warenkorb ist unverändert – bitte versuche es noch einmal.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hh-cartgift { display: grid; grid-template-columns: 120px 1fr; gap: 2.4rem; align-items: center; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  .hh-cartgift__media img { width: 120px; height: 120px; object-fit: cover; display: block; }
+  .hh-cartgift__body { border-left: 1px solid rgba(34, 51, 43, .2); padding-left: 2.4rem; }
+  .hh-cartgift__eyebrow { margin: 0 0 .4rem; font-size: 1.15rem; letter-spacing: .14em; text-transform: uppercase; color: #22332b; }
+  .hh-cartgift__title { margin: 0 0 .6rem; font-family: var(--font-heading-family); font-size: 2.1rem; line-height: 1.2; }
+  .hh-cartgift__text { margin: 0 0 .8rem; font-size: 1.4rem; line-height: 1.55; max-width: 60rem; color: rgba(20, 20, 20, .8); }
+  .hh-cartgift__price { margin: 0 0 1.2rem; font-size: 1.4rem; }
+  .hh-cartgift__error { margin: 1rem 0 0; font-size: 1.3rem; color: #8a2a1e; }
+  @media screen and (max-width: 749px) {
+    .hh-cartgift { grid-template-columns: 1fr; gap: 1.2rem; }
+    .hh-cartgift__media { display: none; }
+    .hh-cartgift__body { border-left: 0; padding-left: 0; border-top: 1px solid rgba(34, 51, 43, .2); padding-top: 1.6rem; }
+    .hh-cartgift__btn { width: 100%; }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-hh-cartgift]');
+    if (!root) return;
+    var btn = root.querySelector('[data-hh-cartgift-btn]');
+    var err = root.querySelector('[data-hh-cartgift-error]');
+    btn.addEventListener('click', function () {
+      var updates = {};
+      var qty = parseInt(root.getAttribute('data-qty'), 10) || 1;
+      updates[root.getAttribute('data-academy')] = 0;
+      updates[root.getAttribute('data-letter')] = qty;
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      err.hidden = true;
+      fetch((window.Shopify && Shopify.routes ? Shopify.routes.root : '/') + 'cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ updates: updates })
+      })
+        .then(function (r) { if (!r.ok) throw new Error('cart'); return r.json(); })
+        .then(function () { window.location.reload(); })
+        .catch(function () { btn.disabled = false; btn.removeAttribute('aria-busy'); err.hidden = false; });
+    });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Geschenk-Upgrade Reitakademie",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Erscheint nur, wenn die digitale Reitakademie im Warenkorb liegt. Ersetzt sie auf Klick durch die Christmas Letter Edition." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Farbschema", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "presets": [{ "name": "Geschenk-Upgrade Reitakademie" }],
+  "enabled_on": { "templates": ["cart"] }
+}
+{% endschema %}
