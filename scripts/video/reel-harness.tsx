@@ -12,6 +12,8 @@ import { LINKS_TOTAL, renderLinks } from "@/video/reels/links-reel";
 import { SZ_TOTAL, renderSchenkelZuegel } from "@/video/reels/schenkel-zuegel-reel";
 import { ERBRECHEN_TOTAL, renderErbrechen } from "@/video/reels/erbrechen-reel";
 import { ECKE_TOTAL, renderEcke } from "@/video/reels/ecke-reel";
+import { ECKE_EN_TOTAL, renderEckeEn } from "@/video/reels/ecke-reel-en";
+import { ERBRECHEN_EN_TOTAL, renderErbrechenEn } from "@/video/reels/erbrechen-reel-en";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
@@ -27,6 +29,8 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   sprung: { total: () => SPRUNG_TOTAL, render: renderSprung },
   koerper: { total: () => KOERPER_TOTAL, render: renderKoerper },
   ecke: { total: () => ECKE_TOTAL, render: renderEcke },
+  "ecke-en": { total: () => ECKE_EN_TOTAL, render: renderEckeEn },
+  "erbrechen-en": { total: () => ERBRECHEN_EN_TOTAL, render: renderErbrechenEn },
   erbrechen: { total: () => ERBRECHEN_TOTAL, render: renderErbrechen },
 };
 
