@@ -39,7 +39,6 @@ Falsche Antworten geben immer einen Tipp und dürfen wiederholt werden.
 | Angebot | Preis | Freischaltung |
 |---|---|---|
 | Adventskalender | 12,90 € | Shopify-Handle `die-hofgeschichten-adventskalender-das-geheimnis-des-winterhofs` oder Code (Kennung `adventskalender`) |
-| Reitakademie-Kunden | 8,90 € | gleiches Produkt + Shopify-Rabattcode (siehe unten) |
 | Paket Reitakademie + Adventskalender | 25,00 € | Handle `die-hofgeschichten-reitakademie-adventskalender` → schaltet beides frei |
 | Hof-Jahresmitglieder (auch Hofpost) | inklusive | gültige Mitgliedschaft auf dem Gerät |
 
@@ -50,10 +49,6 @@ Codes erzeugen: `/admin` → „Adventskalender: Das Geheimnis des Winterhofs“
 1. In Shopify zwei digitale Produkte mit genau diesen Handles anlegen. Titel müssen mit „Die Hofgeschichten –“ beginnen und
    „Adventskalender“ enthalten; das Paket zusätzlich „Reitakademie + Adventskalender“ (Rückfall-Erkennung am Titel).
 2. Shop-Links in `src/content/products.ts` → `adventskalender.checkoutUrl` und `bundleCheckoutUrl` eintragen (vorher keine Kauf-Knöpfe).
-3. Akademie-Preis: In Shopify einen Rabattcode (4,00 € auf das Kalender-Produkt) anlegen, **berechtigt nur für ein Kundensegment
-   „hat Reitakademie gekauft“** und einmal pro Kunde. Den Code bei Vercel als `ADVENT_ACADEMY_DISCOUNT_CODE` hinterlegen.
-   Die App zeigt den Rabatt-Link nur Geräten, auf denen die Reitakademie serverseitig freigeschaltet ist – die eigentliche
-   Absicherung ist die Segment-Beschränkung in Shopify (ohne sie könnte ein weitergegebener Code missbraucht werden).
 4. Bestellbestätigung um den Freischalt-Satz ergänzen (wie bei der Akademie).
 
 ## Fortschritt

@@ -280,7 +280,7 @@ function AdventProduct({ owned, member }: { owned: boolean; member: boolean }) {
       <p className={styles.productInfo}>{adventskalender.parentInfo}</p>
       {!has && (
         <p className={styles.productInfo}>
-          Reitakademie-Kunden: {adventskalender.academyPrice} · Paket Reitakademie + Adventskalender: {adventskalender.bundlePrice}.{" "}
+          Paket Reitakademie + Adventskalender: {adventskalender.bundlePrice}.{" "}
           <a href="/adventskalender#kaufen">Zum Adventskalender</a>
         </p>
       )}

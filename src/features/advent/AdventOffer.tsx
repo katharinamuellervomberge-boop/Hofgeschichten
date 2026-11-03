@@ -6,20 +6,13 @@ export type AdventAccess = "owned" | "member" | null;
 
 export type OfferInfo = {
   access: AdventAccess;
-  /** Auf dem Server geprüft: Reitakademie auf diesem Gerät freigeschaltet */
-  academyOwner: boolean;
-  /**
-   * Kauf-Link mit Akademie-Rabatt – wird NUR vom Server gesetzt, wenn academyOwner true ist
-   * und ein Rabattcode eingerichtet wurde (ADVENT_ACADEMY_DISCOUNT_CODE).
-   */
-  academyCheckoutUrl: string | null;
 };
 
 /**
  * Produktanzeige für Eltern: Preise, Inhalt und der Weg zur Freischaltung.
  * Kauf-Knöpfe erscheinen erst, wenn die Shop-Links in content/products.ts gesetzt sind.
  */
-export function AdventOffer({ access, academyOwner, academyCheckoutUrl }: OfferInfo) {
+export function AdventOffer({ access }: OfferInfo) {
   const a = adventskalender;
   if (access) {
     return (
@@ -61,35 +54,19 @@ export function AdventOffer({ access, academyOwner, academyCheckoutUrl }: OfferI
       </ul>
 
       <div className={styles.prices}>
-        {academyOwner ? (
-          <div className={`${styles.price} ${styles.priceHighlight}`}>
-            <span className={styles.priceLabel}>Ihr Preis als Reitakademie-Familie</span>
-            <span className={styles.priceValue}>{a.academyPrice}</span>
-            <span className={styles.priceNote}>statt {a.price} · einmalig, kein Abo</span>
-            {academyCheckoutUrl ? (
-              <a href={academyCheckoutUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnGold} ${styles.btnSmall}`}>
-                Zum Shop
-                <Icon name="external" />
-              </a>
-            ) : (
-              <span className={styles.priceNote}>Der Kauf im Shop öffnet in Kürze.</span>
-            )}
-          </div>
-        ) : (
-          <div className={`${styles.price} ${styles.priceHighlight}`}>
-            <span className={styles.priceLabel}>Adventskalender</span>
-            <span className={styles.priceValue}>{a.price}</span>
-            <span className={styles.priceNote}>einmalig, kein Abo</span>
-            {shopOpen ? (
-              <a href={a.checkoutUrl!} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnGold} ${styles.btnSmall}`}>
-                Zum Shop
-                <Icon name="external" />
-              </a>
-            ) : (
-              <span className={styles.priceNote}>Der Kauf im Shop öffnet in Kürze.</span>
-            )}
-          </div>
-        )}
+        <div className={`${styles.price} ${styles.priceHighlight}`}>
+          <span className={styles.priceLabel}>Adventskalender</span>
+          <span className={styles.priceValue}>{a.price}</span>
+          <span className={styles.priceNote}>einmalig, kein Abo</span>
+          {shopOpen ? (
+            <a href={a.checkoutUrl!} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnGold} ${styles.btnSmall}`}>
+              Zum Shop
+              <Icon name="external" />
+            </a>
+          ) : (
+            <span className={styles.priceNote}>Der Kauf im Shop öffnet in Kürze.</span>
+          )}
+        </div>
         <div className={styles.price}>
           <span className={styles.priceLabel}>Paket: {grosseAkademie.name} + Adventskalender</span>
           <span className={styles.priceValue}>{a.bundlePrice}</span>
@@ -101,15 +78,6 @@ export function AdventOffer({ access, academyOwner, academyCheckoutUrl }: OfferI
             </a>
           )}
         </div>
-        {!academyOwner && (
-          <div className={styles.price}>
-            <span className={styles.priceLabel}>Schon Reitakademie-Kunde?</span>
-            <span className={styles.priceValue}>{a.academyPrice}</span>
-            <span className={styles.priceNote}>
-              Schalten Sie zuerst die Reitakademie auf diesem Gerät frei (Elternbereich). Danach sehen Sie hier Ihren Vorzugspreis.
-            </span>
-          </div>
-        )}
         <div className={styles.price}>
           <span className={styles.priceLabel}>Hof-Jahresmitglieder</span>
           <span className={styles.priceValue}>inklusive</span>

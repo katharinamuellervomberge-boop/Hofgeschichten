@@ -79,8 +79,6 @@ export function regionalCheckoutUrl(): string {
  *
  * Preismodell (geplant):
  *  - Einzelpreis 12,90 €
- *  - Reitakademie-Kunden 8,90 € – gleiches Shop-Produkt, Rabatt über einen Shopify-Rabattcode,
- *    der NUR serverseitig an geprüfte Akademie-Besitzer angezeigt wird (siehe docs/ADVENTSKALENDER.md)
  *  - Paket Reitakademie + Adventskalender 25,00 € – eigenes Shop-Produkt, schaltet beides frei
  *  - Hof-Mitglieder (Founder-Jahresmitgliedschaft, auch mit Hofpost): inklusive
  *
@@ -96,7 +94,6 @@ export const adventskalender = {
   fullName: "HOFgeschichten – Das Geheimnis des Winterhofs",
   subtitle: "24 Tage. 24 Abenteuer. Ein Weihnachtsgeheimnis.",
   price: "12,90 €",
-  academyPrice: "8,90 €",
   bundlePrice: "25,00 €",
   /** Jahresmitglieder bekommen den Kalender ohne Aufpreis */
   includedInMembership: true,
