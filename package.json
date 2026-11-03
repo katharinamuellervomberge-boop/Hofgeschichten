@@ -16,6 +16,7 @@
     "voice:manifest": "node scripts/voice-manifest.mjs",
     "support": "node scripts/support.mjs",
     "check:premium": "tsx --conditions=react-server scripts/check-premium.ts",
+    "check:advent": "tsx --conditions=react-server scripts/check-advent.ts",
     "en:extract": "tsx --conditions=react-server scripts/en-extract.ts",
     "check:en": "tsx --conditions=react-server scripts/en-extract.ts --check"
   },

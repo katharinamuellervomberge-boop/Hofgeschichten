@@ -44,6 +44,25 @@ export type LastPlace = {
 };
 
 /**
+ * Adventskalender „Das Geheimnis des Winterhofs“ (Dezember 2026).
+ * Alles bleibt auf diesem Gerät – keine Synchronisierung zwischen Geräten.
+ */
+export type AdventProgress = {
+  /** Abgeschlossene Türchen (Nummer → Zeitpunkt). Jedes Türchen = genau ein goldenes Hufeisen. */
+  doors: Record<string, number>;
+  /** Freigeschaltete Dekorationen (IDs aus content/advent/decor.ts) */
+  decos: string[];
+  /** Gewählte Stallgestaltung: Platz → Dekoration */
+  stall: Record<string, string>;
+  /** Gestaltete Weihnachtskarte für Tivoli: Bereich → Auswahl */
+  card: Record<string, string>;
+  /** Zuletzt geöffnetes Türchen und Abschnitt („Letzter Spielstand“) */
+  last: { door: number; part: number; at: number } | null;
+};
+
+export const emptyAdvent: AdventProgress = { doors: {}, decos: [], stall: {}, card: {}, last: null };
+
+/**
  * Lokaler Spielfortschritt. Enthält bewusst KEINE personenbezogenen Daten
  * (kein Name, kein Alter, keine Geräte-ID).
  */
@@ -60,6 +79,8 @@ export type Progress = {
   settings: Settings;
   /** Zuletzt geöffnete Lektion/Spiel/Mission (optional, ältere Spielstände haben es nicht) */
   last?: LastPlace | null;
+  /** Adventskalender (optional, ältere Spielstände haben es nicht) */
+  advent?: AdventProgress;
 };
 
 export const emptyProgress: Progress = {

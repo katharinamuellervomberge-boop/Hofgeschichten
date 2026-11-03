@@ -74,5 +74,45 @@ export function regionalCheckoutUrl(): string {
   return `${SHOP_BASE}/${us ? "en-us" : "en"}/products/${handle}`;
 }
 
+/**
+ * Adventskalender „Das Geheimnis des Winterhofs“ (Dezember 2026, seit 03.11.2026 vorbereitet).
+ *
+ * Preismodell (geplant):
+ *  - Einzelpreis 12,90 €
+ *  - Reitakademie-Kunden 8,90 € – gleiches Shop-Produkt, Rabatt über einen Shopify-Rabattcode,
+ *    der NUR serverseitig an geprüfte Akademie-Besitzer angezeigt wird (siehe docs/ADVENTSKALENDER.md)
+ *  - Paket Reitakademie + Adventskalender 27,90 € – eigenes Shop-Produkt, schaltet beides frei
+ *  - Hof-Mitglieder (Founder-Jahresmitgliedschaft, auch mit Hofpost): inklusive
+ *
+ * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf (wie bei der Akademie):
+ * erst setzen, wenn das Produkt im Shop aktiv ist.
+ * Wichtig für die Freischaltung per Bestellnummer: Produkttitel im Shop beginnen mit
+ * „Die Hofgeschichten –“ und enthalten „Adventskalender“ (Rückfall in shopify.ts).
+ */
+export const adventskalender = {
+  /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
+  slug: "adventskalender",
+  name: "Das Geheimnis des Winterhofs",
+  fullName: "HOFgeschichten – Das Geheimnis des Winterhofs",
+  subtitle: "24 Tage. 24 Abenteuer. Ein Weihnachtsgeheimnis.",
+  price: "12,90 €",
+  academyPrice: "8,90 €",
+  bundlePrice: "27,90 €",
+  /** Jahresmitglieder bekommen den Kalender ohne Aufpreis */
+  includedInMembership: true,
+  /** Geplanter Shopify-Handle des Einzelprodukts */
+  shopifyProductHandle: "die-hofgeschichten-adventskalender-das-geheimnis-des-winterhofs",
+  /** Geplanter Shopify-Handle des Pakets „Reitakademie + Adventskalender“ */
+  bundleProductHandle: "die-hofgeschichten-reitakademie-und-adventskalender",
+  /** Shop-Link Einzelprodukt. null = Kauf noch nicht geöffnet */
+  checkoutUrl: null as string | null,
+  /** Shop-Link Paket. null = Kauf noch nicht geöffnet */
+  bundleCheckoutUrl: null as string | null,
+  /** Türchen, die ohne Kauf spielbar sind (Kennenlernen) */
+  freeDoors: [1] as number[],
+  parentInfo:
+    "24 interaktive Türchen vom 1. bis 24. Dezember: eine fortlaufende Weihnachts-Detektivgeschichte mit Lea, Mila, Ben, Krümel und den Hofpferden, spielerisches Pferdewissen, ein eigener Weihnachtsstall zum Dekorieren, 24 goldene Hufeisen zum Sammeln und eine Urkunde zum Ausdrucken. Für Kinder von 5 bis 12 Jahren. Einmalzahlung, kein Abo; alle Türchen bleiben mindestens bis 31. Januar 2027 offen.",
+};
+
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
-export const productSlugs: string[] = [grosseAkademie.slug];
+export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug];

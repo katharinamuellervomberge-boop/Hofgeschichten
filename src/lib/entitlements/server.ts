@@ -2,7 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { adventures, isVisible } from "@/content/adventures";
 import { getRelease, isReleased, type Release } from "@/content/membership";
-import { grosseAkademie, productSlugs } from "@/content/products";
+import { adventskalender, grosseAkademie, productSlugs } from "@/content/products";
 import { membershipCodeStillValid } from "./codes";
 import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./token";
 
@@ -47,6 +47,20 @@ export async function hasGrosseAkademie(): Promise<boolean> {
 
 /** Neuer Name, gleiche Prüfung */
 export const hasAcademy = hasGrosseAkademie;
+
+/**
+ * Adventskalender „Das Geheimnis des Winterhofs“: Zugriff auf diesem Gerät?
+ *  "owned"  = gekauft (Einzelprodukt oder Paket, per Bestellnummer oder Code)
+ *  "member" = über eine gültige Hof-Mitgliedschaft enthalten
+ *  null     = kein Zugriff (nur die freien Türchen)
+ * Wird vor der Auslieferung jedes kostenpflichtigen Türchens auf dem Server geprüft.
+ */
+export async function adventAccess(): Promise<"owned" | "member" | null> {
+  const e = await getEntitlement();
+  if (e.adventures.includes(adventskalender.slug)) return "owned";
+  if (adventskalender.includedInMembership && e.membership !== null) return "member";
+  return null;
+}
 
 /** Abenteuer, die auf diesem Gerät spielbar sind (gekauft oder über die Mitgliedschaft) */
 export async function getAccessibleAdventures(): Promise<string[]> {

@@ -22,7 +22,7 @@ const ALL_NAV: NavItem[] = [
   { href: "/akademie", label: "Reitakademie", icon: "academy" },
   { href: "/spielen", label: "Spielen", icon: "puzzle" },
   /* Geschichten, Pferde, Figuren, Detektivfälle, Wochenpakete und Mitgliedschaft */
-  { href: "/hofwelt", label: "Hofwelt", icon: "barn", also: ["/pferde", "/abenteuer", "/hofjahr", "/hoeren", "/mitgliedschaft"] },
+  { href: "/hofwelt", label: "Hofwelt", icon: "barn", also: ["/pferde", "/abenteuer", "/hofjahr", "/hoeren", "/mitgliedschaft", "/adventskalender"] },
   /* Lernfortschritt, Pass, Käufe und Einstellungen */
   { href: "/profil", label: "Profil", icon: "pass", also: ["/pass", "/eltern"] },
 ];

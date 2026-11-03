@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
 import { membership as plan } from "@/content/membership";
-import { grosseAkademie } from "@/content/products";
+import { adventskalender, grosseAkademie } from "@/content/products";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
 
@@ -51,6 +51,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       if (json.ok) {
         const names = premium.filter((a) => json.adventures?.includes(a.slug)).map((a) => a.title);
         if (json.adventures?.includes(grosseAkademie.slug)) names.unshift(grosseAkademie.name);
+        if (json.adventures?.includes(adventskalender.slug)) names.unshift(`Adventskalender „${adventskalender.name}“`);
         if (json.membership) names.unshift("Hof-Mitgliedschaft");
         setMsg({
           ok: true,
@@ -83,6 +84,8 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       <h2 id="abenteuer">Premium-Inhalte &amp; Freischaltung</h2>
 
       <AcademyProduct has={owned.includes(grosseAkademie.slug) || (grosseAkademie.includedInMembership && member)} member={member} owned={owned.includes(grosseAkademie.slug)} />
+
+      <AdventProduct owned={owned.includes(adventskalender.slug)} member={member} />
 
       {premium.map((a) => {
         const has = accessible.includes(a.slug);
@@ -258,6 +261,28 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
             )}
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+/** Adventskalender „Das Geheimnis des Winterhofs“ (Dezember 2026). Für Hof-Mitglieder inklusive. */
+function AdventProduct({ owned, member }: { owned: boolean; member: boolean }) {
+  const has = owned || (adventskalender.includedInMembership && member);
+  return (
+    <div className={styles.product} id="adventskalender">
+      <div className={styles.productHead}>
+        <strong>Adventskalender: {adventskalender.name}</strong>
+        <span className={`${styles.pill} ${has ? styles.pillOk : ""}`}>
+          {has ? (owned ? "Auf diesem Gerät freigeschaltet" : "In der Mitgliedschaft enthalten") : `${adventskalender.price} einmalig`}
+        </span>
+      </div>
+      <p className={styles.productInfo}>{adventskalender.parentInfo}</p>
+      {!has && (
+        <p className={styles.productInfo}>
+          Reitakademie-Kunden: {adventskalender.academyPrice} · Paket Reitakademie + Adventskalender: {adventskalender.bundlePrice}.{" "}
+          <a href="/adventskalender#kaufen">Zum Adventskalender</a>
+        </p>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
-import { grosseAkademie } from "@/content/products";
+import { adventskalender, grosseAkademie } from "@/content/products";
 import { hofpost, membership } from "@/content/membership";
 
 /**
@@ -102,6 +102,10 @@ export function normalizeOrderNumber(input: string): string | null {
  * beginnen mit „Die Hofgeschichten –“ – so werden Druck-PDFs nie verwechselt.
  */
 const TITLE_RULES: Array<[RegExp, () => string | null]> = [
+  // Adventskalender zuerst: Titel wie „… Adventskalender (für Reitakademie-Kunden)“ dürfen NICHT die Akademie freischalten.
+  // Nur das Paket (Titel mit „Reitakademie“ UND „Adventskalender“ und „+“/„Paket“) schaltet beides frei.
+  [/(reitakademie.*(\+|paket).*adventskalender|adventskalender.*(\+|paket).*reitakademie)/i, () => adventskalender.bundleProductHandle],
+  [/adventskalender|winterhof/i, () => adventskalender.shopifyProductHandle],
   [/reitakademie/i, () => grosseAkademie.shopifyProductHandle],
   [/hofpost/i, () => hofpost.shopifyProductHandle],
   [/mitgliedschaft/i, () => membership.shopifyProductHandle],
@@ -149,6 +153,12 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
     .filter((a) => isVisible(a) && a.access === "premium" && a.shopifyProductHandle && handles.has(a.shopifyProductHandle))
     .map((a) => a.slug);
   if (grosseAkademie.shopifyProductHandle && handles.has(grosseAkademie.shopifyProductHandle)) unlocked.push(grosseAkademie.slug);
+  // Adventskalender: Einzelprodukt (auch zum Akademie-Kundenpreis) oder Paket mit der Reitakademie
+  if (handles.has(adventskalender.shopifyProductHandle)) unlocked.push(adventskalender.slug);
+  if (handles.has(adventskalender.bundleProductHandle)) {
+    unlocked.push(adventskalender.slug);
+    if (!unlocked.includes(grosseAkademie.slug)) unlocked.push(grosseAkademie.slug);
+  }
   // Hofpost enthält die App-Mitgliedschaft – gleicher Mitgliedscode
   const membershipOrder = handles.has(membership.shopifyProductHandle) || handles.has(hofpost.shopifyProductHandle)
     ? { id: order.id, processedAt: new Date(order.processedAt) }

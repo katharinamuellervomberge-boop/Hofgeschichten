@@ -26,6 +26,14 @@ import {
 import { SattelkammerScene } from "@/components/illustrations/scenes/Sattelkammer";
 import { HofAbendScene, HofMorgenScene, StallboxScene, WeideScene } from "@/components/illustrations/scenes/HofTag";
 import { AK_SCENES } from "@/components/illustrations/akademie/scenes";
+import {
+  HofMuetzeScene,
+  StallgasseBriefScene,
+  StallgasseHufeisenScene,
+  StallgasseMissionScene,
+  StallgasseScene as WinterStallgasseScene,
+  WinterhofScene,
+} from "@/components/illustrations/advent/AdventScenes";
 import { AkIcon, isAkIconName } from "@/components/illustrations/akademie/AkIcons";
 import { isTrackName, Track } from "@/components/illustrations/Tracks";
 import { getCharacter } from "@/content/characters";
@@ -61,6 +69,13 @@ export const SCENES: Record<string, { component: ComponentType<{ className?: str
   "ht-weide": { component: WeideScene, viewBox: "0 0 800 600", label: "Weide" },
   /* Kleine Reitakademie */
   ...AK_SCENES,
+  /* Adventskalender „Das Geheimnis des Winterhofs“ */
+  "wh-hof": { component: WinterhofScene, viewBox: "0 0 800 600", label: "Der Winterhof" },
+  "wh-stallgasse": { component: WinterStallgasseScene, viewBox: "0 0 800 600", label: "Die Stallgasse im Winter" },
+  "wh-brief": { component: StallgasseBriefScene, viewBox: "0 0 800 600", label: "Die Stallgasse" },
+  "wh-muetze": { component: HofMuetzeScene, viewBox: "0 0 800 600", label: "Der Hof" },
+  "wh-mission": { component: StallgasseMissionScene, viewBox: "0 0 800 600", label: "Die Stallgasse vor dem Fest" },
+  "wh-hufeisen": { component: StallgasseHufeisenScene, viewBox: "0 0 800 600", label: "Die Stallgasse" },
 };
 
 /** viewBox der Pferde-Illustration (für Körperteil-Hotspots) */

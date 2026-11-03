@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import type { Level } from "@/engine/types";
 import { localAdapter } from "./localAdapter";
-import { emptyProgress, type AcademyPath, type LastPlace, type Progress, type ProgressAdapter } from "./types";
+import { emptyAdvent, emptyProgress, type AcademyPath, type LastPlace, type Progress, type ProgressAdapter } from "./types";
 
 /**
  * Kleiner, abhängigkeitsfreier Store für den lokalen Fortschritt.
@@ -126,6 +126,52 @@ export const progressActions = {
     update((p) => {
       const missing = ids.filter((id) => !p.seenStamps.includes(id));
       return missing.length ? { ...p, seenStamps: [...p.seenStamps, ...missing] } : p;
+    });
+  },
+  /**
+   * Adventskalender: Türchen abschließen. Das Hufeisen gibt es nur beim ersten Mal –
+   * wiederholtes Spielen ändert nichts. Neue Dekorationen werden freigeschaltet.
+   * Rückgabe: true, wenn das Hufeisen neu ist.
+   */
+  completeAdventDoor(door: number, decos: string[]): boolean {
+    let fresh = false;
+    update((p) => {
+      const a = p.advent ?? emptyAdvent;
+      const key = String(door);
+      const newDecos = decos.filter((d) => !a.decos.includes(d));
+      if (a.doors[key] && !newDecos.length) return p;
+      fresh = !a.doors[key];
+      return {
+        ...p,
+        advent: { ...a, doors: a.doors[key] ? a.doors : { ...a.doors, [key]: Date.now() }, decos: [...a.decos, ...newDecos] },
+      };
+    });
+    return fresh;
+  },
+  /** Weihnachtsstall: Dekoration an einen Platz hängen (null = Platz leeren) */
+  setAdventStall(slot: string, deco: string | null) {
+    update((p) => {
+      const a = p.advent ?? emptyAdvent;
+      if ((a.stall[slot] ?? null) === deco) return p;
+      const stall = { ...a.stall };
+      if (deco) stall[slot] = deco;
+      else delete stall[slot];
+      return { ...p, advent: { ...a, stall } };
+    });
+  },
+  /** Weihnachtskarte für Tivoli */
+  setAdventCard(area: string, choice: string) {
+    update((p) => {
+      const a = p.advent ?? emptyAdvent;
+      return a.card[area] === choice ? p : { ...p, advent: { ...a, card: { ...a.card, [area]: choice } } };
+    });
+  },
+  /** Letzter Spielstand: Türchen und Abschnitt (Geschichte, Spiel, …) */
+  setAdventLast(door: number, part: number) {
+    update((p) => {
+      const a = p.advent ?? emptyAdvent;
+      if (a.last?.door === door && a.last.part === part) return p;
+      return { ...p, advent: { ...a, last: { door, part, at: Date.now() } } };
     });
   },
   setSpeech(on: boolean) {
