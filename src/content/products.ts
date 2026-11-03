@@ -81,7 +81,7 @@ export function regionalCheckoutUrl(): string {
  *  - Einzelpreis 12,90 €
  *  - Reitakademie-Kunden 8,90 € – gleiches Shop-Produkt, Rabatt über einen Shopify-Rabattcode,
  *    der NUR serverseitig an geprüfte Akademie-Besitzer angezeigt wird (siehe docs/ADVENTSKALENDER.md)
- *  - Paket Reitakademie + Adventskalender 27,90 € – eigenes Shop-Produkt, schaltet beides frei
+ *  - Paket Reitakademie + Adventskalender 25,00 € – eigenes Shop-Produkt, schaltet beides frei
  *  - Hof-Mitglieder (Founder-Jahresmitgliedschaft, auch mit Hofpost): inklusive
  *
  * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf (wie bei der Akademie):
@@ -97,17 +97,18 @@ export const adventskalender = {
   subtitle: "24 Tage. 24 Abenteuer. Ein Weihnachtsgeheimnis.",
   price: "12,90 €",
   academyPrice: "8,90 €",
-  bundlePrice: "27,90 €",
+  bundlePrice: "25,00 €",
   /** Jahresmitglieder bekommen den Kalender ohne Aufpreis */
   includedInMembership: true,
   /** Geplanter Shopify-Handle des Einzelprodukts */
   shopifyProductHandle: "die-hofgeschichten-adventskalender-das-geheimnis-des-winterhofs",
   /** Geplanter Shopify-Handle des Pakets „Reitakademie + Adventskalender“ */
-  bundleProductHandle: "die-hofgeschichten-reitakademie-und-adventskalender",
+  bundleProductHandle: "die-hofgeschichten-reitakademie-adventskalender",
   /** Shop-Link Einzelprodukt. null = Kauf noch nicht geöffnet */
-  checkoutUrl: null as string | null,
-  /** Shop-Link Paket. null = Kauf noch nicht geöffnet */
-  bundleCheckoutUrl: null as string | null,
+  /** Shopify gid://shopify/Product/11008604045645 (aktiv seit 03.11.2026) */
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-adventskalender-das-geheimnis-des-winterhofs" as string | null,
+  /** Shopify gid://shopify/Product/11008604176717 (aktiv seit 03.11.2026) */
+  bundleCheckoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-reitakademie-adventskalender" as string | null,
   /** Türchen, die ohne Kauf spielbar sind (Kennenlernen) */
   freeDoors: [1] as number[],
   parentInfo:

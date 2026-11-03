@@ -35,12 +35,12 @@ Falsche Antworten geben immer einen Tipp und dürfen wiederholt werden.
 - **Testen vor Dezember:** in Vercel-Vorschau oder lokal `?testdatum=2026-12-06` anhängen (wird an alle Links weitergereicht).
   In der Produktion (`VERCEL_ENV=production`) wird der Parameter immer ignoriert. Lokal mit `next start`: `ADVENT_TEST_DATES=1`.
 
-## Zugang und Verkauf (vorbereitet, Kauf noch nicht geöffnet)
+## Zugang und Verkauf (Shop-Produkte aktiv seit 03.11.2026, Bilder in public/shop)
 | Angebot | Preis | Freischaltung |
 |---|---|---|
 | Adventskalender | 12,90 € | Shopify-Handle `die-hofgeschichten-adventskalender-das-geheimnis-des-winterhofs` oder Code (Kennung `adventskalender`) |
 | Reitakademie-Kunden | 8,90 € | gleiches Produkt + Shopify-Rabattcode (siehe unten) |
-| Paket Reitakademie + Adventskalender | 27,90 € | Handle `die-hofgeschichten-reitakademie-und-adventskalender` → schaltet beides frei |
+| Paket Reitakademie + Adventskalender | 25,00 € | Handle `die-hofgeschichten-reitakademie-adventskalender` → schaltet beides frei |
 | Hof-Jahresmitglieder (auch Hofpost) | inklusive | gültige Mitgliedschaft auf dem Gerät |
 
 Bestehende Codes und Produkte bleiben unverändert. Die neue Code-Kennung `adventskalender` (ID „R6“) kollidiert mit keiner bestehenden.
