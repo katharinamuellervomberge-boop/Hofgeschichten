@@ -113,10 +113,10 @@ export const releases: Release[] = [
     title: "Willkommen auf dem Hof",
     category: "Hofgeschichte",
     teaser: "Lea, Mila, Ben und Krümel zeigen dir ihren Hof.",
-    description: "Eine neue interaktive Geschichte: Die Kinder lernen Lea, Mila, Ben und Hofhund Krümel kennen, treffen kleine Entscheidungen und schließen mit einem Quiz ab.",
-    contents: ["Interaktive Hofgeschichte", "Kennenlernen der Charaktere", "Kleine Entscheidungen", "Abschlussquiz"],
+    description: "Folge 1 unseres Hörspiels (ca. 21 Minuten): Lea ist neu in der Stadt und entdeckt den Hof, Hofhund Krümel, Mila, Ben und die Pferde Tivoli, Tonga und Scrabble.",
+    contents: ["Hörspiel Folge 1, ca. 21 Minuten", "Lea, Mila, Ben und Krümel kennenlernen", "Tivoli, Tonga und Scrabble", "Echtes Pferdewissen nebenbei"],
     art: "hof",
-    ready: false,
+    ready: true,
   },
   {
     slug: "sprache-der-pferde",

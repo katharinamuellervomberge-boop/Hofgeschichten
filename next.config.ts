@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/voice/[id]": ["./private/voice/**/*"],
     "/api/akademie-video/[file]": ["./private/akademie-video/**/*"],
+    "/api/hofjahr-audio/[slug]": ["./private/hofjahr-audio/**/*"],
   },
   poweredByHeader: false,
   // Die Reitakademie hat einen eigenen Bereich bekommen – alte Links (auch gedruckte) leiten weiter
