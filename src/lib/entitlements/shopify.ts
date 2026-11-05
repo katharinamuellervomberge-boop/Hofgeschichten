@@ -1,6 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
-import { adventskalender, grosseAkademie } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
 import { hofpost, membership } from "@/content/membership";
 
 /**
@@ -107,6 +107,7 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
   [/(reitakademie.*(\+|paket).*adventskalender|adventskalender.*(\+|paket).*reitakademie)/i, () => adventskalender.bundleProductHandle],
   [/adventskalender|winterhof/i, () => adventskalender.shopifyProductHandle],
   [/reitakademie/i, () => grosseAkademie.shopifyProductHandle],
+  [/mein tag am hof/i, () => meinTagAmHof.shopifyProductHandle],
   [/hofpost/i, () => hofpost.shopifyProductHandle],
   [/mitgliedschaft/i, () => membership.shopifyProductHandle],
   [/geisterweide/i, () => "das-geheimnis-der-geisterweide"],
@@ -159,6 +160,8 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
     unlocked.push(adventskalender.slug);
     if (!unlocked.includes(grosseAkademie.slug)) unlocked.push(grosseAkademie.slug);
   }
+  // Spiel „Mein Tag am Hof“ (Einzelkauf)
+  if (handles.has(meinTagAmHof.shopifyProductHandle)) unlocked.push(meinTagAmHof.slug);
   // Hofpost enthält die App-Mitgliedschaft – gleicher Mitgliedscode
   const membershipOrder = handles.has(membership.shopifyProductHandle) || handles.has(hofpost.shopifyProductHandle)
     ? { id: order.id, processedAt: new Date(order.processedAt) }

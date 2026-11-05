@@ -1,4 +1,5 @@
 import type { Level } from "@/engine/types";
+import type { HoftagProgress } from "@/content/hoftag/types";
 
 export const PROGRESS_VERSION = 1;
 
@@ -81,6 +82,8 @@ export type Progress = {
   last?: LastPlace | null;
   /** Adventskalender (optional, ältere Spielstände haben es nicht) */
   advent?: AdventProgress;
+  /** Spiel „Mein Tag am Hof“ (optional, seit 05.11.2026) */
+  hoftag?: HoftagProgress;
 };
 
 export const emptyProgress: Progress = {

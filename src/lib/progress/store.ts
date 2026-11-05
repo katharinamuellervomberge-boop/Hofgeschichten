@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import type { Level } from "@/engine/types";
 import { localAdapter } from "./localAdapter";
+import { emptyHoftag, type HoftagProgress } from "@/content/hoftag/types";
 import { emptyAdvent, emptyProgress, type AcademyPath, type LastPlace, type Progress, type ProgressAdapter } from "./types";
 
 /**
@@ -172,6 +173,14 @@ export const progressActions = {
       const a = p.advent ?? emptyAdvent;
       if (a.last?.door === door && a.last.part === part) return p;
       return { ...p, advent: { ...a, last: { door, part, at: Date.now() } } };
+    });
+  },
+  /** „Mein Tag am Hof“: Spielstand ändern (fn bekommt den aktuellen Stand) */
+  updateHoftag(fn: (h: HoftagProgress) => HoftagProgress) {
+    update((p) => {
+      const prev = p.hoftag ?? emptyHoftag;
+      const next = fn(prev);
+      return next === prev ? p : { ...p, hoftag: next };
     });
   },
   setSpeech(on: boolean) {
