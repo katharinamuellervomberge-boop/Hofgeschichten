@@ -26,6 +26,10 @@ import { LERN } from "@/video/lern/lern-videos";
 import { RS01_TOTAL, renderRS01 } from "@/video/reels/rs01-hinten-vorne-reel";
 import { RS02_TOTAL, renderRS02 } from "@/video/reels/rs02-haende-ruhig-reel";
 import { GW_TOTAL, renderGaloppwechsel } from "@/video/reels/galoppwechsel-reel";
+import { SCHRITT_TOTAL, renderSchritt } from "@/video/reels/schritt-reel";
+import { HAENDE_TOTAL, renderHaende } from "@/video/reels/haende-sitz-reel";
+import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-reel";
+import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -54,6 +58,10 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   rs01: { total: () => RS01_TOTAL, render: renderRS01 },
   rs02: { total: () => RS02_TOTAL, render: renderRS02 },
   galoppwechsel: { total: () => GW_TOTAL, render: renderGaloppwechsel },
+  schritt: { total: () => SCHRITT_TOTAL, render: renderSchritt },
+  haende: { total: () => HAENDE_TOTAL, render: renderHaende },
+  schenkelweichen: { total: () => SW_TOTAL, render: renderSchenkelweichen },
+  schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
