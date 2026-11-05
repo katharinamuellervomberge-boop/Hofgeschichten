@@ -30,6 +30,7 @@ import { SCHRITT_TOTAL, renderSchritt } from "@/video/reels/schritt-reel";
 import { HAENDE_TOTAL, renderHaende } from "@/video/reels/haende-sitz-reel";
 import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-reel";
 import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
+import { HAENDE_EN_TOTAL, renderHaendeEn } from "@/video/reels/haende-sitz-reel-en";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -62,6 +63,7 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   haende: { total: () => HAENDE_TOTAL, render: renderHaende },
   schenkelweichen: { total: () => SW_TOTAL, render: renderSchenkelweichen },
   schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
+  "haende-en": { total: () => HAENDE_EN_TOTAL, render: renderHaendeEn },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
