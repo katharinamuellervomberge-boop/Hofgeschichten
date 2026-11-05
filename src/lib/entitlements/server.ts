@@ -2,7 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { adventures, isVisible } from "@/content/adventures";
 import { getRelease, isReleased, type Release } from "@/content/membership";
-import { adventskalender, grosseAkademie, productSlugs } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, productSlugs } from "@/content/products";
 import { membershipCodeStillValid } from "./codes";
 import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./token";
 
@@ -59,6 +59,19 @@ export async function adventAccess(): Promise<"owned" | "member" | null> {
   const e = await getEntitlement();
   if (e.adventures.includes(adventskalender.slug)) return "owned";
   if (adventskalender.includedInMembership && e.membership !== null) return "member";
+  return null;
+}
+
+/**
+ * „Mein Tag am Hof“: Zugriff auf diesem Gerät?
+ *  "owned"  = einzeln gekauft (Bestellnummer oder Code)
+ *  "member" = über eine gültige Hof-Mitgliedschaft enthalten
+ *  null     = nur der Kennenlern-Tag
+ */
+export async function hoftagAccess(): Promise<"owned" | "member" | null> {
+  const e = await getEntitlement();
+  if (e.adventures.includes(meinTagAmHof.slug)) return "owned";
+  if (meinTagAmHof.includedInMembership && e.membership !== null) return "member";
   return null;
 }
 

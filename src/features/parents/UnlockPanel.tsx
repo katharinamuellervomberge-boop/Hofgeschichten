@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
 import { membership as plan } from "@/content/membership";
-import { adventskalender, grosseAkademie } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
 
@@ -51,6 +51,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       if (json.ok) {
         const names = premium.filter((a) => json.adventures?.includes(a.slug)).map((a) => a.title);
         if (json.adventures?.includes(grosseAkademie.slug)) names.unshift(grosseAkademie.name);
+        if (json.adventures?.includes(meinTagAmHof.slug)) names.unshift(`Spiel „${meinTagAmHof.name}“`);
         if (json.adventures?.includes(adventskalender.slug)) names.unshift(`Adventskalender „${adventskalender.name}“`);
         if (json.membership) names.unshift("Hof-Mitgliedschaft");
         setMsg({

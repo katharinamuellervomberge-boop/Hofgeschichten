@@ -12,6 +12,7 @@ import { games } from "@/content/games";
 import { horses } from "@/content/horses";
 import { UI_SPEECH } from "@/content/ui-speech";
 import { VisualView } from "@/engine/VisualView";
+import { HoftagTile } from "@/features/hoftag/HoftagTile";
 import { useProgress } from "@/lib/progress/store";
 import styles from "./GameOverview.module.css";
 
@@ -98,6 +99,7 @@ export function GameOverview({ academyUnlocked }: { academyUnlocked: boolean }) 
         <LevelSwitch />
       </div>
       <div className={styles.shelves}>
+        <HoftagTile kicker="Neu · Das große Hofspiel" />
         <ul className={styles.list}>
           {MAIN.map((e) => (
             <li key={e.id} className={styles.item}>

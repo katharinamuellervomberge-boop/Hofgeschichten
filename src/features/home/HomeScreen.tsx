@@ -10,6 +10,7 @@ import { academyPriceLabel, grosseAkademie } from "@/content/products";
 import { VisualView } from "@/engine/VisualView";
 import type { Locale } from "@/i18n/locale";
 import { AdventHomeTile } from "@/features/advent/AdventHomeTile";
+import { HoftagTile } from "@/features/hoftag/HoftagTile";
 import { ContinueCard } from "./ContinueCard";
 import styles from "./HomeScreen.module.css";
 
@@ -66,6 +67,8 @@ export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
         <ContinueCard />
 
         <AdventHomeTile />
+
+        <HoftagTile />
 
         <Link href="/akademie" className={styles.academy} aria-labelledby="home-academy">
           <div className={styles.academyBody}>

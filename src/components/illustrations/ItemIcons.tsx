@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 
 export type ItemName =
   | "heu"
+  | "mineral"
+  | "brot"
   | "gras"
   | "karotte"
   | "apfel"
@@ -84,6 +86,22 @@ function keyIcon(grip: ReactNode) {
 }
 
 const items: Record<ItemName, ReactNode> = {
+  mineral: (
+    <>
+      <path d="M16 28h32l-3 24c0 2-2 4-4 4H23c-2 0-4-2-4-4Z" fill="#DDE3D6" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <ellipse cx="32" cy="28" rx="16" ry="4.5" fill="#C4AC84" stroke={OUT} strokeWidth="2.5" />
+      <circle cx="26" cy="26" r="2.6" fill="#80634D" />
+      <circle cx="33" cy="25" r="2.4" fill="#C99A4E" />
+      <circle cx="38" cy="27.5" r="2.2" fill="#80634D" />
+      <path d="M24 40h16M25 46h14" stroke="#5E7360" strokeWidth="2" strokeLinecap="round" opacity=".7" />
+    </>
+  ),
+  brot: (
+    <>
+      <path d="M10 40c0-14 10-22 22-22s22 8 22 22c0 6-4 10-10 10H20c-6 0-10-4-10-10Z" fill="#C99A4E" stroke={OUT} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M22 30l4 6M32 27l3 7M42 30l3 6" stroke="#80634D" strokeWidth="2.4" strokeLinecap="round" />
+    </>
+  ),
   heu: (
     <>
       <rect x="8" y="22" width="48" height="30" rx="10" fill="#E3C47A" stroke={OUT} strokeWidth="2.5" />

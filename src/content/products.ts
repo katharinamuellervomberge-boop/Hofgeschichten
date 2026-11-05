@@ -112,5 +112,34 @@ export const adventskalender = {
     "24 interaktive Türchen vom 1. bis 24. Dezember: eine fortlaufende Weihnachts-Detektivgeschichte mit Lea, Mila, Ben, Krümel und den Hofpferden, spielerisches Pferdewissen, ein eigener Weihnachtsstall zum Dekorieren, 24 goldene Hufeisen zum Sammeln und eine Urkunde zum Ausdrucken. Für Kinder von 5 bis 12 Jahren. Einmalzahlung, kein Abo; alle Türchen bleiben mindestens bis 31. Januar 2027 offen.",
 };
 
+/**
+ * Spiel „Hofgeschichten – Mein Tag am Hof“ (seit 05.11.2026).
+ *  - in der Hof-Mitgliedschaft inklusive
+ *  - zusätzlich einzeln freischaltbar (Preis und Shop-Produkt noch offen)
+ *  - ohne Freischaltung: der erste Hoftag zum Kennenlernen
+ * Keine In-App-Käufe für Futter oder Pflege – alles im Spiel ist immer frei verfügbar.
+ *
+ * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf (wie bei der Akademie).
+ * Für die Freischaltung per Bestellnummer: Produkttitel im Shop mit „Mein Tag am Hof“ (shopify.ts).
+ */
+export const meinTagAmHof = {
+  /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
+  slug: "mein-tag-am-hof",
+  name: "Mein Tag am Hof",
+  fullName: "Hofgeschichten – Mein Tag am Hof",
+  subtitle: "Dein Pferd. Dein Stall. Dein Tag.",
+  /** Einzelpreis – noch nicht festgelegt */
+  price: null as string | null,
+  includedInMembership: true,
+  /** Geplanter Shopify-Handle des Einzelprodukts */
+  shopifyProductHandle: "die-hofgeschichten-mein-tag-am-hof",
+  /** Shop-Link. null = Einzelkauf noch nicht geöffnet */
+  checkoutUrl: null as string | null,
+  /** Hoftage, die ohne Freischaltung spielbar sind */
+  freeDays: 1,
+  parentInfo:
+    "Ein interaktives Pferdepflege-Spiel: Ihr Kind übernimmt einen ganzen Tag lang Verantwortung für Tivoli, Tonga oder Scrabble – Füttern, Wasser, Ausmisten, Putzen, Beobachten und Bewegung. Jeder Tag bringt neue kleine Ereignisse. Kein Zeitdruck, keine Strafen, keine Käufe im Spiel. Für Kinder von 6 bis 12 Jahren.",
+};
+
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
-export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug];
+export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug];

@@ -5,6 +5,7 @@ import { Icon } from "@/components/illustrations/Icons";
 import { KidPortrait } from "@/components/illustrations/KidPortrait";
 import { PersonPortrait } from "@/components/illustrations/PersonPortrait";
 import { AdventureCover } from "@/features/adventure/AdventureCover";
+import { HoftagTile } from "@/features/hoftag/HoftagTile";
 import { WeekCard, type WeekState } from "@/features/hofjahr/WeekCard";
 import { characters } from "@/content/characters";
 import { horses } from "@/content/horses";
@@ -67,6 +68,8 @@ export function HofweltScreen({ weekStates, member, owned, adventures, now }: Pr
           ))}
         </ul>
       </section>
+
+      <HoftagTile kicker="Für Mitglieder inklusive" />
 
       <section aria-labelledby="hw-people">
         <h2 id="hw-people" className={styles.h2}>

@@ -1,3 +1,4 @@
+import { migrateHoftag } from "@/features/hoftag/migrate";
 import { emptyAdvent, emptyProgress, PROGRESS_VERSION, type AdventProgress, type Progress, type ProgressAdapter } from "./types";
 
 const KEY = "hofgeschichten.progress.v1";
@@ -58,6 +59,7 @@ function migrate(raw: unknown): Progress | null {
         ? r.last
         : null,
     advent: migrateAdvent(r.advent),
+    hoftag: migrateHoftag(r.hoftag),
     version: PROGRESS_VERSION,
   };
 }
