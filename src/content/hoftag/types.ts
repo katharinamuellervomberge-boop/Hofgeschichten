@@ -282,6 +282,8 @@ export type HoftagProgress = {
   history: DayRecord[];
   day: DayState | null;
   lastPlayedAt: number | null;
+  /** Stallgeräusche an/aus (fehlt = an) */
+  sound?: boolean;
 };
 
 export const emptyHoftag: HoftagProgress = {

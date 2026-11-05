@@ -26,6 +26,7 @@ import { fillText } from "./engine";
 import { HofMap } from "./HofMap";
 import { Btn, Feedback, Speech, StatGrid } from "./parts";
 import { CollectArt, Scene } from "./Scene";
+import { sfx } from "./sound";
 import styles from "./hoftag.module.css";
 
 type Props = {
@@ -47,7 +48,10 @@ type ViewProps<T extends TaskDef> = {
 export function TaskView({ task, day, time, onDone }: Props) {
   const [finished, setFinished] = useState(false);
   const t = (s: string) => fillText(s, day.horse);
-  const finish = () => setFinished(true);
+  const finish = () => {
+    setFinished(true);
+    window.setTimeout(() => sfx.done(), 380);
+  };
   const place = getPlace(task.place);
   const doneText = "done" in task ? task.done : null;
 
@@ -111,7 +115,13 @@ export function TaskView({ task, day, time, onDone }: Props) {
               {t(task.learn)}
             </p>
           )}
-          <Btn onClick={onDone} variant="gold">
+          <Btn
+            onClick={() => {
+              sfx.tap();
+              onDone();
+            }}
+            variant="gold"
+          >
             Weiter
           </Btn>
         </div>
@@ -129,9 +139,13 @@ function GotoView({ task, time, t, finish }: ViewProps<GotoTask>) {
     if (ok) return;
     if (id === task.target) {
       setOk(true);
+      sfx.hufe();
       setWrong(null);
       finish();
-    } else setWrong(id);
+    } else {
+      setWrong(id);
+      sfx.tryAgain();
+    }
   };
   const target = getPlace(task.target);
   return (
@@ -178,7 +192,10 @@ function Options({
               onClick={() => {
                 setTried((x) => [...x, o.id]);
                 setAnswer(o);
-                if (o.correct) onCorrect();
+                if (o.correct) {
+                  sfx.right();
+                  onCorrect();
+                } else sfx.tryAgain();
               }}
             >
               {t(o.label)}
@@ -220,6 +237,7 @@ function CheckView({ task, day, time, t, finish }: ViewProps<CheckTask>) {
     if (seen.includes(id)) return;
     const next = [...seen, id];
     setSeen(next);
+    sfx.tap();
     if (next.length === task.spots.length) finish();
   };
   return (
@@ -277,12 +295,23 @@ const CONTAINER: Record<CollectTask["container"], { name: string; icon: "schubka
   keiner: null,
 };
 
+const COLLECT_SOUND: Record<CollectTask["item"], () => void> = {
+  mist: () => sfx.mist(),
+  stroh: () => sfx.rascheln(),
+  spaene: () => sfx.rascheln(0.3),
+  heu: () => sfx.rascheln(),
+  schlamm: () => sfx.buerste(),
+  stein: () => sfx.kratzen(),
+  ding: () => sfx.klirr(),
+};
+
 function CollectView({ task, day, time, t, finish }: ViewProps<CollectTask>) {
   const [got, setGot] = useState<string[]>([]);
   const tap = (id: string) => {
     if (got.includes(id)) return;
     const next = [...got, id];
     setGot(next);
+    COLLECT_SOUND[task.item]();
     if (next.length === task.spots.length) finish();
   };
   const c = CONTAINER[task.container];
@@ -351,6 +380,7 @@ function FillView({ task, time, finish }: ViewProps<FillTask>) {
     if (full) return;
     const next = n + 1;
     setN(next);
+    sfx.wasser();
     if (next >= task.taps) finish();
   };
   const name = task.vessel === "eimer" ? "Eimer" : task.vessel === "traenke" ? "Tränke" : "Trog";
@@ -387,7 +417,11 @@ function FeedView({ task, t, finish }: ViewProps<FeedTask>) {
   const pick = (o: Option) => {
     if (complete || inTrough.includes(o.id)) return;
     setLast(o);
-    if (!o.correct) return;
+    if (!o.correct) {
+      sfx.tryAgain();
+      return;
+    }
+    sfx.futter();
     const next = [...inTrough, o.id];
     setIn(next);
     if (needed.every((id) => next.includes(id))) finish();
@@ -437,19 +471,24 @@ function GroomView({ day, time, t, finish }: ViewProps<GroomTask>) {
   const use = (zone: GroomZone) => {
     if (done) return;
     if (!tool) {
+      sfx.tryAgain();
       setMsg({ ok: false, text: "Wähle zuerst unten ein Putzzeug aus dem Putzkasten." });
       return;
     }
     const tl = GROOM_TOOLS.find((x) => x.id === tool)!;
     if (tl.zone !== zone) {
+      sfx.tryAgain();
       setMsg({ ok: false, text: `Fast! ${tl.name === "Hufkratzer" ? "Den" : "Die"} ${tl.name} gehört nicht an ${zone === "maehne" ? "Mähne und Schweif" : zone === "hufe" ? "die Hufe" : "das Fell"}. Schau noch einmal genau hin.` });
       return;
     }
     if (tool !== current) {
+      sfx.tryAgain();
       setMsg({ ok: false, text: `Tilda hat einen Tipp: ${GROOM_HINTS[current]}` });
       return;
     }
     setMsg({ ok: true, text: t(tl.does) });
+    if (zone === "hufe") sfx.kratzen();
+    else sfx.buerste();
     setShine(zone);
     window.setTimeout(() => setShine(null), 900);
     const next = step + 1;
@@ -508,6 +547,7 @@ function GroomView({ day, time, t, finish }: ViewProps<GroomTask>) {
               className={`${styles.tool} ${tool === g.id ? styles.toolOn : ""} ${used ? styles.toolUsed : ""}`}
               onClick={() => {
                 setTool(g.id);
+                sfx.tap();
                 setMsg(null);
               }}
               disabled={done}

@@ -33,6 +33,9 @@ Route: **`/hoftag`** · Kacheln auf Start, Spielen und Hofwelt.
 
 Neue Aufgabe = neuer Eintrag in `day.ts`. IDs nie ändern (stehen im Spielstand). Texte ohne Pronomen für das Pferd, stattdessen `{name}` (Tongas Geschlecht ist offen).
 
+## Stallgeräusche
+`src/features/hoftag/sound.ts` erzeugt alle Geräusche im Browser (Web Audio, keine Dateien): Klick, richtig/„nicht ganz“, Aufgabe geschafft, fließendes Wasser mit Blubbern, Stroh/Heu rascheln, Mist in die Schubkarre, Bürstenstriche, Hufkratzer, Metallklirren, Hufschläge auf Kies (Hofkarte), Abschnauben. Hintergrund: Vögel am Tag, Grillen am Abend, ab und zu ein Schnauben. Knopf „Ton an/aus“ oben rechts (gemerkt in `hoftag.sound`). Echte Aufnahmen können einzelne Geräusche später ersetzen, die Aufrufe (`sfx.wasser()` …) bleiben gleich.
+
 ## Regeln (Game Design)
 - Kein Verfall über echte Zeit, kein krankes/trauriges Pferd nach Pausen, keine Countdowns, keine Käufe für Futter oder Pflege.
 - Fehler: „Fast! …“ / „Tilda hat einen Tipp …“ und neuer Versuch. Kein Game Over.

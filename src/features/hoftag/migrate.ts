@@ -29,5 +29,6 @@ export function migrateHoftag(raw: unknown): HoftagProgress | undefined {
     history: Array.isArray(r.history) ? r.history.filter((h) => h && isHorse(h.horse)).slice(0, 20) : [],
     day,
     lastPlayedAt: typeof r.lastPlayedAt === "number" ? r.lastPlayedAt : null,
+    sound: r.sound !== false,
   };
 }

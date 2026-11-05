@@ -15,6 +15,7 @@ import { HofMap } from "./HofMap";
 import { UiIcon } from "./HoftagIcons";
 import { Btn, Speech, StatGrid, TimeBar } from "./parts";
 import { ErfolgeScreen, EveningScreen, HofbuchScreen, IntroScreen, PickScreen, SummaryScreen } from "./Screens";
+import { setSoundEnabled, sfx, startAmbience, stopAmbience } from "./sound";
 import { TaskView } from "./TaskView";
 import styles from "./hoftag.module.css";
 
@@ -55,6 +56,14 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
     progressActions.setLast({ href: "/hoftag", title: "Mein Tag am Hof", area: "Spielen" });
   }, []);
 
+  const soundOn = h.sound !== false;
+  const ambTime: TimeOfDay = h.day && !h.day.finishedAt ? (currentTask(h.day)?.phase ?? "abend") : "morgen";
+  useEffect(() => {
+    setSoundEnabled(soundOn);
+    if (mounted && soundOn) startAmbience(ambTime);
+    return () => stopAmbience();
+  }, [mounted, soundOn, ambTime]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [view]);
@@ -71,6 +80,7 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
       <Shell>
         <PickScreen
           onPick={(horse) => {
+            sfx.schnauben();
             save((p) => ({ ...p, horse, introSeen: true, day: newDay(p, horse, Date.now()) }));
             setView("home");
           }}
@@ -85,6 +95,7 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
   const time: TimeOfDay = running ? (cur?.phase ?? "abend") : "morgen";
 
   const startNewDay = (horse: HorseId) => {
+    sfx.schnauben();
     save((p) => ({ ...p, horse, day: newDay(p, horse, Date.now()) }));
     setNewBadges([]);
     setView("home");
@@ -92,6 +103,7 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
 
   const openTask = () => {
     if (!running) return;
+    sfx.tap();
     if (pendingEvent(running)) setView("event");
     else if (cur) setView("task");
     else setView("evening");
@@ -131,6 +143,7 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
         <EveningScreen
           day={running}
           onNext={() => {
+            sfx.done();
             const before = h.badges;
             save((p) => finishDay(p, Date.now()));
             const after = finishDay(h, Date.now()).badges;
@@ -157,6 +170,7 @@ export function HoftagGame({ access }: { access: HoftagAccess }) {
             <Btn
               variant="gold"
               onClick={() => {
+                sfx.tap();
                 save((p) => (p.day ? { ...p, day: markEventSeen(p.day, ev.id) } : p));
                 setView(cur ? "task" : "home");
               }}
@@ -326,6 +340,7 @@ function Shell({ children, onHome }: { children: ReactNode; onHome?: () => void 
           </Link>
         )}
         <span className={styles.brandline}>Dein Pferd. Dein Stall. Dein Tag.</span>
+        <SoundToggle />
       </div>
       {children}
       </div>
@@ -333,18 +348,42 @@ function Shell({ children, onHome }: { children: ReactNode; onHome?: () => void 
   );
 }
 
+/** Stallgeräusche an/aus – wird im Spielstand gemerkt */
+function SoundToggle() {
+  const on = (useProgress().hoftag?.sound ?? true) !== false;
+  return (
+    <button
+      type="button"
+      className={`${styles.soundBtn} ${on ? "" : styles.soundOff}`}
+      aria-pressed={on}
+      aria-label={on ? "Stallgeräusche ausschalten" : "Stallgeräusche einschalten"}
+      onClick={() => {
+        setSoundEnabled(!on);
+        save((p) => ({ ...p, sound: !on }));
+        if (!on) window.setTimeout(() => sfx.schnauben(0.8), 50);
+      }}
+    >
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4Z" />
+        {on ? <path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" /> : <path d="m16 9.5 5 5M21 9.5l-5 5" />}
+      </svg>
+      <span>{on ? "Ton an" : "Ton aus"}</span>
+    </button>
+  );
+}
+
 function HomeNav({ onMap, onBook, onErfolge }: { onMap: () => void; onBook: () => void; onErfolge: () => void }) {
   return (
     <nav className={styles.homeNav} aria-label="Im Spiel">
-      <button type="button" onClick={onMap}>
+      <button type="button" onClick={() => { sfx.tap(); onMap(); }}>
         <UiIcon name="map" />
         <span>Hof</span>
       </button>
-      <button type="button" onClick={onBook}>
+      <button type="button" onClick={() => { sfx.tap(); onBook(); }}>
         <UiIcon name="book" />
         <span>Hofbuch</span>
       </button>
-      <button type="button" onClick={onErfolge}>
+      <button type="button" onClick={() => { sfx.tap(); onErfolge(); }}>
         <UiIcon name="medal" />
         <span>Erfolge</span>
       </button>
