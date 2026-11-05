@@ -23,7 +23,7 @@ const registry: Record<string, PremiumContent> = {
   "willkommen-auf-dem-hof": {
     kind: "audio",
     file: "S01F01-willkommen-auf-dem-hof.mp3",
-    durationSeconds: 1290,
+    durationSeconds: 1284,
     horse: "tivoli",
     characters: ["lea", "mila", "ben"],
   },
