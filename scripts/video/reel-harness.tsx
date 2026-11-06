@@ -32,6 +32,16 @@ import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-r
 import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
 import { HAENDE_EN_TOTAL, renderHaendeEn } from "@/video/reels/haende-sitz-reel-en";
 import { BEIN_TOTAL, renderBein } from "@/video/reels/bein-reel";
+import { GA_TOTAL, renderGangart } from "@/video/reels/c10-gangart-reel";
+import { SITZ_TOTAL, renderSitz } from "@/video/reels/c09-sitz-reel";
+import { FU_TOTAL, renderFuehren } from "@/video/reels/c08-fuehren-reel";
+import { CH_TOTAL, renderChallenge } from "@/video/reels/c07-challenge-reel";
+import { FIG_TOTAL, renderFiguren } from "@/video/reels/c06-figuren-reel";
+import { ANG_TOTAL, renderAngaloppieren } from "@/video/reels/c05-angaloppieren-reel";
+import { MYTH_TOTAL, renderMythen } from "@/video/reels/c04-mythen-reel";
+import { UEB_TOTAL, renderUebersetzer } from "@/video/reels/c03-uebersetzer-reel";
+import { FAUL_TOTAL, renderFaul } from "@/video/reels/c02-faul-reel";
+import { TRAV_TOTAL, renderTraversale } from "@/video/reels/c01-traversale-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -66,6 +76,16 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
   "haende-en": { total: () => HAENDE_EN_TOTAL, render: renderHaendeEn },
   bein: { total: () => BEIN_TOTAL, render: renderBein },
+  "gangart": { total: () => GA_TOTAL, render: renderGangart },
+  "sitz": { total: () => SITZ_TOTAL, render: renderSitz },
+  "fuehren": { total: () => FU_TOTAL, render: renderFuehren },
+  "challenge": { total: () => CH_TOTAL, render: renderChallenge },
+  "figuren": { total: () => FIG_TOTAL, render: renderFiguren },
+  "angaloppieren": { total: () => ANG_TOTAL, render: renderAngaloppieren },
+  "mythen": { total: () => MYTH_TOTAL, render: renderMythen },
+  "uebersetzer": { total: () => UEB_TOTAL, render: renderUebersetzer },
+  "faul": { total: () => FAUL_TOTAL, render: renderFaul },
+  traversale: { total: () => TRAV_TOTAL, render: renderTraversale },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";

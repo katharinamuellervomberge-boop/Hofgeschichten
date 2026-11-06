@@ -53,8 +53,8 @@ const NOD = 6;
 const REIN = Math.hypot(headPoint(BIT, NOD, 0)[0] - SITZ.hand[0] - 2, headPoint(BIT, NOD, 0)[1] - SITZ.hand[1]) + 1.5;
 
 /* ---------- Bein-Posen (Pferde-Koordinaten) ---------- */
-type Leg = { knee: P; ankle: P; heel: P; toe: P };
-const LEG: Record<"sitz" | "hoch" | "klemm" | "drueck" | "lang", Leg> = {
+export type Leg = { knee: P; ankle: P; heel: P; toe: P };
+export const LEG: Record<"sitz" | "hoch" | "klemm" | "drueck" | "lang", Leg> = {
   sitz: { knee: SITZ.knee, ankle: SITZ.ankle, heel: SITZ.heel, toe: SITZ.toe },
   /** Knie hochgezogen, Unterschenkel nach hinten-oben, Ferse hoch */
   hoch: { knee: [256, 135], ankle: [241, 176], heel: [235, 173], toe: [252, 188] },
@@ -66,9 +66,9 @@ const LEG: Record<"sitz" | "hoch" | "klemm" | "drueck" | "lang", Leg> = {
   lang: { knee: [242, 150], ankle: [226, 191], heel: [221, 197], toe: [240, 195] },
 };
 const mixP = (a: P, b: P, u: number): P => [lerp(a[0], b[0], u), lerp(a[1], b[1], u)];
-const mixLeg = (a: Leg, b: Leg, u: number): Leg => ({ knee: mixP(a.knee, b.knee, u), ankle: mixP(a.ankle, b.ankle, u), heel: mixP(a.heel, b.heel, u), toe: mixP(a.toe, b.toe, u) });
+export const mixLeg = (a: Leg, b: Leg, u: number): Leg => ({ knee: mixP(a.knee, b.knee, u), ankle: mixP(a.ankle, b.ankle, u), heel: mixP(a.heel, b.heel, u), toe: mixP(a.toe, b.toe, u) });
 /** Posen-Folge: ab Zeitpunkt k[0] in `dur` Sekunden zur Pose k[1] */
-function legAt(t: number, keys: Array<[number, Leg]>, dur = 0.5): Leg {
+export function legAt(t: number, keys: Array<[number, Leg]>, dur = 0.5): Leg {
   let v = keys[0][1];
   for (let i = 1; i < keys.length; i++) {
     const u = sm((t - keys[i][0]) / dur);
@@ -79,7 +79,7 @@ function legAt(t: number, keys: Array<[number, Leg]>, dur = 0.5): Leg {
 }
 const LEAN = { shoulder: [215, 61] as P, head: [216, 42] as P };
 /** Körper aus Bein-Pose; `lean` = Oberkörper hinter die Senkrechte (Stuhlsitz), `swing` = Becken schwingt mit */
-function bodyFor(leg: Leg, lean = 0, swing = 0): Body {
+export function bodyFor(leg: Leg, lean = 0, swing = 0): Body {
   const dx = swing;
   const sh = mixP(SITZ.shoulder, LEAN.shoulder, lean);
   const hd = mixP(SITZ.head, LEAN.head, lean);
@@ -90,12 +90,12 @@ function bodyFor(leg: Leg, lean = 0, swing = 0): Body {
   return { hip, shoulder, head, hand, elbow: elbowFor(shoulder, SITZ.elbow, SITZ.hand, hand), ...leg };
 }
 /** Becken schwingt im Schritt mit (pro Hinterbein ein Schwung) */
-const swingAt = (t: number, amt: number) => amt * 1.6 * Math.sin((2 * Math.PI * t) / 1.2);
+export const swingAt = (t: number, amt: number) => amt * 1.6 * Math.sin((2 * Math.PI * t) / 1.2);
 
 const legPath = (b: Body) => `M${b.hip[0]},${b.hip[1]} L${b.knee[0]},${b.knee[1]} L${b.ankle[0]},${b.ankle[1]} L${b.toe[0]},${b.toe[1]}`;
 
 /** Pferd + Reiterin mit eigener Bein-Pose und echter Zügellinie */
-function RideFig({ t, pl, gait, id, b, glow }: { t: number; pl: Place; gait: Gait; id: string; b: Body; glow?: string }) {
+export function RideFig({ t, pl, gait, id, b, glow }: { t: number; pl: Place; gait: Gait; id: string; b: Body; glow?: string }) {
   const r = reinGeom({ nod: NOD, reach: 0, hand: b.hand, rein: REIN });
   const bob = bodyBob(gait, t);
   return (
@@ -116,7 +116,7 @@ function RideFig({ t, pl, gait, id, b, glow }: { t: number; pl: Place; gait: Gai
 }
 
 /* ---------- kleine Zeichen ---------- */
-function Ring({ p, col, o, pulse, r = 26 }: { p: P; col: string; o: number; pulse: number; r?: number }) {
+export function Ring({ p, col, o, pulse, r = 26 }: { p: P; col: string; o: number; pulse: number; r?: number }) {
   if (o <= 0.01) return null;
   return (
     <g opacity={o}>
@@ -125,7 +125,7 @@ function Ring({ p, col, o, pulse, r = 26 }: { p: P; col: string; o: number; puls
     </g>
   );
 }
-function Arr({ from, to, col, o, w = 8 }: { from: P; to: P; col: string; o: number; w?: number }) {
+export function Arr({ from, to, col, o, w = 8 }: { from: P; to: P; col: string; o: number; w?: number }) {
   if (o <= 0.01) return null;
   return (
     <g opacity={o}>
@@ -134,7 +134,7 @@ function Arr({ from, to, col, o, w = 8 }: { from: P; to: P; col: string; o: numb
     </g>
   );
 }
-function Lock({ x, y, s = 1, col = COL.forestDeep }: { x: number; y: number; s?: number; col?: string }) {
+export function Lock({ x, y, s = 1, col = COL.forestDeep }: { x: number; y: number; s?: number; col?: string }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <path d="M-22 -6 V-24 a22 22 0 0 1 44 0 V-6" fill="none" stroke={col} strokeWidth="9" strokeLinecap="round" />
@@ -144,7 +144,7 @@ function Lock({ x, y, s = 1, col = COL.forestDeep }: { x: number; y: number; s?:
     </g>
   );
 }
-function camera(t: number, keys: Array<[number, Place]>, dur = 0.8): Place {
+export function camera(t: number, keys: Array<[number, Place]>, dur = 0.8): Place {
   let v = keys[0][1];
   for (let i = 1; i < keys.length; i++) {
     const u = sm((t - keys[i][0]) / dur);
@@ -156,7 +156,7 @@ function camera(t: number, keys: Array<[number, Place]>, dur = 0.8): Place {
 }
 
 /* ---------- Mensch stehend/kniend (für Helfer und Übung am Boden) ---------- */
-type Fig = { hip: P; shoulder: P; head: P; knee: P; ankle: P; heel: P; toe: P; knee2: P; ankle2: P; heel2: P; toe2: P; elbow: P; hand: P; elbow2: P; hand2: P };
+export type Fig = { hip: P; shoulder: P; head: P; knee: P; ankle: P; heel: P; toe: P; knee2: P; ankle2: P; heel2: P; toe2: P; elbow: P; hand: P; elbow2: P; hand2: P };
 const SKIN = "#E8AE86";
 function seg(a: P, b: P, col: string, w: number) {
   return <path d={`M${a[0]},${a[1]} L${b[0]},${b[1]}`} stroke={col} strokeWidth={w} strokeLinecap="round" />;
@@ -164,7 +164,7 @@ function seg(a: P, b: P, col: string, w: number) {
 function foot(ankle: P, heel: P, toe: P, col: string) {
   return <path d={`M${ankle[0]},${ankle[1] - 3} L${heel[0]},${heel[1]} L${toe[0]},${toe[1]} Q${(ankle[0] + toe[0]) / 2},${ankle[1] - 2} ${ankle[0]},${ankle[1] - 3} Z`} fill={col} stroke={col} strokeWidth="5" strokeLinejoin="round" />;
 }
-function Person({ f, face, jacket, legs, legsShade, boots, hair = "#5A3420" }: { f: Fig; face: 1 | -1; jacket: string; legs: string; legsShade: string; boots: string; hair?: string }) {
+export function Person({ f, face, jacket, legs, legsShade, boots, hair = "#5A3420" }: { f: Fig; face: 1 | -1; jacket: string; legs: string; legsShade: string; boots: string; hair?: string }) {
   const dx = f.shoulder[0] - f.hip[0];
   const dy = f.shoulder[1] - f.hip[1];
   const l = Math.hypot(dx, dy);
@@ -194,14 +194,14 @@ function Person({ f, face, jacket, legs, legsShade, boots, hair = "#5A3420" }: {
   );
 }
 /** Helferin steht vor dem Pferd und hält es am Strick (Pferde-Koordinaten, Blick nach links) */
-const HELPER: Fig = {
+export const HELPER: Fig = {
   hip: [401, 190], shoulder: [398, 132], head: [396, 112],
   knee: [396, 236], ankle: [394, 279], heel: [399, 283], toe: [382, 283],
   knee2: [404, 236], ankle2: [405, 279], heel2: [410, 283], toe2: [393, 283],
   elbow: [386, 158], hand: [372, 166], elbow2: [405, 162], hand2: [404, 190],
 };
 /** Halber Kniestand (lokale Einheiten, Boden y = 0, Blick nach rechts). `shift` 0–1 = nach vorn verlagern */
-function kneel(shift: number): Fig {
+export function kneel(shift: number): Fig {
   const knee2: P = [-40, -7];
   const th = ((22 + 12 * shift) * Math.PI) / 180;
   const hip: P = [knee2[0] + 54 * Math.sin(th), knee2[1] - 54 * Math.cos(th)];
@@ -221,9 +221,9 @@ function kneel(shift: number): Fig {
 }
 
 /* ---------- Kamera-Einstellungen ---------- */
-const V_FULL: Place = { x: 540 - 160 * 2.6, y: 1390 - 285 * 2.6, k: 2.6 };
-const V_LEG: Place = { x: 540 - (238 - 70) * 3.9, y: 1000 - (150 - 20) * 3.9, k: 3.9 };
-const V_EX: Place = { x: 520 - (290 - 70) * 2.35, y: 1420 - 285 * 2.35, k: 2.35 };
+export const V_FULL: Place = { x: 540 - 160 * 2.6, y: 1390 - 285 * 2.6, k: 2.6 };
+export const V_LEG: Place = { x: 540 - (238 - 70) * 3.9, y: 1000 - (150 - 20) * 3.9, k: 3.9 };
+export const V_EX: Place = { x: 520 - (290 - 70) * 2.35, y: 1420 - 285 * 2.35, k: 2.35 };
 
 /* ---------- Szene: Vergleich ✗ / ✓ ---------- */
 function Panel({ t, x, good }: { t: number; x: number; good: boolean }) {

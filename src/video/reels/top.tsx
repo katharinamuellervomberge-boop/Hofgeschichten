@@ -52,7 +52,7 @@ function Ring({ at, k, col = COL.honey, r = 6 }: { at: Pt; k: number; col?: stri
 }
 
 /** `ang` Blickrichtung in Grad (0 = rechts), `bend` Halsstellung (negativ = nach links/innen) */
-export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, handPull = 0, outBack = 0, poll = 0 }: { at: Pt; ang: number; look: Look; step: number; s?: number; bend?: number; glow?: Glow; handPull?: number; outBack?: number; poll?: number }) {
+export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, handPull = 0, outBack = 0, poll = 0, noRider = false }: { at: Pt; ang: number; look: Look; step: number; s?: number; bend?: number; glow?: Glow; handPull?: number; outBack?: number; poll?: number; noRider?: boolean }) {
   const sw = Math.sin(step * Math.PI * 2) * 3;
   const nod = Math.sin(step * Math.PI * 4) * 1.0;
   const line = { stroke: "#3B2C22", strokeOpacity: 0.35, strokeWidth: 1.4 };
@@ -84,6 +84,14 @@ export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, ha
           <path d="M4 6 Q14 4 18 12 L6 14 Z" />
         </g>
       )}
+      {noRider && (
+        <g transform={`rotate(${bend} 14 0)`}>
+          <g transform={`rotate(${poll} 44 ${nod})`}>
+            <path d={`M50 ${-6 + nod} L50 ${6 + nod} M60 ${-6 + nod} Q63 ${nod} 60 ${6 + nod}`} stroke="#8A3B26" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+          </g>
+        </g>
+      )}
+      {!noRider && (<>
       {/* Zügel */}
       <path d={`M${hIn[0]} ${hIn[1]} L${bIn[0]} ${bIn[1]}`} stroke={g(glow.innerRein) > 0.3 ? COL.honey : "#3E2C22"} strokeWidth={1.4 + 1.6 * g(glow.innerRein)} />
       <path d={`M${HAND_OUT[0]} ${HAND_OUT[1]} L${bOut[0]} ${bOut[1]}`} stroke={g(glow.outerRein) > 0.3 ? COL.honey : "#3E2C22"} strokeWidth={1.4 + 1.6 * g(glow.outerRein)} />
@@ -101,6 +109,7 @@ export function TopHorse({ at, ang, look, step, s = 2.4, bend = 0, glow = {}, ha
       </g>
       <circle cx={hIn[0]} cy={hIn[1]} r="2.2" fill="#5E4636" />
       <circle cx={HAND_OUT[0]} cy={HAND_OUT[1]} r="2.2" fill="#5E4636" />
+      </>)}
       {/* Markierungen */}
       <Ring at={LEG_IN} k={g(glow.innerLeg)} />
       <Ring at={lo} k={g(glow.outerLeg)} col={COL.forest} />
