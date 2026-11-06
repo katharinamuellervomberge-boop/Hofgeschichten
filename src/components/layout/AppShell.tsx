@@ -10,19 +10,22 @@ import { useProgress } from "@/lib/progress/store";
 import { newStamps } from "@/lib/progress/stamps";
 import styles from "./AppShell.module.css";
 
-type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[] };
+type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[]; short?: string; title?: string };
 
 /**
- * Feste Leiste seit 28.10.2026 – fünf Punkte, überall gleich:
- * Start · Reitakademie · Spielen · Hofwelt · Profil
+ * Feste Leiste seit 28.10.2026, seit 06.11.2026 mit dem Reitertagebuch:
+ * Start · Reitakademie · Spielen · Hofwelt · Tagebuch · Profil
+ * `short`: kürzere Beschriftung auf schmalen Handys.
  * `also`: Seiten, bei denen der Punkt ebenfalls als aktiv markiert wird.
  */
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
-  { href: "/akademie", label: "Reitakademie", icon: "academy" },
+  { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie" },
   { href: "/spielen", label: "Spielen", icon: "puzzle" },
   /* Geschichten, Pferde, Figuren, Detektivfälle, Wochenpakete und Mitgliedschaft */
   { href: "/hofwelt", label: "Hofwelt", icon: "barn", also: ["/pferde", "/abenteuer", "/hofjahr", "/hoeren", "/mitgliedschaft", "/adventskalender"] },
+  /* Mein Reitertagebuch – nur für Mitglieder, sonst Vorschau */
+  { href: "/tagebuch", label: "Tagebuch", icon: "diary", title: "Mein Reitertagebuch" },
   /* Lernfortschritt, Pass, Käufe und Einstellungen */
   { href: "/profil", label: "Profil", icon: "pass", also: ["/pass", "/eltern"] },
 ];
@@ -89,6 +92,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   href={item.href}
                   className={`${styles.navItem} ${active ? styles.active : ""}`}
                   aria-current={active ? "page" : undefined}
+                  title={item.title}
                 >
                   <span className={styles.navIcon}>
                     <Icon name={item.icon} />
@@ -96,7 +100,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                       <span className={styles.dot} aria-label={`${fresh} neue Stempel`} />
                     )}
                   </span>
-                  <span className={styles.navLabel}>{item.label}</span>
+                  {item.short ? (
+                    <span className={styles.navLabel}>
+                      <span className={styles.labelLong}>{item.label}</span>
+                      <span className={styles.labelShort}>{item.short}</span>
+                    </span>
+                  ) : (
+                    <span className={styles.navLabel}>{item.label}</span>
+                  )}
                 </Link>
               </li>
             );

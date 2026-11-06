@@ -95,7 +95,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  max-width: 640px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 0;
   list-style: none;
@@ -139,7 +139,11 @@
   white-space: nowrap;
 }
 
-/* Fünf Knöpfe auf schmalen Handys */
+.labelShort {
+  display: none;
+}
+
+/* Sechs Knöpfe auf schmalen Handys */
 @media (max-width: 420px) {
   .nav {
     padding-inline: var(--space-1);
@@ -152,8 +156,21 @@
     height: 27px;
   }
   .navLabel {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     letter-spacing: 0;
+  }
+  .navIcon {
+    width: 38px;
+  }
+  .navIcon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .labelLong {
+    display: none;
+  }
+  .labelShort {
+    display: inline;
   }
 }
 
@@ -184,7 +201,7 @@
     left: 50%;
     right: auto;
     bottom: var(--space-4);
-    width: 620px;
+    width: 680px;
     transform: translateX(-50%);
     border-radius: 28px;
   }

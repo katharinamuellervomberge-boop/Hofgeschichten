@@ -1,6 +1,7 @@
 /**
  * Datenschutzerklärung (Text der Inhaberin vom 22.10.2026).
  * Ergänzt am 22.10.: Hosting-Anbieter (Vercel), Abschnitte 8a (Shopify), 8b (Upstash, Resend), 10a (Kündigung).
+ * Ergänzt am 06.11.: Abschnitt 7a (Reitertagebuch, nur lokale Speicherung) – Entwurf, juristisch prüfen.
  * Format: "## " = Überschrift, "- " = Aufzählung, **fett**. Leerzeile = neuer Absatz.
  */
 export const privacyAsOf = "Stand: 26. Oktober 2026";
@@ -143,6 +144,18 @@ Bei der Löschung der lokalen Browser- beziehungsweise App-Daten können gespeic
 Soweit die Speicherung für eine ausdrücklich gewünschte Funktion unbedingt erforderlich ist, erfolgt der Zugriff auf den Gerätespeicher nach Maßgabe von § 25 Abs. 2 TDDDG.
 
 Eine darüber hinausgehende Speicherung oder Auswertung erfolgt nur auf einer entsprechenden gesetzlichen Grundlage.
+
+## 7a. Mein Reitertagebuch
+
+Mitglieder können im Bereich „Mein Reitertagebuch“ Pferde, Reitstunden, Ziele, Notizen und auf Wunsch Fotos festhalten.
+
+Diese Angaben werden ausschließlich lokal im Speicher des verwendeten Browsers beziehungsweise Endgeräts (IndexedDB) gespeichert. Sie werden nicht an unsere Server oder an Dritte übertragen; wir haben keinen Zugriff darauf.
+
+Alle Angaben sind freiwillig. Fotos werden vor dem Speichern auf dem Gerät verkleinert; dabei entfallen eingebettete Zusatzdaten wie Standortangaben.
+
+Auf Wunsch kann eine Sicherungsdatei heruntergeladen und auf einem anderen Gerät wiederhergestellt werden. Diese Datei verbleibt bei den Nutzenden.
+
+Die Daten können jederzeit durch Löschen der Einträge oder der Browser- beziehungsweise App-Daten entfernt werden. Der Zugriff auf den Gerätespeicher erfolgt nach Maßgabe von § 25 Abs. 2 TDDDG.
 
 ## 8. Zahlungsabwicklung
 

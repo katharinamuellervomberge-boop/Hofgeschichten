@@ -24,7 +24,8 @@ export type IconName =
   | "academy"
   | "barn"
   | "gift"
-  | "letter";
+  | "letter"
+  | "diary";
 
 const paths: Record<IconName, ReactNode> = {
   home: (
@@ -137,6 +138,14 @@ const paths: Record<IconName, ReactNode> = {
     </>
   ),
   /* Hofpost: Briefumschlag */
+  /* Reitertagebuch: aufgeschlagenes Buch mit Lesezeichen */
+  diary: (
+    <>
+      <path d="M12 6.5C9.8 5 7 4.6 3.5 5v13c3.5-.4 6.3 0 8.5 1.5 2.2-1.5 5-1.9 8.5-1.5V5c-3.5-.4-6.3 0-8.5 1.5Z" />
+      <path d="M12 6.5v13" />
+      <path d="M15.5 5.2v4.6l1.5-1 1.5 1V5.1" />
+    </>
+  ),
   letter: (
     <>
       <rect x="3" y="6" width="18" height="13" rx="2" />
