@@ -1,0 +1,533 @@
+/* ==========================================================
+   Rider Lab (seit 06.11.2026) – Teil der Reitakademie.
+   Gleiche Markenfarben und Formen wie academy.module.css,
+   nur die Bausteine für Animation, Trainer und Übungsseite.
+   ========================================================== */
+
+/* ---------- Animation ---------- */
+
+.anim {
+  margin: 0;
+  display: grid;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  outline: 3px solid transparent;
+  transition: outline-color 0.2s ease;
+}
+
+.animBad {
+  outline-color: rgba(164, 87, 58, 0.55);
+}
+
+.animSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 360 / 260;
+}
+
+.animBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--ivory-deep);
+}
+
+.animPhase {
+  flex: 1 1 14rem;
+  font-weight: 700;
+  color: var(--forest-deep);
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+}
+
+.animBad .animPhase {
+  color: var(--rust);
+}
+
+.animControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--ivory-deep);
+}
+
+.seg button {
+  min-height: 40px;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.seg button[aria-pressed="true"] {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.animBad .seg button[aria-pressed="true"] {
+  background: var(--rust);
+}
+
+.iconBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ivory-deep);
+  color: var(--forest-deep);
+  cursor: pointer;
+}
+
+.iconBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.animBadText {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Bereich ---------- */
+
+.areaHead {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .areaHead {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+}
+
+.areaIntro {
+  margin-top: var(--space-2);
+  max-width: 52ch;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.areaArt {
+  border-radius: var(--radius-md);
+  background: rgba(251, 248, 241, 0.6);
+  aspect-ratio: 280 / 230;
+  overflow: hidden;
+}
+
+/* ---------- Übungsseite ---------- */
+
+.exercise {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.exHead {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.exGoal {
+  max-width: 60ch;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.exDose {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.exGrid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 900px) {
+  .exGrid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .exStage {
+    position: sticky;
+    top: var(--space-4);
+  }
+}
+
+.exStage {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.viewNote {
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.exText {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.block {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.blockTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--forest-deep);
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  line-height: 1.45;
+}
+
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.easier,
+.caution {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.easier {
+  background: var(--sage);
+}
+
+.caution {
+  background: #f3e2d8;
+}
+
+.aha {
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(201, 154, 78, 0.22), transparent 60%),
+    var(--paper);
+}
+
+.aha p,
+.transfer p {
+  line-height: 1.55;
+}
+
+.transfer {
+  background: var(--sage);
+  box-shadow: none;
+}
+
+.safety {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--ivory-deep);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.safety svg {
+  width: 20px;
+  height: 20px;
+  color: var(--honey);
+}
+
+/* ---------- Trainer ---------- */
+
+.trainer {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(160deg, #3b5040 0%, var(--forest-deep) 100%);
+  color: var(--paper);
+  box-shadow: var(--shadow-lift);
+}
+
+.trainer .blockTitle {
+  color: var(--paper);
+}
+
+.trainerHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.trainerRound {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--honey);
+}
+
+.trainerBody {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (max-width: 420px) {
+  .trainerBody {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+.dial {
+  position: relative;
+  width: 132px;
+  height: 132px;
+}
+
+.dial svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dial circle:first-child {
+  stroke: rgba(251, 248, 241, 0.16);
+}
+
+.dialValue {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dialValue small {
+  margin-top: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e3ddcf;
+}
+
+.trainerSide {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.trainerMsg {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  color: #e3ddcf;
+  line-height: 1.4;
+}
+
+.trainerMsg svg {
+  width: 20px;
+  height: 20px;
+  color: var(--honey);
+  flex: none;
+}
+
+.trainerBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.adjust {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(251, 248, 241, 0.14);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btnMain {
+  background: var(--honey);
+  color: var(--forest-deep);
+}
+
+.btnGhost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(251, 248, 241, 0.5);
+}
+
+.doneBox {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--sage);
+}
+
+.doneTitle {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+
+.doneTitle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.doneRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------- Karte in der Reitakademie ---------- */
+
+.teaser {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(110% 120% at 0% 100%, rgba(159, 174, 138, 0.35), transparent 60%),
+    var(--paper);
+  box-shadow: var(--shadow-card);
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (min-width: 720px) {
+  .teaser {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+.teaserArt {
+  border-radius: var(--radius-md);
+  background: var(--sage);
+  aspect-ratio: 280 / 230;
+  overflow: hidden;
+}
+
+.teaserBody {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.teaserTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: 1.05;
+  color: var(--forest-deep);
+}
+
+.teaserText {
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .anim {
+    transition: none;
+  }
+}

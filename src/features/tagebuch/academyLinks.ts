@@ -1,4 +1,5 @@
 import { worlds } from "@/content/akademie";
+import { allRiderLabExercises, exerciseHref } from "@/content/riderlab/katalog";
 import type { DiaryEntry } from "./types";
 
 /**
@@ -53,13 +54,41 @@ const BY_DISCIPLINE: Record<string, string[]> = {
   Bodenarbeit: ["ra-w10-l3", "ra-w9-l1"],
 };
 
+/**
+ * Rider Lab (Übungen für zu Hause): Stichwort → Übungs-IDs. Passt eine Regel, wird zusätzlich
+ * zu den Lektionen höchstens eine Rider-Lab-Übung vorgeschlagen.
+ */
+const RIDER_LAB_RULES: Rule[] = [
+  { words: /knie.{0,20}(hoch|rutsch)|bein.{0,20}lang|langes bein|klemm/i, lessons: ["rl-01", "rl-04"] },
+  { words: /absatz|absätze|ferse/i, lessons: ["rl-03"] },
+  { words: /leichttrab/i, lessons: ["rl-05", "rl-07"] },
+  { words: /galopp|hüpf/i, lessons: ["rl-09", "rl-11"] },
+  { words: /\bhände\b|\bhand\b|ellbogen|schulter/i, lessons: ["rl-14", "rl-13"] },
+  { words: /leichte[nr]? sitz|springsitz|balance|gleichgewicht/i, lessons: ["rl-17", "rl-19"] },
+];
+
 export type LessonLink = { id: string; title: string; world: string; href: string };
 
 const index = new Map<string, LessonLink>();
 for (const w of worlds)
   for (const l of w.lessons) index.set(l.id, { id: l.id, title: l.title, world: w.title, href: `/akademie/${w.slug}/${l.slug}` });
 
+const rlIndex = new Map<string, LessonLink>();
+for (const { area, ex } of allRiderLabExercises()) rlIndex.set(ex.id, { id: ex.id, title: ex.title, world: `Rider Lab · ${area.title}`, href: exerciseHref(area, ex) });
+
 export function relatedLessons(e: DiaryEntry, max = 3): LessonLink[] {
+  const lessons = relatedAcademyLessons(e, max);
+  const text = [e.wentWell, e.learned, e.practice, e.nextTime, e.moment].filter(Boolean).join(" ");
+  if (!text) return lessons;
+  for (const r of RIDER_LAB_RULES) {
+    if (!r.words.test(text)) continue;
+    const hit = r.lessons.map((id) => rlIndex.get(id)).find(Boolean);
+    if (hit) return [...lessons, hit];
+  }
+  return lessons;
+}
+
+function relatedAcademyLessons(e: DiaryEntry, max: number): LessonLink[] {
   const text = [e.wentWell, e.learned, e.practice, e.nextTime, e.moment].filter(Boolean).join(" ");
   const ids: string[] = [];
   if (text) for (const r of RULES) if (r.words.test(text)) ids.push(...r.lessons);
@@ -76,6 +105,10 @@ export function relatedLessons(e: DiaryEntry, max = 3): LessonLink[] {
   }
   return out;
 }
+
+/** Für die Prüfung: alle in den Rider-Lab-Regeln genannten Übungs-IDs */
+export const referencedRiderLabIds = [...new Set(RIDER_LAB_RULES.flatMap((r) => r.lessons))];
+export const riderLabExerciseExists = (id: string) => rlIndex.has(id);
 
 /** Für die Prüfung: alle in den Regeln genannten IDs */
 export const referencedLessonIds = [...new Set([...RULES.flatMap((r) => r.lessons), ...Object.values(BY_DISCIPLINE).flat()])];

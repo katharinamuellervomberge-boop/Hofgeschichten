@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check:akademie": "tsx --conditions=react-server scripts/check-akademie.ts",
     "akademie:katalog": "tsx --conditions=react-server scripts/akademie-katalog.ts",
+    "riderlab:katalog": "tsx --conditions=react-server scripts/riderlab-katalog.ts",
+    "check:riderlab": "tsx --conditions=react-server scripts/check-riderlab.ts",
     "codes": "node scripts/generate-codes.mjs",
     "voice:export": "tsx --conditions=react-server scripts/voice-export.ts",
     "voice:generate": "node scripts/voice-generate.mjs",

@@ -21,6 +21,7 @@ import { VisualView } from "@/engine/VisualView";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import type { AcademyPath, Progress } from "@/lib/progress/types";
 import { LessonVideo } from "./LessonVideo";
+import { RiderLabTeaser } from "@/features/riderlab/RiderLabTeaser";
 import { lessonDone, lessonHref } from "./progress";
 import styles from "./academy.module.css";
 
@@ -142,6 +143,9 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
             ))}
           </ul>
         </section>
+
+        {/* Rider Lab: Übungen für zu Hause (bisher nur deutsch) */}
+        {!en && <RiderLabTeaser unlocked={unlocked} />}
 
         {!unlocked && <AcademyBuyBox path={path} />}
 
