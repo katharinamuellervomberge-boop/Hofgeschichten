@@ -21,7 +21,7 @@ type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; 
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
   { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie" },
-  /* Mein Reitertagebuch – nur für Mitglieder, sonst Vorschau */
+  /* Mein Reitertagebuch – mit Mitgliedschaft oder Reitakademie, sonst Vorschau */
   { href: "/tagebuch", label: "Tagebuch", icon: "diary", title: "Mein Reitertagebuch" },
   { href: "/spielen", label: "Spielen", icon: "puzzle" },
   /* Geschichten, Pferde, Figuren, Detektivfälle, Wochenpakete und Mitgliedschaft */

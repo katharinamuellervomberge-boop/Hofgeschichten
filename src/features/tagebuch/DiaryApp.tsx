@@ -36,7 +36,7 @@ function useToast() {
 }
 
 /**
- * Mein Reitertagebuch – nur für aktive Mitglieder (Prüfung auf dem Server in
+ * Mein Reitertagebuch – für Mitglieder und Käufer der Reitakademie (Prüfung auf dem Server in
  * app/tagebuch/[[...view]]/page.tsx). Unterseiten über die Adresse:
  *   /tagebuch · /pferde · /pferde/neu · /pferde/<id> · /stunde · /stunde/<id>
  *   /eintraege · /eintrag/<id> · /ziele · /momente · /entwicklung · /profil

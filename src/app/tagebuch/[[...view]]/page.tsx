@@ -9,12 +9,13 @@ export const dynamic = "force-dynamic";
 type Params = { view?: string[] };
 
 /**
- * Mein Reitertagebuch – nur mit aktiver Hof-Mitgliedschaft (bestehende Prüfung
- * über das signierte Cookie). Alle anderen sehen die Vorschau.
+ * Mein Reitertagebuch – mit aktiver Hof-Mitgliedschaft ODER gekaufter Reitakademie
+ * (bestehende Prüfungen über das signierte Cookie). Alle anderen sehen die Vorschau.
  * Die Tagebuchdaten selbst liegen nur auf dem Gerät (features/tagebuch/db.ts).
  */
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { view = [] } = await params;
-  if (!(await isMember())) return <DiaryPreview hasAcademy={await hasAcademy()} />;
+  const allowed = (await isMember()) || (await hasAcademy());
+  if (!allowed) return <DiaryPreview />;
   return <DiaryApp view={view.slice(0, 2)} />;
 }

@@ -4,15 +4,15 @@ import { MoodIcon } from "./ui";
 import s from "./tagebuch.module.css";
 
 /**
- * Vorschau für Nicht-Mitglieder (auch für Käufer der Reitakademie ohne Mitgliedschaft).
+ * Vorschau für alle ohne Hof-Mitgliedschaft und ohne Reitakademie.
  * Zeigt nur Beispielinhalte, die klar als Beispiel gekennzeichnet sind – keine echten Daten.
  */
-export function DiaryPreview({ hasAcademy }: { hasAcademy: boolean }) {
+export function DiaryPreview() {
   return (
     <div className={`page ${s.diary}`}>
       <div className={s.stack}>
         <header className={s.hero}>
-          <p className="eyebrow">Mein Reitertagebuch · für Mitglieder</p>
+          <p className="eyebrow">Mein Reitertagebuch</p>
           <h1 className={s.heroTitle}>Dein Reitertagebuch</h1>
           <p className={s.heroSub}>Deine Pferde. Deine Fortschritte. Deine schönsten Momente.</p>
         </header>
@@ -52,18 +52,19 @@ export function DiaryPreview({ hasAcademy }: { hasAcademy: boolean }) {
         </ul>
 
         <section className={`${s.card} ${s.upgrade}`}>
-          <h2 className={s.cardTitle}>Teil der Hof-Mitgliedschaft</h2>
+          <h2 className={s.cardTitle}>In der Reitakademie und der Hof-Mitgliedschaft enthalten</h2>
           <p className={s.small}>
-            {hasAcademy
-              ? "Du hast die Reitakademie freigeschaltet – schön! Das Reitertagebuch gehört zur Hof-Mitgliedschaft und ist dort zusätzlich enthalten."
-              : "Das Reitertagebuch ist für alle Mitglieder enthalten. Die Einträge bleiben privat auf eurem Gerät."}
+            Mit der Reitakademie oder der Hof-Mitgliedschaft ist das Reitertagebuch freigeschaltet. Die Einträge bleiben privat auf eurem Gerät.
           </p>
           <div className={s.actions}>
-            <Link href="/mitgliedschaft" className={s.btnPrimary}>
+            <Link href="/akademie" className={s.btnPrimary}>
+              Zur Reitakademie
+            </Link>
+            <Link href="/mitgliedschaft" className={s.btnGhost}>
               Mitgliedschaft ansehen
             </Link>
-            <Link href="/eltern" className={s.btnGhost}>
-              Schon Mitglied? Freischalten
+            <Link href="/eltern" className={s.btnText}>
+              Schon gekauft? Freischalten
             </Link>
           </div>
         </section>
