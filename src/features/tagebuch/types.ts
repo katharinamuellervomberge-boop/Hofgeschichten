@@ -21,12 +21,13 @@ export const DISCIPLINES = [
 ] as const;
 export type Discipline = (typeof DISCIPLINES)[number];
 
+/* short: mit weichen Trennstellen für die schmalen Stimmungs-Knöpfe */
 export const MOODS = [
-  { id: "super", label: "Richtig gut" },
-  { id: "gut", label: "Gut" },
-  { id: "gemischt", label: "Durchwachsen" },
-  { id: "schwierig", label: "Schwierig" },
-  { id: "lehrreich", label: "Herausfordernd, aber lehrreich" },
+  { id: "super", label: "Richtig gut", short: "Richtig gut" },
+  { id: "gut", label: "Gut", short: "Gut" },
+  { id: "gemischt", label: "Durchwachsen", short: "Durch\u00adwachsen" },
+  { id: "schwierig", label: "Schwierig", short: "Schwierig" },
+  { id: "lehrreich", label: "Herausfordernd, aber lehrreich", short: "Heraus\u00adfordernd, aber lehr\u00adreich" },
 ] as const;
 export type Mood = (typeof MOODS)[number]["id"];
 

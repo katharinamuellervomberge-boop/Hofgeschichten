@@ -598,11 +598,11 @@
   background: var(--ivory);
   color: var(--ink-soft);
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
-  overflow-wrap: anywhere;
+  hyphens: manual;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }

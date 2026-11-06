@@ -124,10 +124,11 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
                 type="button"
                 className={`${s.mood} ${s[`mood_${m.id}`]} ${mood === m.id ? s.moodOn : ""}`}
                 aria-pressed={mood === m.id}
+                aria-label={m.label}
                 onClick={() => setMood(mood === m.id ? "" : m.id)}
               >
                 <MoodIcon mood={m.id} className={s.moodIcon} />
-                <span>{m.label}</span>
+                <span>{m.short}</span>
               </button>
             ))}
           </div>
