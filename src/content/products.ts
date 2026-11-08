@@ -2,16 +2,13 @@
  * Einzeln kaufbare Pakete (außer Abenteuern, die stehen in adventures/index.ts).
  *
  * Die Reitakademie (früher „Große Reitakademie“) ist seit 28.10.2026 ein eigenes
- * Produkt: 14,90 € einmalig, dauerhafter Zugriff, kein Abo. Sie schaltet alle
+ * Produkt: einmalig (seit 08.11.2026 29,90 €), dauerhafter Zugriff, kein Abo. Sie schaltet alle
  * Module frei; je Modul ist eine Probelektion kostenlos (module.ts).
  * Die Mitgliedschaft enthält die Akademie NICHT mehr (Schalter `includedInMembership`).
  *
  * Solange `checkoutUrl` null ist, zeigt die App KEINEN Kauf-Knopf für den
  * Einzelkauf (keine Platzhalter-Buttons) – nur den Weg über die Mitgliedschaft.
  */
-/** 1.11.2026, 00:00 Uhr in Deutschland (MEZ) */
-const PRICE_CHANGE_AT = Date.parse("2026-10-31T23:00:00Z");
-
 export const grosseAkademie = {
   /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
   slug: "grosse-akademie",
@@ -22,12 +19,10 @@ export const grosseAkademie = {
    */
   includedInMembership: false,
   /**
-   * Preis für den Einzelkauf. Einführungspreis 14,90 € bis 31.10.2026,
-   * ab 1.11.2026 (00:00 Uhr deutscher Zeit) 19,90 € – Stand Produktseite im Shop.
+   * Preis für den Einzelkauf. Verlauf: 14,90 € (bis 31.10.2026), 19,90 € (ab 01.11.2026),
+   * 29,90 € (ab 07.11.2026, in der App angepasst am 08.11.2026) – Stand Produktseite im Shop.
    */
-  get price(): string | null {
-    return Date.now() >= PRICE_CHANGE_AT ? "19,90 €" : "14,90 €";
-  },
+  price: "29,90 €" as string | null,
   /** Shopify-Produkt (Handle). Eine bezahlte Bestellung damit schaltet die Große Akademie frei. */
   shopifyProductHandle: "die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Shopify-Produkt gid://shopify/Product/10990621163853 (angelegt 25.10.2026, aktiv seit 26.10.2026) */
@@ -50,7 +45,7 @@ export const grosseAkademie = {
 const SHOP_BASE = "https://www.horseandharmonie-shop.de";
 
 export function academyPriceLabel(locale: "de" | "en" = "de"): string {
-  const de = grosseAkademie.price ?? "19,90 €";
+  const de = grosseAkademie.price ?? "29,90 €";
   return locale === "en" ? `€${de.replace(/\s*€/, "").replace(",", ".")}` : de;
 }
 

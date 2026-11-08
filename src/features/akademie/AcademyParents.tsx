@@ -51,7 +51,7 @@ export function AcademyParents() {
         <h2 id="p-akademie">{ACADEMY_TITLE}</h2>
         <p>
           {academyModules.length} Module mit {allLessons().length} Lektionen – Grundlagen, Bahnfiguren, Dressur und Springen –{" "}
-          {grosseAkademie.price ?? "14,90 €"} einmalig (kein Abo). Die erste Lektion jedes
+          {grosseAkademie.price ?? "29,90 €"} einmalig (kein Abo). Die erste Lektion jedes
           Moduls ist kostenlos. Jede Lektion hat einen Einstieg, eine Erklärung mit Bild, eine Übung, mindestens drei
           Quizfragen mit Rückmeldung und einen Merksatz. Lernwege: Kids (6–11) mit einfacher Sprache, Teen (12–17) und
           Adult (ab 18) mit ausführlicheren Fachtexten.

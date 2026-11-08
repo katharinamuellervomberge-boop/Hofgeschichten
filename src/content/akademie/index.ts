@@ -11,7 +11,7 @@ import type { AcademyGameInfo, AcademyTier, AcademyWorldInfo, LessonInfo } from 
  *
  *  Seit 28.10.2026 ist die Akademie in Module gegliedert (module.ts), seit 29.10.2026 mit Dressur und Springen.
  *  Je Modul ist die erste Lektion kostenlos, alles andere gehört zur
- *  Reitakademie (14,90 € einmalig, products.ts).
+ *  Reitakademie (29,90 € einmalig, products.ts).
  *
  * Hier stehen nur Titel, Bilder, Abzeichen und Lektions-IDs. ALLE Lektionsinhalte
  * liegen serverseitig (welten/*.server.ts, spiele-gross.server.ts) und werden

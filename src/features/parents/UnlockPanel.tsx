@@ -233,7 +233,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
   );
 }
 
-/** Die Reitakademie: eigenes Produkt, 14,90 € einmalig (seit 28.10.2026 nicht mehr in der Mitgliedschaft) */
+/** Die Reitakademie: eigenes Produkt, 29,90 € einmalig (seit 28.10.2026 nicht mehr in der Mitgliedschaft) */
 function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean; owned: boolean }) {
   return (
     <div className={styles.product} id="akademie">

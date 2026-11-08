@@ -160,7 +160,7 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
             <li className={`${styles.product} ${styles.productMain}`}>
               <span className={styles.productKicker}>Einmalzahlung · kein Abo</span>
               <strong className={styles.productName}>Reitakademie</strong>
-              <span className={styles.productPrice}>{grosseAkademie.price ?? "14,90 €"}</span>
+              <span className={styles.productPrice}>{grosseAkademie.price ?? "29,90 €"}</span>
               <span className={styles.productText}>Alle Module inkl. Dressur und Springen, dauerhafter Zugriff.</span>
               <Link href="/akademie" className={styles.productLink}>
                 {academy ? "Zur Akademie" : "Ansehen"}

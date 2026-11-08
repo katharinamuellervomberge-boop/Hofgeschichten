@@ -15,7 +15,7 @@ import type { AcademyGameInfo, AcademyWorldInfo, LessonInfo } from "./types";
  *
  *  - Jede Lektion gehört zu genau einem Modul (Prüfung: npm run check:akademie).
  *  - `trial` = die kostenlose Probelektion des Moduls. Alles andere ist in der
- *    Reitakademie (14,90 € einmalig) enthalten.
+ *    Reitakademie (29,90 € einmalig) enthalten.
  *  - Themen ohne Lektion erscheinen als „In Vorbereitung“. Neue Lektion fertig?
  *    Ihre ID beim passenden Thema eintragen.
  */

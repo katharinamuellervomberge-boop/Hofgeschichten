@@ -89,7 +89,7 @@ export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
               <Icon name="play" />
             </span>
             <span className={styles.academyNote}>
-              Probelektionen kostenlos · ganze Akademie {grosseAkademie.price ?? "14,90 €"} einmalig, kein Abo
+              Probelektionen kostenlos · ganze Akademie {grosseAkademie.price ?? "29,90 €"} einmalig, kein Abo
             </span>
           </div>
           <div className={styles.academyArt} aria-hidden>

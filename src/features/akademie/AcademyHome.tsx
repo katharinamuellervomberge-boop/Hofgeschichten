@@ -235,7 +235,7 @@ function ModuleCard({ module: m, unlocked, path }: { module: AcademyModule; unlo
 /* ---------- Kaufbox ---------- */
 
 /**
- * „Schalte die gesamte Reitakademie für einmalig 14,90 € frei.“
+ * „Schalte die gesamte Reitakademie für einmalig 29,90 € frei.“
  * Kids-Lernweg: kein direkter Kauf-Link für Kinder, sondern der Weg über die Eltern.
  */
 export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | undefined; compact?: boolean }) {
