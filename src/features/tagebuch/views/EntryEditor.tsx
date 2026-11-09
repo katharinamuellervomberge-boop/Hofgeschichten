@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "@/i18n/Link";
 import type { Notify } from "../DiaryApp";
-import { saveEntry } from "../store";
+import { linkPlanEntry, saveEntry } from "../store";
 import { today } from "../sanitize";
 import { DISCIPLINES, MOODS, type DiaryData, type Discipline, type Mood } from "../types";
 import { Chips, Field, MoodIcon, PhotoField, SubHeader, TextArea } from "../ui";
@@ -22,11 +22,14 @@ type QKey = (typeof QUESTIONS)[number]["key"];
 export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify: Notify; entryId?: string }) {
   const router = useRouter();
   const old = entryId ? data.entries.find((e) => e.id === entryId) : undefined;
+  // Aus dem Trainingsplan: /tagebuch/stunde?plan=<id> füllt Datum, Pferd, Dauer und Disziplin vor
+  const planId = useSearchParams().get("plan");
+  const fromPlan = !old && planId ? data.plan.find((p) => p.id === planId && p.kind === "reiten") : undefined;
   const onlyHorse = data.horses.length === 1 ? data.horses[0].id : "";
-  const [date, setDate] = useState(old?.date ?? today());
-  const [horseId, setHorseId] = useState(old ? (old.horseId ?? "") : onlyHorse);
-  const [minutes, setMinutes] = useState(old?.minutes ? String(old.minutes) : "");
-  const [discipline, setDiscipline] = useState<Discipline | "">(old?.discipline ?? "");
+  const [date, setDate] = useState(old?.date ?? (fromPlan && fromPlan.date <= today() ? fromPlan.date : today()));
+  const [horseId, setHorseId] = useState(old ? (old.horseId ?? "") : (fromPlan?.horseId ?? onlyHorse));
+  const [minutes, setMinutes] = useState(old?.minutes ? String(old.minutes) : fromPlan?.minutes ? String(fromPlan.minutes) : "");
+  const [discipline, setDiscipline] = useState<Discipline | "">(old?.discipline ?? fromPlan?.discipline ?? "");
   const [mood, setMood] = useState<Mood | "">(old?.mood ?? "");
   const [texts, setTexts] = useState<Record<QKey, string>>({
     wentWell: old?.wentWell ?? "",
@@ -65,7 +68,7 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
     <div className={s.stack}>
       <SubHeader
         title={old ? "Reitstunde bearbeiten" : "Reitstunde eintragen"}
-        back={old ? `/tagebuch/eintrag/${old.id}` : "/tagebuch"}
+        back={old ? `/tagebuch/eintrag/${old.id}` : fromPlan ? "/tagebuch/plan" : "/tagebuch"}
         intro={old ? undefined : "Nur das Datum ist nötig. Alles andere darfst du ausfüllen, wenn du magst."}
       />
       <form
@@ -87,7 +90,14 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
               favorite: favorite || undefined,
               photo,
             });
-            notify(old ? "Eintrag gespeichert" : "Reitstunde eingetragen");
+            if (fromPlan) {
+              try {
+                await linkPlanEntry(fromPlan.id, id);
+              } catch {
+                /* Eintrag ist gespeichert – Abhaken im Plan ist nicht entscheidend */
+              }
+            }
+            notify(old ? "Eintrag gespeichert" : fromPlan ? "Reitstunde eingetragen und im Plan abgehakt" : "Reitstunde eingetragen");
             router.push(`/tagebuch/eintrag/${id}`);
           } catch {
             notify("Speichern hat nicht geklappt. Bitte nochmal versuchen.");

@@ -4,7 +4,7 @@ import { MoodIcon } from "./ui";
 import s from "./tagebuch.module.css";
 
 /**
- * Vorschau für alle ohne Hof-Mitgliedschaft und ohne Reitakademie.
+ * Vorschau für alle ohne Reitakademie (bestehende Mitgliedschaften schalten weiterhin frei).
  * Zeigt nur Beispielinhalte, die klar als Beispiel gekennzeichnet sind – keine echten Daten.
  */
 export function DiaryPreview() {
@@ -47,21 +47,21 @@ export function DiaryPreview() {
             <Icon name="check" /> Eigene Ziele setzen und abhaken – ohne Ranglisten, ohne Druck
           </li>
           <li>
+            <Icon name="plan" /> Trainingsplan für die Woche: Reitstunden, Rider-Lab-Übungen und Lektionen planen und abhaken
+          </li>
+          <li>
             <Icon name="star" /> Lieblingsmomente sammeln und jeden Monat zurückblicken
           </li>
         </ul>
 
         <section className={`${s.card} ${s.upgrade}`}>
-          <h2 className={s.cardTitle}>In der Reitakademie und der Hof-Mitgliedschaft enthalten</h2>
+          <h2 className={s.cardTitle}>In der Reitakademie enthalten</h2>
           <p className={s.small}>
-            Mit der Reitakademie oder der Hof-Mitgliedschaft ist das Reitertagebuch freigeschaltet. Die Einträge bleiben privat auf eurem Gerät.
+            Mit der Reitakademie ist das Reitertagebuch samt Trainingsplan freigeschaltet. Die Einträge bleiben privat auf eurem Gerät.
           </p>
           <div className={s.actions}>
             <Link href="/akademie" className={s.btnPrimary}>
               Zur Reitakademie
-            </Link>
-            <Link href="/mitgliedschaft" className={s.btnGhost}>
-              Mitgliedschaft ansehen
             </Link>
             <Link href="/eltern" className={s.btnText}>
               Schon gekauft? Freischalten

@@ -1442,3 +1442,270 @@
     padding: var(--space-4);
   }
 }
+
+/* ---------- Trainingsplan (seit 09.11.2026) ---------- */
+.weekCard {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--forest);
+  color: #fbf8f1;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  --paper: var(--forest);
+}
+.weekCard .mainTitle {
+  color: #fbf8f1;
+}
+.weekCard .mainText {
+  color: rgba(251, 248, 241, 0.82);
+}
+.weekCard .mainIcon {
+  background: rgba(251, 248, 241, 0.14);
+  color: var(--sand);
+}
+.weekCardHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.weekCardHead > span:last-child {
+  display: grid;
+  gap: 0.1rem;
+}
+.weekCard .planBar {
+  background: rgba(251, 248, 241, 0.2);
+}
+.weekCard .planBar > span {
+  background: var(--sand);
+}
+.weekNext {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+}
+.weekNext > span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.weekNext svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--sand);
+}
+.weekNext strong {
+  flex: none;
+  color: var(--sand);
+}
+
+.weekNav {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+.weekArrow {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--ivory-deep);
+  color: var(--forest);
+}
+.weekArrow svg {
+  width: 22px;
+  height: 22px;
+}
+.weekTitle {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  line-height: 1.25;
+}
+.weekTitle strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+.weekTitle span {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.center {
+  justify-self: center;
+  margin-top: calc(var(--space-3) * -1);
+}
+
+.planProgress {
+  display: grid;
+  gap: var(--space-2);
+}
+.planProgressText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.planProgressText strong {
+  color: var(--forest-deep);
+}
+.planProgressText span {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.planBar {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--ivory-deep);
+  overflow: hidden;
+}
+.planBar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--forest);
+  transition: width 0.35s ease;
+}
+
+.suggBtn {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.days {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.day {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px rgba(196, 172, 132, 0.35);
+}
+.dayToday {
+  box-shadow: inset 0 0 0 2px var(--forest);
+}
+.dayHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 40px;
+}
+.dayName {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+.dayNum {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.planList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.planItem {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: start;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-top: 1px solid rgba(196, 172, 132, 0.3);
+}
+.planCheck {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--sand-deep);
+  border-radius: 16px;
+  background: var(--ivory);
+  color: var(--forest-soft);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.planCheck:active {
+  transform: scale(0.94);
+}
+.planCheck svg {
+  width: 24px;
+  height: 24px;
+}
+.planDone .planCheck {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--paper);
+}
+.planBody {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.planTitle {
+  font-weight: 700;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.planDone .planTitle {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: var(--sand-deep);
+}
+.planNote {
+  font-size: 0.88rem;
+  color: var(--ink);
+  font-style: italic;
+}
+.planActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
+.planActions .btnText {
+  min-height: 36px;
+  padding: 0;
+}
+.weekCard .mainIcon {
+  flex: none;
+  margin-bottom: 0;
+}
+.weekCardHead .mainTitle,
+.weekCardHead .mainText {
+  display: block;
+}

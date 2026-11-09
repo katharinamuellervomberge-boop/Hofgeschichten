@@ -8,7 +8,6 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { allLessons } from "@/content/akademie";
 import { ACADEMY_PATHS, academyModules, moduleHref, moduleLessons } from "@/content/akademie/module";
 import { publishedAdventures } from "@/content/adventures";
-import { hofpost, membership as plan } from "@/content/membership";
 import { grosseAkademie } from "@/content/products";
 import { allStamps } from "@/content/stamps";
 import { lessonDone } from "@/features/akademie/progress";
@@ -130,20 +129,24 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
                 {academy ? "Freigeschaltet" : "Probelektionen offen"}
               </span>
             </li>
+            {membership.active && (
             <li>
-              <Icon name={membership.active ? "check" : "lock"} />
+              <Icon name="check" />
               <span>
                 <strong>Mitgliedschaft</strong>
-                {membership.active ? `Aktiv bis ${new Date(membership.until).toLocaleDateString("de-DE")}` : "Nicht aktiv"}
+                {`Aktiv bis ${new Date(membership.until).toLocaleDateString("de-DE")}`}
               </span>
             </li>
+            )}
+            {ownedCases.length > 0 && (
             <li>
-              <Icon name={ownedCases.length ? "check" : "lock"} />
+              <Icon name="check" />
               <span>
                 <strong>Detektivfälle</strong>
                 {ownedCases.length} von {premiumCases.length} freigeschaltet
               </span>
             </li>
+            )}
           </ul>
           <Link href="/eltern#abenteuer" className={styles.parentLink}>
             <Icon name="parents" />
@@ -151,41 +154,19 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
           </Link>
         </section>
 
-        {/* Angebote – drei getrennte Produkte */}
+        {/* Angebot – seit 09.11.2026 nur noch die Reitakademie (inkl. Rider Lab und Tagebuch) */}
         <section aria-labelledby="pr-shop">
           <h2 id="pr-shop" className={styles.h2}>
-            Angebote
+            Angebot
           </h2>
           <ul className={styles.products}>
             <li className={`${styles.product} ${styles.productMain}`}>
               <span className={styles.productKicker}>Einmalzahlung · kein Abo</span>
               <strong className={styles.productName}>Reitakademie</strong>
               <span className={styles.productPrice}>{grosseAkademie.price ?? "29,90 €"}</span>
-              <span className={styles.productText}>Alle Module inkl. Dressur und Springen, dauerhafter Zugriff.</span>
+              <span className={styles.productText}>Alle Module inkl. Dressur und Springen, Rider Lab und Reitertagebuch mit Trainingsplan – dauerhafter Zugriff.</span>
               <Link href="/akademie" className={styles.productLink}>
                 {academy ? "Zur Akademie" : "Ansehen"}
-              </Link>
-            </li>
-            <li className={styles.product}>
-              <span className={styles.productKicker}>Founder-Angebot 2026</span>
-              <strong className={styles.productName}>Founder-Mitgliedschaft</strong>
-              <span className={styles.productPrice}>
-                {plan.price} <small>erstes Jahr</small>
-              </span>
-              <span className={styles.productText}>Die digitale Hofwelt mit wöchentlich neuen Inhalten.</span>
-              <Link href="/mitgliedschaft" className={styles.productLink}>
-                Ansehen
-              </Link>
-            </li>
-            <li className={styles.product}>
-              <span className={styles.productKicker}>Mit echter Post</span>
-              <strong className={styles.productName}>Hofpost Premium</strong>
-              <span className={styles.productPrice}>
-                {hofpost.price} <small>erstes Jahr</small>
-              </span>
-              <span className={styles.productText}>Jahresmitgliedschaft plus {hofpost.letters} echte Briefe.</span>
-              <Link href="/mitgliedschaft#hofpost" className={styles.productLink}>
-                Ansehen
               </Link>
             </li>
           </ul>

@@ -4,7 +4,7 @@ import { meinTagAmHof } from "@/content/products";
 import { Scene } from "./Scene";
 import styles from "./hoftag.module.css";
 
-/** Kachel für „Mein Tag am Hof“ (Spielen, Start, Hofwelt) */
+/** Kachel für „Mein Tag am Hof“ (Spielen, Start) */
 export function HoftagTile({ kicker = "Neu · Spiel" }: { kicker?: string }) {
   return (
     <Link href="/hoftag" className={styles.tile} aria-labelledby="tile-hoftag">

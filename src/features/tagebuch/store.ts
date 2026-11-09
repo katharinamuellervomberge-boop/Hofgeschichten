@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 import { loadDiary, requestPersistence, saveDiary } from "./db";
-import { cleanEntry, cleanGoal, cleanHorse, cleanProfile, newId } from "./sanitize";
-import { emptyDiary, type DiaryData, type DiaryEntry, type Goal, type GoalStatus, type Horse, type RiderProfile } from "./types";
+import { cleanEntry, cleanGoal, cleanHorse, cleanPlanItem, cleanProfile, newId } from "./sanitize";
+import { emptyDiary, type DiaryData, type DiaryEntry, type Goal, type GoalStatus, type Horse, type PlanItem, type RiderProfile } from "./types";
 
 /**
  * Kleiner Store für das Reitertagebuch (wie src/lib/progress/store.ts, aber mit
@@ -103,13 +103,14 @@ export async function saveHorse(input: Omit<Horse, "id" | "createdAt"> & { id?: 
   return hid;
 }
 
-/** Pferd löschen. Einträge und Ziele bleiben erhalten, verlieren nur die Zuordnung. */
+/** Pferd löschen. Einträge, Ziele und Plan bleiben erhalten, verlieren nur die Zuordnung. */
 export function deleteHorse(hid: string) {
   return commit((d) => ({
     ...d,
     horses: d.horses.filter((h) => h.id !== hid),
     entries: d.entries.map((e) => (e.horseId === hid ? { ...e, horseId: undefined } : e)),
     goals: d.goals.map((g) => (g.horseId === hid ? { ...g, horseId: undefined } : g)),
+    plan: d.plan.map((p) => (p.horseId === hid ? { ...p, horseId: undefined } : p)),
   }));
 }
 
@@ -126,7 +127,11 @@ export async function saveEntry(input: Omit<DiaryEntry, "id" | "createdAt" | "up
 }
 
 export function deleteEntry(eid: string) {
-  return commit((d) => ({ ...d, entries: d.entries.filter((e) => e.id !== eid) }));
+  return commit((d) => ({
+    ...d,
+    entries: d.entries.filter((e) => e.id !== eid),
+    plan: d.plan.map((p) => (p.entryId === eid ? { ...p, entryId: undefined } : p)),
+  }));
 }
 
 export function toggleFavorite(eid: string) {
@@ -159,7 +164,64 @@ export function setGoalStatus(gid: string, status: GoalStatus) {
 }
 
 export function deleteGoal(gid: string) {
-  return commit((d) => ({ ...d, goals: d.goals.filter((g) => g.id !== gid) }));
+  return commit((d) => ({
+    ...d,
+    goals: d.goals.filter((g) => g.id !== gid),
+    plan: d.plan.map((p) => (p.goalId === gid ? { ...p, goalId: undefined } : p)),
+  }));
+}
+
+/* ---------- Trainingsplan ---------- */
+const MAX_PLAN = 2000;
+
+export type PlanInput = Omit<PlanItem, "id" | "createdAt" | "doneAt"> & { id?: string };
+
+function buildPlanItem(d: DiaryData, input: PlanInput, old?: PlanItem): PlanItem {
+  const pid = input.id ?? newId();
+  const doneAt = input.done ? (old?.doneAt ?? nowIso()) : undefined;
+  const item = cleanPlanItem({ ...input, id: pid, doneAt, createdAt: old?.createdAt ?? nowIso() }, horseIds(d), new Set(d.goals.map((g) => g.id)));
+  if (!item) throw new SaveError("invalid");
+  return item;
+}
+
+export async function savePlanItem(input: PlanInput): Promise<string> {
+  let pid = input.id ?? "";
+  await commit((d) => {
+    const old = input.id ? d.plan.find((p) => p.id === input.id) : undefined;
+    const item = buildPlanItem(d, input, old);
+    pid = item.id;
+    if (!old && d.plan.length >= MAX_PLAN) throw new SaveError("full");
+    return { ...d, plan: old ? d.plan.map((p) => (p.id === item.id ? item : p)) : [...d.plan, item] };
+  });
+  return pid;
+}
+
+/** Mehrere Einheiten auf einmal anlegen (Woche übernehmen, Vorschläge) */
+export function addPlanItems(inputs: PlanInput[]) {
+  return commit((d) => {
+    const items = inputs.map((i) => buildPlanItem(d, { ...i, id: undefined, done: undefined, entryId: undefined }));
+    if (d.plan.length + items.length > MAX_PLAN) throw new SaveError("full");
+    return { ...d, plan: [...d.plan, ...items] };
+  });
+}
+
+export function setPlanDone(pid: string, done: boolean) {
+  return commit((d) => ({
+    ...d,
+    plan: d.plan.map((p) => (p.id === pid ? { ...p, done: done || undefined, doneAt: done ? (p.doneAt ?? nowIso()) : undefined } : p)),
+  }));
+}
+
+/** Nach dem Eintragen einer Reitstunde: Einheit abhaken und mit dem Eintrag verbinden */
+export function linkPlanEntry(pid: string, entryId: string) {
+  return commit((d) => ({
+    ...d,
+    plan: d.plan.map((p) => (p.id === pid ? { ...p, done: true, doneAt: p.doneAt ?? nowIso(), entryId } : p)),
+  }));
+}
+
+export function deletePlanItem(pid: string) {
+  return commit((d) => ({ ...d, plan: d.plan.filter((p) => p.id !== pid) }));
 }
 
 /* ---------- Sicherung ---------- */

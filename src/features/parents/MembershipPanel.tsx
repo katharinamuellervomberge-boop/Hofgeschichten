@@ -8,6 +8,9 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString("de-DE", { day: "n
 
 /** Status der Mitgliedschaft auf diesem Gerät + Weg zur Verkaufsseite. */
 export function MembershipPanel({ membership }: { membership: MembershipStatus }) {
+  // Seit 09.11.2026 (ohne Hofwelt) wird die Mitgliedschaft nicht mehr beworben –
+  // die Karte erscheint nur noch für aktive Mitglieder (Status, Hofpost, Kündigung).
+  if (!membership.active) return null;
   return (
     <section className={`${styles.card} ${styles.premium}`} aria-labelledby="mitgliedschaft" id="mitgliedschaft">
       <h2 id="mitgliedschaft">{plan.shortName}</h2>

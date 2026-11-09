@@ -3,11 +3,13 @@ import {
   DISCIPLINES,
   GOAL_STATUS,
   MOODS,
+  PLAN_KINDS,
   RELATIONS,
   type DiaryData,
   type DiaryEntry,
   type Goal,
   type Horse,
+  type PlanItem,
   type RiderProfile,
 } from "./types";
 
@@ -134,18 +136,50 @@ export function cleanGoal(v: unknown, horseIds: Set<string>): Goal | null {
   });
 }
 
+export function cleanPlanItem(v: unknown, horseIds: Set<string>, goalIds?: Set<string>): PlanItem | null {
+  if (!isObj(v)) return null;
+  const pid = id(v.id);
+  const date = day(v.date);
+  const kind = oneOf(v.kind, PLAN_KINDS.map((k) => k.id));
+  const title = str(v.title, 120);
+  if (!pid || !date || !kind || !title) return null;
+  const minutes = typeof v.minutes === "number" && Number.isInteger(v.minutes) && v.minutes > 0 && v.minutes <= 600 ? v.minutes : undefined;
+  const done = v.done === true ? true : undefined;
+  return compact({
+    id: pid,
+    date,
+    kind,
+    title,
+    ref: typeof v.ref === "string" && /^r[al]-[a-z0-9-]{1,20}$/.test(v.ref) ? v.ref : undefined,
+    minutes,
+    horseId: typeof v.horseId === "string" && horseIds.has(v.horseId) ? v.horseId : undefined,
+    discipline: oneOf(v.discipline, DISCIPLINES),
+    note: str(v.note, 300),
+    goalId: typeof v.goalId === "string" && (!goalIds || goalIds.has(v.goalId)) ? id(v.goalId) : undefined,
+    done,
+    doneAt: done ? (iso(v.doneAt) ?? new Date().toISOString()) : undefined,
+    entryId: id(v.entryId),
+    createdAt: iso(v.createdAt) ?? new Date().toISOString(),
+  });
+}
+
 /** Ganzes Tagebuch prüfen. `null` = keine gültige Tagebuchdatei. */
 export function cleanDiary(v: unknown): DiaryData | null {
   if (!isObj(v) || typeof v.version !== "number" || v.version > DIARY_VERSION) return null;
   if (!Array.isArray(v.horses) || !Array.isArray(v.entries) || !Array.isArray(v.goals)) return null;
   const horses = v.horses.map(cleanHorse).filter((h): h is Horse => h !== null);
   const ids = new Set(horses.map((h) => h.id));
+  const goals = v.goals.map((g) => cleanGoal(g, ids)).filter((g): g is Goal => g !== null);
+  const goalIds = new Set(goals.map((g) => g.id));
+  // `plan` gibt es erst seit 09.11.2026 – ältere Tagebücher und Sicherungen haben es nicht
+  const plan = Array.isArray(v.plan) ? v.plan.map((p) => cleanPlanItem(p, ids, goalIds)).filter((p): p is PlanItem => p !== null) : [];
   return {
     version: DIARY_VERSION,
     profile: cleanProfile(v.profile),
     horses,
     entries: v.entries.map((e) => cleanEntry(e, ids)).filter((e): e is DiaryEntry => e !== null),
-    goals: v.goals.map((g) => cleanGoal(g, ids)).filter((g): g is Goal => g !== null),
+    goals,
+    plan,
   };
 }
 

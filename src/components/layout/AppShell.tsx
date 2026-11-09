@@ -13,19 +13,21 @@ import styles from "./AppShell.module.css";
 type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[]; short?: string; title?: string };
 
 /**
- * Feste Leiste seit 28.10.2026, seit 06.11.2026 mit dem Reitertagebuch:
- * Start · Reitakademie · Tagebuch · Spielen · Hofwelt · Profil
+ * Feste Leiste seit 09.11.2026 (ohne Hofwelt):
+ * Start · Reitakademie · Rider Lab · Tagebuch · Spielen · Profil
+ * Die früheren Hofwelt-Seiten (/pferde, /abenteuer, /hofjahr, /hoeren, /mitgliedschaft,
+ * /adventskalender) sind nicht mehr verlinkt, per Direktlink aber für Käufer erreichbar.
  * `short`: kürzere Beschriftung auf schmalen Handys.
  * `also`: Seiten, bei denen der Punkt ebenfalls als aktiv markiert wird.
  */
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
   { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie" },
-  /* Mein Reitertagebuch – mit Mitgliedschaft oder Reitakademie, sonst Vorschau */
+  /* Rider Lab – Übungen für den Reitersitz, Teil der Reitakademie */
+  { href: "/akademie/rider-lab", label: "Rider Lab", icon: "lab", short: "Lab" },
+  /* Mein Reitertagebuch mit Trainingsplan – mit Reitakademie, sonst Vorschau */
   { href: "/tagebuch", label: "Tagebuch", icon: "diary", title: "Mein Reitertagebuch" },
-  { href: "/spielen", label: "Spielen", icon: "puzzle" },
-  /* Geschichten, Pferde, Figuren, Detektivfälle, Wochenpakete und Mitgliedschaft */
-  { href: "/hofwelt", label: "Hofwelt", icon: "barn", also: ["/pferde", "/abenteuer", "/hofjahr", "/hoeren", "/mitgliedschaft", "/adventskalender"] },
+  { href: "/spielen", label: "Spielen", icon: "puzzle", also: ["/hoftag"] },
   /* Lernfortschritt, Pass, Käufe und Einstellungen */
   { href: "/profil", label: "Profil", icon: "pass", also: ["/pass", "/eltern"] },
 ];
@@ -85,7 +87,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       <nav className={styles.nav} aria-label={en ? "Main navigation" : "Hauptnavigation"}>
         <ul>
           {nav.map((item) => {
-            const active = isActive(pathname, item.href) || (item.also ?? []).some((h) => isActive(pathname, h));
+            const inLab = isActive(pathname, "/akademie/rider-lab");
+            const active =
+              (item.href === "/akademie" && inLab ? false : isActive(pathname, item.href)) ||
+              (item.also ?? []).some((h) => isActive(pathname, h));
             return (
               <li key={item.href}>
                 <Link

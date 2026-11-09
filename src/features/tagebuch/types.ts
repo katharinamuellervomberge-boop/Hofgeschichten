@@ -117,15 +117,43 @@ export type Goal = {
   achievedAt?: string;
 };
 
+/* ---------- Trainingsplan (seit 09.11.2026) ---------- */
+export const PLAN_KINDS = [
+  { id: "reiten", label: "Reiten", hint: "Reitstunde, freies Reiten, Bodenarbeit …" },
+  { id: "riderlab", label: "Rider Lab", hint: "Übung für Sitz und Körper – zu Hause" },
+  { id: "lektion", label: "Lektion", hint: "Eine Lektion der Reitakademie" },
+  { id: "eigenes", label: "Eigenes", hint: "Alles andere, z. B. Stall, Dehnen, Ausritt" },
+] as const;
+export type PlanKind = (typeof PLAN_KINDS)[number]["id"];
+
+/** Eine geplante Trainingseinheit an einem Tag */
+export type PlanItem = {
+  id: string;
+  date: string; // YYYY-MM-DD
+  kind: PlanKind;
+  title: string;
+  ref?: string; // Rider-Lab-Übung (rl-xx) oder Lektions-ID (ra-w…)
+  minutes?: number;
+  horseId?: string;
+  discipline?: Discipline;
+  note?: string;
+  goalId?: string; // zahlt auf dieses Ziel ein
+  done?: boolean;
+  doneAt?: string;
+  entryId?: string; // daraus entstandener Tagebucheintrag
+  createdAt: string;
+};
+
 export type DiaryData = {
   version: number;
   profile: RiderProfile;
   horses: Horse[];
   entries: DiaryEntry[];
   goals: Goal[];
+  plan: PlanItem[];
 };
 
-export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [] };
+export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [] };
 
 export function moodLabel(m?: Mood): string | undefined {
   return MOODS.find((x) => x.id === m)?.label;

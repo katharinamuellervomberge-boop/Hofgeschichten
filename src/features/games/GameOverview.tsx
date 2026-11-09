@@ -143,9 +143,6 @@ export function GameOverview({ academyUnlocked }: { academyUnlocked: boolean }) 
           </ul>
         </section>
 
-        <p className={styles.hint}>
-          Mehr Abenteuer, Detektivfälle und die großen Hofspiele für Mitglieder findest du in der <Link href="/hofwelt">Hofwelt</Link>.
-        </p>
       </div>
     </div>
   );

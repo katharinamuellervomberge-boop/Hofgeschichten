@@ -4,6 +4,8 @@ import Link from "@/i18n/Link";
 import { Icon } from "@/components/illustrations/Icons";
 import type { Notify } from "../DiaryApp";
 import { sortEntries, totals } from "../stats";
+import { dayLabel, itemsOfWeek, PLAN_KIND_ICON, weekStart, weekStats } from "../plan";
+import { today } from "../sanitize";
 import type { DiaryData } from "../types";
 import { EmptyState } from "../ui";
 import { EntryCard } from "./EntriesView";
@@ -53,6 +55,8 @@ export function HomeView({ data, notify, persisted }: { data: DiaryData; notify:
           }
         />
       )}
+
+      <WeekPlanCard data={data} />
 
       <nav aria-label="Bereiche des Tagebuchs" className={s.mainCards}>
         {CARDS.map((c) => (
@@ -117,5 +121,45 @@ export function HomeView({ data, notify, persisted }: { data: DiaryData; notify:
 
       <BackupPanel data={data} notify={notify} persisted={persisted} />
     </div>
+  );
+}
+
+/** „Diese Woche“: Fortschritt des Trainingsplans und was als Nächstes ansteht */
+function WeekPlanCard({ data }: { data: DiaryData }) {
+  const items = itemsOfWeek(data, weekStart());
+  const st = weekStats(items);
+  const t = today();
+  const next = items.filter((p) => !p.done && p.date >= t).slice(0, 3);
+  return (
+    <Link href="/tagebuch/plan" className={s.weekCard} aria-labelledby="home-plan">
+      <span className={s.weekCardHead}>
+        <span className={s.mainIcon} aria-hidden>
+          <Icon name="plan" />
+        </span>
+        <span>
+          <span id="home-plan" className={s.mainTitle}>
+            Mein Trainingsplan
+          </span>
+          <span className={s.mainText}>
+            {items.length === 0 ? "Plan deine Woche – Reiten, Rider Lab und Lektionen." : `Diese Woche: ${st.done} von ${st.total} erledigt`}
+          </span>
+        </span>
+      </span>
+      {items.length > 0 && (
+        <span className={s.planBar} aria-hidden>
+          <span style={{ width: `${(st.done / st.total) * 100}%` }} />
+        </span>
+      )}
+      {next.length > 0 && (
+        <span className={s.weekNext}>
+          {next.map((p) => (
+            <span key={p.id}>
+              <Icon name={PLAN_KIND_ICON[p.kind]} aria-hidden />
+              <strong>{p.date === t ? "Heute" : dayLabel(p.date).short}</strong> {p.title}
+            </span>
+          ))}
+        </span>
+      )}
+    </Link>
   );
 }

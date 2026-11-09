@@ -1,26 +1,10 @@
-import type { Metadata } from "next";
-import { releases } from "@/content/membership";
-import { publishedAdventures } from "@/content/adventures";
-import type { WeekState } from "@/features/hofjahr/WeekCard";
-import { HofweltScreen } from "@/features/hofwelt/HofweltScreen";
-import { getAccessibleAdventures, isMember, releaseAccess } from "@/lib/entitlements/server";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Die Hofgeschichten-Welt" };
-export const dynamic = "force-dynamic";
-
-export default async function Page() {
-  const weekStates: Record<string, WeekState> = {};
-  for (const r of releases) {
-    const a = await releaseAccess(r.slug);
-    weekStates[r.slug] = a?.state ?? "locked";
-  }
-  return (
-    <HofweltScreen
-      weekStates={weekStates}
-      member={await isMember()}
-      owned={await getAccessibleAdventures()}
-      adventures={publishedAdventures}
-      now={new Date().toISOString()}
-    />
-  );
+/**
+ * Die Hofwelt gibt es seit 09.11.2026 nicht mehr als eigenen Bereich.
+ * Alte Links führen zur Reitakademie. Der frühere Bildschirm liegt weiter in
+ * `features/hofwelt/HofweltScreen.tsx`, falls er zurückkommen soll.
+ */
+export default function Page() {
+  redirect("/akademie");
 }

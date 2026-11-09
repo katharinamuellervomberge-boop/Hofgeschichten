@@ -10,6 +10,7 @@ import { EntriesView, EntryDetail } from "./views/EntriesView";
 import { GoalsView } from "./views/GoalsView";
 import { MomentsView } from "./views/MomentsView";
 import { ReviewView } from "./views/ReviewView";
+import { PlanView } from "./views/PlanView";
 import { EmptyState, Toast } from "./ui";
 import s from "./tagebuch.module.css";
 
@@ -36,10 +37,11 @@ function useToast() {
 }
 
 /**
- * Mein Reitertagebuch – für Mitglieder und Käufer der Reitakademie (Prüfung auf dem Server in
+ * Mein Reitertagebuch – für Käufer der Reitakademie (und bestehende Mitglieder) (Prüfung auf dem Server in
  * app/tagebuch/[[...view]]/page.tsx). Unterseiten über die Adresse:
  *   /tagebuch · /pferde · /pferde/neu · /pferde/<id> · /stunde · /stunde/<id>
  *   /eintraege · /eintrag/<id> · /ziele · /momente · /entwicklung · /profil
+ *   /plan · /plan/<Montag YYYY-MM-DD>   (Trainingsplan, seit 09.11.2026)
  */
 export function DiaryApp({ view }: { view: string[] }) {
   const state = useDiary();
@@ -89,6 +91,9 @@ export function DiaryApp({ view }: { view: string[] }) {
         break;
       case "momente":
         body = <MomentsView {...props} />;
+        break;
+      case "plan":
+        body = <PlanView {...props} week={b} />;
         break;
       case "entwicklung":
         body = <ReviewView {...props} />;

@@ -397,14 +397,11 @@ function Offer() {
     <div className={styles.offer}>
       <h2 className={styles.cardTitle}>Weitere Hoftage</h2>
       <p>
-        Dein erster Hoftag war zum Kennenlernen. Mit der Hof-Mitgliedschaft ist „Mein Tag am Hof“ inklusive – jeden Tag mit neuen Ereignissen.
-        {meinTagAmHof.price && meinTagAmHof.checkoutUrl ? ` Oder einzeln für ${meinTagAmHof.price}.` : ""}
+        Dein erster Hoftag war zum Kennenlernen. Weitere Hoftage gibt es mit einem Freischaltcode – jeden Tag mit neuen Ereignissen.
+        {meinTagAmHof.price && meinTagAmHof.checkoutUrl ? ` Einzeln für ${meinTagAmHof.price}.` : ""}
       </p>
       <p className={styles.small}>Bitte frag deine Eltern. Dein Hofbuch, dein Vertrauen und deine XP bleiben gespeichert.</p>
       <div className={styles.actions}>
-        <Link href="/mitgliedschaft" className={`${styles.btn} ${styles.btn_primary}`}>
-          Zur Mitgliedschaft
-        </Link>
         {meinTagAmHof.checkoutUrl && (
           <a href={meinTagAmHof.checkoutUrl} className={`${styles.btn} ${styles.btn_ghost}`} rel="noopener">
             Einzeln freischalten
