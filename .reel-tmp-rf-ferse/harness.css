@@ -1,0 +1,24 @@
+/* src/components/illustrations/akademie/akademie-art.module.css */
+.akademie_art_beat {
+  opacity: 0;
+  animation-name: akademie_art_ak-beat;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+}
+@keyframes akademie_art_ak-beat {
+  0% {
+    opacity: 0.85;
+  }
+  22% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akademie_art_beat {
+    animation: none;
+    opacity: 0;
+  }
+}

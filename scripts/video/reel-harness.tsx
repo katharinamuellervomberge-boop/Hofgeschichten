@@ -32,6 +32,9 @@ import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-r
 import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
 import { HAENDE_EN_TOTAL, renderHaendeEn } from "@/video/reels/haende-sitz-reel-en";
 import { BEIN_TOTAL, renderBein } from "@/video/reels/bein-reel";
+import { RF3_TOTAL, renderRf3 } from "@/video/reels/rf3-trense-reel";
+import { RF2_TOTAL, renderRf2 } from "@/video/reels/rf2-ferse-reel";
+import { RF1_TOTAL, renderRf1 } from "@/video/reels/rf1-aussitzen-reel";
 import { GA_TOTAL, renderGangart } from "@/video/reels/c10-gangart-reel";
 import { SITZ_TOTAL, renderSitz } from "@/video/reels/c09-sitz-reel";
 import { FU_TOTAL, renderFuehren } from "@/video/reels/c08-fuehren-reel";
@@ -76,6 +79,9 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
   "haende-en": { total: () => HAENDE_EN_TOTAL, render: renderHaendeEn },
   bein: { total: () => BEIN_TOTAL, render: renderBein },
+  "rf-trense": { total: () => RF3_TOTAL, render: renderRf3 },
+  "rf-ferse": { total: () => RF2_TOTAL, render: renderRf2 },
+  "rf-aussitzen": { total: () => RF1_TOTAL, render: renderRf1 },
   "gangart": { total: () => GA_TOTAL, render: renderGangart },
   "sitz": { total: () => SITZ_TOTAL, render: renderSitz },
   "fuehren": { total: () => FU_TOTAL, render: renderFuehren },
