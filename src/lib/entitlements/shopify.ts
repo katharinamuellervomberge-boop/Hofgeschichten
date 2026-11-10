@@ -114,9 +114,16 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
   [/geisterstall/i, () => "mystery-files-die-nacht-im-geisterstall-app"],
 ];
 
+/**
+ * Erlaubte Titel-Anfänge für App-Produkte. Seit 08.11.2026 heißt die Akademie im Shop
+ * „Die Reitakademie – Online-Reitkurs mit Reitertagebuch (…, Hofgeschichten)“ – ohne diesen
+ * Eintrag schlugen alle Akademie-Bestellungen ab #1101 mit „no_product“ fehl.
+ */
+const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/];
+
 function handleFromTitle(title: string | null): string | null {
   const t = (title ?? "").trim();
-  if (!/^Die Hofgeschichten\s+[–-]/.test(t)) return null;
+  if (!APP_TITLE_PREFIXES.some((re) => re.test(t))) return null;
   for (const [re, handle] of TITLE_RULES) if (re.test(t)) return handle();
   return null;
 }
