@@ -69,7 +69,11 @@ function steps(progress: Progress, d: DiaryData | null, access: HomeAccess): Ste
     if (goal) out.push({ key: "goal", icon: "star", title: "Arbeite an deinem Trainingsziel", text: goal.title, href: "/tagebuch/plan" });
   }
 
-  // 6. Nichts gespeichert: Einstieg passend zum Kaufstand
+  // 6. Alle Ziele geschafft: neues Ziel
+  if (d && d.goals.length > 0 && !d.goals.some((g) => g.status !== "geschafft"))
+    out.push({ key: "newgoal", icon: "star", title: "Setze dir ein neues Ziel", text: `${d.goals.length} ${d.goals.length === 1 ? "Ziel" : "Ziele"} geschafft – was kommt als Nächstes?`, href: "/tagebuch/ziele" });
+
+  // 7. Nichts gespeichert: Einstieg passend zum Kaufstand
   if (out.length === 0) {
     const first = refInfo("ra-w2-l1");
     out.push({ key: "start", icon: "academy", title: access.academy ? "Starte mit deiner ersten Lektion" : "Probier eine kostenlose Lektion", text: first?.title ?? "Reitakademie", href: first?.href ?? "/akademie" });
