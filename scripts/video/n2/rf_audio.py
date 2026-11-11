@@ -4,7 +4,8 @@ R='/home/claude/hofgeschichten/src/video/reels/'; M='/home/claude/hofgeschichten
 CFG={1:('rf1-aussitzen-reel','rf-aussitzen','f1',['c0','d0','e0'],'g1'),
      2:('rf2-ferse-reel','rf-ferse','f1',['c0','d0','e0'],'g1'),
      3:('rf3-trense-reel','rf-trense','g1',['c0','d0','e0'],'h1'),
-     4:('rf4-kleeblatt-reel','rf-kleeblatt','f1',['b1','c0','d1','e1'],'g1')}
+     4:('rf4-kleeblatt-reel','rf-kleeblatt','f1',['b1','c0','d1','e1'],'g1'),
+     5:('rf5-faecher-reel','rf-faecher','e2',['b1','c1','d1','e1'],'f1')}
 sh=lambda c: subprocess.run(c,shell=True,check=True,stderr=subprocess.DEVNULL)
 for n,(f,comp,mi,acc,fi) in [(k,CFG[k]) for k in ([int(x) for x in sys.argv[1:]] or CFG)]:
     A=f'/home/claude/work/aud/{comp}'; lines=rec(R+f+'.tsx'); ids=[l[0] for l in lines]
