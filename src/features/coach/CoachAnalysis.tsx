@@ -70,10 +70,16 @@ export function CoachAnalysis({ problem, exercises, owned, canSave }: Props) {
 
   const category = coachCategories.find((c) => c.id === problem.category)?.title;
 
-  if (!loaded) return <div className={s.loading}>Deine Analyse wird geöffnet …</div>;
+  if (!loaded)
+    return (
+      <div className="page">
+        <div className={s.loading}>Deine Analyse wird geöffnet …</div>
+      </div>
+    );
 
   if (solution)
     return (
+      <div className="page">
       <SolutionView
         problem={problem}
         solution={solution}
@@ -91,10 +97,12 @@ export function CoachAnalysis({ problem, exercises, owned, canSave }: Props) {
           if (last) setAnswers((a) => pruneAnswers(problem, Object.fromEntries(Object.entries(a).filter(([k]) => k !== last.id))));
         }}
       />
+      </div>
     );
 
   const index = asked.findIndex((q) => q.id === question!.id);
   return (
+    <div className="page">
     <div className={s.analysis}>
       <header className={s.problemHead}>
         <Link href="/coach" className={s.linkBtn} style={{ width: "fit-content" }}>
@@ -162,6 +170,7 @@ export function CoachAnalysis({ problem, exercises, owned, canSave }: Props) {
         </span>
       </div>
     </div>
+    </div>
   );
 }
 
@@ -181,12 +190,6 @@ function Block({ n, title, children, id }: { n: number; title: string; children:
       </div>
     </section>
   );
-}
-
-function joinSummary(parts: string[]): string {
-  if (parts.length === 0) return "";
-  if (parts.length === 1) return parts[0];
-  return `${parts.slice(0, -1).join(", ")} und ${parts[parts.length - 1]}`;
 }
 
 function SolutionView({
@@ -221,7 +224,6 @@ function SolutionView({
   const [building, setBuilding] = useState(false);
   const [created, setCreated] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-  const summary = joinSummary(solution.summary);
   let n = 0;
 
   return (
@@ -277,9 +279,20 @@ function SolutionView({
       )}
 
       <Block n={++n} title="Zusammenfassung">
+        {solution.summary.length > 0 ? (
+          <>
+            <p className={s.summary}>Das hast du beschrieben:</p>
+            <ul className={s.bullets}>
+              {solution.summary.map((t) => (
+                <li key={t}>{t.charAt(0).toUpperCase() + t.slice(1)}.</li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className={s.summary}>Du möchtest an „{problem.title.replace(/\.$/, "")}“ arbeiten.</p>
+        )}
         <p className={s.summary}>
-          {summary ? `Du hast beschrieben, dass ${summary}.` : `Du möchtest an „${problem.title.replace(/\.$/, "")}“ arbeiten.`} Die folgenden Ursachen passen am besten zu deinen
-          Antworten. Sie sind Möglichkeiten, keine sichere Diagnose – deine Reitlehrkraft sieht vor Ort mehr.
+          Die folgenden Ursachen passen am besten zu deinen Antworten. Sie sind Möglichkeiten, keine sichere Diagnose – deine Reitlehrkraft sieht vor Ort mehr.
         </p>
       </Block>
 

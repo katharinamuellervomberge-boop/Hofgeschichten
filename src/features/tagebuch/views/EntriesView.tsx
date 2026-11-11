@@ -118,9 +118,10 @@ export function EntryDetail({ data, notify, entryId }: { data: DiaryData; notify
   const goal = e.goalId ? data.goals.find((g) => g.id === e.goalId) : undefined;
   const coachCase = caseOfGoal(data, goal);
   const progress = goal ? programProgress(data, goal) : null;
-  // Übungen der Woche, in der die Stunde lag (sonst der laufenden Woche)
+  // Übungen der Einheit, aus der der Eintrag entstand – sonst die der Woche, in der die Stunde lag
+  const fromPlan = data.plan.find((p) => p.entryId === e.id && p.kind === "coach");
   const weekIdx = goal?.program ? Math.min(Math.max(Math.floor((Date.parse(e.date) - Date.parse(goal.program.start)) / (7 * 86400000)), 0), goal.program.weeks.length - 1) : -1;
-  const weekExercises = goal?.program && weekIdx >= 0 ? goal.program.weeks[weekIdx].exercises.slice(0, 2) : [];
+  const weekExercises = (fromPlan?.exercises ?? (goal?.program && weekIdx >= 0 ? goal.program.weeks[weekIdx].exercises : [])).slice(0, 2);
 
   return (
     <div className={s.stack}>

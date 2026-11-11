@@ -251,7 +251,7 @@ function PlanRow({ item: p, data, onToggle, onEdit }: { item: PlanItem; data: Di
             ))}
           </p>
         )}
-        {p.kind === "coach" && p.done && coachCase && p.exercises?.[0] && <FeedbackCard caseId={coachCase.id} exercise={p.exercises[0]} planId={p.id} />}
+        {p.kind === "coach" && p.done && coachCase && p.exercises?.[0] && <FeedbackCard caseId={coachCase.id} exercise={p.exercises[0]} planId={p.id} entryId={p.entryId} />}
         <div className={s.planActions}>
           {info && (
             <Link href={info.href} className={s.inlineLink}>

@@ -683,7 +683,7 @@
   animation: hm-rise 0.45s ease both;
 }
 
-.nextItem:first-child {
+.nextList > li:first-child .nextItem {
   box-shadow: inset 0 0 0 2px var(--honey), var(--shadow-card);
 }
 
@@ -697,7 +697,7 @@
   color: var(--forest);
 }
 
-.nextItem:first-child .nextIcon {
+.nextList > li:first-child .nextIcon {
   background: var(--honey);
   color: var(--forest-deep);
 }

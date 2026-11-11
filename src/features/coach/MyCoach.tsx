@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Link from "@/i18n/Link";
 import { Icon } from "@/components/illustrations/Icons";
 import { problemHref, problemInfoById } from "@/content/coach/index";
-import { caseOfGoal, coachExerciseTitle, coachNextStep, latestFeedback, problemTitle, programProgress } from "@/features/tagebuch/coach";
+import { caseOfGoal, coachExerciseTitle, coachNextStep, feedbackForPlan, latestFeedback, problemTitle, programProgress } from "@/features/tagebuch/coach";
 import { formatDay } from "@/features/tagebuch/stats";
 import { today } from "@/features/tagebuch/sanitize";
 import { deleteCoachCase, setCaseStatus, useDiary } from "@/features/tagebuch/store";
@@ -51,7 +51,7 @@ export function MyCoach({ canSave }: { canSave: boolean }) {
     .filter((p) => p.kind === "coach" && p.done && p.exercises?.length)
     .sort((a, b) => b.date.localeCompare(a.date))
     .map((p) => ({ p, c: d.coach.find((x) => x.goalId === p.goalId) }))
-    .filter((x): x is { p: PlanItem; c: CoachCase } => !!x.c && !x.c.feedback.some((f) => f.planId === x.p.id))
+    .filter((x): x is { p: PlanItem; c: CoachCase } => !!x.c && !x.c.feedback.some((f) => feedbackForPlan(f, x.p)))
     .slice(0, 3);
   const ratings = d.coach.flatMap((c) => [...latestFeedback(c).values()]);
 
@@ -90,7 +90,7 @@ export function MyCoach({ canSave }: { canSave: boolean }) {
                   {formatDay(p.date)} · {p.title}
                 </span>
                 {p.exercises!.slice(0, 2).map((ex) => (
-                  <FeedbackCard key={ex} caseId={c.id} exercise={ex} planId={p.id} />
+                  <FeedbackCard key={ex} caseId={c.id} exercise={ex} planId={p.id} entryId={p.entryId} />
                 ))}
               </div>
             ))}

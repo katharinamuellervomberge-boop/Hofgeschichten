@@ -102,6 +102,9 @@ export function suggestGoalForEntry(data: DiaryData, e: Parameters<typeof entryT
   return undefined;
 }
 
+/** Gehört eine Rückmeldung zu dieser Einheit (direkt oder über den daraus entstandenen Eintrag)? */
+export const feedbackForPlan = (f: CoachFeedback, p: PlanItem) => f.planId === p.id || (!!p.entryId && f.entryId === p.entryId);
+
 /** Nächster sinnvoller Schritt im Coach (für Start und „Mein Coach“) – nur aus gespeicherten Daten */
 export type CoachStep = { kind: "plan" | "feedback" | "analyse" | "solution"; title: string; text: string; href: string };
 
@@ -115,7 +118,7 @@ export function coachNextStep(data: DiaryData): CoachStep | null {
   // 2. Erledigte Coach-Einheit ohne Rückmeldung
   for (const p of data.plan.filter((x) => x.kind === "coach" && x.done).sort((a, b) => b.date.localeCompare(a.date))) {
     const c = data.coach.find((x) => x.goalId === p.goalId);
-    if (c && p.exercises?.length && !c.feedback.some((f) => f.planId === p.id))
+    if (c && p.exercises?.length && !c.feedback.some((f) => feedbackForPlan(f, p)))
       return { kind: "feedback", title: "Hat dir die Übung geholfen?", text: coachExerciseTitle(p.exercises[0]), href: "/coach/mein-coach" };
   }
   // 3. Offene Analyse ohne Trainingsplan
