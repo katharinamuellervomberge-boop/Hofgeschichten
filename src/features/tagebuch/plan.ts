@@ -143,9 +143,10 @@ export function suggestionsFromGoals(data: DiaryData, weekItems: PlanItem[], max
   return out;
 }
 
-export const PLAN_KIND_ICON: Record<PlanKind, "horse" | "lab" | "academy" | "star"> = {
+export const PLAN_KIND_ICON: Record<PlanKind, "horse" | "lab" | "academy" | "star" | "coach"> = {
   reiten: "horse",
   riderlab: "lab",
   lektion: "academy",
   eigenes: "star",
+  coach: "coach",
 };

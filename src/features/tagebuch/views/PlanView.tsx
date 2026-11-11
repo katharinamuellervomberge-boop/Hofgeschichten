@@ -25,6 +25,8 @@ import {
   type Suggestion,
 } from "../plan";
 import { today } from "../sanitize";
+import { caseOfGoal, coachExerciseHref, coachExerciseTitle } from "../coach";
+import { FeedbackCard } from "@/features/coach/FeedbackCard";
 import { addPlanItems, deletePlanItem, savePlanItem, setPlanDone, SaveError } from "../store";
 import { DISCIPLINES, PLAN_KINDS, type DiaryData, type Discipline, type PlanItem, type PlanKind } from "../types";
 import { Chips, DeleteButton, EmptyState, Field, SubHeader, TextArea } from "../ui";
@@ -65,7 +67,9 @@ export function PlanView({ data, notify, week }: { data: DiaryData; notify: Noti
 
   async function copyWeek(from: PlanItem[], offsetDays: number, msg: string) {
     try {
-      await addPlanItems(from.map(({ date, kind, title, ref, minutes, horseId, discipline, note, goalId }) => ({ date: addDays(date, offsetDays), kind, title, ref, minutes, horseId, discipline, note, goalId })));
+      await addPlanItems(
+        from.map(({ date, kind, title, ref, minutes, horseId, discipline, note, goalId, exercises }) => ({ date: addDays(date, offsetDays), kind, title, ref, minutes, horseId, discipline, note, goalId, exercises })),
+      );
       notify(msg);
     } catch (e) {
       notify(e instanceof SaveError && e.message === "full" ? "Der Plan ist voll. Lösche bitte alte Einheiten." : "Das hat nicht geklappt.");
@@ -221,8 +225,9 @@ function PlanRow({ item: p, data, onToggle, onEdit }: { item: PlanItem; data: Di
   const info = refInfo(p.ref);
   const horse = data.horses.find((h) => h.id === p.horseId);
   const goal = data.goals.find((g) => g.id === p.goalId);
+  const coachCase = p.kind === "coach" ? caseOfGoal(data, goal) : undefined;
   const meta = [
-    p.kind === "riderlab" ? (info?.dose ? `Rider Lab · ${info.dose}` : "Rider Lab") : p.kind === "lektion" ? "Lektion" : p.discipline,
+    p.kind === "riderlab" ? (info?.dose ? `Rider Lab · ${info.dose}` : "Rider Lab") : p.kind === "lektion" ? "Lektion" : p.kind === "coach" ? "Rider Coach" : p.discipline,
     p.minutes ? `${p.minutes} Min.` : undefined,
     horse ? `mit ${horse.name}` : undefined,
     goal ? `Ziel: ${goal.title}` : undefined,
@@ -237,20 +242,30 @@ function PlanRow({ item: p, data, onToggle, onEdit }: { item: PlanItem; data: Di
         <p className={s.planTitle}>{p.title}</p>
         {meta.length > 0 && <p className={s.goalMeta}>{meta.join(" · ")}</p>}
         {p.note && <p className={s.planNote}>{p.note}</p>}
+        {p.kind === "coach" && p.exercises && p.exercises.length > 0 && (
+          <p className={s.exLinks}>
+            {p.exercises.map((ex) => (
+              <Link key={ex} href={coachExerciseHref(ex)} className={s.inlineLink}>
+                {coachExerciseTitle(ex)}
+              </Link>
+            ))}
+          </p>
+        )}
+        {p.kind === "coach" && p.done && coachCase && p.exercises?.[0] && <FeedbackCard caseId={coachCase.id} exercise={p.exercises[0]} planId={p.id} />}
         <div className={s.planActions}>
           {info && (
             <Link href={info.href} className={s.inlineLink}>
               {p.kind === "riderlab" ? "Übung öffnen" : "Lektion öffnen"}
             </Link>
           )}
-          {p.kind === "reiten" &&
+          {(p.kind === "reiten" || p.kind === "coach") &&
             (p.entryId && data.entries.some((e) => e.id === p.entryId) ? (
               <Link href={`/tagebuch/eintrag/${p.entryId}`} className={s.inlineLink}>
                 Zum Eintrag
               </Link>
             ) : p.date <= today() ? (
               <Link href={`/tagebuch/stunde?plan=${p.id}`} className={s.inlineLink}>
-                Reitstunde eintragen
+                {p.kind === "coach" ? "Training eintragen" : "Reitstunde eintragen"}
               </Link>
             ) : null)}
           <button type="button" className={s.btnText} onClick={onEdit}>
@@ -292,7 +307,8 @@ function PlanForm({ data, draft, onDone }: { data: DiaryData; draft: Draft; onDo
   const onlyHorse = data.horses.length === 1 ? data.horses[0].id : "";
   const [kind, setKind] = useState<PlanKind | "">(old?.kind ?? draft.kind ?? "reiten");
   const [ref, setRef] = useState(old?.ref ?? draft.ref ?? "");
-  const [title, setTitle] = useState(old?.kind === "reiten" || old?.kind === "eigenes" ? old.title : "");
+  const [title, setTitle] = useState(old?.kind === "reiten" || old?.kind === "eigenes" || old?.kind === "coach" ? old.title : "");
+  const isCoach = old?.kind === "coach";
   const [date, setDate] = useState(old?.date ?? draft.date);
   const [minutes, setMinutes] = useState(old?.minutes ? String(old.minutes) : "");
   const [horseId, setHorseId] = useState(old ? (old.horseId ?? "") : onlyHorse);
@@ -315,7 +331,7 @@ function PlanForm({ data, draft, onDone }: { data: DiaryData; draft: Draft; onDo
   function validate() {
     const e: typeof errors = {};
     if ((kind === "riderlab" || kind === "lektion") && !refInfo(ref)) e.ref = kind === "riderlab" ? "Bitte eine Übung wählen." : "Bitte eine Lektion wählen.";
-    if (kind === "eigenes" && !title.trim()) e.title = "Was hast du vor?";
+    if ((kind === "eigenes" || kind === "coach") && !title.trim()) e.title = "Was hast du vor?";
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) e.date = "Bitte ein Datum wählen.";
     if (minutes) {
       const n = Number(minutes);
@@ -345,6 +361,7 @@ function PlanForm({ data, draft, onDone }: { data: DiaryData; draft: Draft; onDo
               horseId: kind === "reiten" ? horseId || undefined : undefined,
               discipline: kind === "reiten" ? discipline || undefined : undefined,
               goalId: goalId || undefined,
+              exercises: isCoach ? old?.exercises : undefined,
               note: note || undefined,
               done: old?.done,
               entryId: old?.entryId,
@@ -357,17 +374,23 @@ function PlanForm({ data, draft, onDone }: { data: DiaryData; draft: Draft; onDo
         }}
       >
         <h2 className={s.cardTitle}>{old ? "Einheit bearbeiten" : "Neue Einheit"}</h2>
-        <Chips
-          label="Was möchtest du machen?"
-          value={kind}
-          onChange={(v) => {
-            setKind(v);
-            setRef("");
-            setErrors({});
-          }}
-          options={PLAN_KINDS.map((k) => ({ value: k.id, label: k.label }))}
-        />
-        {kind && <p className={s.hint}>{PLAN_KINDS.find((k) => k.id === kind)?.hint}</p>}
+        {isCoach ? (
+          <p className={s.hint}>Einheit aus deinem Rider-Coach-Plan. Übungen änderst du beim Ziel unter „Plan anpassen“.</p>
+        ) : (
+          <>
+            <Chips
+              label="Was möchtest du machen?"
+              value={kind}
+              onChange={(v) => {
+                setKind(v);
+                setRef("");
+                setErrors({});
+              }}
+              options={PLAN_KINDS.filter((k) => k.id !== "coach").map((k) => ({ value: k.id, label: k.label }))}
+            />
+            {kind && <p className={s.hint}>{PLAN_KINDS.find((k) => k.id === kind)?.hint}</p>}
+          </>
+        )}
 
         {(kind === "riderlab" || kind === "lektion") && (
           <RefSelect
@@ -390,7 +413,7 @@ function PlanForm({ data, draft, onDone }: { data: DiaryData; draft: Draft; onDo
           </>
         )}
 
-        {kind === "eigenes" && (
+        {(kind === "eigenes" || kind === "coach") && (
           <Field
             label="Was hast du vor?"
             required

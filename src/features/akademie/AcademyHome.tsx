@@ -147,6 +147,36 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
         {/* Rider Lab: Übungen für zu Hause (bisher nur deutsch) */}
         {!en && <RiderLabTeaser unlocked={unlocked} />}
 
+        {/* Lernspiele und Rider Coach (seit 11.11.2026 nicht mehr in der unteren Leiste) */}
+        {!en && (
+          <ul className={styles.rows} aria-label="Mehr zum Lernen">
+            <li>
+              <Link href="/spielen" className={styles.row}>
+                <span className={styles.rowIcon} aria-hidden>
+                  <Icon name="puzzle" />
+                </span>
+                <span>
+                  <span className={styles.rowTitle}>Lernspiele &amp; Quiz</span>
+                  <span className={styles.rowMeta}>Pferdewissen-Quiz, Gangarten erkennen, Pferdepflege, Reiterhilfen zuordnen</span>
+                </span>
+                <Icon name="back" className={styles.rowGo} aria-hidden />
+              </Link>
+            </li>
+            <li>
+              <Link href="/coach" className={styles.row}>
+                <span className={styles.rowIcon} aria-hidden>
+                  <Icon name="coach" />
+                </span>
+                <span>
+                  <span className={styles.rowTitle}>Rider Coach: Was klappt beim Reiten gerade nicht?</span>
+                  <span className={styles.rowMeta}>Problem eingeben, Fragen beantworten, Lösungsweg und Trainingsplan bekommen</span>
+                </span>
+                <Icon name="back" className={styles.rowGo} aria-hidden />
+              </Link>
+            </li>
+          </ul>
+        )}
+
         {!unlocked && <AcademyBuyBox path={path} />}
 
         {/* Die Lernvideos sind deutsch vertont – in der englischen Version vorerst ausgeblendet */}

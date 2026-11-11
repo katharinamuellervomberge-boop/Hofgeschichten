@@ -101,6 +101,10 @@ export type DiaryEntry = {
   practice?: string;
   nextTime?: string;
   moment?: string;
+  /** Was war schwierig? (seit 11.11.2026) */
+  difficult?: string;
+  /** Gehört zu diesem Ziel (vom Nutzer bestätigt, seit 11.11.2026) */
+  goalId?: string;
   favorite?: boolean;
   photo?: string;
   createdAt: string;
@@ -115,6 +119,18 @@ export type Goal = {
   status: GoalStatus;
   createdAt: string;
   achievedAt?: string;
+  /** Aus einer Rider-Coach-Analyse entstanden (CoachCase.id) */
+  coachCaseId?: string;
+  /** Trainingsplan in Wochen (Rider Coach → Rider Lab), seit 11.11.2026 */
+  program?: GoalProgram;
+};
+
+/** Wochenplan eines Ziels: Übungen je Woche (rc-…), Trainingstage, Startwoche (Montag) */
+export type GoalProgram = {
+  weeks: { title: string; exercises: string[] }[];
+  /** Trainingstage 0 = Montag … 6 = Sonntag (Anzahl = Häufigkeit pro Woche) */
+  days: number[];
+  start: string; // YYYY-MM-DD (Montag)
 };
 
 /* ---------- Trainingsplan (seit 09.11.2026) ---------- */
@@ -123,6 +139,7 @@ export const PLAN_KINDS = [
   { id: "riderlab", label: "Rider Lab", hint: "Übung für Sitz und Körper – zu Hause" },
   { id: "lektion", label: "Lektion", hint: "Eine Lektion der Reitakademie" },
   { id: "eigenes", label: "Eigenes", hint: "Alles andere, z. B. Stall, Dehnen, Ausritt" },
+  { id: "coach", label: "Rider Coach", hint: "Übungen aus einem Trainingsplan des Rider Coach" },
 ] as const;
 export type PlanKind = (typeof PLAN_KINDS)[number]["id"];
 
@@ -138,6 +155,7 @@ export type PlanItem = {
   discipline?: Discipline;
   note?: string;
   goalId?: string; // zahlt auf dieses Ziel ein
+  exercises?: string[]; // Rider-Coach-Übungen (rc-…) dieser Einheit
   done?: boolean;
   doneAt?: string;
   entryId?: string; // daraus entstandener Tagebucheintrag
@@ -151,9 +169,53 @@ export type DiaryData = {
   entries: DiaryEntry[];
   goals: Goal[];
   plan: PlanItem[];
+  /** Rider Coach: Analysen, gespeicherte Lösungen und Rückmeldungen (seit 11.11.2026) */
+  coach: CoachCase[];
 };
 
-export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [] };
+/* ---------- Rider Coach (seit 11.11.2026, nur auf dem Gerät) ---------- */
+export const FEEDBACK = [
+  { id: "deutlich", label: "Ja, deutlich" },
+  { id: "bisschen", label: "Ein bisschen" },
+  { id: "noch-nicht", label: "Noch nicht" },
+  { id: "nicht-probiert", label: "Ich habe sie noch nicht ausprobiert" },
+] as const;
+export type FeedbackRating = (typeof FEEDBACK)[number]["id"];
+
+export type CoachFeedback = {
+  id: string;
+  exercise: string; // rc-…
+  rating: FeedbackRating;
+  date: string; // YYYY-MM-DD
+  entryId?: string;
+  planId?: string;
+};
+
+export const CASE_STATUS = [
+  { id: "offen", label: "In Arbeit" },
+  { id: "geloest", label: "Gelöst" },
+] as const;
+export type CaseStatus = (typeof CASE_STATUS)[number]["id"];
+
+/** Eine Rider-Coach-Analyse: Problem, Antworten, Ergebnis und was daraus wurde */
+export type CoachCase = {
+  id: string;
+  problem: string; // cp-…
+  answers: Record<string, string>;
+  /** Empfohlene Übungen zum Zeitpunkt der Analyse (rc-…) */
+  exercises: string[];
+  /** Sicherheits-Kennzeichen der Analyse */
+  flags: ("abklaeren" | "stopp")[];
+  status: CaseStatus;
+  /** Lösung gemerkt („Meine gespeicherten Lösungen“) */
+  saved?: boolean;
+  goalId?: string;
+  feedback: CoachFeedback[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [], coach: [] };
 
 export function moodLabel(m?: Mood): string | undefined {
   return MOODS.find((x) => x.id === m)?.label;

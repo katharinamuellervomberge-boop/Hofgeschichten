@@ -136,5 +136,27 @@ export const meinTagAmHof = {
     "Ein interaktives Pferdepflege-Spiel: Ihr Kind übernimmt einen ganzen Tag lang Verantwortung für Tivoli, Tonga oder Scrabble – Füttern, Wasser, Ausmisten, Putzen, Beobachten und Bewegung. Jeder Tag bringt neue kleine Ereignisse. Kein Zeitdruck, keine Strafen, keine Käufe im Spiel. Für Kinder von 6 bis 12 Jahren.",
 };
 
+/**
+ * Rider Coach (seit 11.11.2026) – interaktiver Problemlöser, Premium-Add-on zur Basis-App.
+ * Einmalkauf, dauerhafter Zugriff, kein Abo. Freischaltung wie die Akademie: Bestellnummer + E-Mail
+ * (Shopify) oder Freischaltcode (Admin). Die Prüfung läuft nur auf dem Server (`hasRiderCoach()`).
+ *
+ * Preis und Shop-Produkt sind noch NICHT festgelegt. Solange `checkoutUrl` null ist, zeigt die App
+ * keinen Kauf-Knopf, nur den Weg „Code oder Bestellnummer eingeben“ (keine Platzhalter-Käufe).
+ * Wird das Produkt angelegt: Titel mit „Rider Coach“ beginnen lassen wie die anderen App-Produkte
+ * („Die Hofgeschichten – Rider Coach …“), Handle hier eintragen, dann Preis und checkoutUrl setzen.
+ */
+export const riderCoach = {
+  /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
+  slug: "rider-coach",
+  name: "Rider Coach",
+  price: null as string | null,
+  /** Geplanter Shopify-Handle */
+  shopifyProductHandle: "die-hofgeschichten-rider-coach",
+  checkoutUrl: null as string | null,
+  parentInfo:
+    "Der persönliche Problemlöser für Reiterinnen und Reiter: Problem eingeben, ein paar kurze Fragen beantworten und einen Lösungsweg mit möglichen Ursachen, Übungen, Tipps für die nächste Reitstunde und einem eigenen Trainingsplan bekommen. Mit Sicherheits- und Abklärungshinweisen. Einmalzahlung, kein Abo.",
+};
+
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
-export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug];
+export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug, riderCoach.slug];

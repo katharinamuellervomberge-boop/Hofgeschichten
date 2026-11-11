@@ -1,13 +1,18 @@
 import {
+  CASE_STATUS,
   DIARY_VERSION,
   DISCIPLINES,
+  FEEDBACK,
   GOAL_STATUS,
   MOODS,
   PLAN_KINDS,
   RELATIONS,
+  type CoachCase,
+  type CoachFeedback,
   type DiaryData,
   type DiaryEntry,
   type Goal,
+  type GoalProgram,
   type Horse,
   type PlanItem,
   type RiderProfile,
@@ -92,7 +97,61 @@ export function cleanHorse(v: unknown): Horse | null {
   });
 }
 
-export function cleanEntry(v: unknown, horseIds: Set<string>): DiaryEntry | null {
+/* Rider Coach: Problem-, Übungs- und Antwort-Kennungen */
+const PROBLEM_ID = /^cp-\d{2}$/;
+const COACH_EX_ID = /^rc-\d{2}$/;
+const KEY = /^[a-z0-9-]{1,24}$/;
+function coachExList(v: unknown, max = 8): string[] {
+  return Array.isArray(v) ? [...new Set(v.filter((x): x is string => typeof x === "string" && COACH_EX_ID.test(x)))].slice(0, max) : [];
+}
+
+export function cleanProgram(v: unknown): GoalProgram | undefined {
+  if (!isObj(v) || !Array.isArray(v.weeks) || !Array.isArray(v.days)) return undefined;
+  const weeks = v.weeks
+    .slice(0, 12)
+    .map((w) => (isObj(w) ? { title: str(w.title, 80) ?? "Woche", exercises: coachExList(w.exercises) } : null))
+    .filter((w): w is GoalProgram["weeks"][number] => w !== null);
+  const days = [...new Set(v.days.filter((d): d is number => Number.isInteger(d) && d >= 0 && d <= 6))].sort();
+  const start = day(v.start);
+  if (weeks.length === 0 || days.length === 0 || !start) return undefined;
+  return { weeks, days, start };
+}
+
+function cleanFeedback(v: unknown): CoachFeedback | null {
+  if (!isObj(v)) return null;
+  const fid = id(v.id);
+  const exercise = typeof v.exercise === "string" && COACH_EX_ID.test(v.exercise) ? v.exercise : undefined;
+  const rating = oneOf(v.rating, FEEDBACK.map((f) => f.id));
+  const date = day(v.date);
+  if (!fid || !exercise || !rating || !date) return null;
+  return compact({ id: fid, exercise, rating, date, entryId: id(v.entryId), planId: id(v.planId) });
+}
+
+export function cleanCoachCase(v: unknown, goalIds?: Set<string>): CoachCase | null {
+  if (!isObj(v)) return null;
+  const cid = id(v.id);
+  const problem = typeof v.problem === "string" && PROBLEM_ID.test(v.problem) ? v.problem : undefined;
+  if (!cid || !problem) return null;
+  const answers: Record<string, string> = {};
+  if (isObj(v.answers)) for (const [k, a] of Object.entries(v.answers).slice(0, 12)) if (KEY.test(k) && typeof a === "string" && KEY.test(a)) answers[k] = a;
+  const flags = Array.isArray(v.flags) ? [...new Set(v.flags.filter((f): f is "abklaeren" | "stopp" => f === "abklaeren" || f === "stopp"))] : [];
+  const now = new Date().toISOString();
+  return compact({
+    id: cid,
+    problem,
+    answers,
+    exercises: coachExList(v.exercises),
+    flags,
+    status: oneOf(v.status, CASE_STATUS.map((s) => s.id)) ?? "offen",
+    saved: v.saved === true ? true : undefined,
+    goalId: typeof v.goalId === "string" && (!goalIds || goalIds.has(v.goalId)) ? id(v.goalId) : undefined,
+    feedback: Array.isArray(v.feedback) ? v.feedback.slice(-200).map(cleanFeedback).filter((f): f is CoachFeedback => f !== null) : [],
+    createdAt: iso(v.createdAt) ?? now,
+    updatedAt: iso(v.updatedAt) ?? now,
+  });
+}
+
+export function cleanEntry(v: unknown, horseIds: Set<string>, goalIds?: Set<string>): DiaryEntry | null {
   if (!isObj(v)) return null;
   const eid = id(v.id);
   const date = day(v.date);
@@ -112,6 +171,8 @@ export function cleanEntry(v: unknown, horseIds: Set<string>): DiaryEntry | null
     practice: str(v.practice, MAX_TEXT),
     nextTime: str(v.nextTime, MAX_TEXT),
     moment: str(v.moment, MAX_TEXT),
+    difficult: str(v.difficult, MAX_TEXT),
+    goalId: typeof v.goalId === "string" && (!goalIds || goalIds.has(v.goalId)) ? id(v.goalId) : undefined,
     favorite: v.favorite === true ? true : undefined,
     photo: photo(v.photo),
     createdAt: iso(v.createdAt) ?? now,
@@ -133,6 +194,8 @@ export function cleanGoal(v: unknown, horseIds: Set<string>): Goal | null {
     status,
     createdAt: iso(v.createdAt) ?? new Date().toISOString(),
     achievedAt: status === "geschafft" ? (iso(v.achievedAt) ?? new Date().toISOString()) : undefined,
+    coachCaseId: id(v.coachCaseId),
+    program: cleanProgram(v.program),
   });
 }
 
@@ -150,12 +213,13 @@ export function cleanPlanItem(v: unknown, horseIds: Set<string>, goalIds?: Set<s
     date,
     kind,
     title,
-    ref: typeof v.ref === "string" && /^r[al]-[a-z0-9-]{1,20}$/.test(v.ref) ? v.ref : undefined,
+    ref: typeof v.ref === "string" && /^r[alc]-[a-z0-9-]{1,20}$/.test(v.ref) ? v.ref : undefined,
     minutes,
     horseId: typeof v.horseId === "string" && horseIds.has(v.horseId) ? v.horseId : undefined,
     discipline: oneOf(v.discipline, DISCIPLINES),
     note: str(v.note, 300),
     goalId: typeof v.goalId === "string" && (!goalIds || goalIds.has(v.goalId)) ? id(v.goalId) : undefined,
+    exercises: kind === "coach" ? coachExList(v.exercises) : undefined,
     done,
     doneAt: done ? (iso(v.doneAt) ?? new Date().toISOString()) : undefined,
     entryId: id(v.entryId),
@@ -173,13 +237,16 @@ export function cleanDiary(v: unknown): DiaryData | null {
   const goalIds = new Set(goals.map((g) => g.id));
   // `plan` gibt es erst seit 09.11.2026 – ältere Tagebücher und Sicherungen haben es nicht
   const plan = Array.isArray(v.plan) ? v.plan.map((p) => cleanPlanItem(p, ids, goalIds)).filter((p): p is PlanItem => p !== null) : [];
+  // `coach` gibt es erst seit 11.11.2026
+  const coach = Array.isArray(v.coach) ? v.coach.map((c) => cleanCoachCase(c, goalIds)).filter((c): c is CoachCase => c !== null) : [];
   return {
     version: DIARY_VERSION,
     profile: cleanProfile(v.profile),
     horses,
-    entries: v.entries.map((e) => cleanEntry(e, ids)).filter((e): e is DiaryEntry => e !== null),
+    entries: v.entries.map((e) => cleanEntry(e, ids, goalIds)).filter((e): e is DiaryEntry => e !== null),
     goals,
     plan,
+    coach,
   };
 }
 

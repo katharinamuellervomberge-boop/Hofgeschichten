@@ -5,6 +5,8 @@ import Link from "@/i18n/Link";
 import { Icon } from "@/components/illustrations/Icons";
 import type { Notify } from "../DiaryApp";
 import { relatedLessons } from "../academyLinks";
+import { caseOfGoal, programProgress } from "../coach";
+import { FeedbackCard } from "@/features/coach/FeedbackCard";
 import { deleteEntry, toggleFavorite } from "../store";
 import { formatDay, formatMinutes, monthKey, monthLabel, sortEntries } from "../stats";
 import { moodLabel, type DiaryData, type DiaryEntry, type Horse } from "../types";
@@ -93,6 +95,7 @@ export function EntriesView({ data }: { data: DiaryData; notify: Notify }) {
 const ANSWERS = [
   { key: "wentWell", label: "Das hat gut geklappt" },
   { key: "learned", label: "Das habe ich gelernt" },
+  { key: "difficult", label: "Das war schwierig" },
   { key: "practice", label: "Das möchte ich noch üben" },
   { key: "nextTime", label: "Für die nächste Stunde" },
   { key: "moment", label: "Mein schönster Moment" },
@@ -112,6 +115,12 @@ export function EntryDetail({ data, notify, entryId }: { data: DiaryData; notify
   const horse = data.horses.find((h) => h.id === e.horseId);
   const lessons = relatedLessons(e);
   const hasText = ANSWERS.some((a) => e[a.key]);
+  const goal = e.goalId ? data.goals.find((g) => g.id === e.goalId) : undefined;
+  const coachCase = caseOfGoal(data, goal);
+  const progress = goal ? programProgress(data, goal) : null;
+  // Übungen der Woche, in der die Stunde lag (sonst der laufenden Woche)
+  const weekIdx = goal?.program ? Math.min(Math.max(Math.floor((Date.parse(e.date) - Date.parse(goal.program.start)) / (7 * 86400000)), 0), goal.program.weeks.length - 1) : -1;
+  const weekExercises = goal?.program && weekIdx >= 0 ? goal.program.weeks[weekIdx].exercises.slice(0, 2) : [];
 
   return (
     <div className={s.stack}>
@@ -166,6 +175,22 @@ export function EntryDetail({ data, notify, entryId }: { data: DiaryData; notify
           Bearbeiten
         </Link>
       </div>
+
+      {goal && (
+        <section className={`${s.card} ${s.related}`} aria-labelledby="entry-goal">
+          <h2 id="entry-goal" className={s.cardTitle}>
+            Gehört zu deinem Ziel
+          </h2>
+          <Link href="/tagebuch/ziele" className={s.relatedLink}>
+            <Icon name={coachCase ? "coach" : "star"} />
+            <span>
+              <strong>{goal.title}</strong>
+              <span>{progress ? `Woche ${progress.week} von ${progress.weeks} · ${progress.done} von ${progress.total} Einheiten erledigt` : goal.status === "geschafft" ? "Geschafft" : "In Arbeit"}</span>
+            </span>
+          </Link>
+          {coachCase && weekExercises.map((ex) => <FeedbackCard key={ex} caseId={coachCase.id} exercise={ex} entryId={e.id} />)}
+        </section>
+      )}
 
       {lessons.length > 0 && (
         <section className={`${s.card} ${s.related}`}>

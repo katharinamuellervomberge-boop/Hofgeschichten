@@ -2,7 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { adventures, isVisible } from "@/content/adventures";
 import { getRelease, isReleased, type Release } from "@/content/membership";
-import { adventskalender, grosseAkademie, meinTagAmHof, productSlugs } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, productSlugs, riderCoach } from "@/content/products";
 import { membershipCodeStillValid } from "./codes";
 import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./token";
 
@@ -47,6 +47,24 @@ export async function hasGrosseAkademie(): Promise<boolean> {
 
 /** Neuer Name, gleiche Prüfung */
 export const hasAcademy = hasGrosseAkademie;
+
+/**
+ * Rider Coach (Premium-Add-on, Kennung `rider-coach`) freigeschaltet?
+ * Nur ein gültiger Kauf bzw. Code zählt – keine Mitgliedschaft, keine Akademie.
+ * Wird vor der Auslieferung jedes Lösungswegs und jeder Übung auf dem Server geprüft.
+ */
+export async function hasRiderCoach(): Promise<boolean> {
+  return (await getEntitlement()).adventures.includes(riderCoach.slug);
+}
+
+/**
+ * Reitertagebuch (mit Zielen und Trainingsplan): Basis-App (Reitakademie), aktive Mitgliedschaft
+ * oder Rider Coach – damit Coach-Käufer ihre Trainingspläne speichern können.
+ */
+export async function hasDiary(): Promise<boolean> {
+  const e = await getEntitlement();
+  return e.membership !== null || e.adventures.includes(grosseAkademie.slug) || e.adventures.includes(riderCoach.slug);
+}
 
 /**
  * Adventskalender „Das Geheimnis des Winterhofs“: Zugriff auf diesem Gerät?

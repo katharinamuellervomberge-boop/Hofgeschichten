@@ -1709,3 +1709,40 @@
 .weekCardHead .mainText {
   display: block;
 }
+
+/* ---------- Rider Coach im Tagebuch (seit 11.11.2026) ---------- */
+.suggestBox {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--sage);
+}
+
+.program {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--sand);
+}
+
+.programWeeks {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.programWeekNow {
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+
+.exLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}

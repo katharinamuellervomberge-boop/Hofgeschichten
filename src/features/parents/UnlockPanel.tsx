@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, riderCoach } from "@/content/products";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
 
@@ -49,6 +49,7 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       const json = (await res.json()) as { ok: boolean; message?: string; adventures?: string[]; membership?: { until: string } | null; code?: string | null };
       if (json.ok) {
         const names = premium.filter((a) => json.adventures?.includes(a.slug)).map((a) => a.title);
+        if (json.adventures?.includes(riderCoach.slug)) names.unshift(riderCoach.name);
         if (json.adventures?.includes(grosseAkademie.slug)) names.unshift(grosseAkademie.name);
         if (json.adventures?.includes(meinTagAmHof.slug)) names.unshift(`Spiel „${meinTagAmHof.name}“`);
         if (json.adventures?.includes(adventskalender.slug)) names.unshift(`Adventskalender „${adventskalender.name}“`);
@@ -84,6 +85,8 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       <h2 id="abenteuer">Premium-Inhalte &amp; Freischaltung</h2>
 
       <AcademyProduct has={owned.includes(grosseAkademie.slug) || (grosseAkademie.includedInMembership && member)} member={member} owned={owned.includes(grosseAkademie.slug)} />
+
+      <RiderCoachProduct has={owned.includes(riderCoach.slug)} />
 
       <AdventProduct owned={owned.includes(adventskalender.slug)} member={member} />
 
@@ -254,6 +257,30 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/** Rider Coach (seit 11.11.2026): Premium-Add-on. Ohne Shop-Produkt kein Kauf-Knopf, nur Freischaltung per Code. */
+function RiderCoachProduct({ has }: { has: boolean }) {
+  return (
+    <div className={styles.product} id="rider-coach">
+      <div className={styles.productHead}>
+        <strong>{riderCoach.name}</strong>
+        <span className={`${styles.pill} ${has ? styles.pillOk : ""}`}>
+          {has ? "Auf diesem Gerät freigeschaltet" : riderCoach.price ? `${riderCoach.price} einmalig` : "Premium-Add-on"}
+        </span>
+      </div>
+      <p className={styles.productInfo}>{riderCoach.parentInfo} Suche und ein Demo-Lösungsweg sind kostenlos.</p>
+      {!has &&
+        (riderCoach.checkoutUrl && riderCoach.price ? (
+          <a href={riderCoach.checkoutUrl} target="_blank" rel="noopener noreferrer" className={styles.shopLink}>
+            <span>Rider Coach kaufen</span>
+            <Icon name="external" />
+          </a>
+        ) : (
+          <p className={styles.productInfo}>Der Kauf im Shop folgt in Kürze. Mit einem Freischaltcode lässt sich der Rider Coach schon jetzt unten freischalten.</p>
+        ))}
     </div>
   );
 }

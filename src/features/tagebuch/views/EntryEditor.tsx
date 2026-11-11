@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "@/i18n/Link";
 import type { Notify } from "../DiaryApp";
+import { suggestGoalForEntry } from "../coach";
 import { linkPlanEntry, saveEntry } from "../store";
 import { today } from "../sanitize";
 import { DISCIPLINES, MOODS, type DiaryData, type Discipline, type Mood } from "../types";
@@ -13,6 +14,7 @@ import s from "../tagebuch.module.css";
 const QUESTIONS = [
   { key: "wentWell", label: "Was hat heute gut geklappt?" },
   { key: "learned", label: "Was habe ich heute gelernt?" },
+  { key: "difficult", label: "Was war schwierig?" },
   { key: "practice", label: "Was möchte ich noch üben?" },
   { key: "nextTime", label: "Was nehme ich mir für die nächste Stunde vor?" },
   { key: "moment", label: "Mein schönster Moment" },
@@ -24,7 +26,7 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
   const old = entryId ? data.entries.find((e) => e.id === entryId) : undefined;
   // Aus dem Trainingsplan: /tagebuch/stunde?plan=<id> füllt Datum, Pferd, Dauer und Disziplin vor
   const planId = useSearchParams().get("plan");
-  const fromPlan = !old && planId ? data.plan.find((p) => p.id === planId && p.kind === "reiten") : undefined;
+  const fromPlan = !old && planId ? data.plan.find((p) => p.id === planId && (p.kind === "reiten" || p.kind === "coach")) : undefined;
   const onlyHorse = data.horses.length === 1 ? data.horses[0].id : "";
   const [date, setDate] = useState(old?.date ?? (fromPlan && fromPlan.date <= today() ? fromPlan.date : today()));
   const [horseId, setHorseId] = useState(old ? (old.horseId ?? "") : (fromPlan?.horseId ?? onlyHorse));
@@ -34,11 +36,17 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
   const [texts, setTexts] = useState<Record<QKey, string>>({
     wentWell: old?.wentWell ?? "",
     learned: old?.learned ?? "",
+    difficult: old?.difficult ?? "",
     practice: old?.practice ?? "",
     nextTime: old?.nextTime ?? "",
     moment: old?.moment ?? "",
   });
   const [favorite, setFavorite] = useState(old?.favorite ?? false);
+  // Ziel-Zuordnung: nur nach Bestätigung. Vorschlag über die Texte (Rider-Coach-Suchbegriffe bzw. Zieltitel).
+  const [goalId, setGoalId] = useState(old?.goalId ?? fromPlan?.goalId ?? "");
+  const [dismissed, setDismissed] = useState<string | null>(null);
+  const openGoals = data.goals.filter((g) => g.status !== "geschafft" || g.id === goalId);
+  const suggested = !goalId ? suggestGoalForEntry(data, texts) : undefined;
   const [photo, setPhoto] = useState<string | undefined>(old?.photo);
   const [errors, setErrors] = useState<{ date?: string; minutes?: string }>({});
   const [busy, setBusy] = useState(false);
@@ -87,6 +95,7 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
               discipline: discipline || undefined,
               mood: mood || undefined,
               ...texts,
+              goalId: goalId || undefined,
               favorite: favorite || undefined,
               photo,
             });
@@ -97,7 +106,7 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
                 /* Eintrag ist gespeichert – Abhaken im Plan ist nicht entscheidend */
               }
             }
-            notify(old ? "Eintrag gespeichert" : fromPlan ? "Reitstunde eingetragen und im Plan abgehakt" : "Reitstunde eingetragen");
+            notify(old ? "Eintrag gespeichert" : fromPlan ? "Eingetragen und im Plan abgehakt" : "Reitstunde eingetragen");
             router.push(`/tagebuch/eintrag/${id}`);
           } catch {
             notify("Speichern hat nicht geklappt. Bitte nochmal versuchen.");
@@ -149,6 +158,24 @@ export function EntryEditor({ data, notify, entryId }: { data: DiaryData; notify
           {QUESTIONS.map((q) => (
             <TextArea key={q.key} label={q.label} value={texts[q.key]} rows={2} onChange={(v) => setTexts((t) => ({ ...t, [q.key]: v }))} />
           ))}
+          {suggested && dismissed !== suggested.id && (
+            <div className={s.suggestBox} role="status">
+              <p>
+                Passt dieser Eintrag zu deinem Ziel <strong>„{suggested.title}“</strong>?
+              </p>
+              <div className={s.actions}>
+                <button type="button" className={s.btnPrimarySmall} onClick={() => setGoalId(suggested.id)}>
+                  Ja, zuordnen
+                </button>
+                <button type="button" className={s.btnText} onClick={() => setDismissed(suggested.id)}>
+                  Nein
+                </button>
+              </div>
+            </div>
+          )}
+          {openGoals.length > 0 && (
+            <Chips label="Gehört zu einem Ziel?" value={goalId} onChange={setGoalId} options={openGoals.map((g) => ({ value: g.id, label: g.title }))} />
+          )}
           <PhotoField label="Foto von heute" value={photo} onChange={setPhoto} />
           <label className={s.favToggle}>
             <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} />

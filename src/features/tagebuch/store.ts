@@ -2,8 +2,22 @@
 
 import { useSyncExternalStore } from "react";
 import { loadDiary, requestPersistence, saveDiary } from "./db";
-import { cleanEntry, cleanGoal, cleanHorse, cleanPlanItem, cleanProfile, newId } from "./sanitize";
-import { emptyDiary, type DiaryData, type DiaryEntry, type Goal, type GoalStatus, type Horse, type PlanItem, type RiderProfile } from "./types";
+import { programItems } from "./coach";
+import { cleanCoachCase, cleanEntry, cleanGoal, cleanHorse, cleanPlanItem, cleanProfile, newId, today } from "./sanitize";
+import {
+  emptyDiary,
+  type CaseStatus,
+  type CoachCase,
+  type CoachFeedback,
+  type DiaryData,
+  type DiaryEntry,
+  type Goal,
+  type GoalProgram,
+  type GoalStatus,
+  type Horse,
+  type PlanItem,
+  type RiderProfile,
+} from "./types";
 
 /**
  * Kleiner Store für das Reitertagebuch (wie src/lib/progress/store.ts, aber mit
@@ -84,6 +98,7 @@ async function commit(fn: (d: DiaryData) => DiaryData): Promise<void> {
 }
 
 const horseIds = (d: DiaryData) => new Set(d.horses.map((h) => h.id));
+const goalIds = (d: DiaryData) => new Set(d.goals.map((g) => g.id));
 const nowIso = () => new Date().toISOString();
 
 /* ---------- Profil ---------- */
@@ -119,7 +134,7 @@ export async function saveEntry(input: Omit<DiaryEntry, "id" | "createdAt" | "up
   const eid = input.id ?? newId();
   await commit((d) => {
     const old = d.entries.find((e) => e.id === eid);
-    const entry = cleanEntry({ ...input, id: eid, createdAt: old?.createdAt ?? nowIso(), updatedAt: nowIso() }, horseIds(d));
+    const entry = cleanEntry({ ...input, id: eid, createdAt: old?.createdAt ?? nowIso(), updatedAt: nowIso() }, horseIds(d), goalIds(d));
     if (!entry) throw new SaveError("invalid");
     return { ...d, entries: old ? d.entries.map((e) => (e.id === eid ? entry : e)) : [...d.entries, entry] };
   });
@@ -147,7 +162,8 @@ export async function saveGoal(input: Omit<Goal, "id" | "createdAt" | "achievedA
   await commit((d) => {
     const old = d.goals.find((g) => g.id === gid);
     const achievedAt = input.status === "geschafft" ? (old?.achievedAt ?? nowIso()) : undefined;
-    const goal = cleanGoal({ ...input, id: gid, createdAt: old?.createdAt ?? nowIso(), achievedAt }, horseIds(d));
+    // Programm und Coach-Bezug bleiben beim Bearbeiten erhalten
+    const goal = cleanGoal({ coachCaseId: old?.coachCaseId, program: old?.program, ...input, id: gid, createdAt: old?.createdAt ?? nowIso(), achievedAt }, horseIds(d));
     if (!goal) throw new SaveError("invalid");
     return { ...d, goals: old ? d.goals.map((g) => (g.id === gid ? goal : g)) : [...d.goals, goal] };
   });
@@ -163,11 +179,17 @@ export function setGoalStatus(gid: string, status: GoalStatus) {
   }));
 }
 
+/** Ziel löschen. Einheiten und Einträge bleiben, verlieren nur die Zuordnung; offene Coach-Einheiten des Ziels entfallen. */
 export function deleteGoal(gid: string) {
+  const t = today();
   return commit((d) => ({
     ...d,
     goals: d.goals.filter((g) => g.id !== gid),
-    plan: d.plan.map((p) => (p.goalId === gid ? { ...p, goalId: undefined } : p)),
+    plan: d.plan
+      .filter((p) => !(p.goalId === gid && p.kind === "coach" && !p.done && p.date >= t))
+      .map((p) => (p.goalId === gid ? { ...p, goalId: undefined } : p)),
+    entries: d.entries.map((e) => (e.goalId === gid ? { ...e, goalId: undefined } : e)),
+    coach: d.coach.map((c) => (c.goalId === gid ? { ...c, goalId: undefined } : c)),
   }));
 }
 
@@ -222,6 +244,94 @@ export function linkPlanEntry(pid: string, entryId: string) {
 
 export function deletePlanItem(pid: string) {
   return commit((d) => ({ ...d, plan: d.plan.filter((p) => p.id !== pid) }));
+}
+
+/* ---------- Rider Coach (seit 11.11.2026) ---------- */
+
+export type CaseInput = Pick<CoachCase, "problem" | "answers" | "exercises" | "flags"> & { id?: string; saved?: boolean };
+
+/** Analyse speichern (neu oder aktualisiert). Gibt die Fall-ID zurück. */
+export async function saveCoachCase(input: CaseInput): Promise<string> {
+  const cid = input.id ?? newId();
+  await commit((d) => {
+    const old = d.coach.find((c) => c.id === cid);
+    const c = cleanCoachCase(
+      { ...old, ...input, id: cid, status: old?.status ?? "offen", saved: input.saved ?? old?.saved, feedback: old?.feedback ?? [], createdAt: old?.createdAt ?? nowIso(), updatedAt: nowIso() },
+      goalIds(d),
+    );
+    if (!c) throw new SaveError("invalid");
+    if (!old && d.coach.length >= 200) throw new SaveError("full");
+    return { ...d, coach: old ? d.coach.map((x) => (x.id === cid ? c : x)) : [...d.coach, c] };
+  });
+  return cid;
+}
+
+export function setCaseSaved(cid: string, saved: boolean) {
+  return commit((d) => ({ ...d, coach: d.coach.map((c) => (c.id === cid ? { ...c, saved: saved || undefined, updatedAt: nowIso() } : c)) }));
+}
+
+export function setCaseStatus(cid: string, status: CaseStatus) {
+  return commit((d) => ({ ...d, coach: d.coach.map((c) => (c.id === cid ? { ...c, status, updatedAt: nowIso() } : c)) }));
+}
+
+export function deleteCoachCase(cid: string) {
+  return commit((d) => ({
+    ...d,
+    coach: d.coach.filter((c) => c.id !== cid),
+    goals: d.goals.map((g) => (g.coachCaseId === cid ? { ...g, coachCaseId: undefined } : g)),
+  }));
+}
+
+/** Rückmeldung „Hat dir die Übung geholfen?“ (je Einheit/Eintrag wird eine frühere Antwort ersetzt) */
+export function addCoachFeedback(cid: string, fb: Omit<CoachFeedback, "id" | "date"> & { date?: string }) {
+  return commit((d) => {
+    const c = d.coach.find((x) => x.id === cid);
+    if (!c) throw new SaveError("invalid");
+    const same = (f: CoachFeedback) => f.exercise === fb.exercise && ((fb.planId && f.planId === fb.planId) || (fb.entryId && f.entryId === fb.entryId));
+    const next = cleanCoachCase({ ...c, feedback: [...c.feedback.filter((f) => !same(f)), { ...fb, id: newId(), date: fb.date ?? today() }], updatedAt: nowIso() }, goalIds(d));
+    if (!next) throw new SaveError("invalid");
+    return { ...d, coach: d.coach.map((x) => (x.id === cid ? next : x)) };
+  });
+}
+
+/**
+ * „Daraus einen Trainingsplan machen“: legt ein Ziel mit Wochenprogramm an, plant die
+ * Einheiten in den Trainingsplan und verbindet den Coach-Fall. Alles in einem Schritt.
+ */
+export async function createProgramGoal(input: { title: string; description?: string; horseId?: string; caseId?: string; program: GoalProgram }): Promise<string> {
+  const gid = newId();
+  await commit((d) => {
+    const goal = cleanGoal({ id: gid, title: input.title, description: input.description, horseId: input.horseId, status: "uebe", createdAt: nowIso(), coachCaseId: input.caseId, program: input.program }, horseIds(d));
+    if (!goal || !goal.program) throw new SaveError("invalid");
+    const withGoal = { ...d, goals: [...d.goals, goal] };
+    const items = programItems(goal.program, gid).map((i) => buildPlanItem(withGoal, i));
+    if (d.plan.length + items.length > MAX_PLAN) throw new SaveError("full");
+    return {
+      ...withGoal,
+      plan: [...d.plan, ...items],
+      coach: d.coach.map((c) => (c.id === input.caseId ? { ...c, goalId: gid, saved: true, updatedAt: nowIso() } : c)),
+    };
+  });
+  return gid;
+}
+
+/** Wochenprogramm eines Ziels ändern: offene künftige Coach-Einheiten werden neu geplant, erledigte bleiben. */
+export function updateGoalProgram(gid: string, program: GoalProgram, title?: string) {
+  const t = today();
+  return commit((d) => {
+    const old = d.goals.find((g) => g.id === gid);
+    if (!old) throw new SaveError("invalid");
+    const goal = cleanGoal({ ...old, title: title ?? old.title, program }, horseIds(d));
+    if (!goal || !goal.program) throw new SaveError("invalid");
+    const withGoal = { ...d, goals: d.goals.map((g) => (g.id === gid ? goal : g)) };
+    const keep = d.plan.filter((p) => !(p.goalId === gid && p.kind === "coach" && !p.done && p.date >= t));
+    const taken = new Set(keep.filter((p) => p.goalId === gid && p.kind === "coach").map((p) => p.date));
+    const items = programItems(goal.program, gid, t)
+      .filter((i) => !taken.has(i.date))
+      .map((i) => buildPlanItem(withGoal, i));
+    if (keep.length + items.length > MAX_PLAN) throw new SaveError("full");
+    return { ...withGoal, plan: [...keep, ...items] };
+  });
 }
 
 /* ---------- Sicherung ---------- */

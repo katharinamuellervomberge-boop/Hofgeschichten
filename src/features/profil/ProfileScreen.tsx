@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { allLessons } from "@/content/akademie";
 import { ACADEMY_PATHS, academyModules, moduleHref, moduleLessons } from "@/content/akademie/module";
 import { publishedAdventures } from "@/content/adventures";
-import { grosseAkademie } from "@/content/products";
+import { grosseAkademie, riderCoach } from "@/content/products";
 import { allStamps } from "@/content/stamps";
 import { lessonDone } from "@/features/akademie/progress";
 import type { MembershipStatus } from "@/lib/entitlements/server";
@@ -16,14 +16,14 @@ import { earnedStamps } from "@/lib/progress/stamps";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import styles from "./profil.module.css";
 
-type Props = { academy: boolean; membership: MembershipStatus; adventures: string[] };
+type Props = { academy: boolean; coach?: boolean; membership: MembershipStatus; adventures: string[] };
 
 /**
  * Profil (seit 28.10.2026): Lernweg, Lernfortschritt, Freischaltungen dieses Geräts,
  * die drei Produkte und Einstellungen. Es gibt bewusst kein Konto – alles gilt für dieses Gerät.
  * Käufe und Codes laufen weiter über den Elternbereich.
  */
-export function ProfileScreen({ academy, membership, adventures }: Props) {
+export function ProfileScreen({ academy, coach = false, membership, adventures }: Props) {
   const progress = useProgress();
   const total = allLessons().length;
   const done = allLessons().filter((l) => lessonDone(progress, l)).length;
@@ -129,6 +129,13 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
                 {academy ? "Freigeschaltet" : "Probelektionen offen"}
               </span>
             </li>
+            <li>
+              <Icon name={coach ? "check" : "lock"} />
+              <span>
+                <strong>Rider Coach</strong>
+                {coach ? "Freigeschaltet" : "Suche und Demo offen"}
+              </span>
+            </li>
             {membership.active && (
             <li>
               <Icon name="check" />
@@ -167,6 +174,15 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
               <span className={styles.productText}>Alle Module inkl. Dressur und Springen, Rider Lab und Reitertagebuch mit Trainingsplan – dauerhafter Zugriff.</span>
               <Link href="/akademie" className={styles.productLink}>
                 {academy ? "Zur Akademie" : "Ansehen"}
+              </Link>
+            </li>
+            <li className={styles.product}>
+              <span className={styles.productKicker}>Premium-Add-on · kein Abo</span>
+              <strong className={styles.productName}>Rider Coach</strong>
+              {riderCoach.price && <span className={styles.productPrice}>{riderCoach.price}</span>}
+              <span className={styles.productText}>Der persönliche Problemlöser: Problem eingeben, Fragen beantworten, Lösungsweg und Trainingsplan bekommen.</span>
+              <Link href="/coach" className={styles.productLink}>
+                {coach ? "Zum Rider Coach" : "Demo ansehen"}
               </Link>
             </li>
           </ul>

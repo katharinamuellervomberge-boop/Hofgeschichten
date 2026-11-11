@@ -1,6 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, riderCoach } from "@/content/products";
 import { hofpost, membership } from "@/content/membership";
 
 /**
@@ -106,6 +106,8 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
   // Nur das Paket (Titel mit „Reitakademie“ UND „Adventskalender“ und „+“/„Paket“) schaltet beides frei.
   [/(reitakademie.*(\+|paket).*adventskalender|adventskalender.*(\+|paket).*reitakademie)/i, () => adventskalender.bundleProductHandle],
   [/adventskalender|winterhof/i, () => adventskalender.shopifyProductHandle],
+  // Rider Coach vor der Akademie prüfen, falls der Titel beide Namen enthält („Rider Coach für die Reitakademie“)
+  [/rider\s*coach/i, () => riderCoach.shopifyProductHandle],
   [/reitakademie/i, () => grosseAkademie.shopifyProductHandle],
   [/mein tag am hof/i, () => meinTagAmHof.shopifyProductHandle],
   [/hofpost/i, () => hofpost.shopifyProductHandle],
@@ -119,7 +121,7 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
  * „Die Reitakademie – Online-Reitkurs mit Reitertagebuch (…, Hofgeschichten)“ – ohne diesen
  * Eintrag schlugen alle Akademie-Bestellungen ab #1101 mit „no_product“ fehl.
  */
-const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/];
+const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/, /^Rider Coach\s+[–-]/];
 
 function handleFromTitle(title: string | null): string | null {
   const t = (title ?? "").trim();
@@ -167,6 +169,8 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
     unlocked.push(adventskalender.slug);
     if (!unlocked.includes(grosseAkademie.slug)) unlocked.push(grosseAkademie.slug);
   }
+  // Rider Coach (Premium-Add-on)
+  if (handles.has(riderCoach.shopifyProductHandle)) unlocked.push(riderCoach.slug);
   // Spiel „Mein Tag am Hof“ (Einzelkauf)
   if (handles.has(meinTagAmHof.shopifyProductHandle)) unlocked.push(meinTagAmHof.slug);
   // Hofpost enthält die App-Mitgliedschaft – gleicher Mitgliedscode

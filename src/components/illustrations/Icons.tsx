@@ -27,7 +27,8 @@ export type IconName =
   | "letter"
   | "diary"
   | "lab"
-  | "plan";
+  | "plan"
+  | "coach";
 
 const paths: Record<IconName, ReactNode> = {
   home: (
@@ -155,6 +156,14 @@ const paths: Record<IconName, ReactNode> = {
       <path d="M12 13.5 15 10.5" />
       <path d="M10 3.5h4M12 3.5v3" />
       <path d="m18.5 6.5 1.3-1.3" />
+    </>
+  ),
+  /* Rider Coach: Kompass – den Weg zur Lösung finden */
+  coach: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="m14.8 9.2-1.9 3.7-3.7 1.9 1.9-3.7z" />
+      <path d="M12 3.5v1.6M12 18.9v1.6M3.5 12h1.6M18.9 12h1.6" />
     </>
   ),
   /* Trainingsplan: Kalenderblatt mit Haken */

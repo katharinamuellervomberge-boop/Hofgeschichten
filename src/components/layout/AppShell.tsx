@@ -13,8 +13,10 @@ import styles from "./AppShell.module.css";
 type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; also?: string[]; short?: string; title?: string };
 
 /**
- * Feste Leiste seit 09.11.2026 (ohne Hofwelt):
- * Start · Reitakademie · Rider Lab · Tagebuch · Spielen · Profil
+ * Feste Leiste seit 11.11.2026 – die vier Bereiche von Hofgeschichten 2.0:
+ * Start · Reitakademie · Tagebuch · Rider Lab · Rider Coach · Profil
+ * „Spielen“ ist aus der Leiste in die Reitakademie gewandert (/spielen bleibt erreichbar
+ * und markiert die Akademie als aktiv).
  * Die früheren Hofwelt-Seiten (/pferde, /abenteuer, /hofjahr, /hoeren, /mitgliedschaft,
  * /adventskalender) sind nicht mehr verlinkt, per Direktlink aber für Käufer erreichbar.
  * `short`: kürzere Beschriftung auf schmalen Handys.
@@ -22,12 +24,13 @@ type NavItem = { href: string; label: string; icon: IconName; hidden?: boolean; 
  */
 const ALL_NAV: NavItem[] = [
   { href: "/", label: "Start", icon: "home" },
-  { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie" },
-  /* Rider Lab – Übungen für den Reitersitz, Teil der Reitakademie */
-  { href: "/akademie/rider-lab", label: "Rider Lab", icon: "lab", short: "Lab" },
+  { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie", also: ["/spielen", "/hoftag"] },
   /* Mein Reitertagebuch mit Trainingsplan – mit Reitakademie, sonst Vorschau */
   { href: "/tagebuch", label: "Tagebuch", icon: "diary", title: "Mein Reitertagebuch" },
-  { href: "/spielen", label: "Spielen", icon: "puzzle", also: ["/hoftag"] },
+  /* Rider Lab – Ziele, Trainingspläne und Übungen für den Reitersitz */
+  { href: "/akademie/rider-lab", label: "Rider Lab", icon: "lab", short: "Lab" },
+  /* Rider Coach – Premium-Problemlöser (Vorschau für alle) */
+  { href: "/coach", label: "Rider Coach", icon: "coach", short: "Coach" },
   /* Lernfortschritt, Pass, Käufe und Einstellungen */
   { href: "/profil", label: "Profil", icon: "pass", also: ["/pass", "/eltern"] },
 ];

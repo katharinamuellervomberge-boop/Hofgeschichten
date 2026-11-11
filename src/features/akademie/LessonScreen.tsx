@@ -11,6 +11,8 @@ import { academyStamps, PROFI_STAMP_ID } from "@/content/akademie/stamps";
 import { ActivityPlayer } from "@/engine/ActivityPlayer";
 import type { AcademyLesson } from "@/content/akademie/types";
 import type { AcademyVideo } from "@/content/akademie/videos";
+import { coachLessonLinks } from "@/content/coach/katalog.generated";
+import { problemHref, problemInfoById } from "@/content/coach/index";
 import { LessonVideo } from "./LessonVideo";
 import { pick, type Activity } from "@/engine/types";
 import { VisualView } from "@/engine/VisualView";
@@ -124,6 +126,7 @@ function LessonDone({
   en,
   badgeTitle,
   worldId,
+  lessonId,
   merksatz,
   next,
   replay,
@@ -174,6 +177,7 @@ function LessonDone({
         <p className={styles.merkLabel}>{en ? "Key takeaway" : "Merksatz"}</p>
         <p className={styles.merkText}>{merksatz}</p>
       </div>
+      {!en && <CoachHint lessonId={lessonId} />}
       <div className={styles.actions}>
         <button type="button" className={styles.btn} onClick={replay}>
           <Icon name="replay" />
@@ -190,6 +194,23 @@ function LessonDone({
           <Icon name="back" />
         </Link>
       </div>
+    </div>
+  );
+}
+
+/** Rider Coach: „Klappt das beim Reiten noch nicht?“ – passende Lösungswege zu dieser Lektion (seit 11.11.2026) */
+function CoachHint({ lessonId }: { lessonId: string }) {
+  const problems = (coachLessonLinks[lessonId] ?? []).map((id) => problemInfoById(id)).filter((p): p is NonNullable<typeof p> => !!p).slice(0, 2);
+  if (problems.length === 0) return null;
+  return (
+    <div className={styles.merk} style={{ textAlign: "left" }}>
+      <p className={styles.merkLabel}>Klappt das beim Reiten noch nicht?</p>
+      {problems.map((p) => (
+        <Link key={p.id} href={problemHref(p)} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 700, minHeight: 44 }}>
+          <Icon name="coach" style={{ width: 22, height: 22, flex: "none" }} />
+          Rider Coach: {p.title}
+        </Link>
+      ))}
     </div>
   );
 }

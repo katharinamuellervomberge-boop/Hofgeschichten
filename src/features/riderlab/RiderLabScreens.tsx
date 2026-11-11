@@ -23,6 +23,7 @@ import { FigureScene, C } from "./Figure";
 import { GROUND, loopLength, poseAt } from "./kinematics";
 import { areaDoneCount, exerciseCount, exerciseDone, labDoneCount } from "./progress";
 import { Trainer } from "./Trainer";
+import { LabGoals } from "./LabGoals";
 import type { Animation, Exercise } from "./types";
 import ak from "@/features/akademie/academy.module.css";
 import styles from "./riderlab.module.css";
@@ -75,7 +76,7 @@ export function RiderLabHome({ unlocked, previews }: { unlocked: boolean; previe
       <PageHeader title={RIDER_LAB_TITLE} backHref="/akademie" backLabel="Zurück zur Reitakademie" />
       <div className={ak.page}>
         <section className={ak.hero} aria-labelledby="rl-title">
-          <p className={ak.eyebrow}>Reitakademie · Rider Lab</p>
+          <p className={ak.eyebrow}>Rider Lab · Ziele setzen und Training planen</p>
           <h1 id="rl-title" className={ak.heroTitle}>
             {RIDER_LAB_SUB}
           </h1>
@@ -106,6 +107,8 @@ export function RiderLabHome({ unlocked, previews }: { unlocked: boolean; previe
             )}
           </div>
         </section>
+
+        {unlocked && <LabGoals />}
 
         <section aria-labelledby="rl-areas">
           <div className={ak.sectionHead}>

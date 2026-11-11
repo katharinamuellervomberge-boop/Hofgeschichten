@@ -1,8 +1,13 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Link from "@/i18n/Link";
+import { coachExerciseCatalog } from "@/content/coach/katalog.generated";
+import { problemHref, problemInfoById } from "@/content/coach/index";
+import { ProgramBuilder } from "@/features/coach/ProgramBuilder";
+import { caseOfGoal, coachExerciseHref, coachExerciseTitle, programProgress } from "../coach";
 import type { Notify } from "../DiaryApp";
-import { deleteGoal, saveGoal, setGoalStatus } from "../store";
+import { deleteGoal, saveGoal, setGoalStatus, updateGoalProgram } from "../store";
 import { formatDay } from "../stats";
 import { today } from "../sanitize";
 import { GOAL_STATUS, GOAL_SUGGESTIONS, type DiaryData, type Goal, type GoalStatus } from "../types";
@@ -99,6 +104,7 @@ export function GoalsView({ data, notify }: { data: DiaryData; notify: Notify })
                             .filter(Boolean)
                             .join(" · ")}
                         </p>
+                        {g.program && <ProgramInfo data={data} goal={g} notify={notify} />}
                       </div>
                       <div className={s.goalActions}>
                         {g.status === "neu" && (
@@ -129,6 +135,76 @@ export function GoalsView({ data, notify }: { data: DiaryData; notify: Notify })
       )}
 
       {party && <Celebration title={party} onClose={closeParty} />}
+    </div>
+  );
+}
+
+/** Wochenprogramm eines Ziels (aus dem Rider Coach): Fortschritt aus abgehakten Einheiten, Wochen, Anpassen */
+function ProgramInfo({ data, goal, notify }: { data: DiaryData; goal: Goal; notify: Notify }) {
+  const [edit, setEdit] = useState(false);
+  const pp = programProgress(data, goal)!;
+  const program = goal.program!;
+  const c = caseOfGoal(data, goal);
+  const info = c ? problemInfoById(c.problem) : undefined;
+  const options = info ? coachExerciseCatalog.filter((e) => e.problems.includes(info.id)).map((e) => e.id) : program.weeks.flatMap((w) => w.exercises);
+  const freq = program.days.length;
+
+  if (edit)
+    return (
+      <ProgramBuilder
+        title={goal.title}
+        weeks={program.weeks}
+        options={options}
+        initialDays={program.days}
+        initialStart={program.start}
+        submitLabel="Plan speichern"
+        onCancel={() => setEdit(false)}
+        onSave={async (d) => {
+          await updateGoalProgram(goal.id, d.program, d.title);
+          setEdit(false);
+          notify("Plan angepasst – offene Einheiten sind neu eingeplant");
+        }}
+      />
+    );
+
+  return (
+    <div className={s.program}>
+      <p className={s.goalMeta}>
+        {pp.ended ? `${pp.weeks} Wochen · Planzeit vorbei` : `Woche ${pp.week} von ${pp.weeks}`} · {freq}× pro Woche · {pp.done} von {pp.total} Einheiten erledigt
+      </p>
+      <span className={s.planBar} role="progressbar" aria-valuemin={0} aria-valuemax={pp.total} aria-valuenow={pp.done} aria-label={`Fortschritt ${goal.title}`}>
+        <span style={{ width: `${pp.total ? (pp.done / pp.total) * 100 : 0}%` }} />
+      </span>
+      <ol className={s.programWeeks}>
+        {program.weeks.map((w, i) => (
+          <li key={i} className={i + 1 === pp.week && !pp.ended ? s.programWeekNow : undefined}>
+            Woche {i + 1}: {w.title} –{" "}
+            {w.exercises.map((ex, j) => (
+              <span key={ex}>
+                {j > 0 && ", "}
+                <Link href={coachExerciseHref(ex)} className={s.inlineLink}>
+                  {coachExerciseTitle(ex)}
+                </Link>
+              </span>
+            ))}
+          </li>
+        ))}
+      </ol>
+      <p className={s.exLinks}>
+        {goal.status !== "geschafft" && (
+          <button type="button" className={s.btnText} onClick={() => setEdit(true)}>
+            Plan anpassen
+          </button>
+        )}
+        <Link href="/tagebuch/plan" className={s.inlineLink}>
+          Wochenplan
+        </Link>
+        {c && info && (
+          <Link href={`${problemHref(info)}?fall=${c.id}`} className={s.inlineLink}>
+            Lösungsweg
+          </Link>
+        )}
+      </p>
     </div>
   );
 }
