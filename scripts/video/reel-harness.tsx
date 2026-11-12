@@ -32,6 +32,7 @@ import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-r
 import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
 import { HAENDE_EN_TOTAL, renderHaendeEn } from "@/video/reels/haende-sitz-reel-en";
 import { BEIN_TOTAL, renderBein } from "@/video/reels/bein-reel";
+import { R40_TOTAL, renderR40 } from "@/video/reels/r40-reiter-reel";
 import { FA_TOTAL, renderFaecher } from "@/video/reels/rf5-faecher-reel";
 import { KB_TOTAL, renderKleeblatt } from "@/video/reels/rf4-kleeblatt-reel";
 import { RF3_TOTAL, renderRf3 } from "@/video/reels/rf3-trense-reel";
@@ -81,6 +82,7 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
   "haende-en": { total: () => HAENDE_EN_TOTAL, render: renderHaendeEn },
   bein: { total: () => BEIN_TOTAL, render: renderBein },
+  "reiter40": { total: () => R40_TOTAL, render: renderR40 },
   "rf-faecher": { total: () => FA_TOTAL, render: renderFaecher },
   "rf-kleeblatt": { total: () => KB_TOTAL, render: renderKleeblatt },
   "rf-trense": { total: () => RF3_TOTAL, render: renderRf3 },
