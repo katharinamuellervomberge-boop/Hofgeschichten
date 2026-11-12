@@ -72,7 +72,8 @@ for i in range(4): add(fx, blip(79 + i*3), C["s2cut"] + 0.15 + i*0.3, 0.4 + 0.07
 add(fx, kaching(), C["s2cut"] + 1.4)
 add(fx, blip(72, 0.2, 0.2), C["s2b"])
 # Szene 3: Husten (Mensch egal, Pferd ALARM)
-add(fx, cough(True, 0.4), C["s3"] + 0.15); add(fx, cough(True, 0.35), C["s3"] + 0.6)
+VO = len(sys.argv) > 2
+if not VO: add(fx, cough(True, 0.4), C["s3"] + 0.15); add(fx, cough(True, 0.35), C["s3cough2"])
 add(fx, cough(False, 0.6), C["s3cut"] + 0.3)
 add(fx, stab([60, 66, 72], 0.28, 0.8, 3), C["s3big"]); add(fx, timpani(0.35), C["s3big"])
 for i in range(4): add(fx, blip(84 + i, 0.18), C["s3sub"] + i*0.28, 0.3 + 0.13*i)
@@ -92,7 +93,7 @@ for i, c in enumerate(["s6", "s6b", "s6c", "s6d"]): add(fx, note(mid(84 + 2*i), 
 # Szene 7: Regen leise, Gedankenblasen
 rain = bp(noise(C["s8"] - C["s7"]), 2000, 9000) * 0.05; add(fx, rain, C["s7"])
 for i in range(3): add(fx, blip(74 + i*2, 0.18), C["s7cut"] + 0.45 + i*0.3)
-for i in range(5): add(fx, blip(86 - i*2, 0.2, 0.15), C["s7th"] + i*0.4, 0.2 + 0.15*i)
+for i in range(5): add(fx, blip(86 - i*2, 0.2, 0.15), C["s7th"] + i*C["s7step"], 0.2 + 0.15*i)
 # Szene 8: Kamera-Auslöser
 for i in range(9): add(fx, shutter(0.14), C["s8"] + 0.1 + i*0.08, 0.3 + 0.05*i)
 for i in range(6): add(fx, shutter(0.2), C["s8lab"] + i*0.3, 0.5)
@@ -131,7 +132,14 @@ for m in [55, 62, 67, 71, 74, 79]: add(mus, note(mid(m), 4.5, 0.12, 0.9), C["fin
 for i, m in enumerate([86, 90, 93, 98]): add(mus, note(mid(m), 2.0, 0.05, 3), C["cta"] + i*0.09, 0.4 + 0.1*i)
 
 mus /= np.abs(mus).max() / 0.7; fx /= np.abs(fx).max() / 0.9
-out = mus * 0.45 + fx * 0.8
+if VO:  # Stimme dazu, Musik unter der Stimme absenken (Ducking)
+    sr2, v = wf.read(sys.argv[2]); v = v.astype(float) / 32768
+    v = np.pad(v, (0, max(0, n - len(v))))[:n]
+    env = np.convolve(np.abs(v), np.ones(int(SR*0.25))/(SR*0.25), "same")
+    duck = 1 - 0.55 * np.clip(env / 0.03, 0, 1)
+    out = mus * 0.38 * duck[:, None] + fx * 0.55 + np.stack([v, v], 1) * 1.0
+else:
+    out = mus * 0.45 + fx * 0.8
 fo = int(SR * 1.2); out[-fo:] *= np.linspace(1, 0, fo)[:, None]
 out /= np.abs(out).max() / 0.9
 wf.write(sys.argv[1], SR, (out * 32767).astype(np.int16)); print("ok", T)

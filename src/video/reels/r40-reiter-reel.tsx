@@ -194,7 +194,7 @@ function Puff({ x, y, k, s = 1 }: { x: number; y: number; k: number; s?: number 
 }
 function Scene3({ t }: { t: number }) {
   if (t < C.s3cut) {
-    const ck = [C.s3 + 0.15, C.s3 + 0.6];
+    const ck = [C.s3 + 0.1, C.s3cough2];
     const k = coughK(t, ck);
     const pose: Pose = { ...BASE, shUp: 3 * k, a1: { hand: [192, 64] }, neck: -6 * k };
     const KK = 4.4;
@@ -206,7 +206,7 @@ function Scene3({ t }: { t: number }) {
         </g>
         <Puff x={610} y={790} k={k} s={1.2} />
         {t > ck[0] && <Pop t={t} a={ck[0]} x={300} y={600} text="*hust*" fill={COL.sandLight} color={COL.inkSoft} size={36} o={win(t, ck[0], ck[1] + 0.3)} />}
-        <Big t={t} a={C.s3 + 0.45} lines={["„Wird schon.“"]} y={360} size={100} />
+        <Big t={t} a={C.s3wird} lines={["„Wird schon.“"]} y={360} size={100} />
       </g>
     );
   }
@@ -423,7 +423,7 @@ function Scene7({ t }: { t: number }) {
         <g>
           <Big t={t} a={C.s7cut} lines={["Reiter:"]} y={250} size={70} col={COL.rust} />
           <Big t={t} a={C.s7cut + 0.2} lines={["„8 °C … Regen … Wind …", "nachts 3 °C …“"]} y={350} size={58} />
-          {th.map(([s, x, y, tl], i) => <Thought key={s} t={t} a={C.s7th + i * 0.4} x={x} y={y} text={s} tail={tl} />)}
+          {th.map(([s, x, y, tl], i) => <Thought key={s} t={t} a={C.s7th + i * C.s7step} x={x} y={y} text={s} tail={tl} />)}
         </g>
       )}
     </g>
@@ -470,7 +470,7 @@ function Scene8({ t }: { t: number }) {
       <Pop t={t} a={C.s8 + 0.6} x={540} y={430} text="davon Pferd: 17.900" fill={COL.rust} size={44} />
       {t >= C.s8lab && (
         <g key={li}>
-          <Big t={t} a={C.s8lab + li * 0.3} lines={[labels[li]]} y={1680} size={li > 1 ? 70 : 86} col={COL.forestDeep} />
+          <Big t={t} a={C.s8lab + li * 0.3} lines={[labels[li]]} y={1800} size={li > 1 ? 70 : 86} col={COL.forestDeep} />
         </g>
       )}
     </g>
