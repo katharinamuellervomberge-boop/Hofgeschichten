@@ -65,7 +65,7 @@ export const by = (b: Bahn, ym: number) => b.y + ym * b.m;
 export function TopBahn({ b, letters = true, children, track = true }: { b: Bahn; letters?: boolean; children?: ReactNode; track?: boolean }) {
   const w = b.w ?? 40;
   const h = b.h ?? 20;
-  const L: Array<[string, number, number]> = w === 40 && h === 20 ? [["A", -1.1, 10], ["C", 41.1, 10], ["E", 20, -1.1], ["B", 20, 21.6], ["K", 6, 21.6], ["F", 34, 21.6], ["H", 34, -1.1], ["M", 6, -1.1]] : [];
+  const L: Array<[string, number, number]> = w === 40 && h === 20 ? [["A", -1.1, 10], ["C", 41.1, 10], ["E", 20, -1.1], ["B", 20, 21.6], ["F", 6, 21.6], ["M", 34, 21.6], ["H", 34, -1.1], ["K", 6, -1.1]] : [];
   return (
     <g>
       <rect x={bx(b, 0)} y={by(b, 0)} width={w * b.m} height={h * b.m} rx="6" fill="#E3D3B4" stroke={PAPER} strokeWidth="10" />
