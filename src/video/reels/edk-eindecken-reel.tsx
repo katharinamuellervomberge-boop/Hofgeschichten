@@ -26,7 +26,7 @@ const RUGS = {
   g150: { col: "#C98AA0", edge: "#A06A80", label: "150 g" },
   g200: { col: COL.rust, edge: "#7E3F28", label: "200 g" },
 };
-type RugId = keyof typeof RUGS;
+export type RugId = keyof typeof RUGS;
 function Rug({ id, k = 1, wet = 0 }: { id: RugId; k?: number; wet?: number }) {
   if (k <= 0.01) return null;
   const r = RUGS[id];
@@ -47,7 +47,7 @@ function Rug({ id, k = 1, wet = 0 }: { id: RugId; k?: number; wet?: number }) {
 }
 const HK = 2.5;
 const HPL = (y = 1600, k = HK) => ({ x: 540 - 165 * k, y: y - 278 * k, k });
-function Horse({ t, rug, rugK = 1, y = 1600, k = HK, id, clip = 0, sweat = 0, nod = 0, wet = 0 }: { t: number; rug?: RugId; rugK?: number; y?: number; k?: number; id: string; clip?: number; sweat?: number; nod?: number; wet?: number }) {
+export function Horse({ t, rug, rugK = 1, y = 1600, k = HK, id, clip = 0, sweat = 0, nod = 0, wet = 0 }: { t: number; rug?: RugId; rugK?: number; y?: number; k?: number; id: string; clip?: number; sweat?: number; nod?: number; wet?: number }) {
   return (
     <g>
       <rect x={0} y={y - 10} width={W} height={1930 - y} fill="#E3D3B4" />
@@ -70,7 +70,7 @@ function Horse({ t, rug, rugK = 1, y = 1600, k = HK, id, clip = 0, sweat = 0, no
 }
 
 /* ---------- Wetter-Symbole ---------- */
-function Sun({ x, y, r = 60, t = 0 }: { x: number; y: number; r?: number; t?: number }) {
+export function Sun({ x, y, r = 60, t = 0 }: { x: number; y: number; r?: number; t?: number }) {
   return (
     <g transform={`translate(${x} ${y}) rotate(${t * 20})`}>
       {Array.from({ length: 10 }, (_, i) => <path key={i} d={`M0 ${-r - 14} L0 ${-r - 38}`} stroke={COL.honey} strokeWidth="10" strokeLinecap="round" transform={`rotate(${i * 36})`} />)}

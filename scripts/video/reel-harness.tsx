@@ -32,6 +32,7 @@ import { SW_TOTAL, renderSchenkelweichen } from "@/video/reels/schenkelweichen-r
 import { SCHULTER_TOTAL, renderSchulter } from "@/video/reels/schulter-reel";
 import { HAENDE_EN_TOTAL, renderHaendeEn } from "@/video/reels/haende-sitz-reel-en";
 import { BEIN_TOTAL, renderBein } from "@/video/reels/bein-reel";
+import { STY_TOTAL, renderSTY } from "@/video/reels/sty-story-reel";
 import { EDK_TOTAL, renderEDK } from "@/video/reels/edk-eindecken-reel";
 import { BRK_TOTAL, renderBRK } from "@/video/reels/brk-bahnranking-reel";
 import { RSP_TOTAL, renderRSP } from "@/video/reels/rsp-reitersprache-reel";
@@ -85,6 +86,7 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   schulter: { total: () => SCHULTER_TOTAL, render: renderSchulter },
   "haende-en": { total: () => HAENDE_EN_TOTAL, render: renderHaendeEn },
   bein: { total: () => BEIN_TOTAL, render: renderBein },
+  "story": { total: () => STY_TOTAL, render: renderSTY },
   "eindecken": { total: () => EDK_TOTAL, render: renderEDK },
   "bahnranking": { total: () => BRK_TOTAL, render: renderBRK },
   "reitersprache": { total: () => RSP_TOTAL, render: renderRSP },
