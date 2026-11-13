@@ -73,6 +73,11 @@ export function LessonScreen({
   const pos = order.findIndex((x) => x.lesson.id === lesson.id);
   const following = order[pos + 1];
   const backHref = mod ? moduleHref(mod) : "/akademie";
+  // Weiterlernen (ausführliche Lektionen der Module 10–14)
+  const weiter = (lesson.deep?.weiter ?? []).map((w) => {
+    const hit = w.lesson ? order.find((x) => x.lesson.id === w.lesson) : undefined;
+    return { label: w.label, href: hit ? lessonHref(hit.world, hit.lesson) : undefined };
+  });
   const next = !following
     ? { href: "/akademie", label: en ? "To the Riding Academy" : "Zur Reitakademie" }
     : !unlocked && !following.trial
@@ -112,7 +117,7 @@ export function LessonScreen({
           ageNote={path ? `${path.title} · ${path.ages}` : undefined}
           introArt={<VisualView v={lesson.illustration} />}
           onComplete={() => progressActions.completeGame(lesson.id)}
-          renderDone={({ replay }) => <LessonDone en={en} badgeTitle={world.badge.title} worldId={world.id} lessonId={lesson.id} merksatz={pick(lesson.merksatz, level)} next={next} replay={replay} />}
+          renderDone={({ replay }) => <LessonDone en={en} badgeTitle={world.badge.title} worldId={world.id} lessonId={lesson.id} merksatz={pick(lesson.merksatz, level)} weiter={weiter} next={next} replay={replay} />}
         />
         {lesson.practiceNote && <p className={styles.practice}>{en ? "Note for adults" : "Hinweis für Erwachsene"}: {lesson.practiceNote}</p>}
       </div>
@@ -125,6 +130,7 @@ function LessonDone({
   badgeTitle,
   worldId,
   merksatz,
+  weiter = [],
   next,
   replay,
 }: {
@@ -133,6 +139,7 @@ function LessonDone({
   worldId: string;
   lessonId: string;
   merksatz: string;
+  weiter?: Array<{ label: string; href?: string }>;
   next: { href: string; label: string };
   replay: () => void;
 }) {
@@ -174,6 +181,16 @@ function LessonDone({
         <p className={styles.merkLabel}>{en ? "Key takeaway" : "Merksatz"}</p>
         <p className={styles.merkText}>{merksatz}</p>
       </div>
+      {weiter.length > 0 && (
+        <div className={styles.weiter}>
+          <p className={styles.merkLabel}>{en ? "Keep learning" : "Weiterlernen"}</p>
+          <ul className={styles.weiterList}>
+            {weiter.map((w) => (
+              <li key={w.label}>{w.href ? <Link href={w.href}>{w.label}</Link> : w.label}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className={styles.actions}>
         <button type="button" className={styles.btn} onClick={replay}>
           <Icon name="replay" />

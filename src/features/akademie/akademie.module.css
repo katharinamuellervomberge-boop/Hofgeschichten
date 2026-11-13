@@ -870,3 +870,28 @@
 .videoCompact .videoCap {
   font-size: var(--text-xs);
 }
+
+/* Weiterlernen (ausführliche Lektionen, Module 10–14) */
+.weiter {
+  width: 100%;
+  max-width: 460px;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: #f4f1e8;
+  text-align: left;
+}
+
+.weiterList {
+  margin: 6px 0 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 4px;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.weiterList a {
+  color: var(--brown);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

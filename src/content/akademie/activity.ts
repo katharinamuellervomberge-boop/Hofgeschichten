@@ -20,6 +20,7 @@ function questionStep(lessonId: string, q: AcademyQuestion): ChoiceStep {
  * Einstieg → Erklärung mit Bild → („Schon gewusst?“ mit Fachbegriffen) → Übung → Quiz → Merksatz.
  */
 export function lessonActivity(lesson: AcademyLesson, locale: "de" | "en" = "de"): Activity {
+  if (lesson.deep) return deepLessonActivity(lesson, locale);
   const id = lesson.id;
   const en = locale === "en";
   const steps: Step[] = [];
@@ -75,6 +76,85 @@ export function lessonActivity(lesson: AcademyLesson, locale: "de" | "en" = "de"
           : "Gut gemacht! Diesen Merksatz nimmst du mit.",
       visual: { kind: "doc", doc: { style: "lesson", label: en ? "Key takeaway" : "Merksatz", title: merksatz, lines: [] } },
     });
+  });
+
+  return { id, title: lesson.title, intro: lesson.intro, steps };
+}
+
+const card = (label: string, title: string | undefined, lines: string[], table?: string[][]) => ({
+  kind: "doc" as const,
+  doc: { style: "lesson" as const, label, title, lines, table },
+});
+
+/**
+ * Ausführliche Lektion (Module 10–14):
+ * Einstieg → Fachwissen (Abschnitte mit Überschrift) → Fachbegriffe → Praxisbeispiel →
+ * Entscheidungsübung → Häufige Fehler → So machst du es richtig → Wissenstest → Merke dir das.
+ * „Weiterlernen“ erscheint am Ende als Links (LessonScreen).
+ */
+function deepLessonActivity(lesson: AcademyLesson, locale: "de" | "en"): Activity {
+  const d = lesson.deep!;
+  const id = lesson.id;
+  const en = locale === "en";
+  const steps: Step[] = [];
+
+  steps.push({ type: "story", id: `${id}-einstieg`, speaker: lesson.speaker, text: lesson.intro });
+
+  d.sections.forEach((s, i) => {
+    steps.push({
+      type: "story",
+      id: `${id}-wissen-${i + 1}`,
+      speaker: "erzaehler",
+      title: s.heading,
+      text: s.text,
+      visual: s.visual ?? (i === 0 ? lesson.illustration : undefined),
+    });
+  });
+
+  if (lesson.terms?.length) {
+    steps.push({
+      type: "story",
+      id: `${id}-fachbegriffe`,
+      speaker: "erzaehler",
+      text: en ? "Key terms from this lesson at a glance." : "Die wichtigsten Fachbegriffe dieser Lektion auf einen Blick.",
+      visual: card(en ? "Did you know?" : "Schon gewusst?", en ? "Key terms" : "Fachbegriffe", lesson.terms.map((t) => `${t.term}: ${t.meaning}`)),
+    });
+  }
+
+  steps.push({
+    type: "story",
+    id: `${id}-praxis`,
+    speaker: lesson.speaker,
+    title: en ? `In practice: ${d.praxis.title}` : `Aus der Praxis: ${d.praxis.title}`,
+    text: d.praxis.text,
+  });
+
+  steps.push(...lesson.exercise);
+
+  steps.push({
+    type: "story",
+    id: `${id}-fehler`,
+    speaker: "erzaehler",
+    text: en ? "These mistakes happen often – and this is how to do better." : "Diese Fehler passieren häufig – und so machst du es besser.",
+    visual: card(en ? "Common mistakes" : "Häufige Fehler", undefined, d.fehler.map((f) => `✗ ${f.fehler} → ✓ ${f.besser}`)),
+  });
+
+  steps.push({
+    type: "story",
+    id: `${id}-richtig`,
+    speaker: "erzaehler",
+    text: en ? "Step by step – how to do it right." : "Schritt für Schritt: So machst du es richtig.",
+    visual: card(en ? "How to do it right" : "So machst du es richtig", undefined, d.richtig.map((r, i) => `${i + 1}. ${r}`)),
+  });
+
+  steps.push(...lesson.quiz.map((q) => questionStep(id, q)));
+
+  steps.push({
+    type: "story",
+    id: `${id}-merke`,
+    speaker: lesson.speaker,
+    text: en ? "Well done! Remember these points." : "Gut gemacht! Das nimmst du aus dieser Lektion mit.",
+    visual: card(en ? "Remember" : "Merke dir das", undefined, d.merke),
   });
 
   return { id, title: lesson.title, intro: lesson.intro, steps };

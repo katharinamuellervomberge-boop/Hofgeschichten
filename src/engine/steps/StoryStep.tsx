@@ -14,6 +14,7 @@ const BIG = new Set(["scene", "notebook", "doc"]);
 
 export function StoryStep({ step, level, onDone }: StepProps<S>) {
   const text = pick(step.text, level);
+  const title = step.title ? pick(step.title, level) : undefined;
   useAutoSpeak(text, level);
   const kid = step.speaker && step.speaker !== "erzaehler" ? getCharacter(step.speaker) : undefined;
   const person = !kid && step.speaker && step.speaker !== "erzaehler" ? getPerson(step.speaker) : undefined;
@@ -31,6 +32,7 @@ export function StoryStep({ step, level, onDone }: StepProps<S>) {
         {person && <PersonPortrait person={person} className={styles.speaker} />}
         <div className={styles.bubbleBody}>
           {name && <span className={styles.speakerName}>{name}</span>}
+          {title && <h3 className={styles.storyTitle}>{title}</h3>}
           <p className={styles.storyText}>{text}</p>
         </div>
         <SpeakButton text={text} size="sm" />

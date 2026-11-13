@@ -81,6 +81,34 @@ export type AcademyLesson = {
   practiceNote?: string;
   audio: LessonAudio;
   review: ReviewStatus;
+  /** Ausführliches Lektionsformat der Module 10–14 (seit 13.11.2026) */
+  deep?: DeepLesson;
+};
+
+/**
+ * Ausführliche Lektion (Module 10–14) im Aufbau
+ * A Einstieg → B Fachwissen → C Praxisbeispiel → D Häufige Fehler →
+ * E So machst du es richtig → F Merke dir das → G Wissenstest → H Weiterlernen.
+ * Einstieg = `intro`, Wissenstest = `quiz`, Entscheidungsübung = `exercise`.
+ * Diese Lektionen richten sich an Jugendliche und Erwachsene und haben eine Textfassung für beide Stufen.
+ */
+export type DeepLesson = {
+  /** B. Fachwissen: ein Abschnitt mit Zwischenüberschrift = ein Bildschirm */
+  sections: Array<{ heading: string; text: string; visual?: Visual }>;
+  /** C. Praxisbeispiel aus Stall, Haltung oder Reitunterricht */
+  praxis: { title: string; text: string };
+  /** D. Häufige Fehler (mindestens drei) mit der besseren Lösung */
+  fehler: Array<{ fehler: string; besser: string }>;
+  /** E. So machst du es richtig: konkrete, sichere Schritte */
+  richtig: string[];
+  /** F. Merke dir das: drei bis fünf Kernaussagen */
+  merke: string[];
+  /** H. Weiterlernen: Lektions-ID (wird verlinkt) oder Hinweis ohne Link */
+  weiter: Array<{ lesson?: string; label: string }>;
+  /** Ungefähre Lernzeit in Minuten */
+  minutes: number;
+  /** Intern: Was eine Fachperson vor Veröffentlichung besonders prüfen soll (wird nicht angezeigt) */
+  pruefen?: string;
 };
 
 export type AcademyWorld = {
@@ -156,6 +184,36 @@ export function lessonsOf(world: number, list: LessonInput[], defaultReview: Rev
     audio: l.audio ?? noAudio(),
     review: l.review ?? defaultReview,
   }));
+}
+
+/** Neue Inhalte der Module 10–14: vor Veröffentlichung fachlich prüfen lassen */
+export const draftDeep: ReviewStatus = {
+  status: "entwurf",
+  date: "2026-11-13",
+  note: "Neuer Inhalt (Module 10–14) – fachliche Prüfung durch Reitlehrer/in bzw. Tierärztin/Tierarzt ausstehend",
+};
+
+type DeepLessonInput = Pick<AcademyLesson, "slug" | "title" | "speaker" | "illustration" | "terms" | "exercise" | "quiz" | "practiceNote"> & {
+  /** A. Einstieg: Frage, Alltagssituation oder verbreiteter Irrtum */
+  intro: string;
+  deep: DeepLesson;
+};
+
+/**
+ * Baut ausführliche Lektionen (Module 10–14). Eine Textfassung für beide Stufen,
+ * Merksatz = erste Kernaussage, in der Kids-Akademie mit dem Hinweis „gemeinsam lesen“.
+ */
+export function deepLessonsOf(world: number, list: DeepLessonInput[]): AcademyLesson[] {
+  return lessonsOf(
+    world,
+    list.map((l) => ({
+      ...l,
+      explanation: { leicht: [], mittel: [] },
+      merksatz: l.deep.merke[0],
+      readTogether: true,
+    })),
+    draftDeep,
+  );
 }
 
 /** Kurzschreibweise für eine Szene */

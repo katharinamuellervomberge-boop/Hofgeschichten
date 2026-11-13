@@ -240,6 +240,26 @@ export const academyModules: AcademyModule[] = [
       },
     ],
   },
+  /* ---------- Ausbau 13.11.2026: Module 10–14 (ausführliches Lektionsformat) ---------- */
+  {
+    id: "m10",
+    number: 10,
+    slug: "haltung-und-fuetterung",
+    title: "Pferdehaltung, Pferdealltag & Fütterung",
+    teaser: {
+      kids: "Für Jugendliche und Erwachsene: wie Pferde leben, fressen und verdauen. Am besten gemeinsam lesen.",
+      grown: "Grundbedürfnisse, Haltungsformen, Stall, Verdauung, Raufutter, Futterberechnung, Wasser, Weide, Winter, Sommer und gute Haltung erkennen.",
+    },
+    tint: "#E6E4D3",
+    cover: scene("ak-sattelzeug"),
+    trial: "ra-w15-l7",
+    topics: [
+      { title: "Bedürfnisse und Haltung", lessons: ["ra-w15-l1", "ra-w15-l2", "ra-w15-l3", "ra-w15-l4"] },
+      { title: "Verdauung und Fütterung", lessons: ["ra-w15-l5", "ra-w15-l6", "ra-w15-l7", "ra-w15-l8", "ra-w15-l9"] },
+      { title: "Weide und Jahreszeiten", lessons: ["ra-w15-l10", "ra-w15-l11", "ra-w15-l12"] },
+      { title: "Alltag und Beurteilung", lessons: ["ra-w15-l13", "ra-w15-l14"] },
+    ],
+  },
 ];
 
 /* ---------- Lernwege ---------- */

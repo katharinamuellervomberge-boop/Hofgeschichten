@@ -128,8 +128,9 @@ if (worlds.length < 8) err("Akademie", `${worlds.length} Lernwelten (erwartet mi
 
 worlds.forEach((world, wi) => {
   if (world.id !== `w${wi + 1}`) err(world.id, `Welt-ID sollte w${wi + 1} sein`);
-  // Welten 1–8: je 5 Lektionen (Grundkurs); Ausbau-Welten ab 9: 4 bis 12 Lektionen
-  if (wi < 8 ? world.lessons.length !== 5 : world.lessons.length < 4 || world.lessons.length > 12) err(world.id, `${world.lessons.length} Lektionen`);
+  // Welten 1–8: je 5 Lektionen (Grundkurs); Ausbau-Welten 9–14: 4 bis 12; Module 10–14 (ab Welt 15): 12 bis 20
+  const [min, max] = wi < 8 ? [5, 5] : wi < 14 ? [4, 12] : [12, 20];
+  if (world.lessons.length < min || world.lessons.length > max) err(world.id, `${world.lessons.length} Lektionen`);
   checkVisual(world.id, world.cover);
   const slugs = new Set<string>();
   world.lessons.forEach((l, li) => {
@@ -143,7 +144,7 @@ worlds.forEach((world, wi) => {
     for (const level of LEVELS) {
       checkText(where + " Einstieg", text(l.intro, level));
       checkText(where + " Merksatz", text(l.merksatz, level));
-      if (!l.explanation[level].length) err(where, `keine Erklärung in Stufe ${level}`);
+      if (!l.deep && !l.explanation[level].length) err(where, `keine Erklärung in Stufe ${level}`);
       l.explanation[level].forEach((t) => checkText(where + " Erklärung", t));
       const quiz = forLevel(l.quiz, level);
       if (quiz.length < 3) err(where, `nur ${quiz.length} Quizfragen in Stufe ${level}`);
@@ -155,6 +156,19 @@ worlds.forEach((world, wi) => {
       }
     }
     checkVisual(where, l.illustration);
+    if (l.deep) {
+      const d = l.deep;
+      if (d.sections.length < 2) err(where, "Fachwissen: weniger als 2 Abschnitte");
+      d.sections.forEach((s) => { checkText(where + " Überschrift", s.heading); checkText(where + " Fachwissen", s.text); checkVisual(where, s.visual); if (s.text.length > 1400) warn.push(`${where}: Abschnitt „${s.heading}“ ist lang (${s.text.length} Zeichen)`); });
+      checkText(where + " Praxis", d.praxis.text);
+      if (d.fehler.length < 3) err(where, `nur ${d.fehler.length} häufige Fehler (erwartet mind. 3)`);
+      d.fehler.forEach((f) => { checkText(where + " Fehler", f.fehler); checkText(where + " Fehler besser", f.besser); });
+      if (d.richtig.length < 3) err(where, "„So machst du es richtig“: weniger als 3 Schritte");
+      if (d.merke.length < 3 || d.merke.length > 5) err(where, `${d.merke.length} Kernaussagen (erwartet 3–5)`);
+      if (l.quiz.length < 3 || l.quiz.length > 5) err(where, `${l.quiz.length} Quizfragen (erwartet 3–5)`);
+      if (!d.weiter.length) err(where, "Weiterlernen fehlt");
+      for (const w of d.weiter) if (w.lesson && !worlds.some((x) => x.lessons.some((y) => y.id === w.lesson))) err(where, `Weiterlernen: Lektion ${w.lesson} gibt es nicht`);
+    }
     if (!l.audio || !("intro" in l.audio)) err(where, "Audio-Felder fehlen");
     checkActivity(where, lessonActivity(l));
   });

@@ -21,6 +21,7 @@ import { welt11 } from "./welten/w11-bahnfiguren.server";
 import { welt12 } from "./welten/w12-besser-reiten.server";
 import { welt13 } from "./welten/w13-dressur.server";
 import { welt14 } from "./welten/w14-springen.server";
+import { welt15 } from "./welten/w15-haltung-fuetterung.server";
 
 /**
  * Alle Inhalte der Reitakademie – NUR auf dem Server.
@@ -29,7 +30,7 @@ import { welt14 } from "./welten/w14-springen.server";
  */
 
 export const freeWorlds: AcademyWorld[] = [welt1, welt2, welt3];
-export const grossWorlds: AcademyWorld[] = [welt4, welt5, welt6, welt7, welt8, welt9, welt10, welt11, welt12, welt13, welt14];
+export const grossWorlds: AcademyWorld[] = [welt4, welt5, welt6, welt7, welt8, welt9, welt10, welt11, welt12, welt13, welt14, welt15];
 export const fullWorlds: AcademyWorld[] = [...freeWorlds, ...grossWorlds];
 
 export const allAcademyGames: AcademyGame[] = [...freeAcademyGames, ...grossAcademyGames];

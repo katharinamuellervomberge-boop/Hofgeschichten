@@ -171,6 +171,16 @@
 .storyText {
   font-size: var(--text-md);
   line-height: 1.5;
+  /* Absätze in längeren Erklärungen (\n\n) */
+  white-space: pre-line;
+}
+
+.storyTitle {
+  margin: 2px 0 6px;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.25;
+  color: var(--ink, inherit);
 }
 
 /* ----- Hotspots ----- */

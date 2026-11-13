@@ -76,6 +76,8 @@ export type StoryStep = LevelFilter & {
   id: string;
   visual?: Visual;
   speaker?: Speaker;
+  /** Zwischenüberschrift (z. B. in ausführlichen Akademie-Lektionen) */
+  title?: ByLevel<string>;
   text: ByLevel<string>;
 };
 

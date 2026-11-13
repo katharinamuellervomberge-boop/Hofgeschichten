@@ -783,6 +783,111 @@ export const worldsInfo: AcademyWorldInfo[] = [
         "title": "Sicherheit und Pferdewohl beim Springen"
       }
     ]
+  },
+  {
+    "id": "w15",
+    "number": 15,
+    "slug": "haltung-und-fuetterung",
+    "title": "Pferdehaltung und Fütterung",
+    "teaser": "Wie Pferde leben, fressen und verdauen – und was gute Haltung ausmacht.",
+    "learns": "Grundbedürfnisse, Haltungsformen, Stallbau und Stallklima, Tagesrhythmus, Verdauung, Raufutterqualität, Futtermengen mit Frisch- und Trockenmasse, Kraft-, Mineral- und Ergänzungsfutter, Wasser und Salz, Weide und Giftpflanzen, Winter und Eindecken, Sommer und Insekten, Stallmanagement und die Beurteilung einer Haltung.",
+    "tint": "#E6E4D3",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-sattelzeug"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w15",
+      "title": "Haltungs- und Fütterungsprofi",
+      "motif": "carrot"
+    },
+    "tier": "gross",
+    "lessons": [
+      {
+        "id": "ra-w15-l1",
+        "slug": "grundbeduerfnisse",
+        "number": 1,
+        "title": "Die natürlichen Grundbedürfnisse des Pferdes"
+      },
+      {
+        "id": "ra-w15-l2",
+        "slug": "haltungsformen",
+        "number": 2,
+        "title": "Haltungsformen: Box, Paddockbox, Offenstall, Aktivstall und Weide"
+      },
+      {
+        "id": "ra-w15-l3",
+        "slug": "der-optimale-stall",
+        "number": 3,
+        "title": "Der optimale Pferdestall: Platz, Klima, Hygiene und Sicherheit"
+      },
+      {
+        "id": "ra-w15-l4",
+        "slug": "tagesrhythmus",
+        "number": 4,
+        "title": "Der natürliche Tagesrhythmus und Pferdealltag"
+      },
+      {
+        "id": "ra-w15-l5",
+        "slug": "verdauungssystem",
+        "number": 5,
+        "title": "Das Verdauungssystem des Pferdes verstehen"
+      },
+      {
+        "id": "ra-w15-l6",
+        "slug": "raufutter-qualitaet",
+        "number": 6,
+        "title": "Heu, Heulage, Gras und Raufutterqualität"
+      },
+      {
+        "id": "ra-w15-l7",
+        "slug": "wie-viel-futter",
+        "number": 7,
+        "title": "Wie viel Futter braucht mein Pferd wirklich?"
+      },
+      {
+        "id": "ra-w15-l8",
+        "slug": "kraftfutter-mineralfutter",
+        "number": 8,
+        "title": "Kraftfutter, Mineralfutter und Ergänzungsfuttermittel"
+      },
+      {
+        "id": "ra-w15-l9",
+        "slug": "wasser-und-salz",
+        "number": 9,
+        "title": "Wasserbedarf und Salzversorgung"
+      },
+      {
+        "id": "ra-w15-l10",
+        "slug": "weide-anweiden-giftpflanzen",
+        "number": 10,
+        "title": "Weidehaltung, Anweiden und Giftpflanzen"
+      },
+      {
+        "id": "ra-w15-l11",
+        "slug": "winterhaltung-eindecken",
+        "number": 11,
+        "title": "Winterhaltung, Winterfell, Scheren und Eindecken"
+      },
+      {
+        "id": "ra-w15-l12",
+        "slug": "sommer-hitze-insekten",
+        "number": 12,
+        "title": "Sommerhaltung, Hitze und Insektenschutz"
+      },
+      {
+        "id": "ra-w15-l13",
+        "slug": "stallmanagement",
+        "number": 13,
+        "title": "Stallmanagement und tägliche Versorgung"
+      },
+      {
+        "id": "ra-w15-l14",
+        "slug": "gute-haltung-beurteilen",
+        "number": 14,
+        "title": "Gute Pferdehaltung erkennen und beurteilen"
+      }
+    ]
   }
 ];
 
