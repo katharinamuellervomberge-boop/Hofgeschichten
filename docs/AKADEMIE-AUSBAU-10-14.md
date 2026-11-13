@@ -1,6 +1,6 @@
 # Reitakademie 2.0 – Module 10–14 (Plan und Stand, 13.11.2026)
 
-Branch: `feature/akademie-modul-10` (Vercel-Vorschau). Nichts davon ist auf `main`.
+Branch: `feature/akademie-modul-10` (Vercel-Vorschau). Nichts davon ist auf `main`. Vercel-Vorschau des Branches gebaut (Commit 989f11d).
 
 ## 1. Kurzanalyse der bestehenden Reitakademie
 
@@ -16,7 +16,7 @@ Branch: `feature/akademie-modul-10` (Vercel-Vorschau). Nichts davon ist auf `mai
 | Lernvideos | 10 Videos, aus React/SVG-Szenen (`src/video`) mit Playwright + FFmpeg gerendert, Stimme über ElevenLabs. Auslieferung nur nach Freischaltung. |
 | Prüfung | `npm run check:akademie` (Vollständigkeit, Quizlogik, IDs, Modulzuordnung, Katalog). |
 
-**Nummerierung 10–14:** kompatibel. Module `m10`–`m14` und Lernwelten `w15`–`w19` kollidieren mit nichts. Hinweis: Modul 9 ist der „Akademie-Abschluss“ und steht damit vor den neuen Modulen (siehe offene Entscheidungen).
+**Nummerierung 10–14:** kompatibel. Module `m10`–`m14` und Lernwelten `w15`–`w19` kollidieren mit nichts. Die Anzeigereihenfolge ist strategisch neu sortiert (siehe Abschnitt 7); der „Akademie-Abschluss“ steht am Ende.
 
 ## 2. Lektionsformat der neuen Module (umgesetzt)
 
@@ -24,8 +24,8 @@ Neues optionales Feld `deep` an `AcademyLesson` (`types.ts`), Baufunktion `deepL
 
 A Einstieg → B Fachwissen (Abschnitte mit Zwischenüberschrift) → Fachbegriffe → C Praxisbeispiel → Entscheidungsübung → D Häufige Fehler (≥ 3) → E So machst du es richtig → G Wissenstest (3–5 Fragen mit Rückmeldung) → F Merke dir das (3–5) → H Weiterlernen (Links am Ende).
 
-- Eine Textfassung für beide Stufen (Zielgruppe ab ca. 12 Jahren). In der Kids-Akademie erscheint der Hinweis „gemeinsam mit einem Erwachsenen lesen“.
-- Jede neue Lektion trägt `review: entwurf` und ein internes Feld `pruefen` mit den Punkten, die eine Fachperson gezielt prüfen soll.
+- Eine Textfassung für beide Stufen (Zielgruppe ab ca. 12 Jahren).
+- Jede neue Lektion trägt einen internen Prüfstatus und ein Feld `pruefen` mit den Punkten, die eine Fachperson gezielt prüfen soll.
 - `check:akademie` prüft das neue Format (Abschnitte, ≥ 3 Fehler, 3–5 Kernaussagen, 3–5 Fragen, gültige Weiterlernen-Links).
 
 ## 3. Die 76 Lektionen
@@ -36,13 +36,13 @@ Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **An
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
-| ra-w15-l1 | Die natürlichen Grundbedürfnisse | Fünf Grundbedürfnisse kennen, Stereotypien als Warnsignal deuten | G | – |
+| ra-w15-l1 | Die natürlichen Grundbedürfnisse **(Probelektion)** | Fünf Grundbedürfnisse kennen, Stereotypien als Warnsignal deuten | G | – |
 | ra-w15-l2 | Haltungsformen | Box, Paddockbox, Offenstall, Aktivstall, Weide nach Kriterien vergleichen; Boxenmaß berechnen | G | Stallhaltung vergleichen (Anim) |
 | ra-w15-l3 | Der optimale Pferdestall | Maße, Stallklima, Ammoniak, Licht, Hygiene, Brandschutz beurteilen | A | – |
 | ra-w15-l4 | Tagesrhythmus und Pferdealltag | Fresspausen erkennen und verkürzen, Fütterung und Training abstimmen | G | – |
 | ra-w15-l5 | Das Verdauungssystem | Aufbau und Schwachstellen der Verdauung, Fütterungsregeln ableiten | A | So funktioniert die Pferdeverdauung (Anim) |
 | ra-w15-l6 | Heu, Heulage, Gras, Raufutterqualität | Raufutterarten, TS-Gehalt, Schnittzeitpunkt, Sinnenprüfung | A | Gute und schlechte Heuqualität (Real) |
-| ra-w15-l7 | Wie viel Futter braucht mein Pferd? **(Probelektion)** | Gewicht schätzen, FM/TS umrechnen, Mindestmenge berechnen, Einflussfaktoren | A | Raufutterbedarf berechnen (Anim) |
+| ra-w15-l7 | Wie viel Futter braucht mein Pferd? | Gewicht schätzen, FM/TS umrechnen, Mindestmenge berechnen, Einflussfaktoren | A | Raufutterbedarf berechnen (Anim) |
 | ra-w15-l8 | Kraft-, Mineral- und Ergänzungsfutter | Bedarf prüfen, Etikett lesen, Überversorgung vermeiden | A | – |
 | ra-w15-l9 | Wasserbedarf und Salzversorgung | Wasser- und Salzbedarf, Tränken, Wassermangel erkennen | G | – |
 | ra-w15-l10 | Weide, Anweiden, Giftpflanzen | Anweiden planen, Fruktan verstehen, Giftpflanzen und Notfälle erkennen | A | Pferde richtig anweiden (Anim) |
