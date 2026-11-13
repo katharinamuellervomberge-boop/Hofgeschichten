@@ -37,6 +37,24 @@ if reel == "reitersprache":
     for i in range(3): add(fx, blip(76 + 3*i, 0.16), S("19") + 0.6 + 0.3 + i*0.2)
     add(fx, blip(91, 0.2, 0.2), S("20") + 0.6)
     quiet = [(S("18") - 0.1, E("18") + 0.2)]; mend = S("20") - 0.1; fin = S("20")
+elif reel == "eindecken":
+    NOTE = E("21") + 0.35
+    cuts = [S(k) - 0.05 for k in ["02","04","09","13","15","16","17","18","19","21","22","23","24"]]
+    for c in cuts: add(fx, whoosh(0.28), c - 0.06)
+    for i, k in enumerate(["04","05","06","07","08","09","10","11","12"]): add(fx, blip(72 + i, 0.18), S(k) - 0.02, 0.3 + 0.05*i)
+    add(fx, stab([45, 52], 0.3, 0.6, 5), S("13") - 0.05); add(fx, timp(0.35), S("13") - 0.05)
+    add(fx, stab([41, 48, 53], 0.3, 0.8, 3), S("15") - 0.05)
+    r = rng.standard_normal(int(SR*(E("15") - S("15") + 0.6))); add(fx, bp(r, 1500, 7000) * 0.05 * np.minimum(1, np.linspace(0, 6, len(r))), S("15"))
+    k = S("14")
+    while k < S("19"): add(fx, clop(0.05, 900), k, 0.5); k += 0.18
+    for i in range(5): add(fx, blip(84 + 2*i, 0.12, 0.08), S("17") - 0.05 + i*0.12, 0.4)
+    k = S("19")
+    while k < E("19"): add(fx, clop(0.06, 2400), k, 0.6); k += 0.07
+    add(fx, stab([48, 55, 60, 64], 0.25, 1.0, 2.5), S("21") + 1.6)
+    add(fx, blip(88, 0.3, 0.25), NOTE); add(fx, blip(93, 0.3, 0.3), NOTE + 0.13)
+    add(fx, stab([45, 51], 0.35, 0.9, 3), NOTE + 0.9); add(fx, timp(0.4), NOTE + 0.9)
+    add(fx, stab([60, 64, 67], 0.25, 0.8, 3), S("23") + 0.6)
+    quiet = [(S("21") - 0.1, S("22") + 0.1)]; mend = S("24") + 0.2; fin = E("24") + 0.1
 else:
     cuts = [S("03")-0.1, S("04")-0.05, S("05")-0.1, S("06")-0.05, S("07")-0.1, S("08")-0.05, S("09")-0.05, S("10")-0.1, S("11")-0.05, S("12")-0.1, S("13")-0.05, S("15")-0.1]
     for s in [S("02")-0.05] + cuts: add(fx, whoosh(), s - 0.06)

@@ -37,7 +37,7 @@ function Big({ t, a, b = 999, lines, y, size = 84, col = COL.forestDeep, font, w
 }
 
 /* ---------- Hook: Stoppuhr ---------- */
-function Stopwatch({ t, x, y, r }: { t: number; x: number; y: number; r: number }) {
+export function Stopwatch({ t, x, y, r }: { t: number; x: number; y: number; r: number }) {
   const s = Math.max(0, 40 - Math.floor(t * 6));
   const a = -Math.PI / 2 + ((40 - s) / 40) * Math.PI * 2;
   return (
@@ -352,7 +352,7 @@ function Scene6({ t }: { t: number }) {
 }
 
 /* ---------- Szene 7: Wetter-App ---------- */
-function Cloud({ x, y, s = 1, col = COL.sand }: { x: number; y: number; s?: number; col?: string }) {
+export function Cloud({ x, y, s = 1, col = COL.sand }: { x: number; y: number; s?: number; col?: string }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`} fill={col}>
       <circle cx={-40} cy={10} r={40} /><circle cx={10} cy={-14} r={54} /><circle cx={60} cy={14} r={38} />
@@ -393,7 +393,7 @@ function Weather({ t, rider }: { t: number; rider: boolean }) {
     </Phone>
   );
 }
-function Thought({ t, a, x, y, text, tail }: { t: number; a: number; x: number; y: number; text: string; tail: -1 | 1 }) {
+export function Thought({ t, a, x, y, text, tail }: { t: number; a: number; x: number; y: number; text: string; tail: -1 | 1 }) {
   const k = pop(t, a, 0.28);
   if (k <= 0.01) return null;
   const w = text.length * 26 + 80;
