@@ -252,7 +252,7 @@ const moduleDefs: AcademyModule[] = [
     },
     tint: "#E6E4D3",
     cover: scene("ak-sattelzeug"),
-    trial: "ra-w15-l7",
+    trial: "ra-w15-l1",
     topics: [
       { title: "Bedürfnisse und Haltung", lessons: ["ra-w15-l1", "ra-w15-l2", "ra-w15-l3", "ra-w15-l4"] },
       { title: "Verdauung und Fütterung", lessons: ["ra-w15-l5", "ra-w15-l6", "ra-w15-l7", "ra-w15-l8", "ra-w15-l9"] },
@@ -292,7 +292,7 @@ const moduleDefs: AcademyModule[] = [
     },
     tint: "#E3E7DA",
     cover: scene("ak-zonen"),
-    trial: "ra-w17-l2",
+    trial: "ra-w17-l8",
     topics: [
       { title: "Wahrnehmen und lesen", lessons: ["ra-w17-l1", "ra-w17-l2", "ra-w17-l3", "ra-w17-l4"] },
       { title: "Sozialverhalten", lessons: ["ra-w17-l5", "ra-w17-l6"] },
@@ -312,7 +312,7 @@ const moduleDefs: AcademyModule[] = [
     },
     tint: "#E4E7DC",
     cover: scene("ak-oben-schulterherein"),
-    trial: "ra-w18-l7",
+    trial: "ra-w18-l4",
     topics: [
       { title: "Grundlagen verstehen", lessons: ["ra-w18-l1", "ra-w18-l2"] },
       { title: "Sitz und Hilfen", lessons: ["ra-w18-l3", "ra-w18-l4", "ra-w18-l5", "ra-w18-l6", "ra-w18-l7"] },
@@ -332,7 +332,7 @@ const moduleDefs: AcademyModule[] = [
     },
     tint: "#E1E6D8",
     cover: scene("ak-reiter-leicht"),
-    trial: "ra-w19-l3",
+    trial: "ra-w19-l2",
     topics: [
       { title: "Gut vorbereitet", lessons: ["ra-w19-l1", "ra-w19-l2", "ra-w19-l3", "ra-w19-l4"] },
       { title: "Unterwegs", lessons: ["ra-w19-l5", "ra-w19-l6", "ra-w19-l7", "ra-w19-l8"] },

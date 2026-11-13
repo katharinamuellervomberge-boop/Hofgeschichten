@@ -1,0 +1,690 @@
+{
+  "pferdeverdauung": [
+    {
+      "id": "titel",
+      "text": "So funktioniert die Pferdeverdauung."
+    },
+    {
+      "id": "weg",
+      "text": "Das Futter wandert vom Maul über den Magen und den Dünndarm in den großen Dickdarm. Insgesamt sind das rund dreißig Meter."
+    },
+    {
+      "id": "groesse",
+      "text": "Der Magen ist erstaunlich klein: Er fasst nur etwa zehn bis fünfzehn Liter. Der Dickdarm dagegen ist riesig."
+    },
+    {
+      "id": "saeure",
+      "text": "Weil der Magen ständig Säure bildet, braucht das Pferd fast ununterbrochen etwas zu kauen. Kauen macht Speichel, und Speichel puffert die Säure."
+    },
+    {
+      "id": "dickdarm",
+      "text": "Im Dickdarm bauen Milliarden Mikroorganismen die Faser aus Heu und Gras ab. Sie liefern so die wichtigste Energie – und Wärme."
+    },
+    {
+      "id": "regeln",
+      "text": "Daraus folgen die wichtigsten Fütterungsregeln."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Pferde sind Dauerfresser mit kleinem Magen und großem Dickdarm. Und sie können nicht erbrechen."
+    }
+  ],
+  "raufutterbedarf": [
+    {
+      "id": "titel",
+      "text": "Wie viel Raufutter braucht mein Pferd mindestens?"
+    },
+    {
+      "id": "regel",
+      "text": "Die Faustregel: mindestens anderthalb Kilogramm Trockensubstanz je hundert Kilogramm Körpermasse und Tag."
+    },
+    {
+      "id": "ts",
+      "text": "Trockensubstanz ist das Futter ohne Wasser. Heu ist fast trocken, Heulage enthält deutlich mehr Wasser, Gras am meisten."
+    },
+    {
+      "id": "rechnung",
+      "text": "Beispiel: ein Pferd mit sechshundert Kilogramm. Sechs mal anderthalb ergibt neun Kilogramm Trockensubstanz."
+    },
+    {
+      "id": "umrechnen",
+      "text": "Jetzt rechnest du in Frischmasse um: Trockensubstanz geteilt durch den TS-Gehalt."
+    },
+    {
+      "id": "dick",
+      "text": "Auch ein zu dickes Pferd braucht diese Mindestmenge. Abnehmen geht über energieärmeres Heu, etwas Stroh und mehr Bewegung – nicht über Hungern."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Frischmasse gleich Trockensubstanz geteilt durch TS-Gehalt. Und Gewicht regelmäßig kontrollieren."
+    }
+  ],
+  "anweiden": [
+    {
+      "id": "titel",
+      "text": "Pferde richtig anweiden."
+    },
+    {
+      "id": "warum",
+      "text": "Im Winter hat sich die Darmflora auf Heu eingestellt. Frisches Gras enthält mehr Wasser, Zucker und Eiweiß. Kommt es plötzlich, drohen Durchfall, Kolik und Hufrehe."
+    },
+    {
+      "id": "plan",
+      "text": "Beginne mit zehn bis fünfzehn Minuten am Tag und steigere langsam über zwei bis vier Wochen."
+    },
+    {
+      "id": "heu",
+      "text": "Füttere vorher Heu. Ein hungriges Pferd schlingt."
+    },
+    {
+      "id": "fruktan",
+      "text": "Vorsicht an sonnigen Tagen nach kalten Nächten: Dann wächst das Gras kaum, und der Zuckergehalt bleibt hoch."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Anweiden dauert Wochen, nicht Tage. Und Hufrehe ist ein Notfall."
+    }
+  ],
+  "stallhaltung-vergleichen": [
+    {
+      "id": "titel",
+      "text": "Box, Paddockbox, Offenstall, Aktivstall, Weide – welche Haltung ist die beste?"
+    },
+    {
+      "id": "kriterien",
+      "text": "Jede Haltung misst sich an denselben Fragen."
+    },
+    {
+      "id": "vergleich",
+      "text": "Jede Form hat Stärken und Schwächen."
+    },
+    {
+      "id": "box",
+      "text": "Eine Einzelbox soll mindestens zwei mal Widerristhöhe zum Quadrat groß sein. Bei einem Meter fünfundsechzig sind das knapp elf Quadratmeter."
+    },
+    {
+      "id": "umsetzung",
+      "text": "Entscheidend ist nicht das Etikett, sondern die Umsetzung: Eine gut geführte Box mit viel Weidegang kann besser sein als ein überfüllter Offenstall."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Die Umsetzung entscheidet – und das Pferd zeigt dir, ob es passt."
+    }
+  ],
+  "hufaufbau": [
+    {
+      "id": "titel",
+      "text": "Wie ist ein Pferdehuf aufgebaut?"
+    },
+    {
+      "id": "aussen",
+      "text": "Von unten siehst du die Hufwand, die Sohle, den Strahl, die Eckstreben, die Ballen und die weiße Linie."
+    },
+    {
+      "id": "innen",
+      "text": "Innen liegen Hufbein und Strahlbein, umgeben von der gut durchbluteten, empfindlichen Huflederhaut."
+    },
+    {
+      "id": "wachstum",
+      "text": "Die Hufwand wächst etwa acht bis zehn Millimeter im Monat. Vom Kronrand bis zur Zehe dauert es rund ein Jahr."
+    },
+    {
+      "id": "mechanik",
+      "text": "Beim Auffußen weitet sich der Huf hinten leicht. Dieser Hufmechanismus dämpft Stöße und pumpt Blut. Dafür braucht das Pferd Bewegung."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Der Huf ist ein lebendes Organ. Tägliche Pflege, Bewegung und regelmäßige Bearbeitung halten ihn gesund."
+    }
+  ],
+  "pferdezaehne": [
+    {
+      "id": "titel",
+      "text": "Pferdezähne verstehen."
+    },
+    {
+      "id": "gebiss",
+      "text": "Ein erwachsenes Pferd hat sechsunddreißig bis vierundvierzig Zähne."
+    },
+    {
+      "id": "nachschub",
+      "text": "Pferdezähne werden über viele Jahre aus dem Kiefer nachgeschoben, während das Kauen die Kaufläche abreibt."
+    },
+    {
+      "id": "kanten",
+      "text": "Weil der Oberkiefer etwas breiter ist, entstehen scharfe Kanten – oben außen zur Wange, unten innen zur Zunge."
+    },
+    {
+      "id": "zeichen",
+      "text": "Achte auf Warnzeichen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Mindestens einmal im Jahr zur Zahnkontrolle – bei Jungpferden und Senioren oft zweimal."
+    }
+  ],
+  "stallapotheke": [
+    {
+      "id": "titel",
+      "text": "Was gehört in eine gute Stallapotheke?"
+    },
+    {
+      "id": "messen",
+      "text": "Zum Messen und Untersuchen."
+    },
+    {
+      "id": "verband",
+      "text": "Verbandmaterial in verschiedenen Größen."
+    },
+    {
+      "id": "reinigen",
+      "text": "Zum Reinigen: saubere Kompressen, Spritzen ohne Kanüle und ein Wundmittel, das du vorher mit deinem Tierarzt abgesprochen hast."
+    },
+    {
+      "id": "medikamente",
+      "text": "Medikamente gehören nur nach tierärztlicher Verordnung hinein – für ein bestimmtes Pferd, beschriftet und mit Verfallsdatum."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Vollständig, ordentlich, für alle auffindbar – und nach jedem Einsatz auffüllen."
+    }
+  ],
+  "pferdeohren": [
+    {
+      "id": "titel",
+      "text": "Was sagen die Ohren eines Pferdes?"
+    },
+    {
+      "id": "vorn",
+      "text": "Nach vorn gerichtete, bewegliche Ohren zeigen Aufmerksamkeit für etwas vor dem Pferd."
+    },
+    {
+      "id": "seitlich",
+      "text": "Seitlich hängende, lockere Ohren zeigen meist Entspannung – zum Beispiel beim Dösen."
+    },
+    {
+      "id": "zurueck",
+      "text": "Flach zurückgelegte Ohren mit angespanntem Gesicht sind ein Warnsignal."
+    },
+    {
+      "id": "reiter",
+      "text": "Aber Vorsicht: Ein Ohr, das beim Reiten zum Reiter zeigt, bedeutet oft einfach: Ich höre dir zu."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Kein Signal allein. Schau dir immer das ganze Pferd und die Situation an."
+    }
+  ],
+  "herdenkommunikation": [
+    {
+      "id": "titel",
+      "text": "Wie verständigen sich Pferde in der Herde?"
+    },
+    {
+      "id": "schutz",
+      "text": "Die Gruppe bietet Schutz, Wärme, Fellpflege und Orientierung. Viele Pferde haben feste Freunde."
+    },
+    {
+      "id": "leise",
+      "text": "Pferde vermeiden Kämpfe. Meist genügt ein Blick oder ein angelegtes Ohr, und das andere Pferd weicht aus."
+    },
+    {
+      "id": "rang",
+      "text": "Rangbeziehungen gibt es – aber sie hängen von Situation und Ressource ab. Das Bild der allmächtigen Leitstute ist zu einfach."
+    },
+    {
+      "id": "mensch",
+      "text": "Pferde wissen, dass wir keine Pferde sind. Beziehung entsteht durch klare, verlässliche Kommunikation."
+    }
+  ],
+  "warum-pferde-erschrecken": [
+    {
+      "id": "titel",
+      "text": "Warum erschrecken Pferde vor Dingen, die sie doch kennen?"
+    },
+    {
+      "id": "sehen",
+      "text": "Die Augen sitzen seitlich. Pferde sehen fast rundum – nur direkt hinter sich und direkt vor der Nase nicht."
+    },
+    {
+      "id": "seiten",
+      "text": "Jedes Auge sieht seinen eigenen Bereich. Was das Pferd links kennt, muss es rechts oft noch kennenlernen."
+    },
+    {
+      "id": "flucht",
+      "text": "Ein Fluchttier reagiert zuerst – und schaut danach. Bewegungen am Rand des Blickfelds lösen schnell Flucht aus."
+    },
+    {
+      "id": "helfen",
+      "text": "So hilfst du deinem Pferd: Ansprechen, seitlich nähern, Zeit zum Schauen geben und Neues von beiden Seiten zeigen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Erschrecken ist kein Ungehorsam. Ruhe und Zeit helfen mehr als Druck."
+    }
+  ],
+  "koerpersprache-fuehren": [
+    {
+      "id": "titel",
+      "text": "Führen mit Körpersprache."
+    },
+    {
+      "id": "position",
+      "text": "Geh etwa auf Höhe zwischen Kopf und Schulter, eine Armlänge Abstand. Schau dorthin, wohin du gehen willst. Der Strick hängt locker."
+    },
+    {
+      "id": "los",
+      "text": "Zum Losgehen: einatmen, aufrichten, losgehen. Zum Anhalten: langsamer werden, ausatmen, stehen bleiben."
+    },
+    {
+      "id": "abstand",
+      "text": "Abstand lässt sich freundlich trainieren: ein Signal zur Schulter, ein Schritt zur Seite, sofort Ruhe und Lob."
+    },
+    {
+      "id": "sicher",
+      "text": "Und für deine Sicherheit: Strick nie um die Hand wickeln, Handschuhe und feste Schuhe tragen."
+    }
+  ],
+  "ausbildungsskala": [
+    {
+      "id": "titel",
+      "text": "Die Ausbildungsskala – der rote Faden der klassischen Reitlehre."
+    },
+    {
+      "id": "stufen",
+      "text": "Takt, Losgelassenheit, Anlehnung, Schwung, Geraderichtung und Versammlung. Ziel ist die Durchlässigkeit."
+    },
+    {
+      "id": "phasen",
+      "text": "Die Ausbildung verläuft in drei Phasen: Gewöhnung, Entwicklung der Schubkraft und Entwicklung der Tragkraft."
+    },
+    {
+      "id": "stunde",
+      "text": "Auch jede einzelne Reitstunde folgt der Skala."
+    },
+    {
+      "id": "zurueck",
+      "text": "Klappt etwas nicht, geh einen Schritt zurück. Ein Anlehnungsproblem liegt oft an fehlendem Takt oder fehlender Losgelassenheit."
+    }
+  ],
+  "pferdebiomechanik": [
+    {
+      "id": "titel",
+      "text": "Wie trägt ein Pferd seinen Reiter?"
+    },
+    {
+      "id": "vorhand",
+      "text": "Die Vorhand trägt im Stand etwa fünfundfünfzig bis sechzig Prozent des Gewichts. Die Hinterhand ist der Motor."
+    },
+    {
+      "id": "bewegung",
+      "text": "In der Bewegung schieben die Hinterbeine den Körper nach vorn."
+    },
+    {
+      "id": "ruecken",
+      "text": "Der Rücken ist eine Brücke ohne Stützpfeiler. Er trägt am besten, wenn er sich leicht aufwölbt – unterstützt von Bauchmuskeln und untertretenden Hinterbeinen."
+    },
+    {
+      "id": "rumpf",
+      "text": "Pferde haben kein Schlüsselbein. Der Brustkorb hängt in Muskeln zwischen den Schultern – trainierte Rumpfträger heben ihn an."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Rücken vor Kopf. Eine schöne Kopfhaltung ohne arbeitenden Rücken ist nur Fassade."
+    }
+  ],
+  "reiterposition": [
+    {
+      "id": "titel",
+      "text": "Der unabhängige, ausbalancierte Sitz."
+    },
+    {
+      "id": "linie",
+      "text": "Ohr, Schulter, Hüfte und Absatz bilden eine senkrechte Linie."
+    },
+    {
+      "id": "hand",
+      "text": "Ellbogen, Hand und Pferdemaul bilden eine gerade Linie."
+    },
+    {
+      "id": "mitgehen",
+      "text": "Ein guter Sitz ist ruhig, weil er sich mitbewegt: Das Becken folgt der Bewegung des Pferderückens."
+    },
+    {
+      "id": "fehler",
+      "text": "Typische Fehler sind Stuhlsitz, Spaltsitz und klammernde Beine – meistens fehlt Balance."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Ohne unabhängigen Sitz keine feinen Hilfen."
+    }
+  ],
+  "halbe-paraden": [
+    {
+      "id": "titel",
+      "text": "Was ist eine halbe Parade – wirklich?"
+    },
+    {
+      "id": "kein-ruck",
+      "text": "Eine halbe Parade ist kein Zügelruck, sondern ein kurzes Zusammenspiel aller Hilfen."
+    },
+    {
+      "id": "wirkung",
+      "text": "Sie macht das Pferd aufmerksam, verbessert die Balance und bereitet Übergänge und Lektionen vor."
+    },
+    {
+      "id": "gefuehl",
+      "text": "Kommt sie durch, wird das Pferd vorn leichter und hinten aktiver. Kommt sie nicht durch, wird es schwer in der Hand."
+    },
+    {
+      "id": "uebung",
+      "text": "Übe mit vielen Übergängen: Trab, Schritt, Trab – vor jedem eine halbe Parade."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Die halbe Parade beginnt im Körper, nicht in der Hand – und endet immer mit Nachgeben."
+    }
+  ],
+  "anlehnung": [
+    {
+      "id": "titel",
+      "text": "Anlehnung verstehen."
+    },
+    {
+      "id": "hinten",
+      "text": "Anlehnung entsteht von hinten nach vorn: Das Pferd tritt an eine ruhige, elastische Hand heran."
+    },
+    {
+      "id": "bild",
+      "text": "Das Genick ist der höchste Punkt, die Stirnlinie an oder leicht vor der Senkrechten."
+    },
+    {
+      "id": "fehler",
+      "text": "Typische Fehler: gegen den Zügel, auf dem Zügel und hinter dem Zügel."
+    },
+    {
+      "id": "test",
+      "text": "Der Test: Zügel aus der Hand kauen lassen. Ein Pferd in echter Anlehnung sucht die Hand nach vorn-unten."
+    }
+  ],
+  "stellung-biegung": [
+    {
+      "id": "titel",
+      "text": "Stellung und Biegung – zwei verschiedene Dinge."
+    },
+    {
+      "id": "stellung",
+      "text": "Stellung findet nur im Genick statt: Du siehst das innere Auge und den Rand der inneren Nüster. Der Hals bleibt gerade."
+    },
+    {
+      "id": "biegung",
+      "text": "Biegung betrifft das ganze Pferd: Es biegt sich gleichmäßig um den inneren Schenkel."
+    },
+    {
+      "id": "hilfen",
+      "text": "Die Hilfen: innen biegen, außen begrenzen."
+    },
+    {
+      "id": "fehler",
+      "text": "Wer nur am inneren Zügel zieht, bekommt einen abgeknickten Hals – und das Pferd fällt über die äußere Schulter."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Das Pferd biegt sich um den inneren Schenkel und lehnt sich an den äußeren Zügel."
+    }
+  ],
+  "ueber-die-schulter": [
+    {
+      "id": "titel",
+      "text": "Warum fällt mein Pferd über die Schulter?"
+    },
+    {
+      "id": "schiefe",
+      "text": "Fast jedes Pferd ist von Natur aus schief – auf einer Seite hohl, auf der anderen steif."
+    },
+    {
+      "id": "zeichen",
+      "text": "Dann weicht es in Wendungen mit der Schulter aus, liegt auf einem Zügel fest und biegt sich ungleich."
+    },
+    {
+      "id": "prinzip",
+      "text": "Das Prinzip der Geraderichtung: Die Vorhand wird vor die Hinterhand gerichtet – nicht umgekehrt."
+    },
+    {
+      "id": "schultervor",
+      "text": "Das wichtigste Werkzeug ist Schultervor: Die Schultern werden ganz leicht nach innen geführt."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Außen begrenzen, Schultern führen – und beide Hände gleich oft reiten."
+    }
+  ],
+  "galopp-fussfolge": [
+    {
+      "id": "titel",
+      "text": "Die Fußfolge im Galopp."
+    },
+    {
+      "id": "takt",
+      "text": "Der Galopp ist ein Dreitakt mit Schwebephase. Im Rechtsgalopp: hinten links, dann hinten rechts und vorne links gleichzeitig, dann vorne rechts."
+    },
+    {
+      "id": "zeitlupe",
+      "text": "In Zeitlupe siehst du die Schwebephase: Kurz berührt kein Huf den Boden."
+    },
+    {
+      "id": "links",
+      "text": "Im Linksgalopp ist es gespiegelt: hinten rechts, dann hinten links und vorne rechts, dann vorne links."
+    },
+    {
+      "id": "aussen",
+      "text": "Wichtig für das Angaloppieren: Der Galopp beginnt mit dem äußeren Hinterbein."
+    }
+  ],
+  "richtig-angaloppieren": [
+    {
+      "id": "titel",
+      "text": "Richtig angaloppieren."
+    },
+    {
+      "id": "vorbereiten",
+      "text": "Zuerst vorbereiten: ruhiger, fleißiger Trab, Pferd nach innen gestellt, eine oder zwei halbe Paraden."
+    },
+    {
+      "id": "hilfen",
+      "text": "Dann die Hilfe: Gewicht innen, äußerer Schenkel hinter dem Gurt, innerer Schenkel am Gurt gibt den Impuls."
+    },
+    {
+      "id": "warum",
+      "text": "Der äußere Schenkel spricht das äußere Hinterbein an – mit dem beginnt der erste Galoppsprung."
+    },
+    {
+      "id": "fehler",
+      "text": "Rennt das Pferd im Trab davon, fehlt meist Vorbereitung – und es wurde nur mit dem inneren Schenkel getrieben."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: In der Ecke oder auf dem Zirkel angaloppieren – aufrecht bleiben, nicht nach innen lehnen."
+    }
+  ],
+  "galoppfehler": [
+    {
+      "id": "titel",
+      "text": "Galoppfehler erkennen."
+    },
+    {
+      "id": "falsch",
+      "text": "Falscher Galopp: Das Pferd galoppiert ungewollt auf der äußeren Hand. Kontergalopp sieht gleich aus – ist aber gewollt und kontrolliert."
+    },
+    {
+      "id": "kreuz",
+      "text": "Kreuzgalopp: Vorne galoppiert das Pferd auf der einen Hand, hinten auf der anderen. Es fühlt sich holprig und verdreht an."
+    },
+    {
+      "id": "vier",
+      "text": "Viertaktgalopp: Die Schwebephase fehlt, der Galopp wird flach und schleppend – oft zu viel Hand, zu wenig Schwung."
+    },
+    {
+      "id": "reagieren",
+      "text": "Bei Fehlern: ruhig durchparieren, neu vorbereiten und neu angaloppieren. Nicht strafen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Häufige Galoppfehler können ein Schmerzzeichen sein – lass sie abklären."
+    }
+  ],
+  "schenkelweichen-schulterherein": [
+    {
+      "id": "titel",
+      "text": "Schenkelweichen oder Schulterherein – was ist der Unterschied?"
+    },
+    {
+      "id": "weichen",
+      "text": "Im Schenkelweichen geht das Pferd vorwärts-seitwärts, leicht gestellt gegen die Bewegungsrichtung, ohne Biegung. Es ist eine Lösungsübung."
+    },
+    {
+      "id": "herein",
+      "text": "Im Schulterherein wird die Vorhand etwa dreißig Grad nach innen geführt. Das Pferd ist gebogen und geht auf drei Hufschlägen."
+    },
+    {
+      "id": "zweck",
+      "text": "Schenkelweichen lockert. Schulterherein richtet gerade und lässt das innere Hinterbein mehr Last aufnehmen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: In allen Seitengängen gilt: Takt vor Winkel."
+    }
+  ],
+  "galoppwechsel": [
+    {
+      "id": "titel",
+      "text": "Galoppwechsel verstehen."
+    },
+    {
+      "id": "einfach",
+      "text": "Beim einfachen Wechsel pariert man über einige klare Schritte durch und springt auf der anderen Hand wieder an."
+    },
+    {
+      "id": "fliegend",
+      "text": "Beim fliegenden Wechsel wechselt das Pferd in der Schwebephase – vorne und hinten gleichzeitig."
+    },
+    {
+      "id": "voraus",
+      "text": "Vorher muss das Pferd ausbalanciert und gerade sein, einfache Wechsel sicher können und im Kontergalopp gehen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Leise Hilfen im richtigen Moment – nicht werfen."
+    }
+  ],
+  "bergauf-bergab": [
+    {
+      "id": "titel",
+      "text": "Sicher bergauf und bergab."
+    },
+    {
+      "id": "bergauf",
+      "text": "Bergauf: leichter Sitz, Hand nach vorn, gerade hinauf, ruhiges Tempo."
+    },
+    {
+      "id": "bergab",
+      "text": "Bergab: im Schritt, aufrecht sitzen, Gewicht in den Bügeln, leichte Verbindung, gerade hinunter."
+    },
+    {
+      "id": "schraeg",
+      "text": "Nie schräg am Hang reiten – das Pferd kann seitlich wegrutschen."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Bei zu steilen Stücken absteigen und führen. Das ist keine Niederlage, sondern klug."
+    }
+  ],
+  "erster-galopp-gelaende": [
+    {
+      "id": "titel",
+      "text": "Der erste Galopp im Gelände."
+    },
+    {
+      "id": "wo",
+      "text": "Nur auf bekanntem, festem, einsehbarem Boden – und am besten leicht bergauf."
+    },
+    {
+      "id": "ablauf",
+      "text": "Ansage, Rückfrage, ruhig antraben, dann angaloppieren – und rechtzeitig vor dem Ende durchparieren."
+    },
+    {
+      "id": "galopp",
+      "text": "Im leichten Sitz bleibst du im Gleichgewicht und entlastest den Rücken."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Erster Galopp kurz, bergauf, mit ruhigem Führpferd – und nie Richtung Stall."
+    }
+  ],
+  "gruppenregeln-ausreiten": [
+    {
+      "id": "titel",
+      "text": "Gruppenregeln beim Ausreiten."
+    },
+    {
+      "id": "rollen",
+      "text": "Vorne reitet eine erfahrene Person auf einem ruhigen Pferd, hinten ebenfalls. Dazwischen die Unsicheren."
+    },
+    {
+      "id": "regeln",
+      "text": "Die wichtigsten Regeln."
+    },
+    {
+      "id": "schleifen",
+      "text": "Eine rote Schleife im Schweif heißt: Dieses Pferd schlägt. Eine grüne: Es ist noch jung."
+    },
+    {
+      "id": "merke",
+      "text": "Merke: Wer ein Problem hat, ruft laut – und die ganze Gruppe hält an."
+    }
+  ],
+  "gefahren-gelaende": [
+    {
+      "id": "titel",
+      "text": "Gefahren im Gelände erkennen."
+    },
+    {
+      "id": "rad",
+      "text": "Radfahrer und Jogger von hinten: regelmäßig zurückschauen, Tempo raus, an den Rand, freundlich um Langsamfahrt bitten."
+    },
+    {
+      "id": "hund",
+      "text": "Ein Hund ohne Leine: stehen bleiben, Pferd zum Hund drehen, den Besitzer ansprechen. Nie davongaloppieren."
+    },
+    {
+      "id": "wild",
+      "text": "Wildtiere sind in der Dämmerung besonders aktiv. Ruhig bleiben, Abstand halten, auf Wegen bleiben."
+    },
+    {
+      "id": "fahrzeug",
+      "text": "Fahrzeuge und Traktoren: früh anhalten oder ausweichen, per Handzeichen um Langsamfahrt bitten, bedanken."
+    }
+  ],
+  "nach-dem-reitunfall": [
+    {
+      "id": "titel",
+      "text": "Was tun nach einem Reitunfall?"
+    },
+    {
+      "id": "ablauf",
+      "text": "Eigenschutz, Pferde sichern, die gestürzte Person ansprechen, Lage einschätzen."
+    },
+    {
+      "id": "liegen",
+      "text": "Bei Rücken- oder Nackenschmerzen, Kribbeln oder Taubheit: liegen lassen, beruhigen, nicht bewegen."
+    },
+    {
+      "id": "notruf",
+      "text": "Notruf eins, eins, zwei: Wo? Was? Wie viele? Welche Verletzungen? Und dann auf Rückfragen warten."
+    },
+    {
+      "id": "einweisen",
+      "text": "Schick jemanden zum nächsten Weg, um den Rettungswagen einzuweisen, und informiere den Stall."
+    }
+  ]
+}

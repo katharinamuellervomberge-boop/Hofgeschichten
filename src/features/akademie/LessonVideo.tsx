@@ -13,7 +13,7 @@ export function LessonVideo({ video, compact }: { video: AcademyVideo; compact?:
       <figcaption className={styles.videoCap}>
         <Icon name="play" />
         <span>
-          <strong>Lernvideo:</strong> {video.title} · {Math.round(video.seconds / 6) / 10} Min.
+          <strong>Lernvideo:</strong> {video.title} · {Math.round(video.seconds / 6) / 10} Min.{video.voiced ? "" : " · mit Untertiteln"}
         </span>
       </figcaption>
     </figure>

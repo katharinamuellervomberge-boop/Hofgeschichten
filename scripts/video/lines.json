@@ -58,5 +58,219 @@
     "schlange",
     "rund",
     "merke"
+  ],
+  "pferdeverdauung": [
+    "titel",
+    "weg",
+    "groesse",
+    "saeure",
+    "dickdarm",
+    "regeln",
+    "merke"
+  ],
+  "raufutterbedarf": [
+    "titel",
+    "regel",
+    "ts",
+    "rechnung",
+    "umrechnen",
+    "dick",
+    "merke"
+  ],
+  "anweiden": [
+    "titel",
+    "warum",
+    "plan",
+    "heu",
+    "fruktan",
+    "merke"
+  ],
+  "stallhaltung-vergleichen": [
+    "titel",
+    "kriterien",
+    "vergleich",
+    "box",
+    "umsetzung",
+    "merke"
+  ],
+  "hufaufbau": [
+    "titel",
+    "aussen",
+    "innen",
+    "wachstum",
+    "mechanik",
+    "merke"
+  ],
+  "pferdezaehne": [
+    "titel",
+    "gebiss",
+    "nachschub",
+    "kanten",
+    "zeichen",
+    "merke"
+  ],
+  "stallapotheke": [
+    "titel",
+    "messen",
+    "verband",
+    "reinigen",
+    "medikamente",
+    "merke"
+  ],
+  "pferdeohren": [
+    "titel",
+    "vorn",
+    "seitlich",
+    "zurueck",
+    "reiter",
+    "merke"
+  ],
+  "herdenkommunikation": [
+    "titel",
+    "schutz",
+    "leise",
+    "rang",
+    "mensch"
+  ],
+  "warum-pferde-erschrecken": [
+    "titel",
+    "sehen",
+    "seiten",
+    "flucht",
+    "helfen",
+    "merke"
+  ],
+  "koerpersprache-fuehren": [
+    "titel",
+    "position",
+    "los",
+    "abstand",
+    "sicher"
+  ],
+  "ausbildungsskala": [
+    "titel",
+    "stufen",
+    "phasen",
+    "stunde",
+    "zurueck"
+  ],
+  "pferdebiomechanik": [
+    "titel",
+    "vorhand",
+    "bewegung",
+    "ruecken",
+    "rumpf",
+    "merke"
+  ],
+  "reiterposition": [
+    "titel",
+    "linie",
+    "hand",
+    "mitgehen",
+    "fehler",
+    "merke"
+  ],
+  "halbe-paraden": [
+    "titel",
+    "kein-ruck",
+    "wirkung",
+    "gefuehl",
+    "uebung",
+    "merke"
+  ],
+  "anlehnung": [
+    "titel",
+    "hinten",
+    "bild",
+    "fehler",
+    "test"
+  ],
+  "stellung-biegung": [
+    "titel",
+    "stellung",
+    "biegung",
+    "hilfen",
+    "fehler",
+    "merke"
+  ],
+  "ueber-die-schulter": [
+    "titel",
+    "schiefe",
+    "zeichen",
+    "prinzip",
+    "schultervor",
+    "merke"
+  ],
+  "galopp-fussfolge": [
+    "titel",
+    "takt",
+    "zeitlupe",
+    "links",
+    "aussen"
+  ],
+  "richtig-angaloppieren": [
+    "titel",
+    "vorbereiten",
+    "hilfen",
+    "warum",
+    "fehler",
+    "merke"
+  ],
+  "galoppfehler": [
+    "titel",
+    "falsch",
+    "kreuz",
+    "vier",
+    "reagieren",
+    "merke"
+  ],
+  "schenkelweichen-schulterherein": [
+    "titel",
+    "weichen",
+    "herein",
+    "zweck",
+    "merke"
+  ],
+  "galoppwechsel": [
+    "titel",
+    "einfach",
+    "fliegend",
+    "voraus",
+    "merke"
+  ],
+  "bergauf-bergab": [
+    "titel",
+    "bergauf",
+    "bergab",
+    "schraeg",
+    "merke"
+  ],
+  "erster-galopp-gelaende": [
+    "titel",
+    "wo",
+    "ablauf",
+    "galopp",
+    "merke"
+  ],
+  "gruppenregeln-ausreiten": [
+    "titel",
+    "rollen",
+    "regeln",
+    "schleifen",
+    "merke"
+  ],
+  "gefahren-gelaende": [
+    "titel",
+    "rad",
+    "hund",
+    "wild",
+    "fahrzeug"
+  ],
+  "nach-dem-reitunfall": [
+    "titel",
+    "ablauf",
+    "liegen",
+    "notruf",
+    "einweisen"
   ]
 }

@@ -23,6 +23,8 @@ const { chromium } = await import(path.join(TOOLS, "playwright/index.mjs"));
 const FPS = 25;
 const args = process.argv.slice(2);
 const stills = args.includes("--stills");
+// --lines: nur Sprechertexte exportieren (scripts/video/lines.json + lines-text.json), nichts rendern
+const linesOnly = args.includes("--lines");
 const only = args.filter((a) => !a.startsWith("--"));
 const OUT = path.join(ROOT, "private/akademie-video");
 const TMP = path.join(ROOT, ".video-tmp");
@@ -77,6 +79,18 @@ for (const slug of list) {
   await page.waitForTimeout(600);
   const total = await page.evaluate(() => window.__total);
   const lines = await page.evaluate(() => window.__lines);
+  if (linesOnly) {
+    const idsFile = path.join(ROOT, "scripts/video/lines.json");
+    const textFile = path.join(ROOT, "scripts/video/lines-text.json");
+    const ids = existsSync(idsFile) ? JSON.parse(await readFile(idsFile, "utf8")) : {};
+    const texts = existsSync(textFile) ? JSON.parse(await readFile(textFile, "utf8")) : {};
+    ids[slug] = lines.map((l) => l.id);
+    texts[slug] = lines.map((l) => ({ id: l.id, text: l.text }));
+    writeFileSync(idsFile, JSON.stringify(ids, null, 2) + "\n");
+    writeFileSync(textFile, JSON.stringify(texts, null, 2) + "\n");
+    console.log(`${slug}: ${lines.length} Sätze exportiert`);
+    continue;
+  }
   if (stills) {
     mkdirSync(path.join(TMP, "stills"), { recursive: true });
     for (const l of lines) {

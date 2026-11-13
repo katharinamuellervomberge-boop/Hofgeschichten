@@ -1,0 +1,74 @@
+# „Lernvideos vertonen“ – erzeugt die Sprecheraufnahmen der Lernvideos bei ElevenLabs,
+# passt die Bildzeiten an die Aufnahmen an und rendert die Videos neu.
+# Start: GitHub → Actions → „Lernvideos vertonen“ → „Run workflow“ (optional: Videos eintragen).
+name: Lernvideos vertonen
+
+on:
+  workflow_dispatch:
+    inputs:
+      videos:
+        description: "Nur diese Videos (Slugs, mit Leerzeichen getrennt). Leer = alle noch nicht vertonten."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lernvideos
+  cancel-in-progress: false
+
+jobs:
+  vertonen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pakete installieren
+        run: |
+          npm install --no-audit --no-fund
+          npm install --no-save --no-audit --no-fund esbuild playwright
+          npx playwright install --with-deps chromium
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Videos auswählen
+        id: auswahl
+        run: |
+          if [ -n "${{ inputs.videos }}" ]; then
+            echo "slugs=${{ inputs.videos }}" >> "$GITHUB_OUTPUT"
+          else
+            node -e '
+              const fs = require("fs");
+              const all = JSON.parse(fs.readFileSync("scripts/video/lines-text.json", "utf8"));
+              const todo = Object.keys(all).filter((s) => !fs.existsSync(`voice/video/${s}/01.mp3`));
+              console.log("slugs=" + todo.join(" "));
+            ' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Sprechertexte exportieren, vertonen, messen, rendern
+        if: steps.auswahl.outputs.slugs != ''
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          node scripts/video/render.mjs ${{ steps.auswahl.outputs.slugs }} --lines
+          node scripts/video/voice-elevenlabs.mjs ${{ steps.auswahl.outputs.slugs }}
+          for s in ${{ steps.auswahl.outputs.slugs }}; do node scripts/video/voice.mjs "$s"; done
+          node scripts/video/render.mjs ${{ steps.auswahl.outputs.slugs }}
+          node scripts/video/sync-durations.mjs
+
+      - name: Ergebnis speichern
+        run: |
+          git config user.name "Hofgeschichten Lernvideos"
+          git config user.email "actions@users.noreply.github.com"
+          git add voice/video src/video/durations.json scripts/video/lines.json scripts/video/lines-text.json private/akademie-video src/content/akademie/videos.ts
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+          else
+            git commit -m "Lernvideos vertont"
+            git push
+          fi

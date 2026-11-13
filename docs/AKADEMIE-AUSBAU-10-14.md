@@ -32,7 +32,7 @@ A Einstieg → B Fachwissen (Abschnitte mit Zwischenüberschrift) → Fachbegrif
 
 Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **Anim** = als Animation umsetzbar, **Real** = braucht echtes Bildmaterial, **Mix** = Animation + Realaufnahmen.
 
-### Modul 10 – Pferdehaltung, Pferdealltag & Fütterung (Lernwelt w15) – FERTIG (Entwurf)
+### Modul 10 – Pferdehaltung, Pferdealltag & Fütterung (Lernwelt w15) – FERTIG
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
@@ -51,7 +51,7 @@ Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **An
 | ra-w15-l13 | Stallmanagement und Versorgung | Tagesablauf, Kontrollpunkte, Dokumentation, Notfallplan | G | – |
 | ra-w15-l14 | Gute Pferdehaltung beurteilen | Haltung und Pferd mit Kriterien beurteilen, angemessen reagieren | A | – |
 
-### Modul 11 – Pferdegesundheit, Hufe, Zähne, Pflege & Erste Hilfe (w16) – offen
+### Modul 11 – Pferdegesundheit, Hufe, Zähne, Pflege & Erste Hilfe (w16) – FERTIG
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
@@ -74,7 +74,7 @@ Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **An
 | ra-w16-l17 | Die Stallapotheke | Sinnvoller Inhalt ohne Medikamentenempfehlungen | G | Stallapotheke zusammenstellen (Anim) |
 | ra-w16-l18 | Gesundheitsvorsorge | Jahresplan: Zähne, Hufe, Impfung, Parasiten, Gewicht | G | – |
 
-### Modul 12 – Pferdeverhalten & Körpersprache (w17) – offen
+### Modul 12 – Pferdeverhalten & Körpersprache (w17) – FERTIG
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
@@ -91,7 +91,7 @@ Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **An
 | ra-w17-l11 | Häufige Verhaltensprobleme | Kleben, Steigen, Schreckhaftigkeit: mögliche Ursachen | F | – |
 | ra-w17-l12 | Situationen analysieren | Fallbeispiele systematisch auswerten | F | – |
 
-### Modul 13 – Reitlehre Advanced (w18) – offen
+### Modul 13 – Reitlehre Advanced (w18) – FERTIG
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
@@ -116,7 +116,7 @@ Stufen: **G** = Grundlagen, **A** = Aufbau, **F** = Fortgeschritten. Video: **An
 | ra-w18-l19 | Versammlung und Tragkraft | Lastaufnahme, weiterführende Lektionen | F | – |
 | ra-w18-l20 | Trainingsprobleme lösen | Systematische Fehlersuche über die Skala | F | – |
 
-### Modul 14 – Gelände & Ausreiten (w19) – offen
+### Modul 14 – Gelände & Ausreiten (w19) – FERTIG
 
 | ID | Lektion | Lernziel | Stufe | Video |
 |---|---|---|---|---|
@@ -146,7 +146,7 @@ Modul 14: bergauf/bergab, erster Galopp im Gelände, Gruppenregeln, Gefahren erk
 
 **Mischform (3):** Pferdedecken auswählen (Entscheidungsgrafik animiert + Passform real), Hufrehe-Warnsignale (Haltung animiert + Realaufnahmen), Körpersprache richtig lesen.
 
-Noch kein neues Video ist gerendert. Reihenfolge-Vorschlag: zuerst die 4 Animationen aus Modul 10.
+**Stand:** Alle 28 Animationen sind gerendert (`private/akademie-video/<slug>.mp4` + Vorschaubild) und in die passenden Lektionen eingebunden – vorerst ohne Sprecher, mit eingeblendetem Text. Vertonung: GitHub Action „Lernvideos vertonen“ (ElevenLabs, Stimme wie bei den bisherigen Lernvideos) erzeugt die Sprachdateien, rendert neu und trägt Laufzeiten ein. Die 8 Realvideos und 3 Mischformen haben vollständige Drehbücher in `docs/LERNVIDEOS-DREHBUECHER.md`.
 
 ## 5. Interaktive Funktionen – technischer Weg
 
@@ -166,23 +166,26 @@ Noch kein neues Video ist gerendert. Reihenfolge-Vorschlag: zuerst die 4 Animati
 - Keine neuen Abhängigkeiten.
 - Englisch: Neue Inhalte haben noch keine Übersetzung; im englischen Modus erscheinen sie deutsch. `npm run check:en` meldet sie als fehlend.
 
-## 7. Offene Entscheidungen
+## 7. Entscheidungen (13.11.2026)
 
-1. **Zugang/Preis:** Sollen bisherige Käufer der Reitakademie die neuen Module ohne Aufpreis bekommen (so ist es jetzt umgesetzt) – oder wird es ein eigenes Produkt?
-2. **Position des Abschluss-Moduls:** Modul 9 „Akademie-Abschluss“ steht jetzt vor Modul 10. Ans Ende verschieben (Anzeige ohne Nummer) oder so lassen?
-3. **Kids-Lernweg:** Neue Module für Kids ausblenden, nur mit Hinweis zeigen (jetzt umgesetzt) oder eigene einfache Fassungen schreiben?
-4. **Fachprüfung:** Wer prüft Modul 10 (Fütterung/Haltung), Modul 11 (Tierärztin/Tierarzt)? Bis dahin Status „Entwurf“, nicht auf `main`.
+1. **Zugang:** Alle bisherigen Käufer der Reitakademie bekommen die neuen Module kostenlos (umgesetzt über die „große“ Akademie).
+2. **Reihenfolge:** strategisch neu sortiert – Grundlagen zuerst, dann Wissen rund ums Pferd, dann Gelände, dann Reitlehre Advanced, Abschluss am Ende:
+   1 Pferd kennenlernen · 2 Sicher am Pferd · 3 Putzen & Pflege · 4 Satteln & Trensen · 5 Erste Reitstunden · 6 Reiten verstehen · 7 Haltung & Fütterung (m10) · 8 Gesundheit & Erste Hilfe (m11) · 9 Verhalten & Körpersprache (m12) · 10 Gelände & Ausreiten (m14) · 11 Reitlehre Advanced (m13) · 12–14 bisherige Module 7–9 (Abschluss zuletzt). Interne IDs und Fortschritt bleiben unverändert, nur die Anzeigenummer folgt der neuen Reihenfolge.
+3. **Kids-Lernweg:** entfällt – derselbe Lernweg für alle.
+4. **Fachprüfung:** laut Inhaberin erfolgt. Modul 10 ist als „geprüft“ markiert. Die Module 11–14 wurden am 13.11. nach dieser Aussage fertig geschrieben und sind intern noch als „Entwurf“ markiert, bis die Abnahme auch für diese Texte bestätigt ist (eine Zeile in den Dateien `w16`–`w19`: `deepLessonsOf(..., reviewed2026_11_13)`). Für Nutzer ist der Status unsichtbar.
 
 ## 8. Stand
 
 | Inhalt | Stand |
 |---|---|
-| Lektionsformat A–H, Prüfskript | fertig (Vorschau) |
-| Modul 10: 14 Lektionen mit Fachwissen, Praxis, Übung, Fehlern, Schritten, 57 Quizfragen, Merksätzen, Weiterlernen | fertig als Entwurf, fachliche Prüfung offen |
-| Modul 10: Fütterungsrechner, 6 Lernvideos, eigene Illustrationen | offen |
-| Module 11–14 (62 Lektionen) | Struktur fertig, Inhalte offen |
-| Storyboards Realvideos | offen |
-| Englische Fassung | offen |
+| Lektionsformat A–H, Prüfskript (`npm run check:akademie`) | fertig |
+| Module 10–14: 76 Lektionen mit Fachwissen, Praxis, Übung, Fehlern, Schritten, Merksätzen, Quiz, Weiterlernen | fertig |
+| Fütterungsrechner (M10 L7), Reitlehre-Visualizer (M13 L9, L12, L17) | fertig, in den Lektionen eingebettet |
+| Gesundheitsdetektiv, Pferdesprache-Quiz, Gelände-Simulator | fertig, als Spiele in den Modulen 11, 12, 14 |
+| 28 animierte Lernvideos | gerendert und eingebunden, Vertonung per Action |
+| 8 Realvideos + 3 Mischformen | Drehbücher fertig, Dreh offen |
+| Englische Fassung der neuen Module | offen (im englischen Modus erscheinen sie deutsch) |
+| Veröffentlichung | Branch `feature/akademie-modul-10` mit Vercel-Vorschau; Merge nach `main` erst nach Freigabe |
 
 ## 9. Quellen der fachlichen Angaben in Modul 10
 
