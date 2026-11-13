@@ -185,7 +185,7 @@ export const teil2: DeepInput[] = [
         },
         {
           heading: "Lernen durch Verknüpfung",
-          text: "Pferde verknüpfen Signale mit dem, was danach passiert. Klappert der Futtereimer, kommen die Pferde – sie haben gelernt, dass auf das Geräusch Futter folgt. Das nennt man klassische Konditionierung. Sie wirkt auch bei Gefühlen: Ein Pferd, das am Putzplatz oft Schmerzen hatte, kann allein beim Anblick des Putzplatzes angespannt werden.\n\nMan kann das gezielt nutzen. Beim Gegenkonditionieren wird ein Reiz, der Angst macht, mit etwas Angenehmem verknüpft – zum Beispiel ein flatterndes Band, das in sicherer Entfernung immer mit Futter verbunden wird.",
+          text: "Pferde verknüpfen Signale mit dem, was danach passiert. Klappert der Futtereimer, kommen die Pferde – sie haben gelernt, dass nach dem Geräusch Futter kommt. Das nennt man klassische Konditionierung. Sie wirkt auch bei Gefühlen: Ein Pferd, das am Putzplatz oft Schmerzen hatte, kann allein beim Anblick des Putzplatzes angespannt werden.\n\nMan kann das gezielt nutzen. Beim Gegenkonditionieren wird ein Reiz, der Angst macht, mit etwas Angenehmem verknüpft – zum Beispiel ein flatterndes Band, das in sicherer Entfernung immer mit Futter verbunden wird.",
         },
         {
           heading: "Lernen durch Folgen",

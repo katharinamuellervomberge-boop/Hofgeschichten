@@ -46,7 +46,7 @@ export type AcademyModule = {
 
 const scene = (name: string): Visual => ({ kind: "scene", scene: name });
 
-export const academyModules: AcademyModule[] = [
+const moduleDefs: AcademyModule[] = [
   {
     id: "m1",
     number: 1,
@@ -280,7 +280,75 @@ export const academyModules: AcademyModule[] = [
       { title: "Vorbeugen und Notfall", lessons: ["ra-w16-l15", "ra-w16-l16", "ra-w16-l17", "ra-w16-l18"] },
     ],
   },
+  {
+    id: "m12",
+    number: 12,
+    slug: "pferdeverhalten",
+    title: "Pferdeverhalten & Körpersprache",
+    teaser: {
+      kids: "Pferde lesen und verstehen – was sie dir sagen und wie sie lernen.",
+      grown: "Wahrnehmung, Körpersprache, Stress und Entspannung, Herde, Lerntheorie, Vertrauen, Führen, Konfliktsignale beim Reiten und Verhaltensanalyse.",
+    },
+    tint: "#E3E7DA",
+    cover: scene("ak-zonen"),
+    trial: "ra-w17-l2",
+    topics: [
+      { title: "Wahrnehmen und lesen", lessons: ["ra-w17-l1", "ra-w17-l2", "ra-w17-l3", "ra-w17-l4"] },
+      { title: "Sozialverhalten", lessons: ["ra-w17-l5", "ra-w17-l6"] },
+      { title: "Lernen und Kommunikation", lessons: ["ra-w17-l7", "ra-w17-l8", "ra-w17-l9"] },
+      { title: "Verhalten verstehen und lösen", lessons: ["ra-w17-l10", "ra-w17-l11", "ra-w17-l12"] },
+    ],
+  },
+  {
+    id: "m13",
+    number: 13,
+    slug: "reitlehre-advanced",
+    title: "Reitlehre Advanced",
+    teaser: {
+      kids: "Warum jede Hilfe wirkt – und wie sie sich richtig anfühlt.",
+      grown: "Ausbildungsskala, Biomechanik, Sitz und Hilfen, halbe Paraden, Anlehnung, Biegung, Geraderichtung, Galopp, Seitengänge, Wechsel und Versammlung.",
+    },
+    tint: "#E4E7DC",
+    cover: scene("ak-oben-schulterherein"),
+    trial: "ra-w18-l7",
+    topics: [
+      { title: "Grundlagen verstehen", lessons: ["ra-w18-l1", "ra-w18-l2"] },
+      { title: "Sitz und Hilfen", lessons: ["ra-w18-l3", "ra-w18-l4", "ra-w18-l5", "ra-w18-l6", "ra-w18-l7"] },
+      { title: "Anlehnung, Biegung, Geraderichtung", lessons: ["ra-w18-l8", "ra-w18-l9", "ra-w18-l10", "ra-w18-l11"] },
+      { title: "Der Galopp", lessons: ["ra-w18-l12", "ra-w18-l13", "ra-w18-l14", "ra-w18-l15", "ra-w18-l16"] },
+      { title: "Weiterführende Arbeit", lessons: ["ra-w18-l17", "ra-w18-l18", "ra-w18-l19", "ra-w18-l20"] },
+    ],
+  },
+  {
+    id: "m14",
+    number: 14,
+    slug: "gelaende-ausreiten",
+    title: "Gelände & Ausreiten",
+    teaser: {
+      kids: "Sicher unterwegs im Wald und auf dem Feld.",
+      grown: "Vorbereitung, Gruppenregeln, Reitrecht, Hänge, Wasser, Schreckmomente, Galopp im Gelände, Durchgehen, Begegnungen, Notfälle und Geländetraining.",
+    },
+    tint: "#E1E6D8",
+    cover: scene("ak-reiter-leicht"),
+    trial: "ra-w19-l3",
+    topics: [
+      { title: "Gut vorbereitet", lessons: ["ra-w19-l1", "ra-w19-l2", "ra-w19-l3", "ra-w19-l4"] },
+      { title: "Unterwegs", lessons: ["ra-w19-l5", "ra-w19-l6", "ra-w19-l7", "ra-w19-l8"] },
+      { title: "Wenn es kritisch wird", lessons: ["ra-w19-l9", "ra-w19-l10", "ra-w19-l11"] },
+      { title: "Training", lessons: ["ra-w19-l12"] },
+    ],
+  },
 ];
+
+/**
+ * Reihenfolge in der App (seit 13.11.2026): erst die Grundlagen am Boden und im Sattel,
+ * dann Pferdewissen (Haltung, Gesundheit, Verhalten), dann Gelände, die vertiefte Reitlehre,
+ * Dressur und Springen – der Abschluss bleibt am Ende. Die angezeigte Nummer ist die Position;
+ * Modul-IDs, Lektions-IDs und Fortschritt bleiben unverändert.
+ */
+const MODULE_ORDER = ["m1", "m2", "m3", "m4", "m5", "m6", "m10", "m11", "m12", "m14", "m13", "m7", "m8", "m9"];
+
+export const academyModules: AcademyModule[] = MODULE_ORDER.map((id, i) => ({ ...moduleDefs.find((m) => m.id === id)!, number: i + 1 }));
 
 /* ---------- Lernwege ---------- */
 

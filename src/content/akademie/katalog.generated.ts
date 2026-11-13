@@ -1017,6 +1017,333 @@ export const worldsInfo: AcademyWorldInfo[] = [
         "title": "Gesundheitsvorsorge und langfristiges Management"
       }
     ]
+  },
+  {
+    "id": "w17",
+    "number": 17,
+    "slug": "pferdeverhalten",
+    "title": "Pferdeverhalten und Körpersprache",
+    "teaser": "Pferde lesen, verstehen und fair mit ihnen kommunizieren.",
+    "learns": "Wahrnehmung, Körpersprache im Zusammenhang, Entspannung, Stress und Angst, Herdenverhalten ohne Dominanzmythos, Konfliktverhalten, Lerntheorie, Vertrauen, Körpersprache beim Führen, Konfliktsignale beim Reiten, Verhaltensprobleme und eine Methode zur Analyse.",
+    "tint": "#E3E7DA",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-zonen"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w17",
+      "title": "Pferdeversteher",
+      "motif": "ear"
+    },
+    "tier": "gross",
+    "lessons": [
+      {
+        "id": "ra-w17-l1",
+        "slug": "wahrnehmung",
+        "number": 1,
+        "title": "Wie Pferde ihre Umwelt wahrnehmen"
+      },
+      {
+        "id": "ra-w17-l2",
+        "slug": "koerpersprache-verstehen",
+        "number": 2,
+        "title": "Die Körpersprache des Pferdes verstehen"
+      },
+      {
+        "id": "ra-w17-l3",
+        "slug": "entspannung-wohlbefinden",
+        "number": 3,
+        "title": "Entspannung, Wohlbefinden und Ruheverhalten"
+      },
+      {
+        "id": "ra-w17-l4",
+        "slug": "stress-angst-ueberforderung",
+        "number": 4,
+        "title": "Stress, Angst und Überforderung erkennen"
+      },
+      {
+        "id": "ra-w17-l5",
+        "slug": "herdenverhalten",
+        "number": 5,
+        "title": "Herdenverhalten und soziale Beziehungen"
+      },
+      {
+        "id": "ra-w17-l6",
+        "slug": "konfliktverhalten",
+        "number": 6,
+        "title": "Drohen, Beißen, Treten und Konfliktverhalten"
+      },
+      {
+        "id": "ra-w17-l7",
+        "slug": "lerntheorie",
+        "number": 7,
+        "title": "Wie Pferde lernen: Lerntheorie verständlich erklärt"
+      },
+      {
+        "id": "ra-w17-l8",
+        "slug": "vertrauen-kommunikation",
+        "number": 8,
+        "title": "Vertrauen und gute Kommunikation aufbauen"
+      },
+      {
+        "id": "ra-w17-l9",
+        "slug": "koerpersprache-fuehren",
+        "number": 9,
+        "title": "Körpersprache beim Führen und im täglichen Umgang"
+      },
+      {
+        "id": "ra-w17-l10",
+        "slug": "konfliktsignale-reiten",
+        "number": 10,
+        "title": "Körpersprache und Konfliktsignale beim Reiten"
+      },
+      {
+        "id": "ra-w17-l11",
+        "slug": "verhaltensprobleme",
+        "number": 11,
+        "title": "Häufige Verhaltensprobleme und mögliche Ursachen"
+      },
+      {
+        "id": "ra-w17-l12",
+        "slug": "situationen-analysieren",
+        "number": 12,
+        "title": "Pferdeverhalten anhand praktischer Situationen analysieren"
+      }
+    ]
+  },
+  {
+    "id": "w18",
+    "number": 18,
+    "slug": "reitlehre-advanced",
+    "title": "Reitlehre Advanced",
+    "teaser": "Warum jede Hilfe wirkt, wie sie sich anfühlt und woran du erkennst, dass es klappt.",
+    "learns": "Ausbildungsskala im Detail, Biomechanik, unabhängiger Sitz, Gewichts-, Schenkel- und Zügelhilfen, halbe Paraden, Anlehnung und Selbsthaltung, Stellung und Biegung, Geraderichtung, Übergänge und Tempi, Galopp von der Fußfolge bis zur Galopparbeit, Galoppfehler, Seitengänge, Galoppwechsel, Versammlung und systematische Fehlersuche.",
+    "tint": "#E4E7DC",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-oben-schulterherein"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w18",
+      "title": "Reitlehre-Profi",
+      "motif": "dressage"
+    },
+    "tier": "gross",
+    "lessons": [
+      {
+        "id": "ra-w18-l1",
+        "slug": "ausbildungsskala-im-detail",
+        "number": 1,
+        "title": "Die Ausbildungsskala im Detail"
+      },
+      {
+        "id": "ra-w18-l2",
+        "slug": "biomechanik",
+        "number": 2,
+        "title": "Biomechanik und Bewegungsabläufe des Pferdes"
+      },
+      {
+        "id": "ra-w18-l3",
+        "slug": "unabhaengiger-sitz",
+        "number": 3,
+        "title": "Der unabhängige, ausbalancierte Reitersitz"
+      },
+      {
+        "id": "ra-w18-l4",
+        "slug": "gewichtshilfen-becken",
+        "number": 4,
+        "title": "Gewichtshilfen und Beckeneinwirkung"
+      },
+      {
+        "id": "ra-w18-l5",
+        "slug": "schenkelhilfen",
+        "number": 5,
+        "title": "Schenkelhilfen und ihre genaue Funktion"
+      },
+      {
+        "id": "ra-w18-l6",
+        "slug": "zuegelhilfen-handhaltung",
+        "number": 6,
+        "title": "Zügelhilfen und korrekte Handhaltung"
+      },
+      {
+        "id": "ra-w18-l7",
+        "slug": "halbe-paraden",
+        "number": 7,
+        "title": "Das Zusammenspiel der Hilfen und halbe Paraden"
+      },
+      {
+        "id": "ra-w18-l8",
+        "slug": "anlehnung-selbsthaltung",
+        "number": 8,
+        "title": "Anlehnung, Selbsthaltung und Verbindung"
+      },
+      {
+        "id": "ra-w18-l9",
+        "slug": "stellung-und-biegung-verstehen",
+        "number": 9,
+        "title": "Stellung und Biegung richtig verstehen"
+      },
+      {
+        "id": "ra-w18-l10",
+        "slug": "geraderichtung-schiefe",
+        "number": 10,
+        "title": "Geraderichtung und natürliche Schiefe"
+      },
+      {
+        "id": "ra-w18-l11",
+        "slug": "uebergaenge-tempo",
+        "number": 11,
+        "title": "Übergänge und Tempounterschiede"
+      },
+      {
+        "id": "ra-w18-l12",
+        "slug": "galopp-fussfolge-biomechanik",
+        "number": 12,
+        "title": "Der Galopp: Fußfolge, Dreitakt und Biomechanik"
+      },
+      {
+        "id": "ra-w18-l13",
+        "slug": "richtig-angaloppieren",
+        "number": 13,
+        "title": "Richtig angaloppieren und Hilfengebung"
+      },
+      {
+        "id": "ra-w18-l14",
+        "slug": "galoppsitz-mitschwingen",
+        "number": 14,
+        "title": "Galoppsitz, Balance und Mitschwingen"
+      },
+      {
+        "id": "ra-w18-l15",
+        "slug": "galoppfehler",
+        "number": 15,
+        "title": "Falscher Galopp, Kreuzgalopp und häufige Fehler"
+      },
+      {
+        "id": "ra-w18-l16",
+        "slug": "galopparbeit-verbessern",
+        "number": 16,
+        "title": "Galopparbeit verbessern und gezielt trainieren"
+      },
+      {
+        "id": "ra-w18-l17",
+        "slug": "seitengaenge-verstehen",
+        "number": 17,
+        "title": "Seitengänge: Schenkelweichen, Schulterherein, Travers und Renvers"
+      },
+      {
+        "id": "ra-w18-l18",
+        "slug": "galoppwechsel-verstehen",
+        "number": 18,
+        "title": "Einfache und fliegende Galoppwechsel"
+      },
+      {
+        "id": "ra-w18-l19",
+        "slug": "versammlung-tragkraft",
+        "number": 19,
+        "title": "Versammlung, Tragkraft und weiterführende Lektionen"
+      },
+      {
+        "id": "ra-w18-l20",
+        "slug": "trainingsprobleme",
+        "number": 20,
+        "title": "Trainingsprobleme erkennen und systematisch verbessern"
+      }
+    ]
+  },
+  {
+    "id": "w19",
+    "number": 19,
+    "slug": "gelaende-ausreiten",
+    "title": "Gelände und Ausreiten",
+    "teaser": "Sicher unterwegs: vorbereiten, in der Gruppe reiten und in jeder Situation richtig reagieren.",
+    "learns": "Voraussetzungen und Ausrüstung, Vorbereitung, Gruppenregeln, StVO und Waldrecht von Bund und Ländern, bergauf und bergab, Wasser und Brücken, schreckhafte Pferde, Trab und Galopp im Gelände, Durchgehen, Begegnungen, Unfälle und Notruf sowie Geländetraining.",
+    "tint": "#E1E6D8",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-reiter-leicht"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w19",
+      "title": "Geländereiter",
+      "motif": "footprint"
+    },
+    "tier": "gross",
+    "lessons": [
+      {
+        "id": "ra-w19-l1",
+        "slug": "voraussetzungen-ausreiten",
+        "number": 1,
+        "title": "Voraussetzungen für sicheres Ausreiten"
+      },
+      {
+        "id": "ra-w19-l2",
+        "slug": "ausritt-vorbereiten",
+        "number": 2,
+        "title": "Einen Ausritt richtig vorbereiten"
+      },
+      {
+        "id": "ra-w19-l3",
+        "slug": "reiten-in-der-gruppe",
+        "number": 3,
+        "title": "Sicheres Reiten in der Gruppe"
+      },
+      {
+        "id": "ra-w19-l4",
+        "slug": "verkehrsregeln-reitrecht",
+        "number": 4,
+        "title": "Verkehrsregeln, Waldwege und Reitrecht"
+      },
+      {
+        "id": "ra-w19-l5",
+        "slug": "bergauf-bergab",
+        "number": 5,
+        "title": "Bergauf und bergab richtig reiten"
+      },
+      {
+        "id": "ra-w19-l6",
+        "slug": "wasser-bruecken-hindernisse",
+        "number": 6,
+        "title": "Wasser, Brücken und natürliche Hindernisse"
+      },
+      {
+        "id": "ra-w19-l7",
+        "slug": "schreckhafte-pferde",
+        "number": 7,
+        "title": "Schreckhafte Pferde und unerwartete Situationen"
+      },
+      {
+        "id": "ra-w19-l8",
+        "slug": "traben-galoppieren-gelaende",
+        "number": 8,
+        "title": "Sicher traben und galoppieren im Gelände"
+      },
+      {
+        "id": "ra-w19-l9",
+        "slug": "durchgehen",
+        "number": 9,
+        "title": "Durchgehen: Vorbeugung und Verhalten in Gefahrensituationen"
+      },
+      {
+        "id": "ra-w19-l10",
+        "slug": "begegnungen-gelaende",
+        "number": 10,
+        "title": "Begegnungen mit Hunden, Radfahrern und Wildtieren"
+      },
+      {
+        "id": "ra-w19-l11",
+        "slug": "unfaelle-notfaelle-ausritt",
+        "number": 11,
+        "title": "Unfälle, Stürze und Notfälle beim Ausritt"
+      },
+      {
+        "id": "ra-w19-l12",
+        "slug": "gelaendetraining-aufbauen",
+        "number": 12,
+        "title": "Geländetraining sinnvoll aufbauen"
+      }
+    ]
   }
 ];
 

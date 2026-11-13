@@ -1,5 +1,6 @@
 import "server-only";
-import { scene, tag } from "../../build";
+import { tag } from "../../build";
+import { scene } from "../../types";
 import { begriffe, fehler, frage, tabelle, wahl, weiter, type DeepInput } from "../deep-kit";
 
 /** Modul 13, Lektionen 1–4 */
@@ -77,7 +78,7 @@ export const teil1: DeepInput[] = [
     quiz: [
       frage("reihenfolge", "Welche Reihenfolge ist richtig?", "Takt – Losgelassenheit – Anlehnung – Schwung – Geraderichtung – Versammlung", [["Anlehnung – Takt – Versammlung – Schwung – Losgelassenheit – Geraderichtung", "Die Anlehnung baut auf Takt und Losgelassenheit auf."], ["Versammlung – Schwung – Takt – Anlehnung – Losgelassenheit – Geraderichtung", "Versammlung steht ganz am Ende."]], "Genau. Ziel ist die Durchlässigkeit."),
       frage("phasen", "Was wird in der letzten Ausbildungsphase entwickelt?", "Die Tragkraft", [["Die Gewöhnung", "Die Gewöhnung steht am Anfang."], ["Nur der Takt", "Der Takt ist die Basis von Anfang an."]], "Richtig. Mit Schwung, Geraderichtung und Versammlung."),
-      frage("schritt", "Wie lange sollte die Schrittphase zu Beginn mindestens dauern?", "Etwa 10 Minuten", [["Eine Minute", "Gelenke und Sehnen brauchen mehr Zeit."], ["Gar nicht, man kann direkt traben", "Das belastet Sehnen und Gelenke unnötig."]], "Genau. Am langen Zügel."),
+      frage("schritt", "Wie lange sollte die Schrittphase zu Beginn mindestens dauern?", "Etwa 10 Minuten", [["Eine Minute", "Gelenke und Sehnen brauchen mehr Zeit."], ["Gar nicht, man kann direkt traben", "Das belastet Sehnen und Gelenke unnötig."]], "Genau. Am langen Zügel, damit Gelenke und Sehnen vorbereitet werden."),
       frage("test", "Womit kannst du testen, ob Anlehnung und Losgelassenheit stimmen?", "Mit Zügel-aus-der-Hand-kauen-lassen", [["Mit einem Sprung", "Das testet etwas anderes."], ["Mit einem schnellen Galopp", "Tempo zeigt nicht, ob das Pferd sich dehnt."]], "Richtig. Das Pferd sollte sich willig vorwärts-abwärts dehnen."),
     ],
   },
@@ -156,7 +157,7 @@ export const teil1: DeepInput[] = [
     quiz: [
       frage("vorhand", "Wie viel Gewicht trägt die Vorhand im Stand ungefähr?", "Etwa 55–60 Prozent", [["Etwa 20 Prozent", "Die Vorhand trägt mehr als die Hälfte."], ["Etwa 90 Prozent", "So viel ist es nicht."]], "Genau. Mit Reiter verschiebt sich noch mehr nach vorn."),
       frage("schluessel", "Wie ist der Brustkorb zwischen den Vorderbeinen aufgehängt?", "In einer Muskelschlinge – das Pferd hat kein Schlüsselbein", [["Am Schlüsselbein", "Pferde haben kein Schlüsselbein."], ["An der Wirbelsäule allein", "Der Brustkorb hängt in Muskeln zwischen den Schulterblättern."]], "Richtig. Diese Rumpfträger kann man trainieren."),
-      frage("ziel", "Was ist wichtiger: Kopfhaltung oder Rücken?", "Der schwingende, aufgewölbte Rücken", [["Die Kopfhaltung", "Eine schöne Kopfhaltung ohne Rückentätigkeit ist nur Fassade."], ["Beides ist unwichtig", "Der Rücken entscheidet, ob das Pferd gesund trägt."]], "Genau. Rücken vor Kopf."),
+      frage("ziel", "Was ist wichtiger: Kopfhaltung oder Rücken?", "Der schwingende, aufgewölbte Rücken", [["Die Kopfhaltung", "Eine schöne Kopfhaltung ohne Rückentätigkeit ist nur Fassade."], ["Beides ist unwichtig", "Der Rücken entscheidet, ob das Pferd gesund trägt."]], "Genau. Rücken vor Kopf – nur ein tragender Rücken schützt das Pferd."),
       frage("tragkraft", "Wodurch entsteht Tragkraft der Hinterhand?", "Durch stärkere Beugung von Hüft-, Knie- und Sprunggelenk", [["Durch schnelles Reiten", "Tempo entwickelt eher Schubkraft."], ["Durch kurze Zügel", "Die Hand kann keine Tragkraft erzeugen."]], "Richtig. Sie wird über Jahre entwickelt."),
     ],
   },

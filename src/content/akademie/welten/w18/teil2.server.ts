@@ -1,5 +1,5 @@
 import "server-only";
-import { scene } from "../../build";
+import { scene } from "../../types";
 import { begriffe, fehler, frage, tabelle, wahl, weiter, type DeepInput } from "../deep-kit";
 
 /** Modul 13, Lektionen 5–8 */

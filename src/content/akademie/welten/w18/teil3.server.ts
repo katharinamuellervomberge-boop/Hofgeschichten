@@ -1,5 +1,5 @@
 import "server-only";
-import { scene } from "../../build";
+import { scene } from "../../types";
 import { begriffe, fehler, frage, tabelle, wahl, weiter, type DeepInput } from "../deep-kit";
 
 /** Modul 13, Lektionen 9–12 */
@@ -131,7 +131,7 @@ export const teil3: DeepInput[] = [
       fehler: fehler(
         ["Die Hinterhand an die Vorhand anpassen.", "Die Schultern vor die Hinterhand richten."],
         ["Nur die Lieblingshand reiten.", "Beide Hände, die steife eher häufiger."],
-        ["Den Hals gerade ziehen.", "Schultern führen, Hals folgt."],
+        ["Den Hals gerade ziehen.", "Schultern führen, der Hals kommt mit."],
         ["Die eigene Schiefe übersehen.", "Sitz von hinten filmen lassen."],
       ),
       richtig: [
@@ -327,7 +327,7 @@ export const teil3: DeepInput[] = [
       ),
     ],
     quiz: [
-      frage("takt", "Wie viele Takte hat der Galopp?", "Drei", [["Zwei", "Das ist der Trab."], ["Vier", "Das wäre ein fehlerhafter Viertaktgalopp – oder der Schritt."]], "Genau. Ba-da-bumm."),
+      frage("takt", "Wie viele Takte hat der Galopp?", "Drei", [["Zwei", "Das ist der Trab."], ["Vier", "Das wäre ein fehlerhafter Viertaktgalopp – oder der Schritt."]], "Genau. Ba-da-bumm – drei Takte, dann die Schwebephase."),
       frage("diagonal", "Was fußt im Rechtsgalopp als zweiter Takt auf?", "Hinten rechts und vorne links gleichzeitig", [["Beide Vorderbeine", "Die Vorderbeine fußen nacheinander auf."], ["Vorne rechts", "Vorne rechts kommt als dritter Takt."]], "Richtig. Das diagonale Beinpaar."),
       frage("viertakt", "Was ist ein Viertaktgalopp?", "Ein fehlerhafter Galopp ohne gleichzeitiges Auffußen des diagonalen Paars", [["Ein besonders schneller Galopp", "Er hat mit Tempo wenig zu tun."], ["Ein Galopp mit vier Sprüngen", "Es geht um den Takt innerhalb eines Sprungs."]], "Genau. Oft durch zu viel Hand und zu wenig Schwung."),
       frage("schwebe", "Wann liegt im Galopp die Schwebephase?", "Nach dem Auffußen des führenden Vorderbeins", [["Zwischen den beiden Hinterbeinen", "Dazwischen ist kein Moment ohne Bodenkontakt."], ["Der Galopp hat keine Schwebephase", "Er hat eine deutliche Schwebephase."]], "Richtig. Danach beginnt der nächste Sprung."),

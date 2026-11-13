@@ -1,5 +1,5 @@
 import "server-only";
-import { scene } from "../../build";
+import { scene } from "../../types";
 import { begriffe, fehler, frage, tabelle, wahl, weiter, type DeepInput } from "../deep-kit";
 
 /** Modul 13, Lektionen 17–20 */
@@ -89,7 +89,7 @@ export const teil5: DeepInput[] = [
       frage("schenkelweichen", "Wie ist das Pferd im Schenkelweichen gestellt?", "Gegen die Bewegungsrichtung, ohne Längsbiegung", [["In Bewegungsrichtung gebogen", "Das ist Travers oder Traversale."], ["Gar nicht gestellt", "Eine leichte Stellung gehört dazu."]], "Genau. Es ist eine Lösungsübung."),
       frage("schulterherein", "Auf wie vielen Hufschlägen geht das Pferd im Schulterherein meist?", "Auf drei", [["Auf einem", "Dann wäre es gerade."], ["Auf sechs", "So viele Hufschläge gibt es nicht."]], "Richtig. Das innere Hinterbein tritt in die Spur des äußeren Vorderbeins."),
       frage("travers", "Was ist beim Travers nach innen geführt?", "Die Hinterhand (Kruppe herein)", [["Die Vorhand", "Das wäre Schulterherein oder Renvers."], ["Nur der Kopf", "Der ganze Körper ist abgestellt."]], "Genau. Das Pferd ist in Bewegungsrichtung gebogen."),
-      frage("takt", "Was ist bei Seitengängen am wichtigsten?", "Gleichmäßiger Takt und Losgelassenheit", [["Möglichst großer Winkel", "Winkel ohne Takt schadet mehr, als er nützt."], ["Möglichst schnelles Tempo", "Tempo ist nicht das Ziel."]], "Richtig. Takt vor Winkel."),
+      frage("takt", "Was ist bei Seitengängen am wichtigsten?", "Gleichmäßiger Takt und Losgelassenheit", [["Möglichst großer Winkel", "Winkel ohne Takt schadet mehr, als er nützt."], ["Möglichst schnelles Tempo", "Tempo ist nicht das Ziel."]], "Richtig. Takt vor Winkel – sonst verliert die Übung ihre Wirkung."),
     ],
   },
 

@@ -1,5 +1,6 @@
 import "server-only";
-import { item, scene } from "../../build";
+import { item } from "../../build";
+import { scene } from "../../types";
 import { begriffe, fehler, frage, tabelle, wahl, weiter, type DeepInput } from "../deep-kit";
 
 /** Modul 12, Lektionen 9–12 */
@@ -239,7 +240,7 @@ export const teil3: DeepInput[] = [
     quiz: [
       frage("kleben", "Was steckt hinter dem Kleben am Stall oft?", "Trennungsstress eines Herdentiers", [["Bosheit", "Pferde handeln nicht aus Bosheit."], ["Faulheit", "Kleben hat meist mit Unsicherheit zu tun."]], "Genau. In kleinen Schritten üben, mit Begleitpferd beginnen."),
       frage("ploetzlich", "Was ist bei einer plötzlichen Verhaltensänderung besonders wichtig?", "Nach Veränderungen suchen und Schmerz ausschließen", [["Sofort strenger werden", "Ohne Ursache zu kennen, kann das schaden."], ["Abwarten, es geht von allein weg", "Das Problem kann sich verschlimmern."]], "Richtig. Zum Beispiel ein neu gepolsterter Sattel."),
-      frage("profi", "Wann brauchst du professionelle Hilfe?", "Bei gefährlichem Verhalten oder wenn du Angst hast", [["Nie, man muss alles allein schaffen", "Das ist gefährlich für Pferd und Mensch."], ["Nur bei Turnierpferden", "Jedes Pferd kann Unterstützung brauchen."]], "Genau. Sicherheit geht vor."),
+      frage("profi", "Wann brauchst du professionelle Hilfe?", "Bei gefährlichem Verhalten oder wenn du Angst hast", [["Nie, man muss alles allein schaffen", "Das ist gefährlich für Pferd und Mensch."], ["Nur bei Turnierpferden", "Jedes Pferd kann Unterstützung brauchen."]], "Genau. Bei Gefahr geht die Sicherheit von Mensch und Pferd vor."),
     ],
   },
 
