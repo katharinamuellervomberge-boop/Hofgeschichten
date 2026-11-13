@@ -247,7 +247,7 @@ export const academyModules: AcademyModule[] = [
     slug: "haltung-und-fuetterung",
     title: "Pferdehaltung, Pferdealltag & Fütterung",
     teaser: {
-      kids: "Für Jugendliche und Erwachsene: wie Pferde leben, fressen und verdauen. Am besten gemeinsam lesen.",
+      kids: "Wie Pferde leben, fressen und verdauen – und was gute Haltung ausmacht.",
       grown: "Grundbedürfnisse, Haltungsformen, Stall, Verdauung, Raufutter, Futterberechnung, Wasser, Weide, Winter, Sommer und gute Haltung erkennen.",
     },
     tint: "#E6E4D3",
@@ -258,6 +258,26 @@ export const academyModules: AcademyModule[] = [
       { title: "Verdauung und Fütterung", lessons: ["ra-w15-l5", "ra-w15-l6", "ra-w15-l7", "ra-w15-l8", "ra-w15-l9"] },
       { title: "Weide und Jahreszeiten", lessons: ["ra-w15-l10", "ra-w15-l11", "ra-w15-l12"] },
       { title: "Alltag und Beurteilung", lessons: ["ra-w15-l13", "ra-w15-l14"] },
+    ],
+  },
+  {
+    id: "m11",
+    number: 11,
+    slug: "pferdegesundheit",
+    title: "Pferdegesundheit, Hufe, Zähne, Pflege & Erste Hilfe",
+    teaser: {
+      kids: "Gesund oder krank? Erkennen, richtig handeln, Tierarzt rufen.",
+      grown: "PAT-Werte, Gesundheitscheck, Hufe, Zähne, Haut, Kolik, Lahmheit, Atemwege, Wunden, Impfungen, Erste Hilfe und Stallapotheke.",
+    },
+    tint: "#E2E6DE",
+    cover: scene("ak-sattelzeug"),
+    trial: "ra-w16-l2",
+    topics: [
+      { title: "Gesund erkennen", lessons: ["ra-w16-l1", "ra-w16-l2", "ra-w16-l3"] },
+      { title: "Hufe", lessons: ["ra-w16-l4", "ra-w16-l5", "ra-w16-l6"] },
+      { title: "Zähne, Fell und Haut", lessons: ["ra-w16-l7", "ra-w16-l8", "ra-w16-l9"] },
+      { title: "Erkrankungen erkennen", lessons: ["ra-w16-l10", "ra-w16-l11", "ra-w16-l12", "ra-w16-l13", "ra-w16-l14"] },
+      { title: "Vorbeugen und Notfall", lessons: ["ra-w16-l15", "ra-w16-l16", "ra-w16-l17", "ra-w16-l18"] },
     ],
   },
 ];

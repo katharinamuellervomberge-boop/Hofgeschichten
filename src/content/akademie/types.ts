@@ -199,20 +199,22 @@ type DeepLessonInput = Pick<AcademyLesson, "slug" | "title" | "speaker" | "illus
   deep: DeepLesson;
 };
 
+/** Modul 10: fachliche Abnahme laut Inhaberin am 13.11.2026 */
+export const reviewed2026_11_13: ReviewStatus = { status: "geprueft", date: "2026-11-13", note: "Fachliche Abnahme laut Inhaberin erfolgt" };
+
 /**
- * Baut ausführliche Lektionen (Module 10–14). Eine Textfassung für beide Stufen,
- * Merksatz = erste Kernaussage, in der Kids-Akademie mit dem Hinweis „gemeinsam lesen“.
+ * Baut ausführliche Lektionen (Module 10–14). Eine Textfassung für alle Lernwege,
+ * Merksatz = erste Kernaussage.
  */
-export function deepLessonsOf(world: number, list: DeepLessonInput[]): AcademyLesson[] {
+export function deepLessonsOf(world: number, list: DeepLessonInput[], review: ReviewStatus = draftDeep): AcademyLesson[] {
   return lessonsOf(
     world,
     list.map((l) => ({
       ...l,
       explanation: { leicht: [], mittel: [] },
       merksatz: l.deep.merke[0],
-      readTogether: true,
     })),
-    draftDeep,
+    review,
   );
 }
 

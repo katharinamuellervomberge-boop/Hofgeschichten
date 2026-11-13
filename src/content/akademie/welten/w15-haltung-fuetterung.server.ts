@@ -1,12 +1,12 @@
 import "server-only";
-import { deepLessonsOf, scene, type AcademyWorld } from "../types";
+import { deepLessonsOf, reviewed2026_11_13, scene, type AcademyWorld } from "../types";
 import { teil1 } from "./w15/teil1.server";
 import { teil2 } from "./w15/teil2.server";
 import { teil3 } from "./w15/teil3.server";
 
 /**
  * Welt 15 – Modul 10 „Pferdehaltung, Pferdealltag & Fütterung“ (Ausbau 13.11.2026).
- * Ausführliches Lektionsformat (siehe DeepLesson in types.ts), fachliche Prüfung ausstehend.
+ * Ausführliches Lektionsformat (siehe DeepLesson in types.ts), fachlich abgenommen am 13.11.2026.
  */
 export const welt15: AcademyWorld = {
   id: "w15",
@@ -19,5 +19,5 @@ export const welt15: AcademyWorld = {
   tint: "#E6E4D3",
   cover: scene("ak-sattelzeug"),
   badge: { id: "ra-abzeichen-w15", title: "Haltungs- und Fütterungsprofi", motif: "carrot" },
-  lessons: deepLessonsOf(15, [...teil1, ...teil2, ...teil3]),
+  lessons: deepLessonsOf(15, [...teil1, ...teil2, ...teil3], reviewed2026_11_13),
 };

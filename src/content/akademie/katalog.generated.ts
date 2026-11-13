@@ -888,6 +888,135 @@ export const worldsInfo: AcademyWorldInfo[] = [
         "title": "Gute Pferdehaltung erkennen und beurteilen"
       }
     ]
+  },
+  {
+    "id": "w16",
+    "number": 16,
+    "slug": "pferdegesundheit",
+    "title": "Pferdegesundheit und Erste Hilfe",
+    "teaser": "Gesund oder krank? Erkennen, richtig handeln und wissen, wann der Tierarzt kommen muss.",
+    "learns": "Normalbefund, PAT-Werte messen, täglicher Gesundheitscheck, Hufaufbau, Hufpflege, Barhuf und Beschlag, Hufkrankheiten, Zähne, Fell- und Hautpflege, Hautprobleme, Kolik, Schlundverstopfung, Lahmheit, Atemwege, Wundversorgung, Impfungen und Parasiten, Erste Hilfe, Stallapotheke und Vorsorge.",
+    "tint": "#E2E6DE",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-sattelzeug"
+    },
+    "badge": {
+      "id": "ra-abzeichen-w16",
+      "title": "Gesundheits-Kenner",
+      "motif": "heart"
+    },
+    "tier": "gross",
+    "lessons": [
+      {
+        "id": "ra-w16-l1",
+        "slug": "gesundes-pferd",
+        "number": 1,
+        "title": "Wie erkenne ich ein gesundes Pferd?"
+      },
+      {
+        "id": "ra-w16-l2",
+        "slug": "puls-atmung-temperatur",
+        "number": 2,
+        "title": "Puls, Atmung und Temperatur richtig messen"
+      },
+      {
+        "id": "ra-w16-l3",
+        "slug": "gesundheitscheck",
+        "number": 3,
+        "title": "Der tägliche Gesundheitscheck"
+      },
+      {
+        "id": "ra-w16-l4",
+        "slug": "aufbau-des-hufs",
+        "number": 4,
+        "title": "Aufbau und Funktion des Pferdehufs"
+      },
+      {
+        "id": "ra-w16-l5",
+        "slug": "hufpflege-barhuf-beschlag",
+        "number": 5,
+        "title": "Hufpflege, Barhuf und Beschlag"
+      },
+      {
+        "id": "ra-w16-l6",
+        "slug": "hufkrankheiten",
+        "number": 6,
+        "title": "Hufkrankheiten: Hufrehe, Strahlfäule, Abszesse und Hornprobleme"
+      },
+      {
+        "id": "ra-w16-l7",
+        "slug": "pferdezaehne",
+        "number": 7,
+        "title": "Pferdezähne: Anatomie, Zahnwechsel und Zahngesundheit"
+      },
+      {
+        "id": "ra-w16-l8",
+        "slug": "fell-maehne-schweif",
+        "number": 8,
+        "title": "Richtige Fell-, Mähnen- und Schweifpflege"
+      },
+      {
+        "id": "ra-w16-l9",
+        "slug": "hautprobleme",
+        "number": 9,
+        "title": "Hautprobleme, Mauke, Pilz und Sommerekzem"
+      },
+      {
+        "id": "ra-w16-l10",
+        "slug": "kolik",
+        "number": 10,
+        "title": "Kolik: Ursachen, Warnzeichen und Notfallmaßnahmen"
+      },
+      {
+        "id": "ra-w16-l11",
+        "slug": "schlundverstopfung",
+        "number": 11,
+        "title": "Schlundverstopfung erkennen und richtig reagieren"
+      },
+      {
+        "id": "ra-w16-l12",
+        "slug": "lahmheit-erkennen",
+        "number": 12,
+        "title": "Lahmheit und Bewegungsauffälligkeiten erkennen"
+      },
+      {
+        "id": "ra-w16-l13",
+        "slug": "atemwege-asthma",
+        "number": 13,
+        "title": "Atemwegserkrankungen und equines Asthma"
+      },
+      {
+        "id": "ra-w16-l14",
+        "slug": "verletzungen-wundversorgung",
+        "number": 14,
+        "title": "Verletzungen, Blutungen und Wundversorgung"
+      },
+      {
+        "id": "ra-w16-l15",
+        "slug": "impfungen-parasiten",
+        "number": 15,
+        "title": "Infektionen, Impfungen und Parasitenmanagement"
+      },
+      {
+        "id": "ra-w16-l16",
+        "slug": "erste-hilfe-notfall",
+        "number": 16,
+        "title": "Erste Hilfe und Verhalten im Notfall"
+      },
+      {
+        "id": "ra-w16-l17",
+        "slug": "stallapotheke",
+        "number": 17,
+        "title": "Die vollständige Stallapotheke"
+      },
+      {
+        "id": "ra-w16-l18",
+        "slug": "gesundheitsvorsorge",
+        "number": 18,
+        "title": "Gesundheitsvorsorge und langfristiges Management"
+      }
+    ]
   }
 ];
 
