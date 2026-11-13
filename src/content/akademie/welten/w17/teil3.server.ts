@@ -306,7 +306,7 @@ export const teil3: DeepInput[] = [
         "Schmerz steht immer am Anfang der Ursachenliste.",
         "Hypothesen prüfen und nachsteuern.",
       ],
-      weiter: weiter(["Die Körpersprache des Pferdes verstehen", "ra-w17-l2"], ["Häufige Verhaltensprobleme", "ra-w17-l11"], ["Gute Pferdehaltung erkennen und beurteilen", "ra-w15-l14"], ["Pferdesprache-Quiz (interaktive Übung)"]),
+      weiter: weiter(["Die Körpersprache des Pferdes verstehen", "ra-w17-l2"], ["Häufige Verhaltensprobleme", "ra-w17-l11"], ["Gute Pferdehaltung erkennen und beurteilen", "ra-w15-l14"]),
     },
     exercise: [
       wahl(

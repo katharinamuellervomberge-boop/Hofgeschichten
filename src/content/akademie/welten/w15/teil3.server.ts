@@ -45,7 +45,7 @@ export const teil3: Input[] = [
         },
         {
           heading: "Wann ist es ein Notfall?",
-          text: "Bei Verdacht auf eine Vergiftung oder bei typischen Anzeichen einer Hufrehe gilt: sofort Tierarzt oder Tierärztin anrufen, nicht abwarten.\n\nWarnzeichen einer Hufrehe sind unter anderem ein klammer, vorsichtiger Gang, häufiges Gewichtsverlagern, warme Hufe, ein deutlich fühlbarer Puls an der Zehe und die typische „Sägebockstellung“ mit nach vorn gestellten Vorderbeinen.\n\nAnzeichen der atypischen Weidemyopathie sind Muskelzittern, Steifheit, Schwitzen, Schwäche, Festliegen und auffällig dunkler, kaffeebrauner Urin – oft bei Pferden, die im Herbst auf Weiden mit Bergahorn standen. Bis der Tierarzt kommt: Pferd ruhig halten, nicht bewegen, von der Weide nehmen, wenn das sicher möglich ist. Weitere Einzelheiten lernst du in Modul 11.",
+          text: "Bei Verdacht auf eine Vergiftung oder bei typischen Anzeichen einer Hufrehe gilt: sofort Tierarzt oder Tierärztin anrufen, nicht abwarten.\n\nWarnzeichen einer Hufrehe sind unter anderem ein klammer, vorsichtiger Gang, häufiges Gewichtsverlagern, warme Hufe, ein deutlich fühlbarer Puls an der Zehe und die typische „Sägebockstellung“ mit nach vorn gestellten Vorderbeinen.\n\nAnzeichen der atypischen Weidemyopathie sind Muskelzittern, Steifheit, Schwitzen, Schwäche, Festliegen und auffällig dunkler, kaffeebrauner Urin – oft bei Pferden, die im Herbst auf Weiden mit Bergahorn standen. Bis der Tierarzt kommt: Pferd ruhig halten, nicht bewegen, von der Weide nehmen, wenn das sicher möglich ist. Weitere Einzelheiten lernst du im Modul „Pferdegesundheit“.",
         },
       ],
       praxis: {
@@ -76,8 +76,7 @@ export const teil3: Input[] = [
       weiter: [
         { lesson: "ra-w15-l5", label: "Das Verdauungssystem verstehen" },
         { lesson: "ra-w15-l7", label: "Wie viel Futter braucht mein Pferd wirklich?" },
-        { label: "Lernvideo „Pferde richtig anweiden“ (in Produktion)" },
-        { label: "Modul 11: Hufkrankheiten und Hufrehe (in Vorbereitung)" },
+        { lesson: "ra-w16-l6", label: "Hufkrankheiten: Hufrehe, Strahlfäule, Abszesse" },
       ],
       pruefen: "Anweide-Zeiten; Fruktan-Mechanismus und 5-°C-Schwelle; Giftpflanzenliste (insb. Hahnenfuß getrocknet unbedenklich); Symptome atypische Weidemyopathie und Hufrehe; Sofortmaßnahmen.",
     },
@@ -182,7 +181,7 @@ export const teil3: Input[] = [
         },
         {
           heading: "Passform und Alltag mit Decke",
-          text: "Eine Decke muss passen: frei am Widerrist, ohne Druck an Schulter und Brust, so lang, dass sie die Kruppe bedeckt, und mit Beingurten oder Schweifriemen so gesichert, dass sie nicht verrutscht. Typische Scheuerstellen liegen an Schulter, Widerrist und Brust.\n\nEingedeckte Pferde werden täglich kontrolliert: Decke abnehmen, Haut und Fell prüfen, Decke richten. Nasse Decken werden getauscht. Und: Viele Pferde brauchen im Winter mehrere Decken für unterschiedliche Wetterlagen statt einer sehr dicken.\n\nZur Winterhaltung gehören außerdem mehr Raufutter bei Kälte, frostfreies Wasser (Lektion 9), trittsichere, nicht vereiste Wege und trockene Liegeplätze. Matsch begünstigt Hautprobleme wie Mauke an den Fesseln (Modul 11).",
+          text: "Eine Decke muss passen: frei am Widerrist, ohne Druck an Schulter und Brust, so lang, dass sie die Kruppe bedeckt, und mit Beingurten oder Schweifriemen so gesichert, dass sie nicht verrutscht. Typische Scheuerstellen liegen an Schulter, Widerrist und Brust.\n\nEingedeckte Pferde werden täglich kontrolliert: Decke abnehmen, Haut und Fell prüfen, Decke richten. Nasse Decken werden getauscht. Und: Viele Pferde brauchen im Winter mehrere Decken für unterschiedliche Wetterlagen statt einer sehr dicken.\n\nZur Winterhaltung gehören außerdem mehr Raufutter bei Kälte, frostfreies Wasser (Lektion 9), trittsichere, nicht vereiste Wege und trockene Liegeplätze. Matsch begünstigt Hautprobleme wie Mauke an den Fesseln (Modul „Pferdegesundheit“).",
         },
       ],
       praxis: {
@@ -214,7 +213,6 @@ export const teil3: Input[] = [
         { lesson: "ra-w15-l9", label: "Wasserbedarf und Salzversorgung" },
         { lesson: "ra-w15-l3", label: "Der optimale Pferdestall" },
         { lesson: "ra-w10-l5", label: "Nach dem Reiten" },
-        { label: "Lernvideo „Pferdedecken richtig auswählen“ (in Produktion)" },
       ],
       pruefen: "Aussagen zur Kältetoleranz (bewusst ohne Zahlen); Zeichen von Frieren; Schurarten; Kontrolle unter der Decke.",
     },
@@ -305,7 +303,7 @@ export const teil3: Input[] = [
         },
         {
           heading: "Hitzschlag: ein Notfall",
-          text: "Warnzeichen für einen Hitzschlag oder schweren Hitzestress sind: schnelle, flache Atmung, die auch in Ruhe nicht zurückgeht; geblähte Nüstern; ein anhaltend hoher Puls; Körpertemperatur deutlich über 39 °C; sehr starkes oder auffällig fehlendes Schwitzen; Schwäche, Taumeln, Teilnahmslosigkeit; Desinteresse an Futter und Wasser.\n\nDann gilt: Arbeit sofort beenden, in den Schatten bringen, mit viel kaltem Wasser kühlen, Wasser anbieten und Tierarzt oder Tierärztin rufen. Ein liegendes Pferd nicht zum Aufstehen zwingen.\n\nDie Normalwerte von Puls, Atmung und Temperatur und wie du sie richtig misst, lernst du in Modul 11.",
+          text: "Warnzeichen für einen Hitzschlag oder schweren Hitzestress sind: schnelle, flache Atmung, die auch in Ruhe nicht zurückgeht; geblähte Nüstern; ein anhaltend hoher Puls; Körpertemperatur deutlich über 39 °C; sehr starkes oder auffällig fehlendes Schwitzen; Schwäche, Taumeln, Teilnahmslosigkeit; Desinteresse an Futter und Wasser.\n\nDann gilt: Arbeit sofort beenden, in den Schatten bringen, mit viel kaltem Wasser kühlen, Wasser anbieten und Tierarzt oder Tierärztin rufen. Ein liegendes Pferd nicht zum Aufstehen zwingen.\n\nDie Normalwerte von Puls, Atmung und Temperatur und wie du sie richtig misst, lernst du im Modul „Pferdegesundheit“.",
         },
         {
           heading: "Insekten: wer sticht wann?",
@@ -339,7 +337,7 @@ export const teil3: Input[] = [
       weiter: [
         { lesson: "ra-w15-l9", label: "Wasserbedarf und Salzversorgung" },
         { lesson: "ra-w10-l5", label: "Nach dem Reiten" },
-        { label: "Modul 11: Hautprobleme, Mauke, Pilz und Sommerekzem (in Vorbereitung)" },
+        { lesson: "ra-w16-l9", label: "Hautprobleme, Mauke, Pilz und Sommerekzem" },
       ],
       pruefen: "Kühlempfehlung (Abschaben vs. Ablaufen lassen); Aussage „Trinken nach Belastung“; Temperatur-Warnschwelle über 39 °C; Insektenarten und Aktivitätszeiten; Zulassungsstatus von Insektenschutzmitteln.",
     },
@@ -422,7 +420,7 @@ export const teil3: Input[] = [
         },
         {
           heading: "Der tägliche Blick auf jedes Pferd",
-          text: "Die wichtigste Aufgabe der täglichen Versorgung ist, Veränderungen zu bemerken. Dazu gehört ein kurzer Check bei jedem Pferd:\n\n• Frisst es wie immer? Liegen Futterreste?\n• Hat es getrunken?\n• Wie sehen Menge und Beschaffenheit des Kots aus?\n• Ist das Verhalten normal – aufmerksam, interessiert, entspannt?\n• Gibt es Verletzungen, Schwellungen, Lahmheit?\n• Ausfluss aus Augen oder Nase, Husten?\n\nNur wer weiß, wie ein Pferd normalerweise ist, erkennt Abweichungen. Der ausführliche Gesundheitscheck folgt in Modul 11.",
+          text: "Die wichtigste Aufgabe der täglichen Versorgung ist, Veränderungen zu bemerken. Dazu gehört ein kurzer Check bei jedem Pferd:\n\n• Frisst es wie immer? Liegen Futterreste?\n• Hat es getrunken?\n• Wie sehen Menge und Beschaffenheit des Kots aus?\n• Ist das Verhalten normal – aufmerksam, interessiert, entspannt?\n• Gibt es Verletzungen, Schwellungen, Lahmheit?\n• Ausfluss aus Augen oder Nase, Husten?\n\nNur wer weiß, wie ein Pferd normalerweise ist, erkennt Abweichungen. Der ausführliche Gesundheitscheck folgt im Modul „Pferdegesundheit“.",
         },
         {
           heading: "Misten und Einstreu",
@@ -466,7 +464,7 @@ export const teil3: Input[] = [
         { lesson: "ra-w15-l3", label: "Der optimale Pferdestall" },
         { lesson: "ra-w15-l14", label: "Gute Pferdehaltung erkennen und beurteilen" },
         { lesson: "ra-w10-l1", label: "Putzen Schritt für Schritt" },
-        { label: "Modul 11: Der tägliche Gesundheitscheck (in Vorbereitung)" },
+        { lesson: "ra-w16-l3", label: "Der tägliche Gesundheitscheck" },
       ],
       pruefen: "Angaben zum Equidenpass (Mitführ- und Aufbewahrungspflicht); Einstreu-Aussagen.",
     },

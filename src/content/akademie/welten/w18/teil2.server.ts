@@ -234,7 +234,7 @@ export const teil2: DeepInput[] = [
         "Sie macht aufmerksam, balanciert aus und bereitet vor.",
         "Kommt sie durch, wird das Pferd vorn leichter und hinten aktiver.",
       ],
-      weiter: weiter(["Grundkurs: Balance und Übergänge", "ra-w6-l4"], ["Anlehnung, Selbsthaltung und Verbindung", "ra-w18-l8"], ["Übergänge und Tempounterschiede", "ra-w18-l11"], ["Lernvideo „Halbe Paraden erklärt“"]),
+      weiter: weiter(["Grundkurs: Balance und Übergänge", "ra-w6-l4"], ["Anlehnung, Selbsthaltung und Verbindung", "ra-w18-l8"], ["Übergänge und Tempounterschiede", "ra-w18-l11"]),
     },
     exercise: [
       wahl(
@@ -317,7 +317,7 @@ export const teil2: DeepInput[] = [
         "Selbsthaltung zeigt sich beim Nachgeben.",
         "Aufrichtung kommt aus der Hinterhand, nicht aus der Hand.",
       ],
-      weiter: weiter(["Zügelhilfen und korrekte Handhaltung", "ra-w18-l6"], ["Stellung und Biegung richtig verstehen", "ra-w18-l9"], ["Versammlung und Tragkraft", "ra-w18-l19"], ["Lernvideo „Anlehnung verstehen“"]),
+      weiter: weiter(["Zügelhilfen und korrekte Handhaltung", "ra-w18-l6"], ["Stellung und Biegung richtig verstehen", "ra-w18-l9"], ["Versammlung und Tragkraft", "ra-w18-l19"]),
     },
     exercise: [
       wahl(

@@ -67,7 +67,7 @@ export const teil3: DeepInput[] = [
         "Eigenschutz zuerst – ein Kolikpferd kann sich plötzlich hinwerfen.",
         "Keine Medikamente ohne tierärztliche Anweisung.",
       ],
-      weiter: weiter(["Das Verdauungssystem verstehen", "ra-w15-l5"], ["Puls, Atmung und Temperatur messen", "ra-w16-l2"], ["Erste Hilfe und Verhalten im Notfall", "ra-w16-l16"], ["Lernvideo „Koliksymptome erkennen“ (Drehbuch liegt vor)"]),
+      weiter: weiter(["Das Verdauungssystem verstehen", "ra-w15-l5"], ["Puls, Atmung und Temperatur messen", "ra-w16-l2"], ["Erste Hilfe und Verhalten im Notfall", "ra-w16-l16"]),
     },
     exercise: [
       wahl(
@@ -231,7 +231,7 @@ export const teil3: DeepInput[] = [
         "Hinten: Die Hüfte der lahmen Seite hebt sich stärker.",
         "Lahmes Pferd nicht weiter reiten – Ursache tierärztlich klären.",
       ],
-      weiter: weiter(["Der tägliche Gesundheitscheck", "ra-w16-l3"], ["Hufkrankheiten", "ra-w16-l6"], ["Takt und Rhythmus", "ra-w12-l1"], ["Lernvideo „Lahmheiten erkennen“ (Drehbuch liegt vor)"]),
+      weiter: weiter(["Der tägliche Gesundheitscheck", "ra-w16-l3"], ["Hufkrankheiten", "ra-w16-l6"], ["Takt und Rhythmus", "ra-w12-l1"]),
     },
     exercise: [
       wahl(

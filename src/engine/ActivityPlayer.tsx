@@ -13,6 +13,7 @@ import { HotspotStep } from "./steps/HotspotStep";
 import { MatchStep } from "./steps/MatchStep";
 import { MultiStep } from "./steps/MultiStep";
 import { StoryStep } from "./steps/StoryStep";
+import { ToolStep } from "./steps/ToolStep";
 import { forLevel, pick, type Activity, type Level, type Step } from "./types";
 import styles from "./engine.module.css";
 
@@ -51,6 +52,8 @@ function renderStep(step: Step, level: Level, onDone: (clues?: string[]) => void
       return <CipherStep step={step} level={level} onDone={onDone} />;
     case "multi":
       return <MultiStep step={step} level={level} onDone={onDone} />;
+    case "tool":
+      return <ToolStep step={step} level={level} onDone={onDone} />;
   }
 }
 

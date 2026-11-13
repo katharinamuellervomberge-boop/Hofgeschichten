@@ -148,7 +148,7 @@ export const teil1: DeepInput[] = [
         "Ab etwa 38,5 °C hat ein erwachsenes Pferd Fieber.",
         "Werte mit Uhrzeit notieren – der Verlauf ist wichtig.",
       ],
-      weiter: weiter(["Der tägliche Gesundheitscheck", "ra-w16-l3"], ["Kolik: Ursachen, Warnzeichen und Notfallmaßnahmen", "ra-w16-l10"], ["Lernvideo „PAT-Werte messen“ (Drehbuch liegt vor)"]),
+      weiter: weiter(["Der tägliche Gesundheitscheck", "ra-w16-l3"], ["Kolik: Ursachen, Warnzeichen und Notfallmaßnahmen", "ra-w16-l10"]),
     },
     exercise: [
       wahl(
@@ -228,7 +228,7 @@ export const teil1: DeepInput[] = [
         "Kleine Veränderungen notieren – der Verlauf zählt.",
         "Ein warmer Huf mit pochender Zehenarterie ist ein Warnzeichen.",
       ],
-      weiter: weiter(["Hufe auskratzen", "ra-w10-l2"], ["Lahmheit erkennen", "ra-w16-l12"], ["Lernvideo „Gesundheitscheck am Pferd“ (Drehbuch liegt vor)"]),
+      weiter: weiter(["Hufe auskratzen", "ra-w10-l2"], ["Lahmheit erkennen", "ra-w16-l12"]),
     },
     exercise: [
       wahl(
@@ -387,7 +387,7 @@ export const teil1: DeepInput[] = [
         "Barhuf oder Beschlag hängt von Pferd, Huf, Boden und Nutzung ab.",
         "Lockeres Eisen: nicht reiten, Fachmann rufen.",
       ],
-      weiter: weiter(["Hufe auskratzen", "ra-w10-l2"], ["Hufkrankheiten", "ra-w16-l6"], ["Lernvideo „Hufe richtig auskratzen“ (Drehbuch liegt vor)"]),
+      weiter: weiter(["Hufe auskratzen", "ra-w10-l2"], ["Hufkrankheiten", "ra-w16-l6"]),
     },
     exercise: [
       wahl(

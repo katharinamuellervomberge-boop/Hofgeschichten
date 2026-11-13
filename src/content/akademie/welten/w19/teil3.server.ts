@@ -67,7 +67,7 @@ export const teil3: DeepInput[] = [
         "Großer Bogen statt Kopf herumreißen.",
         "Die Gruppe hält an.",
       ],
-      weiter: weiter(["Schreckhafte Pferde und unerwartete Situationen", "ra-w19-l7"], ["Das Zusammenspiel der Hilfen und halbe Paraden", "ra-w18-l7"], ["Unfälle, Stürze und Notfälle beim Ausritt", "ra-w19-l11"], ["Gelände-Simulator (interaktive Übung)"]),
+      weiter: weiter(["Schreckhafte Pferde und unerwartete Situationen", "ra-w19-l7"], ["Das Zusammenspiel der Hilfen und halbe Paraden", "ra-w18-l7"], ["Unfälle, Stürze und Notfälle beim Ausritt", "ra-w19-l11"]),
     },
     exercise: [
       wahl(
@@ -146,7 +146,7 @@ export const teil3: DeepInput[] = [
         "Unsicheres Pferd zum Auslöser drehen.",
         "Freundlich bitten, freundlich danken.",
       ],
-      weiter: weiter(["Verkehrsregeln, Waldwege und Reitrecht", "ra-w19-l4"], ["Schreckhafte Pferde", "ra-w19-l7"], ["Gelände-Simulator (interaktive Übung)"]),
+      weiter: weiter(["Verkehrsregeln, Waldwege und Reitrecht", "ra-w19-l4"], ["Schreckhafte Pferde", "ra-w19-l7"]),
     },
     exercise: [
       wahl(
@@ -199,7 +199,7 @@ export const teil3: DeepInput[] = [
         },
         {
           heading: "Wenn das Pferd verletzt ist oder wegläuft",
-          text: "Ein verletztes Pferd beruhigen, auf Wunden prüfen, Blutungen mit Druck stoppen (Modul 11), Tierarzt und Stall anrufen. Nicht weiterreiten, sondern führen oder abholen lassen.\n\nLäuft ein Pferd nach einem Sturz allein davon, rennt es meist Richtung Stall – oft über Straßen. Sofort den Stall anrufen, damit dort jemand aufpasst, und bei Gefahr für den Verkehr die Polizei (110) informieren. Nicht hinterhergaloppieren.",
+          text: "Ein verletztes Pferd beruhigen, auf Wunden prüfen, Blutungen mit Druck stoppen (Modul „Pferdegesundheit“), Tierarzt und Stall anrufen. Nicht weiterreiten, sondern führen oder abholen lassen.\n\nLäuft ein Pferd nach einem Sturz allein davon, rennt es meist Richtung Stall – oft über Straßen. Sofort den Stall anrufen, damit dort jemand aufpasst, und bei Gefahr für den Verkehr die Polizei (110) informieren. Nicht hinterhergaloppieren.",
         },
         {
           heading: "Vorbereitung",

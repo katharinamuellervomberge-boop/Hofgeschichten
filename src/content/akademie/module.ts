@@ -278,6 +278,7 @@ const moduleDefs: AcademyModule[] = [
       { title: "Zähne, Fell und Haut", lessons: ["ra-w16-l7", "ra-w16-l8", "ra-w16-l9"] },
       { title: "Erkrankungen erkennen", lessons: ["ra-w16-l10", "ra-w16-l11", "ra-w16-l12", "ra-w16-l13", "ra-w16-l14"] },
       { title: "Vorbeugen und Notfall", lessons: ["ra-w16-l15", "ra-w16-l16", "ra-w16-l17", "ra-w16-l18"] },
+      { title: "Interaktive Übung", lessons: [], games: ["gesundheitsdetektiv"] },
     ],
   },
   {
@@ -297,6 +298,7 @@ const moduleDefs: AcademyModule[] = [
       { title: "Sozialverhalten", lessons: ["ra-w17-l5", "ra-w17-l6"] },
       { title: "Lernen und Kommunikation", lessons: ["ra-w17-l7", "ra-w17-l8", "ra-w17-l9"] },
       { title: "Verhalten verstehen und lösen", lessons: ["ra-w17-l10", "ra-w17-l11", "ra-w17-l12"] },
+      { title: "Interaktive Übung", lessons: [], games: ["pferdesprache-quiz"] },
     ],
   },
   {
@@ -336,6 +338,7 @@ const moduleDefs: AcademyModule[] = [
       { title: "Unterwegs", lessons: ["ra-w19-l5", "ra-w19-l6", "ra-w19-l7", "ra-w19-l8"] },
       { title: "Wenn es kritisch wird", lessons: ["ra-w19-l9", "ra-w19-l10", "ra-w19-l11"] },
       { title: "Training", lessons: ["ra-w19-l12"] },
+      { title: "Interaktive Übung", lessons: [], games: ["gelaende-simulator"] },
     ],
   },
 ];

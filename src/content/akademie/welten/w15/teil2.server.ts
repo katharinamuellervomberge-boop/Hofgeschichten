@@ -78,7 +78,6 @@ export const teil2: Input[] = [
       weiter: [
         { lesson: "ra-w15-l7", label: "Wie viel Futter braucht mein Pferd wirklich?" },
         { lesson: "ra-w15-l10", label: "Weidehaltung, Anweiden und Giftpflanzen" },
-        { label: "Lernvideo „Gute und schlechte Heuqualität erkennen“ (in Produktion)" },
       ],
       pruefen: "TS-Bereiche; Strohanteil 30–40 % (Positionspapier Uni Leipzig); Aussagen zu Botulismus, Wässern und Bedampfen.",
     },
@@ -209,12 +208,12 @@ export const teil2: Input[] = [
       weiter: [
         { lesson: "ra-w15-l6", label: "Heu, Heulage, Gras und Raufutterqualität" },
         { lesson: "ra-w15-l8", label: "Kraftfutter, Mineralfutter und Ergänzungsfutter" },
-        { label: "Lernvideo „Raufutterbedarf berechnen“ (in Produktion)" },
-        { label: "Fütterungsrechner (interaktive Übung, in Produktion)" },
+        { lesson: "ra-w16-l18", label: "Gesundheitsvorsorge: Gewicht und Figur im Jahresplan" },
       ],
       pruefen: "Mindestmenge 1,5 kg TS / 1,7 kg Heu / ca. 2 kg Heulage je 100 kg KM (Positionspapier Uni Leipzig); Schätzformel (Divisor 11 880, Einheiten cm); Rechenbeispiele; Hinweis fester Mähnenkamm.",
     },
     exercise: [
+      { type: "tool", id: "ra-w15-l7-rechner", tool: "fuetterungsrechner", prompt: "Probier es aus: Stell Gewicht und Raufutter ein und sieh, wie sich die Menge in Frischmasse verändert." },
       {
         type: "choice",
         id: "ra-w15-l7-entscheidung",
@@ -442,7 +441,7 @@ export const teil2: Input[] = [
         },
         {
           heading: "Woran erkennst du Wassermangel?",
-          text: "Mögliche Hinweise auf Wassermangel sind: wenig, trockener, harter Kot; dunkler, stark riechender Urin; trockene, klebrige Maulschleimhaut; eine verlängerte kapilläre Füllungszeit (die Schleimhaut wird nach Druck langsamer als in etwa zwei Sekunden wieder rosa); Mattigkeit und Leistungsabfall. Der bekannte Hautfaltentest am Hals ist ungenau, besonders bei älteren Pferden.\n\nWenn du Wassermangel vermutest, das Pferd frisst oder trinkt nicht oder zeigt Koliksymptome: Tierarzt oder Tierärztin anrufen. Wie du Schleimhäute und Kreislauf richtig prüfst, lernst du in Modul 11.",
+          text: "Mögliche Hinweise auf Wassermangel sind: wenig, trockener, harter Kot; dunkler, stark riechender Urin; trockene, klebrige Maulschleimhaut; eine verlängerte kapilläre Füllungszeit (die Schleimhaut wird nach Druck langsamer als in etwa zwei Sekunden wieder rosa); Mattigkeit und Leistungsabfall. Der bekannte Hautfaltentest am Hals ist ungenau, besonders bei älteren Pferden.\n\nWenn du Wassermangel vermutest, das Pferd frisst oder trinkt nicht oder zeigt Koliksymptome: Tierarzt oder Tierärztin anrufen. Wie du Schleimhäute und Kreislauf richtig prüfst, lernst du im Modul „Pferdegesundheit“.",
         },
       ],
       praxis: {
@@ -472,7 +471,7 @@ export const teil2: Input[] = [
       weiter: [
         { lesson: "ra-w15-l11", label: "Winterhaltung, Winterfell, Scheren und Eindecken" },
         { lesson: "ra-w15-l12", label: "Sommerhaltung, Hitze und Insektenschutz" },
-        { label: "Modul 11: Puls, Atmung und Temperatur richtig messen (in Vorbereitung)" },
+        { lesson: "ra-w16-l2", label: "Puls, Atmung und Temperatur richtig messen" },
       ],
       pruefen: "Faustwert 5 l/100 kg KM; Natrium/Chlorid-Bedarf und Schweißverluste (Quelle: Liebegg 2024); Studie Zeyner et al. 2017 (Universität Halle-Wittenberg); Kapilläre Füllungszeit.",
     },

@@ -192,7 +192,20 @@ export type MultiStep = LevelFilter & {
   explain: ByLevel<string>;
 };
 
-export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep | CipherStep | MultiStep;
+/**
+ * Interaktives Werkzeug innerhalb eines Ablaufs (Reitakademie, seit 13.11.2026):
+ * z. B. Fütterungsrechner oder Reitlehre-Visualizer. Wird mit „Weiter“ abgeschlossen.
+ */
+export type ToolStep = LevelFilter & {
+  type: "tool";
+  id: string;
+  tool: "fuetterungsrechner" | "reitlehre-visualizer";
+  /** Startansicht des Visualizers, z. B. "galopp-rechts" oder "schulterherein" */
+  start?: string;
+  prompt: ByLevel<string>;
+};
+
+export type Step = StoryStep | HotspotStep | ChoiceStep | MatchStep | CodeStep | CipherStep | MultiStep | ToolStep;
 
 /** Ein spielbarer Ablauf: Lernspiel oder Mission. */
 export type Activity = {

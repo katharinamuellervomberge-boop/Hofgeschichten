@@ -64,9 +64,10 @@ export const teil3: DeepInput[] = [
         "Innen biegen, außen begrenzen.",
         "Biegung ist Gymnastik: dehnt außen, kräftigt das innere Hinterbein.",
       ],
-      weiter: weiter(["Dressur: Stellung und Biegung", "ra-w13-l3"], ["Geraderichtung und natürliche Schiefe", "ra-w18-l10"], ["Seitengänge", "ra-w18-l17"], ["Reitlehre-Visualizer (interaktive Übung)"]),
+      weiter: weiter(["Dressur: Stellung und Biegung", "ra-w13-l3"], ["Geraderichtung und natürliche Schiefe", "ra-w18-l10"], ["Seitengänge", "ra-w18-l17"]),
     },
     exercise: [
+      { type: "tool", id: "ra-w18-l9-visualizer", tool: "reitlehre-visualizer", start: "schulterherein", prompt: "Vergleiche gerade, gebogen und seitwärts: Wie stehen Kopf, Hals und Körper jeweils?" },
       wahl(
         "ra-w18-l9-entscheidung",
         "Auf dem Zirkel zeigt der Kopf deines Pferdes deutlich nach innen, aber es drängt mit der Schulter nach außen. Was fehlt?",
@@ -147,7 +148,7 @@ export const teil3: DeepInput[] = [
         "Schultervor ist das wichtigste Werkzeug.",
         "Geraderichtung schont die Beine und macht Hilfen gleichmäßig.",
       ],
-      weiter: weiter(["Stellung und Biegung richtig verstehen", "ra-w18-l9"], ["Seitengänge", "ra-w18-l17"], ["Lernvideo „Über die Schulter fallen“"]),
+      weiter: weiter(["Stellung und Biegung richtig verstehen", "ra-w18-l9"], ["Seitengänge", "ra-w18-l17"]),
     },
     exercise: [
       wahl(
@@ -312,9 +313,10 @@ export const teil3: DeepInput[] = [
         "Im Rechtsgalopp greift das rechte Beinpaar weiter vor.",
         "Ein guter Galopp ist taktklar, bergauf und gerade.",
       ],
-      weiter: weiter(["Grundkurs: Der Dreitakt", "ra-w6-l1"], ["Richtig angaloppieren", "ra-w18-l13"], ["Galoppsitz, Balance und Mitschwingen", "ra-w18-l14"], ["Reitlehre-Visualizer (interaktive Übung)"]),
+      weiter: weiter(["Grundkurs: Der Dreitakt", "ra-w6-l1"], ["Richtig angaloppieren", "ra-w18-l13"], ["Galoppsitz, Balance und Mitschwingen", "ra-w18-l14"]),
     },
     exercise: [
+      { type: "tool", id: "ra-w18-l12-visualizer", tool: "reitlehre-visualizer", start: "galopp-rechts", prompt: "Schau dir die Fußfolge an – auch in Zeitlupe. Welche Beine fußen gemeinsam auf?" },
       wahl(
         "ra-w18-l12-entscheidung",
         "Mit welchem Bein beginnt die Fußfolge im Linksgalopp?",

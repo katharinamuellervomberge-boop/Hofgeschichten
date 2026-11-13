@@ -212,7 +212,6 @@ export const teil1: Input[] = [
         { lesson: "ra-w15-l3", label: "Der optimale Pferdestall" },
         { lesson: "ra-w15-l14", label: "Gute Pferdehaltung erkennen und beurteilen" },
         { lesson: "ra-w9-l2", label: "Leben in der Herde" },
-        { label: "Lernvideo „Stallhaltung vergleichen“ (in Produktion)" },
       ],
       pruefen: "Maße aus den BMEL-Leitlinien 2009 (Box, Schmalseite); Aussage zur Anbindehaltung; Stand der Leitlinien-Überarbeitung.",
     },
@@ -303,7 +302,7 @@ export const teil1: Input[] = [
         },
         {
           heading: "Hygiene",
-          text: "Saubere, trockene Liegeflächen schützen Hufe und Haut und senken die Ammoniakbelastung. Nasse Stellen werden täglich entfernt, die Box regelmäßig gründlich gereinigt. Futtertröge und Tränken werden täglich kontrolliert und regelmäßig gesäubert, denn Futterreste und Algen sind ein Nährboden für Keime.\n\nFutter wird trocken, gut belüftet und für Nager unzugänglich gelagert. Mist lagert man mit Abstand zu Stall und Futterlager. Neue Pferde sollten nach Möglichkeit erst einige Zeit getrennt stehen, bevor sie in den Bestand kommen – Details zu Infektionen und Quarantäne folgen in Modul 11.",
+          text: "Saubere, trockene Liegeflächen schützen Hufe und Haut und senken die Ammoniakbelastung. Nasse Stellen werden täglich entfernt, die Box regelmäßig gründlich gereinigt. Futtertröge und Tränken werden täglich kontrolliert und regelmäßig gesäubert, denn Futterreste und Algen sind ein Nährboden für Keime.\n\nFutter wird trocken, gut belüftet und für Nager unzugänglich gelagert. Mist lagert man mit Abstand zu Stall und Futterlager. Neue Pferde sollten nach Möglichkeit erst einige Zeit getrennt stehen, bevor sie in den Bestand kommen – Details zu Infektionen und Quarantäne folgen im Modul „Pferdegesundheit“.",
         },
         {
           heading: "Sicherheit und Brandschutz",
@@ -336,7 +335,7 @@ export const teil1: Input[] = [
       weiter: [
         { lesson: "ra-w15-l13", label: "Stallmanagement und tägliche Versorgung" },
         { lesson: "ra-w15-l11", label: "Winterhaltung und Eindecken" },
-        { label: "Modul 11: Atemwegserkrankungen und equines Asthma (in Vorbereitung)" },
+        { lesson: "ra-w16-l13", label: "Atemwegserkrankungen und equines Asthma" },
       ],
       pruefen: "Maße (Deckenhöhe, Stallgasse, Fensterfläche) und Ammoniak-Richtwert 10 ppm; Hinweis Heu-Selbstentzündung.",
     },
@@ -538,7 +537,7 @@ export const teil1: Input[] = [
         },
         {
           heading: "Maul, Zähne und Speichel",
-          text: "Die Verdauung beginnt mit dem Kauen. Pferde zermahlen das Futter mit seitlichen Kaubewegungen. Speichel bildet sich nur, während das Pferd kaut – und er enthält Bikarbonat, das Magensäure abpuffert.\n\nHeu muss viel länger gekaut werden als Kraftfutter. Pro Kilogramm Heu macht ein Pferd ein Vielfaches an Kauschlägen im Vergleich zu einem Kilogramm Hafer und bildet entsprechend mehr Speichel. Raufutter schützt also schon im Maul den Magen. Scharfe Zahnkanten oder Zahnschmerzen führen dazu, dass ein Pferd schlechter kaut – das hat Folgen für den gesamten Verdauungsweg (mehr in Modul 11).",
+          text: "Die Verdauung beginnt mit dem Kauen. Pferde zermahlen das Futter mit seitlichen Kaubewegungen. Speichel bildet sich nur, während das Pferd kaut – und er enthält Bikarbonat, das Magensäure abpuffert.\n\nHeu muss viel länger gekaut werden als Kraftfutter. Pro Kilogramm Heu macht ein Pferd ein Vielfaches an Kauschlägen im Vergleich zu einem Kilogramm Hafer und bildet entsprechend mehr Speichel. Raufutter schützt also schon im Maul den Magen. Scharfe Zahnkanten oder Zahnschmerzen führen dazu, dass ein Pferd schlechter kaut – das hat Folgen für den gesamten Verdauungsweg (mehr im Modul „Pferdegesundheit“).",
         },
         {
           heading: "Der Magen: klein und empfindlich",
@@ -585,8 +584,7 @@ export const teil1: Input[] = [
       weiter: [
         { lesson: "ra-w15-l6", label: "Heu, Heulage, Gras und Raufutterqualität" },
         { lesson: "ra-w15-l8", label: "Kraftfutter, Mineralfutter und Ergänzungsfutter" },
-        { label: "Lernvideo „So funktioniert die Pferdeverdauung“ (in Produktion)" },
-        { label: "Modul 11: Kolik erkennen und richtig reagieren (in Vorbereitung)" },
+        { lesson: "ra-w16-l10", label: "Kolik: Ursachen, Warnzeichen und Notfallmaßnahmen" },
       ],
       pruefen: "Größenangaben (Magen 10–15 l, Dünndarm ca. 20 m, Blinddarm ca. 30 l, Gesamtlänge ca. 30 m); Stärke-Richtwert 1 g/kg KM je Mahlzeit; Futterwechsel 1–2 Wochen.",
     },

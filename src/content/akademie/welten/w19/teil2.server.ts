@@ -108,7 +108,7 @@ export const teil2: DeepInput[] = [
         },
         {
           heading: "Brücken und andere Hindernisse",
-          text: "Brücken: Prüfe, ob sie für Pferde zugelassen und stabil genug ist. Im Schritt, gerade, mit Abstand zum Vordermann hinüber; ein ruhiges Pferd geht voraus. Bei einer schmalen oder hohen Brücke lieber führen.\n\nUmgestürzte Bäume, Gräben, Baumstämme: Nur kleine, gut einsehbare Hindernisse mit festem Boden nehmen, die zu Pferd und Reiter passen. Ansonsten umreiten oder absteigen. Nie über Hindernisse springen, wenn du nicht siehst, was dahinter liegt.\n\nPlanen, Absperrband, Mülltonnen: Neue Gegenstände von beiden Seiten zeigen, mit Abstand beginnen, Zeit geben (Modul 12, Lektion 1).",
+          text: "Brücken: Prüfe, ob sie für Pferde zugelassen und stabil genug ist. Im Schritt, gerade, mit Abstand zum Vordermann hinüber; ein ruhiges Pferd geht voraus. Bei einer schmalen oder hohen Brücke lieber führen.\n\nUmgestürzte Bäume, Gräben, Baumstämme: Nur kleine, gut einsehbare Hindernisse mit festem Boden nehmen, die zu Pferd und Reiter passen. Ansonsten umreiten oder absteigen. Nie über Hindernisse springen, wenn du nicht siehst, was dahinter liegt.\n\nPlanen, Absperrband, Mülltonnen: Neue Gegenstände von beiden Seiten zeigen, mit Abstand beginnen, Zeit geben (Modul „Pferdeverhalten & Körpersprache“, Lektion 1).",
         },
         {
           heading: "Woran du erkennst, dass es funktioniert",
@@ -182,7 +182,7 @@ export const teil2: DeepInput[] = [
         },
         {
           heading: "Vorbeugen",
-          text: "• Gelassenheitstraining zu Hause: Planen, Bälle, Flatterband, Regenschirm, Geräusche – in kleinen Schritten, immer so, dass das Pferd neugierig bleibt (Modul 12, Lektion 7).\n• Grundanspannung senken: ausreichend Bewegung vor dem Ausritt, ruhige Abläufe, kein Ausritt bei Sturm.\n• Aufmerksam reiten: Die Umgebung beobachten, Gefahren früh sehen, das Pferd beschäftigen (Übergänge, Biegung).\n• Ein Ruhesignal trainieren.\n• Mit einem ruhigen Begleitpferd ausreiten.",
+          text: "• Gelassenheitstraining zu Hause: Planen, Bälle, Flatterband, Regenschirm, Geräusche – in kleinen Schritten, immer so, dass das Pferd neugierig bleibt (Modul „Pferdeverhalten & Körpersprache“, Lektion 7).\n• Grundanspannung senken: ausreichend Bewegung vor dem Ausritt, ruhige Abläufe, kein Ausritt bei Sturm.\n• Aufmerksam reiten: Die Umgebung beobachten, Gefahren früh sehen, das Pferd beschäftigen (Übergänge, Biegung).\n• Ein Ruhesignal trainieren.\n• Mit einem ruhigen Begleitpferd ausreiten.",
         },
         {
           heading: "Was du im Moment tust",
@@ -217,7 +217,7 @@ export const teil2: DeepInput[] = [
         "Angst nie bestrafen.",
         "Absteigen ist eine kluge Entscheidung.",
       ],
-      weiter: weiter(["Stress, Angst und Überforderung erkennen", "ra-w17-l4"], ["Vertrauen und gute Kommunikation", "ra-w17-l8"], ["Durchgehen: Vorbeugung und Verhalten", "ra-w19-l9"], ["Gelände-Simulator (interaktive Übung)"]),
+      weiter: weiter(["Stress, Angst und Überforderung erkennen", "ra-w17-l4"], ["Vertrauen und gute Kommunikation", "ra-w17-l8"], ["Durchgehen: Vorbeugung und Verhalten", "ra-w19-l9"]),
     },
     exercise: [
       wahl(

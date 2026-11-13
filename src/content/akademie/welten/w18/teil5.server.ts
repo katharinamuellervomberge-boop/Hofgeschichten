@@ -71,9 +71,10 @@ export const teil5: DeepInput[] = [
         "Travers und Renvers: Biegung in Bewegungsrichtung, vier Hufschläge.",
         "Takt vor Winkel.",
       ],
-      weiter: weiter(["Dressur: Schenkelweichen", "ra-w13-l6"], ["Dressur: Schulterherein", "ra-w13-l7"], ["Dressur: Travers und Renvers", "ra-w13-l8"], ["Reitlehre-Visualizer (interaktive Übung)"]),
+      weiter: weiter(["Dressur: Schenkelweichen", "ra-w13-l6"], ["Dressur: Schulterherein", "ra-w13-l7"], ["Dressur: Travers und Renvers", "ra-w13-l8"]),
     },
     exercise: [
+      { type: "tool", id: "ra-w18-l17-visualizer", tool: "reitlehre-visualizer", start: "schenkelweichen", prompt: "Klicke dich durch die Seitengänge und vergleiche Stellung, Biegung und Hilfen." },
       wahl(
         "ra-w18-l17-entscheidung",
         "Im Schulterherein wird dein Pferd unregelmäßig im Takt und der Hals knickt stark nach innen. Was änderst du?",
@@ -280,7 +281,7 @@ export const teil5: DeepInput[] = [
       sections: [
         {
           heading: "Schritt 1: Das Pferd",
-          text: "Bevor du an Reiten und Training arbeitest, schließe körperliche Ursachen aus: Schmerzen (Rücken, Zähne, Hufe, Magen, Gelenke), unpassende Ausrüstung (Sattel, Gebiss, Nasenriemen), mangelnde Kondition oder Kraft. Viele „Ausbildungsprobleme“ sind in Wahrheit Schmerz- oder Ausrüstungsprobleme.\n\nHinweise auf körperliche Ursachen: Das Problem tritt plötzlich auf, verschlechtert sich, betrifft eine Seite deutlich mehr, wird durch Aufwärmen nicht besser oder geht mit Konfliktsignalen einher (siehe Modul 12, Lektion 10).",
+          text: "Bevor du an Reiten und Training arbeitest, schließe körperliche Ursachen aus: Schmerzen (Rücken, Zähne, Hufe, Magen, Gelenke), unpassende Ausrüstung (Sattel, Gebiss, Nasenriemen), mangelnde Kondition oder Kraft. Viele „Ausbildungsprobleme“ sind in Wahrheit Schmerz- oder Ausrüstungsprobleme.\n\nHinweise auf körperliche Ursachen: Das Problem tritt plötzlich auf, verschlechtert sich, betrifft eine Seite deutlich mehr, wird durch Aufwärmen nicht besser oder geht mit Konfliktsignalen einher (siehe Modul „Pferdeverhalten & Körpersprache“, Lektion 10).",
         },
         {
           heading: "Schritt 2: Die Ausbildungsskala",

@@ -2,6 +2,7 @@ import "server-only";
 import type { ChoiceStep, Step } from "@/engine/types";
 import { letterSpot } from "./build";
 import { scene, type AcademyGame } from "./types";
+import { ausbauAcademyGames } from "./spiele-ausbau.server";
 
 /**
  * Mini-Spiele der GROSSEN Reitakademie – nur nach Freischaltung (Mitgliedschaft
@@ -189,4 +190,4 @@ const bahnfigurenMeister: AcademyGame = {
   },
 };
 
-export const grossAcademyGames: AcademyGame[] = [gangartenQuiz, bahnfigurenMeister];
+export const grossAcademyGames: AcademyGame[] = [gangartenQuiz, bahnfigurenMeister, ...ausbauAcademyGames];

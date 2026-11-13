@@ -1373,5 +1373,44 @@ export const grossGamesInfo: AcademyGameInfo[] = [
       "scene": "ak-bahn-schlange"
     },
     "tier": "gross"
+  },
+  {
+    "id": "ra-spiel-gesundheitsdetektiv",
+    "slug": "gesundheitsdetektiv",
+    "title": "Gesundheitsdetektiv",
+    "teaser": "Sechs Fälle aus dem Stall: Was siehst du, wie dringend ist es, was tust du?",
+    "learns": "Krankheitszeichen erkennen, Dringlichkeit einschätzen (beobachten, Tierarzt anrufen, Notfall) und sichere Sofortmaßnahmen wählen – ohne Ferndiagnose und ohne Medikamente.",
+    "tint": "#E2E6DE",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-sattelzeug"
+    },
+    "tier": "gross"
+  },
+  {
+    "id": "ra-spiel-pferdesprache",
+    "slug": "pferdesprache-quiz",
+    "title": "Pferdesprache-Quiz",
+    "teaser": "Ohren, Augen, Maul, Schweif – was sagt dir dieses Pferd?",
+    "learns": "Körpersprache im Zusammenhang lesen: Entspannung, Aufmerksamkeit, Stress, Drohung und mögliche Schmerzzeichen unterscheiden.",
+    "tint": "#E3E7DA",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-zonen"
+    },
+    "tier": "gross"
+  },
+  {
+    "id": "ra-spiel-gelaende-simulator",
+    "slug": "gelaende-simulator",
+    "title": "Gelände-Simulator",
+    "teaser": "Ein Ausritt mit Überraschungen: Wie reagierst du?",
+    "learns": "Typische Situationen im Gelände sicher lösen: Gruppe, Begegnungen, Schreckmomente, Galoppstrecken, Durchgehen und Notfälle.",
+    "tint": "#E1E6D8",
+    "cover": {
+      "kind": "scene",
+      "scene": "ak-reiter-leicht"
+    },
+    "tier": "gross"
   }
 ];

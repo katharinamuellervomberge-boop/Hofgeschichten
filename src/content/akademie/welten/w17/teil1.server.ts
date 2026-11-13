@@ -191,7 +191,7 @@ export const teil1: DeepInput[] = [
         },
         {
           heading: "Ruhen und Schlafen",
-          text: "Pferde ruhen über den Tag verteilt in vielen kurzen Phasen. Im Stehen dösen sie mit entlastetem Hinterbein, in Brustlage ruhen sie mit untergeschlagenen Beinen, in Seitenlage liegen sie flach – nur in dieser Lage oder mit aufgestütztem Kopf in Brustlage erreichen sie den Tiefschlaf.\n\nPferde liegen eher, wenn sie sich sicher fühlen. In einer Gruppe wechseln sie sich oft ab: Einer bleibt stehen, während andere liegen. Ein Pferd, das nie liegt, kann ein Problem mit Platz, Untergrund, Gruppe oder Schmerzen haben (siehe Modul 10, Lektion 1).",
+          text: "Pferde ruhen über den Tag verteilt in vielen kurzen Phasen. Im Stehen dösen sie mit entlastetem Hinterbein, in Brustlage ruhen sie mit untergeschlagenen Beinen, in Seitenlage liegen sie flach – nur in dieser Lage oder mit aufgestütztem Kopf in Brustlage erreichen sie den Tiefschlaf.\n\nPferde liegen eher, wenn sie sich sicher fühlen. In einer Gruppe wechseln sie sich oft ab: Einer bleibt stehen, während andere liegen. Ein Pferd, das nie liegt, kann ein Problem mit Platz, Untergrund, Gruppe oder Schmerzen haben (siehe Modul „Pferdehaltung, Pferdealltag & Fütterung“, Lektion 1).",
         },
         {
           heading: "Komfort- und Spielverhalten",
