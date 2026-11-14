@@ -1,7 +1,7 @@
 import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_RIDE, seit, stand, veraendert } from "./common";
 
-/** Kategorie D – Balance, Stellung & Biegung (cp-29 … cp-36). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen. */
+/** Kategorie D – Balance, Stellung & Biegung (cp-29 … cp-36). Fachlich geprüft (14.11.2026). */
 
 const reiter = (text: string, opts: ReturnType<typeof o>[]) => q("q-reiter", text, [...opts, o("weiss-nicht", "Das kann ich nicht einschätzen")], { help: "Wenn du unsicher bist: Lass dich einmal filmen oder frag deine Reitlehrkraft." });
 const SCHIEFE = (ex: string[] = ["ex-ger-2", "ex-dr-4"]) => c("c-schiefe", "Natürliche Schiefe", "Fast jedes Pferd ist auf einer Seite hohl und auf der anderen steif. Auf der schwierigen Seite fallen Stellung, Biegung und Linien schwerer.", ex);
@@ -10,7 +10,7 @@ const KOERPER = koerper("Ist eine Seite plötzlich viel schwieriger oder wirkt d
 
 export const cp29: CoachProblemContent = {
   id: "cp-29",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fällt ein Pferd über die äußere Schulter, fehlt meist die Begrenzung durch die äußeren Hilfen – oft wird innen zu viel gezogen.",
   understand: [
     "In Wendungen braucht das Pferd eine innere Stellung und eine gleichmäßige Biegung. Der äußere Zügel und der äußere Schenkel begrenzen – sie sind die „Wand“, an der das Pferd sich orientiert.",
@@ -67,7 +67,7 @@ export const cp29: CoachProblemContent = {
 
 export const cp30: CoachProblemContent = {
   id: "cp-30",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fällt ein Pferd auf die innere Schulter, wird der Zirkel kleiner und das Pferd „kippt“ nach innen – wie ein Motorrad in der Kurve.",
   understand: [
     "Das Pferd soll in Wendungen aufrecht bleiben und sich biegen, nicht nach innen lehnen. Der innere Schenkel am Gurt gibt ihm dafür Halt.",
@@ -123,7 +123,7 @@ export const cp30: CoachProblemContent = {
 
 export const cp31: CoachProblemContent = {
   id: "cp-31",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Stellung heißt: Das Pferd wendet den Kopf im Genick leicht nach innen. Klappt das nicht, fehlt meist Lockerheit – oder es wird zu viel gezogen.",
   understand: [
     "Bei korrekter Stellung siehst du das innere Auge und den Nüsternrand des Pferdes. Der Hals bleibt dabei gerade vor der Schulter.",
@@ -178,7 +178,7 @@ export const cp31: CoachProblemContent = {
 
 export const cp32: CoachProblemContent = {
   id: "cp-32",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Biegung ist mehr als ein gestellter Hals: Das ganze Pferd soll sich gleichmäßig um den inneren Schenkel biegen.",
   understand: [
     "Bei korrekter Biegung folgt der Pferdekörper vom Genick bis zum Schweif der gebogenen Linie. Die Hinterbeine treten in die Spur der Vorderbeine.",
@@ -234,7 +234,7 @@ export const cp32: CoachProblemContent = {
 
 export const cp33: CoachProblemContent = {
   id: "cp-33",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Eine „gute“ und eine „schlechte“ Hand sind normal. Wichtig ist, sie gleichmäßig zu trainieren – und Lahmheiten auszuschließen.",
   understand: [
     "Pferde sind von Natur aus schief. Auf der hohlen Seite biegen sie sich leicht, auf der steifen Seite fällt es ihnen schwer.",
@@ -290,7 +290,7 @@ export const cp33: CoachProblemContent = {
 
 export const cp34: CoachProblemContent = {
   id: "cp-34",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das zur Bande drängt, sucht Halt oder will dorthin, wo es hin möchte. Beide Schenkel und der Blick sind gefragt.",
   understand: [
     "Viele Pferde orientieren sich an der Bande. Ohne sie fehlt ihnen die Begrenzung – deshalb ist das Geradeausreiten auf der Viertellinie so lehrreich.",
@@ -346,7 +346,7 @@ export const cp34: CoachProblemContent = {
 
 export const cp35: CoachProblemContent = {
   id: "cp-35",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein runder Zirkel ist schwieriger, als er aussieht. Er zeigt genau, wie gut Linie, Biegung und Tempo zusammenpassen.",
   understand: [
     "Ein Zirkel berührt die Bande nur an vier Punkten und hat keine Geraden. Wer die Zirkelpunkte kennt und anreitet, wird automatisch runder.",
@@ -403,7 +403,7 @@ export const cp35: CoachProblemContent = {
 
 export const cp36: CoachProblemContent = {
   id: "cp-36",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Wird ein Pferd in Wendungen schneller, fehlt ihm dort die Balance – und oft die Vorbereitung.",
   understand: [
     "In jeder Wendung muss das Pferd sein Gewicht neu verteilen. Fehlt ihm das Gleichgewicht, rettet es sich ins Tempo.",

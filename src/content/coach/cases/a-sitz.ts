@@ -1,7 +1,7 @@
 import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_RIDE, seit, stand, veraendert } from "./common";
 
-/** Kategorie A – Reitersitz & Balance (cp-01 … cp-10). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen. */
+/** Kategorie A – Reitersitz & Balance (cp-01 … cp-10). Fachlich geprüft (14.11.2026). */
 
 const reiter = (opts: ReturnType<typeof o>[]) => q("q-reiter", "Was fällt dir an dir selbst auf?", [...opts, o("weiss-nicht", "Das kann ich nicht einschätzen")], { help: "Wenn du unsicher bist: Lass dich einmal filmen oder frag deine Reitlehrkraft." });
 const buegel = (lang: number, kurz: number) =>
@@ -16,7 +16,7 @@ const SATTEL = koerper("Ein Sattel, der nicht passt oder dessen tiefster Punkt n
 
 export const cp01: CoachProblemContent = {
   id: "cp-01",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Nach vorne zu kippen ist sehr häufig – meist steckt eine Kette dahinter: Bein, Blick und Balance hängen zusammen.",
   understand: [
     "Ein ausbalancierter Sitz entsteht, wenn Ohr, Schulter, Hüfte und Absatz ungefähr auf einer Linie liegen. Rutscht eine Stelle aus dieser Linie, gleicht der Körper an einer anderen aus.",
@@ -73,7 +73,7 @@ export const cp01: CoachProblemContent = {
 
 export const cp02: CoachProblemContent = {
   id: "cp-02",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Bein, das nach hinten rutscht, hat fast immer mit Hüfte, Knie oder Bügel zu tun – selten mit „zu wenig Kraft“.",
   understand: [
     "Der Unterschenkel liegt idealerweise am Gurt, der Absatz etwa unter der Hüfte. Von dort kann er treiben und dich gleichzeitig stützen.",
@@ -126,7 +126,7 @@ export const cp02: CoachProblemContent = {
 
 export const cp03: CoachProblemContent = {
   id: "cp-03",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Unruhige Unterschenkel stören das Pferd und machen feine Hilfen schwer. Meist steckt Balance oder Dauertreiben dahinter.",
   understand: [
     "Ein ruhiger Unterschenkel liegt weich am Pferd und bewegt sich nur, wenn er etwas sagen will. Jede andere Bewegung ist für das Pferd „Rauschen“.",
@@ -179,7 +179,7 @@ export const cp03: CoachProblemContent = {
 
 export const cp04: CoachProblemContent = {
   id: "cp-04",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Im Trab die Balance zu verlieren ist anstrengend und verunsichert. Oft liegt es am Rhythmus, am Bein oder an einem eiligen Trab.",
   understand: [
     "Der Trab ist ein Zweitakt mit einer Schwebephase – er bewegt dich mehr als der Schritt. Balance entsteht, wenn du dich im Rhythmus des Pferdes bewegst, statt dagegen.",
@@ -237,7 +237,7 @@ export const cp04: CoachProblemContent = {
 
 export const cp05: CoachProblemContent = {
   id: "cp-05",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Aussitzen ist eine der schwierigsten Sitzaufgaben. Meist hilft weniger Kraft – nicht mehr.",
   understand: [
     "Beim Aussitzen bewegt sich der Pferderücken bei jedem Tritt auf und ab. Das Becken nimmt diese Bewegung auf, der Oberkörper bleibt ruhig darüber.",
@@ -293,7 +293,7 @@ export const cp05: CoachProblemContent = {
 
 export const cp06: CoachProblemContent = {
   id: "cp-06",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Unruhige Hände kommen selten aus den Händen selbst – meist gleichen sie einen Sitz aus, der noch nicht ruhig ist.",
   understand: [
     "Die Hände sind das Ende einer Kette aus Becken, Rumpf, Schultern und Ellbogen. Bewegt sich der Sitz, bewegen sich die Hände mit.",
@@ -350,7 +350,7 @@ export const cp06: CoachProblemContent = {
 
 export const cp07: CoachProblemContent = {
   id: "cp-07",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Unbewusstes Ziehen am Zügel ist ein Reflex – oft zum Bremsen oder Festhalten. Er lässt sich umlernen.",
   understand: [
     "Zügelhilfen wirken immer im Wechsel von Annehmen und Nachgeben. Dauerhafter Zug wird für das Pferd unangenehm – es geht dagegen, wird eng oder schneller.",
@@ -406,7 +406,7 @@ export const cp07: CoachProblemContent = {
 
 export const cp08: CoachProblemContent = {
   id: "cp-08",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Im Galopp den Sitz zu verlieren ist ganz normal, solange man ihn noch lernt. Wichtig ist, woran es liegt.",
   understand: [
     "Im Galopp schwingt der Pferderücken in einer Wellenbewegung. Das Becken geht diese Bewegung von hinten nach vorn mit, der Oberkörper bleibt ruhig.",
@@ -464,7 +464,7 @@ export const cp08: CoachProblemContent = {
 
 export const cp09: CoachProblemContent = {
   id: "cp-09",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Mit den Knien zu klemmen ist ein Schutzreflex. Er gibt scheinbar Halt – und nimmt dir gleichzeitig die Balance.",
   understand: [
     "Klemmende Knie machen das Knie zum Drehpunkt: Unterschenkel und Oberkörper werden beweglich, der Sitz unruhig.",
@@ -517,7 +517,7 @@ export const cp09: CoachProblemContent = {
 
 export const cp10: CoachProblemContent = {
   id: "cp-10",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Der leichte Sitz verlangt Balance über dem Unterschenkel. Mit passender Bügellänge und etwas Kraft wird er schnell sicherer.",
   understand: [
     "Im leichten Sitz entlastest du den Pferderücken: Gesäß aus dem Sattel, Oberkörper leicht vor, das Gewicht federt in den Unterschenkel und die Absätze.",

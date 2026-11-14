@@ -1,7 +1,7 @@
 import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_RIDE, seit, stand, veraendert } from "./common";
 
-/** Kategorie C – Trab & Galopp (cp-19 … cp-28, ohne cp-22). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen. */
+/** Kategorie C – Trab & Galopp (cp-19 … cp-28, ohne cp-22). Fachlich geprüft (14.11.2026). */
 
 const reiter = (text: string, opts: ReturnType<typeof o>[]) => q("q-reiter", text, [...opts, o("weiss-nicht", "Das kann ich nicht einschätzen")], { help: "Wenn du unsicher bist: Lass dich einmal filmen oder frag deine Reitlehrkraft." });
 const GALOPP_SAFE = [...SAFE_RIDE, "Ziehe vor dem Galoppieren den Gurt nach.", "Galoppiere anfangs nur auf dem Zirkel mit genug Platz."];
@@ -10,7 +10,7 @@ const HAND = (exercises: string[]) => c("c-hand", "Die Hand bremst oder hält fe
 
 export const cp19: CoachProblemContent = {
   id: "cp-19",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das im Trab immer schneller wird, sucht meist sein Gleichgewicht im Tempo. Der Rhythmus des Reiters spielt dabei eine große Rolle.",
   understand: [
     "Der Trab ist ein Zweitakt. Wird er eilig, verlagert das Pferd sein Gewicht nach vorn auf die Vorhand – und muss noch schneller werden, um nicht „hinzufallen“.",
@@ -69,7 +69,7 @@ export const cp19: CoachProblemContent = {
 
 export const cp20: CoachProblemContent = {
   id: "cp-20",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fällt ein Pferd immer wieder aus dem Trab, fehlt ihm Fleiß, Kraft oder Balance – oder der Reiter bremst unbewusst.",
   understand: [
     "Ein Pferd hält den Trab, wenn es fleißig vorwärts geht und im Gleichgewicht ist. Fehlt eines davon, fällt es zurück in den Schritt.",
@@ -127,7 +127,7 @@ export const cp20: CoachProblemContent = {
 
 export const cp21: CoachProblemContent = {
   id: "cp-21",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Galoppiert ein Pferd nicht an, fehlt oft eine klare, gut vorbereitete Hilfe – manchmal aber auch etwas anderes.",
   understand: [
     "Für den Galopp braucht das Pferd Balance und eine klare Hilfe: innere Stellung, innerer Schenkel am Gurt, äußerer Schenkel eine Handbreit dahinter.",
@@ -184,7 +184,7 @@ export const cp21: CoachProblemContent = {
 
 export const cp23: CoachProblemContent = {
   id: "cp-23",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Springt ein Pferd im falschen Galopp an, fehlt meist Stellung, Vorbereitung oder ein günstiger Ort.",
   understand: [
     "Im Rechtsgalopp greift das rechte Vorderbein weiter vor, im Linksgalopp das linke. Auf dem Zirkel ist der „richtige“ Galopp der zur Innenseite.",
@@ -240,7 +240,7 @@ export const cp23: CoachProblemContent = {
 
 export const cp24: CoachProblemContent = {
   id: "cp-24",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fällt ein Pferd aus dem Galopp, fehlt meist Balance, Kraft oder Fleiß – oder der Sitz geht nicht mit.",
   understand: [
     "Im Galopp trägt sich das Pferd in einer Wellenbewegung. Fehlt ihm Gleichgewicht oder Kraft, fällt es zurück in den Trab.",
@@ -298,7 +298,7 @@ export const cp24: CoachProblemContent = {
 
 export const cp25: CoachProblemContent = {
   id: "cp-25",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das im Galopp zu schnell wird, braucht vor allem Balance – und einen Reiter, der ruhig sitzen bleibt.",
   understand: [
     "Ein eiliger Galopp ist meist ein unausbalancierter Galopp: Das Pferd fällt auf die Vorhand und wird immer schneller.",
@@ -357,7 +357,7 @@ export const cp25: CoachProblemContent = {
 
 export const cp26: CoachProblemContent = {
   id: "cp-26",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fast jedes Pferd hat eine bessere und eine schwierigere Galopphand. Das ist normal – und lässt sich verbessern.",
   understand: [
     "Pferde sind von Natur aus schief, ähnlich wie Menschen Rechts- oder Linkshänder sind. Auf der schwierigeren Hand fehlt oft Biegung und Balance.",
@@ -412,7 +412,7 @@ export const cp26: CoachProblemContent = {
 
 export const cp27: CoachProblemContent = {
   id: "cp-27",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Beim Kreuzgalopp galoppieren Vorder- und Hinterbeine auf unterschiedlichen Händen. Das ist unbequem und ein wichtiges Signal.",
   understand: [
     "Im Kreuzgalopp springt das Pferd vorne auf der einen, hinten auf der anderen Hand. Das fühlt sich holprig an und belastet das Pferd.",
@@ -469,7 +469,7 @@ export const cp27: CoachProblemContent = {
 
 export const cp28: CoachProblemContent = {
   id: "cp-28",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Im Galopp mitzusitzen ist eine Frage von Losgelassenheit, Balance und Wiederholung.",
   understand: [
     "Im Galopp bewegt sich das Becken in jedem Sprung von hinten nach vorn mit – wie beim Schaukeln. Der Oberkörper bleibt ruhig und aufrecht.",

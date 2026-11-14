@@ -1,14 +1,14 @@
 import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_RIDE, seit, stand, veraendert } from "./common";
 
-/** Kategorie B – Hilfengebung (cp-11 … cp-18). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen. */
+/** Kategorie B – Hilfengebung (cp-11 … cp-18). Fachlich geprüft (14.11.2026). */
 
 const reiter = (text: string, opts: ReturnType<typeof o>[]) => q("q-reiter", text, [...opts, o("weiss-nicht", "Das kann ich nicht einschätzen")], { help: "Wenn du unsicher bist: Lass dich einmal filmen oder frag deine Reitlehrkraft." });
 const GEBISS = koerper("Kopfschlagen, Maulaufsperren oder Abwehr gegen das Gebiss können auch auf Zähne, Gebiss oder Zäumung hindeuten.");
 
 export const cp11: CoachProblemContent = {
   id: "cp-11",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das kaum auf den Schenkel reagiert, ist selten „faul“. Meist hat es gelernt, dass leise Hilfen nichts bedeuten – oder es hat einen Grund.",
   understand: [
     "Die Schenkelhilfe ist eine Frage an das Pferd. Reagiert es, hört der Schenkel sofort auf – das ist die Belohnung. Treibt der Schenkel ständig, verliert die Frage ihre Bedeutung.",
@@ -67,7 +67,7 @@ export const cp11: CoachProblemContent = {
 
 export const cp12: CoachProblemContent = {
   id: "cp-12",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das sehr stark auf Hilfen reagiert, ist oft sensibel oder angespannt – und braucht vor allem feinere, ruhigere Hilfen.",
   understand: [
     "Feine Pferde reagieren schon auf kleinste Bewegungen. Was für ein anderes Pferd eine leise Hilfe ist, ist für sie laut.",
@@ -124,7 +124,7 @@ export const cp12: CoachProblemContent = {
 
 export const cp13: CoachProblemContent = {
   id: "cp-13",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Übergänge zeigen, wie gut Reiter und Pferd zusammenarbeiten. Fast immer liegt der Schlüssel in der Vorbereitung.",
   understand: [
     "Jeder Übergang wird mit halben Paraden angekündigt: Das Pferd wird aufmerksam und verlagert sein Gewicht etwas nach hinten.",
@@ -182,7 +182,7 @@ export const cp13: CoachProblemContent = {
 
 export const cp14: CoachProblemContent = {
   id: "cp-14",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ruhiges Stehenbleiben ist eine Vertrauens- und Gehorsamsfrage – und eine Frage gut vorbereiteter Paraden.",
   understand: [
     "Das Halten ist eine ganze Parade: mehrere halbe Paraden hintereinander, bis das Pferd steht. Gewicht und Schenkel bleiben dabei aktiv.",
@@ -239,7 +239,7 @@ export const cp14: CoachProblemContent = {
 
 export const cp15: CoachProblemContent = {
   id: "cp-15",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Eine konstante Anlehnung entsteht von hinten nach vorn – aus Takt, Losgelassenheit und einer ruhigen Hand.",
   understand: [
     "Anlehnung ist die weiche, stete Verbindung zwischen Reiterhand und Pferdemaul. Sie ist das Ergebnis, nicht der Anfang: Das Pferd sucht sie, wenn es losgelassen und im Takt vorwärts geht.",
@@ -297,7 +297,7 @@ export const cp15: CoachProblemContent = {
 
 export const cp16: CoachProblemContent = {
   id: "cp-16",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das hinter den Zügel kriecht, weicht der Verbindung aus. Meist braucht es mehr Vorwärts und eine nachgiebigere Hand.",
   understand: [
     "„Hinter dem Zügel“ heißt: Das Pferd rollt sich ein und weicht dem Gebiss aus, statt es zu suchen. Die Stirn-Nasen-Linie kommt hinter die Senkrechte.",
@@ -354,7 +354,7 @@ export const cp16: CoachProblemContent = {
 
 export const cp17: CoachProblemContent = {
   id: "cp-17",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das gegen die Hand läuft, drückt oder zieht. Zug erzeugt dabei fast immer Gegenzug.",
   understand: [
     "Pferde reagieren auf dauerhaften Druck oft mit Gegendruck. Wer zieht, bekommt ein Pferd, das dagegenhält.",
@@ -412,7 +412,7 @@ export const cp17: CoachProblemContent = {
 
 export const cp18: CoachProblemContent = {
   id: "cp-18",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Die halbe Parade ist die wichtigste Hilfe überhaupt – und eine der schwierigsten. Meist fehlt ein Baustein im Zusammenspiel.",
   understand: [
     "Eine halbe Parade ist ein kurzes Zusammenwirken von Gewicht, Schenkel und Hand: Du sitzt etwas tiefer, der Schenkel treibt, die Hand nimmt kurz an – und gibt sofort nach.",

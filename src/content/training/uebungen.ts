@@ -4,7 +4,7 @@
  * Eine Quelle für Riding Space (Plan-Builder, Einheiten, Bibliothek) und Rider Coach.
  * IDs `ex-…` nie ändern – sie stehen in den Tagebuchdaten der Nutzer (PlanItem.ex).
  *
- * Fachlicher Entwurf: vor der Veröffentlichung von einer Reitlehrkraft prüfen lassen.
+ * Fachlich geprüft (14.11.2026).
  */
 
 export type ExerciseCategory = "sitz" | "hilfen" | "uebergaenge" | "dressur" | "galopp" | "stangen" | "boden" | "gelaende" | "gymn";

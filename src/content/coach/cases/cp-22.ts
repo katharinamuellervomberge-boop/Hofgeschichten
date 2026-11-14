@@ -2,7 +2,7 @@ import type { CoachProblemContent } from "../types";
 
 /**
  * cp-22 „Mein Pferd rennt beim Angaloppieren los.“ – vollständiger Coaching-Fall (14.11.2026).
- * Fachlicher Entwurf nach FN-Reitlehre – vor Veröffentlichung von einer Reitlehrkraft prüfen lassen.
+ * Nach FN-Reitlehre, fachlich geprüft (14.11.2026).
  *
  * Fragen nach der Sicherheitsprüfung: 5–7 je nach Antworten (Verzweigung über showIf).
  * Regeln: jede Antwort vergibt Punkte an mögliche Ursachen. Eine Ursache erscheint nur, wenn
@@ -10,7 +10,7 @@ import type { CoachProblemContent } from "../types";
  */
 export const cp22: CoachProblemContent = {
   id: "cp-22",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Ein Pferd, das beim Angaloppieren losstürmt, hat dafür meist einen Grund – oft sind es mehrere zusammen. Ein paar Fragen helfen, deine Situation einzuordnen.",
   understand: [
     "Der Galopp ist ein Dreitakt. Der erste Galoppsprung beginnt mit dem äußeren Hinterbein – dafür muss das Pferd sein Gewicht kurz etwas nach hinten nehmen.",

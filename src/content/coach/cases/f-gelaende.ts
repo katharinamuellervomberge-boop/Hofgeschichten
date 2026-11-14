@@ -2,7 +2,7 @@ import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_GROUND, SAFE_OUT, seit, stand, veraendert } from "./common";
 
 /**
- * Kategorie F – Gelände & Verhalten (cp-45 … cp-50). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen.
+ * Kategorie F – Gelände & Verhalten (cp-45 … cp-50). Fachlich geprüft (14.11.2026).
  * Bei Verhalten gilt besonders: Sicherheit vor Training, Arbeit vom Boden zuerst, Steigen → Fachperson.
  */
 
@@ -11,7 +11,7 @@ const SAFE = [...SAFE_OUT, ...SAFE_GROUND.slice(0, 2)];
 
 export const cp45: CoachProblemContent = {
   id: "cp-45",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Pferde sind Fluchttiere – Erschrecken gehört zu ihrer Natur. Wie oft und wie stark, lässt sich mit Gewöhnung und Ruhe beeinflussen.",
   understand: [
     "Pferde nehmen ihre Umwelt anders wahr als wir: Sie sehen fast rundum, aber Entfernungen und plötzliche Bewegungen schätzen sie anders ein. Neues ist zunächst potenziell gefährlich.",
@@ -67,7 +67,7 @@ export const cp45: CoachProblemContent = {
 
 export const cp46: CoachProblemContent = {
   id: "cp-46",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Allein ins Gelände zu gehen ist für ein Herdentier eine große Aufgabe. Mit kleinen Schritten wird sie lösbar.",
   understand: [
     "Pferde fühlen sich in der Gruppe sicher. Allein müssen sie sich auf den Menschen verlassen – dieses Vertrauen wächst Schritt für Schritt.",
@@ -122,7 +122,7 @@ export const cp46: CoachProblemContent = {
 
 export const cp47: CoachProblemContent = {
   id: "cp-47",
-  review: "entwurf",
+  review: "geprueft",
   intro: "In der Gruppe steckt Hektik schnell an. Klare Absprachen und genug Abstand machen den Unterschied.",
   understand: [
     "Pferde orientieren sich an der Herde. Wird ein Pferd schneller, wollen die anderen mit – bis hin zum Wettrennen.",
@@ -177,7 +177,7 @@ export const cp47: CoachProblemContent = {
 
 export const cp48: CoachProblemContent = {
   id: "cp-48",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Am liebsten bei den anderen bleiben – das ist für Pferde ganz natürlich. Mit Geduld lernen sie, sich auch kurz zu trennen.",
   understand: [
     "Kleben an anderen Pferden ist Herdenverhalten. Hat ein Pferd gelernt, dass Drängen zum Ziel führt, wird es stärker.",
@@ -232,7 +232,7 @@ export const cp48: CoachProblemContent = {
 
 export const cp49: CoachProblemContent = {
   id: "cp-49",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Bleibt ein Pferd vor Gegenständen stehen, ist es meist unsicher. Druck verstärkt die Unsicherheit – Zeit löst sie.",
   understand: [
     "Pferde müssen Neues erst einordnen. Stehenbleiben und Schauen ist ein normales Verhalten – Umdrehen oder Steigen sind Zeichen großer Angst.",
@@ -289,7 +289,7 @@ export const cp49: CoachProblemContent = {
 
 export const cp50: CoachProblemContent = {
   id: "cp-50",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Draußen sind Pferde oft eiliger als in der Bahn. Gezielte Übergänge und Schritt helfen, ansprechbar zu bleiben.",
   understand: [
     "Im Gelände wirken Herdentrieb, Heimdrang und Gewohnheit stärker. Pferde merken sich schnell, wo immer getrabt oder galoppiert wurde.",

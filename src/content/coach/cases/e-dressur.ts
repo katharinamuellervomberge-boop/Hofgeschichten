@@ -1,7 +1,7 @@
 import type { CoachProblemContent } from "../types";
 import { c, koerper, o, q, SAFE_RIDE, seit, stand, veraendert } from "./common";
 
-/** Kategorie E – Dressur & weiterführende Übungen (cp-37 … cp-44). Fachlicher Entwurf, vor Veröffentlichung prüfen lassen. */
+/** Kategorie E – Dressur & weiterführende Übungen (cp-37 … cp-44). Fachlich geprüft (14.11.2026). */
 
 const reiter = (text: string, opts: ReturnType<typeof o>[]) => q("q-reiter", text, [...opts, o("weiss-nicht", "Das kann ich nicht einschätzen")], { help: "Wenn du unsicher bist: Lass dich einmal filmen oder frag deine Reitlehrkraft." });
 const RUECKEN = koerper("Werden Lektionen plötzlich schwierig oder wehrt sich das Pferd, können Beschwerden in Rücken, Hinterhand oder ein drückender Sattel eine Rolle spielen.");
@@ -9,7 +9,7 @@ const SCHIEFE = (ex: string[]) => c("c-schiefe", "Natürliche Schiefe", "Die Sch
 
 export const cp37: CoachProblemContent = {
   id: "cp-37",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Schenkelweichen ist die erste Seitwärtslektion. Damit sie klappt, muss das Pferd den seitwärtstreibenden Schenkel verstehen.",
   understand: [
     "Beim Schenkelweichen tritt das Pferd vorwärts-seitwärts, leicht gegen die Bewegungsrichtung gestellt. Die inneren Beine treten vor und über die äußeren.",
@@ -66,7 +66,7 @@ export const cp37: CoachProblemContent = {
 
 export const cp38: CoachProblemContent = {
   id: "cp-38",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Schulterherein soll das Pferd versammeln – nicht aus dem Takt bringen. Meist ist es zu viel Abstellung oder zu wenig Vorstufe.",
   understand: [
     "Im Schulterherein wird die Vorhand so weit hereingeführt, dass das Pferd auf drei Hufschlaglinien geht. Es ist gleichmäßig gebogen und bleibt im Takt.",
@@ -123,7 +123,7 @@ export const cp38: CoachProblemContent = {
 
 export const cp39: CoachProblemContent = {
   id: "cp-39",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Hektik in Seitengängen ist meist ein Zeichen von Überforderung oder zu viel Druck.",
   understand: [
     "Seitengänge sind für das Pferd koordinativ anspruchsvoll. Wird zu viel auf einmal verlangt oder zu viel getrieben, wird es hektisch.",
@@ -178,7 +178,7 @@ export const cp39: CoachProblemContent = {
 
 export const cp40: CoachProblemContent = {
   id: "cp-40",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Geraderichten ist ein Ausbildungsziel für das ganze Pferdeleben. Es beginnt mit Vorwärts und einem gerade sitzenden Reiter.",
   understand: [
     "Gerade gerichtet ist ein Pferd, wenn die Hinterhufe in die Spur der Vorderhufe treten – auf geraden und gebogenen Linien.",
@@ -234,7 +234,7 @@ export const cp40: CoachProblemContent = {
 
 export const cp41: CoachProblemContent = {
   id: "cp-41",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Fließende Übergänge entstehen aus Vorbereitung, Durchlässigkeit und einem ruhigen Sitz.",
   understand: [
     "Ein fließender Übergang ist vorbereitet, im Takt und ohne Widerstand. Das Pferd bleibt dabei in Anlehnung und Balance.",
@@ -290,7 +290,7 @@ export const cp41: CoachProblemContent = {
 
 export const cp42: CoachProblemContent = {
   id: "cp-42",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Tempounterschiede zeigen, ob ein Pferd sich selbst tragen kann. Weiter heißt nicht schneller.",
   understand: [
     "Beim Zulegen soll das Pferd die Tritte verlängern, nicht die Frequenz erhöhen. Beim Zurückführen nimmt es mehr Gewicht mit der Hinterhand auf.",
@@ -345,7 +345,7 @@ export const cp42: CoachProblemContent = {
 
 export const cp43: CoachProblemContent = {
   id: "cp-43",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Versammlung ist das Ergebnis guter Grundlagen. Fällt das Pferd auseinander, fehlt meist eine Stufe davor.",
   understand: [
     "In der Versammlung nimmt die Hinterhand mehr Last auf, die Vorhand wird leichter. Das gelingt nur, wenn Takt, Losgelassenheit, Anlehnung, Schwung und Geraderichtung bereits sicher sind.",
@@ -401,7 +401,7 @@ export const cp43: CoachProblemContent = {
 
 export const cp44: CoachProblemContent = {
   id: "cp-44",
-  review: "entwurf",
+  review: "geprueft",
   intro: "Galoppwechsel bauen auf sicheren Galopp-Übergängen auf. Fehlen diese, kann das Pferd den Wechsel kaum verstehen.",
   understand: [
     "Beim einfachen Galoppwechsel wechselt das Pferd über wenige Trab- oder Schritttritte die Galopphand. Beim fliegenden Wechsel geschieht das in der Schwebephase des Galopps.",

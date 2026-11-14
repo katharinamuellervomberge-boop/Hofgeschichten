@@ -21,4 +21,4 @@ Nutzerdaten: `DiaryData.coach` (Problem, Antworten, Pferd, Ziel, Plan, Selbstein
 2. In `cases/index.ts` eintragen – das Problem wird damit in der App klickbar.
 3. `npm run check:coach` (prüft alle Antwortwege, Sicherheitsregeln, Verweise, Suche).
 
-**Alle Inhalte sind fachlicher Entwurf** – vor dem Livegang von einer Reitlehrkraft prüfen lassen.
+Alle 50 Fälle und die Übungsbibliothek sind fachlich geprüft (14.11.2026). Neue Fälle als `review: "entwurf"` anlegen und vor dem Livegang prüfen lassen.
