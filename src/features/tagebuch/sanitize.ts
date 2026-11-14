@@ -1,6 +1,7 @@
 import {
   DIARY_VERSION,
   DISCIPLINES,
+  COACH_FEEDBACK,
   GOAL_STATUS,
   INTENSITIES,
   MOODS,
@@ -8,6 +9,7 @@ import {
   PLAN_PHASES,
   PLAN_KINDS,
   RELATIONS,
+  type CoachCaseRecord,
   type DiaryData,
   type DiaryEntry,
   type Goal,
@@ -227,6 +229,39 @@ export function cleanMilestone(v: unknown, horseIds: Set<string>, entryIds: Set<
   });
 }
 
+const KEY = /^[a-z0-9-]{1,30}$/;
+export function cleanCoachCase(v: unknown, horseIds: Set<string>, goalIds: Set<string>, planIds: Set<string>): CoachCaseRecord | null {
+  if (!isObj(v)) return null;
+  const cid = id(v.id);
+  const problemId = typeof v.problemId === "string" && /^cp-\d{2}$/.test(v.problemId) ? v.problemId : undefined;
+  if (!cid || !problemId) return null;
+  const answers: Record<string, string> = {};
+  if (isObj(v.answers))
+    for (const [k, a] of Object.entries(v.answers).slice(0, 30)) if (KEY.test(k) && typeof a === "string" && KEY.test(a)) answers[k] = a;
+  const feedback = Array.isArray(v.feedback)
+    ? v.feedback
+        .filter(isObj)
+        .flatMap((f): CoachCaseRecord["feedback"] => {
+          const date = day(f.date);
+          const fv = oneOf(f.v, COACH_FEEDBACK);
+          return date && fv ? [compact({ date, v: fv, note: str(f.note, 300) })] : [];
+        })
+        .slice(-100)
+    : [];
+  const now = new Date().toISOString();
+  return compact({
+    id: cid,
+    problemId,
+    horseId: typeof v.horseId === "string" && horseIds.has(v.horseId) ? v.horseId : undefined,
+    answers,
+    goalId: typeof v.goalId === "string" && goalIds.has(v.goalId) ? v.goalId : undefined,
+    planId: typeof v.planId === "string" && planIds.has(v.planId) ? v.planId : undefined,
+    feedback,
+    createdAt: iso(v.createdAt) ?? now,
+    updatedAt: iso(v.updatedAt) ?? now,
+  });
+}
+
 export function cleanTrainingPlan(v: unknown, horseIds: Set<string>, goalIds: Set<string>): TrainingPlan | null {
   if (!isObj(v)) return null;
   const pid = id(v.id);
@@ -268,6 +303,8 @@ export function cleanDiary(v: unknown): DiaryData | null {
     ? v.milestones.map((m) => cleanMilestone(m, ids, entryIds)).filter((m): m is Milestone => m !== null).slice(0, 500)
     : [];
   const plans = Array.isArray(v.plans) ? v.plans.map((p) => cleanTrainingPlan(p, ids, goalIds)).filter((p): p is TrainingPlan => p !== null).slice(0, 100) : [];
+  const planIds = new Set(plans.map((p) => p.id));
+  const coach = Array.isArray(v.coach) ? v.coach.map((c) => cleanCoachCase(c, ids, goalIds, planIds)).filter((c): c is CoachCaseRecord => c !== null).slice(0, 300) : [];
   const rest = Array.isArray(v.rest) ? [...new Set(v.rest.map(day).filter((d): d is string => !!d))].slice(-400) : [];
   return {
     version: DIARY_VERSION,
@@ -279,6 +316,7 @@ export function cleanDiary(v: unknown): DiaryData | null {
     milestones,
     plans,
     rest,
+    coach,
   };
 }
 

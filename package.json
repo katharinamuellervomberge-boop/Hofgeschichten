@@ -12,6 +12,7 @@
     "akademie:katalog": "tsx --conditions=react-server scripts/akademie-katalog.ts",
     "riderlab:katalog": "tsx --conditions=react-server scripts/riderlab-katalog.ts",
     "check:riderlab": "tsx --conditions=react-server scripts/check-riderlab.ts",
+    "check:coach": "tsx scripts/check-coach.ts",
     "codes": "node scripts/generate-codes.mjs",
     "voice:export": "tsx --conditions=react-server scripts/voice-export.ts",
     "voice:generate": "node scripts/voice-generate.mjs",

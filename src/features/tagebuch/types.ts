@@ -136,6 +136,22 @@ export type GoalCheckin = { date: string; v: number };
 /** Persönlicher Meilenstein – nur vom Nutzer selbst angelegt */
 export type Milestone = { id: string; date: string; title: string; note?: string; horseId?: string; entryId?: string; createdAt: string };
 
+/** Rider Coach (seit 14.11.2026): gespeicherter Coaching-Fall. Das Ergebnis wird aus den Antworten
+ *  jedes Mal neu berechnet (content/coach) – keine doppelte Datenhaltung. */
+export const COACH_FEEDBACK = ["unveraendert", "leicht", "deutlich", "geloest"] as const;
+export type CoachFeedback = { date: string; v: (typeof COACH_FEEDBACK)[number]; note?: string };
+export type CoachCaseRecord = {
+  id: string;
+  problemId: string; // cp-01 … cp-50
+  horseId?: string;
+  answers: Record<string, string>;
+  goalId?: string;
+  planId?: string; // TrainingPlan.id
+  feedback: CoachFeedback[];
+  createdAt: string;
+  updatedAt: string;
+};
+
 /** Ein mit dem Plan-Builder erstellter Plan (Eingaben + angewendete Regeln) */
 export type TrainingPlan = {
   id: string;
@@ -213,9 +229,10 @@ export type DiaryData = {
   milestones?: Milestone[];
   plans?: TrainingPlan[];
   rest?: string[]; // geplante Ruhetage (YYYY-MM-DD)
+  coach?: CoachCaseRecord[];
 };
 
-export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [], milestones: [], plans: [], rest: [] };
+export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [], milestones: [], plans: [], rest: [], coach: [] };
 
 export function moodLabel(m?: Mood): string | undefined {
   return MOODS.find((x) => x.id === m)?.label;
