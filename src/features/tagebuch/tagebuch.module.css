@@ -1709,3 +1709,9 @@
 .weekCardHead .mainText {
   display: block;
 }
+
+/* Riding Space: Ablauf- und Erinnerungshinweis */
+.accessNote {
+  border-left: 4px solid var(--honey);
+  margin-bottom: 1rem;
+}

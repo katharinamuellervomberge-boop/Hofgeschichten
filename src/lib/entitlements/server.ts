@@ -63,6 +63,7 @@ export async function ridingSpaceStatus(): Promise<RidingSpaceStatus> {
   if (e.ridingSpaceUntil) return { active: true, via: "kauf", until: new Date(e.ridingSpaceUntil * 1000).toISOString() };
   if (e.legacyDiary) return { active: true, via: "bestand" };
   if (e.membership) return { active: true, via: "mitglied" };
+  if (e.ridingSpaceExpired) return { active: false, expired: new Date(e.ridingSpaceExpired * 1000).toISOString() };
   return { active: false };
 }
 

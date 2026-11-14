@@ -251,7 +251,7 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
                   <span>Reitakademie kaufen</span>
                   <Icon name="external" />
                 </a>
-                <p className={styles.choiceText}>Den Freischaltcode erhalten Sie nach dem Kauf per E-Mail. Eingeben unten bei „Kauf freischalten“.</p>
+                <p className={styles.choiceText}>Nach dem Kauf unten bei „Kauf freischalten“ Bestellnummer und E-Mail der Bestellung eingeben. Reitertagebuch, Trainingsplaner und Rider Coach gehören nicht dazu – die gibt es im Riding Space.</p>
               </>
             ) : (
               <p className={styles.choiceText}>Der Kauf im Shop folgt in Kürze.</p>
@@ -266,7 +266,9 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
 /** Riding Space: Reitertagebuch, Trainingsplaner, Rider Coach – 49,90 € für 12 Monate (seit 14.11.2026) */
 function RidingSpaceProduct({ status }: { status: RidingSpaceStatus }) {
   const label = !status.active
-    ? `${rs.price} für 12 Monate`
+    ? status.expired
+      ? `Abgelaufen am ${new Date(status.expired).toLocaleDateString("de-DE")}`
+      : `${rs.price} für 12 Monate`
     : status.via === "kauf"
       ? `Freigeschaltet bis ${new Date(status.until).toLocaleDateString("de-DE")}`
       : status.via === "bestand"
@@ -288,7 +290,7 @@ function RidingSpaceProduct({ status }: { status: RidingSpaceStatus }) {
               <span>Riding Space kaufen</span>
               <Icon name="external" />
             </a>
-            <p className={styles.choiceText}>Nach dem Kauf unten bei „Kauf freischalten“ Bestellnummer und E-Mail eingeben. Die 12 Monate zählen ab dem Kaufdatum.</p>
+            <p className={styles.choiceText}>Nach dem Kauf unten bei „Kauf freischalten“ Bestellnummer und E-Mail eingeben. Die 12 Monate zählen ab dem Kaufdatum; danach endet der Zugang automatisch, ohne Verlängerung und ohne Kündigung. Wer die Reitakademie vor dem 15.11.2026 gekauft hat, hat den Riding Space bereits inklusive.</p>
           </div>
         </div>
       )}

@@ -9,7 +9,8 @@ import s from "./tagebuch.module.css";
  * Reitakademie und Mitglieder schalten weiterhin frei).
  * Zeigt nur Beispielinhalte, die klar als Beispiel gekennzeichnet sind – keine echten Daten.
  */
-export function DiaryPreview() {
+export function DiaryPreview({ expired }: { expired?: string } = {}) {
+  const expiredDate = expired ? new Date(expired).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }) : null;
   return (
     <div className={`page ${s.diary}`}>
       <div className={s.stack}>
@@ -18,6 +19,25 @@ export function DiaryPreview() {
           <h1 className={s.heroTitle}>Reitertagebuch, Trainingsplaner &amp; Rider Coach</h1>
           <p className={s.heroSub}>Jede Reitstunde festhalten. Jede Woche planen. Hilfe, wenn es im Sattel hakt.</p>
         </header>
+
+        {expiredDate && (
+          <section className={`${s.card} ${s.accessNote}`} role="status">
+            <h2 className={s.cardTitle}>Dein Riding Space ist am {expiredDate} abgelaufen</h2>
+            <p className={s.small}>
+              Die 12 Monate sind vorbei. Es wurde nichts verlängert und nichts abgebucht. Deine Einträge, Pferde und Pläne
+              sind weiterhin auf diesem Gerät gespeichert – sobald du den Riding Space neu kaufst und mit Bestellnummer und
+              E-Mail freischaltest, ist alles wieder da.
+            </p>
+            <div className={s.actions}>
+              <a href={ridingSpace.checkoutUrl} target="_blank" rel="noopener noreferrer" className={s.btnPrimary}>
+                Für weitere 12 Monate kaufen
+              </a>
+              <Link href="/eltern#riding-space" className={s.btnText}>
+                Neu gekauft? Freischalten
+              </Link>
+            </div>
+          </section>
+        )}
 
         <div className={s.previewStage} aria-label="Beispielansicht">
           <span className={s.previewBadge}>Beispiel</span>
@@ -62,8 +82,10 @@ export function DiaryPreview() {
         <section className={`${s.card} ${s.upgrade}`}>
           <h2 className={s.cardTitle}>Riding Space – {ridingSpace.price} für 12 Monate</h2>
           <p className={s.small}>
-            Kein Abo: Der Zugang endet nach 12 Monaten automatisch. Alle Einträge bleiben privat auf eurem Gerät. Wer die
-            Reitakademie vor dem 15.11.2026 gekauft hat, hat den Riding Space bereits inklusive.
+            Kein Abo: Der Zugang gilt 12 Monate ab Kaufdatum und endet dann automatisch – keine Verlängerung, keine
+            Kündigung nötig. Freischalten mit Bestellnummer und E-Mail der Bestellung. Alle Einträge bleiben privat auf
+            eurem Gerät. Die Reitakademie allein enthält den Riding Space nicht; wer die Reitakademie vor dem 15.11.2026
+            gekauft hat, hat ihn aber weiterhin inklusive.
           </p>
           <div className={s.actions}>
             <a href={ridingSpace.checkoutUrl} target="_blank" rel="noopener noreferrer" className={s.btnPrimary}>

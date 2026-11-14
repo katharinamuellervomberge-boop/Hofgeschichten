@@ -27,6 +27,8 @@ export type Entitlement = {
   ridingSpaceUntil: number | null;
   /** Reitakademie vor der Trennung gekauft → Tagebuch, Planer und Coach bleiben frei */
   legacyDiary: boolean;
+  /** Riding Space abgelaufen am (Unix-Sekunden) – nur zur Anzeige, gibt keinen Zugang */
+  ridingSpaceExpired?: number | null;
 };
 
 export const emptyEntitlement: Entitlement = { adventures: [], deviceId: null, membership: null, ridingSpaceUntil: null, legacyDiary: false };
@@ -87,7 +89,8 @@ export function readToken(token: string | undefined): Entitlement {
     if (p.v !== 2 || typeof p.d !== "string") return emptyEntitlement;
     const m = p.m && typeof p.m.c === "string" && typeof p.m.u === "number" ? { code: p.m.c, until: p.m.u } : null;
     const r = typeof p.r === "number" && p.r > nowSec ? p.r : null;
-    return { adventures, deviceId: p.d, membership: m, ridingSpaceUntil: r, legacyDiary: p.l === 1 || legacyByDate };
+    const rExpired = typeof p.r === "number" && p.r <= nowSec ? p.r : null;
+    return { adventures, deviceId: p.d, membership: m, ridingSpaceUntil: r, legacyDiary: p.l === 1 || legacyByDate, ridingSpaceExpired: rExpired };
   } catch {
     return emptyEntitlement;
   }

@@ -43,7 +43,7 @@ function useToast() {
  * (riding/engine.ts, neue Adressen u. a. /fortschritt, /uebungen, /meilensteine).
  * Profil, Lieblingsmomente, Rückblick und Sicherung bleiben die bisherigen Seiten.
  */
-export function DiaryApp({ view }: { view: string[] }) {
+export function DiaryApp({ view, accessUntil }: { view: string[]; accessUntil?: string }) {
   const state = useDiary();
   const toast = useToast();
 
@@ -92,8 +92,26 @@ export function DiaryApp({ view }: { view: string[] }) {
 
   return (
     <div className={`page ${s.diary}`}>
+      <AccessReminder until={accessUntil} />
       <div key={view.join("/")}>{body}</div>
       <Toast text={toast} onDone={clearToast} />
     </div>
+  );
+}
+
+/** Hinweis 30 Tage vor Ende eines gekauften Riding Space (kein Abo, verlängert sich nicht). */
+function AccessReminder({ until }: { until?: string }) {
+  if (!until) return null;
+  const end = new Date(until);
+  const days = Math.ceil((end.getTime() - Date.now()) / 86400000);
+  if (!(days > 0 && days <= 30)) return null;
+  const date = end.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  return (
+    <p className={`${s.card} ${s.accessNote} ${s.small}`} role="status">
+      Dein Riding Space läuft am {date} ab ({days === 1 ? "noch 1 Tag" : `noch ${days} Tage`}) und verlängert sich nicht
+      automatisch. Deine Einträge bleiben auf dem Gerät. Wer weitermachen möchte, kauft ihn im Shop neu – die neuen 12
+      Monate zählen ab dem neuen Kaufdatum, am besten also erst kurz vor dem Ablauf kaufen.{" "}
+      <a href="/eltern#riding-space">Mehr im Elternbereich</a>
+    </p>
   );
 }
