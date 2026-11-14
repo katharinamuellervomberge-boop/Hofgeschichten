@@ -17,6 +17,7 @@ export const DISCIPLINES = [
   "Stangenarbeit",
   "Reitunterricht",
   "Freies Reiten",
+  "Freiarbeit",
   "Sonstiges",
 ] as const;
 export type Discipline = (typeof DISCIPLINES)[number];
@@ -68,6 +69,9 @@ export type RiderProfile = {
   favoriteDiscipline?: string;
   wish?: string;
   proud?: string;
+  /** Riding Space (seit 14.11.2026) */
+  monthlyTarget?: number;
+  activeHorseId?: string;
 };
 
 export type Horse = {
@@ -86,6 +90,10 @@ export type Horse = {
   goodAt?: string;
   workingOn?: string;
   notes?: string;
+  /** seit 14.11.2026 */
+  birthYear?: number;
+  training?: string;
+  specials?: string;
   createdAt: string;
 };
 
@@ -103,8 +111,45 @@ export type DiaryEntry = {
   moment?: string;
   favorite?: boolean;
   photo?: string;
+  /* seit 14.11.2026 (Riding Space) */
+  focus?: string;
+  intensity?: Intensity;
+  difficult?: string;
+  coachTip?: string;
+  note?: string;
+  goalId?: string;
+  planId?: string;
+  lessons?: string[]; // Lektions- (ra-…) oder Rider-Lab-IDs (rl-…)
+  photos?: string[]; // weitere Fotos (data-URL, verkleinert)
   createdAt: string;
   updatedAt: string;
+};
+
+export const INTENSITIES = ["leicht", "mittel", "anspruchsvoll"] as const;
+export type Intensity = (typeof INTENSITIES)[number];
+export const PLAN_PHASES = ["Basis", "Aufbau", "Festigen"] as const;
+export const PLAN_LEVELS = ["Einsteiger", "Fortgeschritten", "Erfahren"] as const;
+
+/** Selbsteinschätzung zu einem Ziel (1–5) – subjektiv, keine Leistungsmessung */
+export type GoalCheckin = { date: string; v: number };
+
+/** Persönlicher Meilenstein – nur vom Nutzer selbst angelegt */
+export type Milestone = { id: string; date: string; title: string; note?: string; horseId?: string; entryId?: string; createdAt: string };
+
+/** Ein mit dem Plan-Builder erstellter Plan (Eingaben + angewendete Regeln) */
+export type TrainingPlan = {
+  id: string;
+  goalId?: string;
+  goalTitle: string;
+  horseId?: string;
+  perWeek: number;
+  weeks: number;
+  types: string[];
+  level: string;
+  start: string;
+  category?: string;
+  rules: string[];
+  createdAt: string;
 };
 
 export type Goal = {
@@ -115,6 +160,11 @@ export type Goal = {
   status: GoalStatus;
   createdAt: string;
   achievedAt?: string;
+  /* seit 14.11.2026 */
+  startDate?: string;
+  targetDate?: string;
+  notes?: string;
+  checkins?: GoalCheckin[];
 };
 
 /* ---------- Trainingsplan (seit 09.11.2026) ---------- */
@@ -123,6 +173,7 @@ export const PLAN_KINDS = [
   { id: "riderlab", label: "Rider Lab", hint: "Übung für Sitz und Körper – zu Hause" },
   { id: "lektion", label: "Lektion", hint: "Eine Lektion der Reitakademie" },
   { id: "eigenes", label: "Eigenes", hint: "Alles andere, z. B. Stall, Dehnen, Ausritt" },
+  { id: "boden", label: "Bodenarbeit", hint: "Bodenarbeit, Longieren, Freiarbeit" },
 ] as const;
 export type PlanKind = (typeof PLAN_KINDS)[number]["id"];
 
@@ -141,6 +192,13 @@ export type PlanItem = {
   done?: boolean;
   doneAt?: string;
   entryId?: string; // daraus entstandener Tagebucheintrag
+  /* seit 14.11.2026 (Plan-Builder) */
+  intensity?: Intensity;
+  phase?: string;
+  ex?: string[]; // Übungs-IDs der Bibliothek (ex-…)
+  rl?: string[]; // Rider-Lab-IDs
+  series?: string; // gehört zu TrainingPlan.id
+  check?: boolean; // Standortbestimmung
   createdAt: string;
 };
 
@@ -151,9 +209,13 @@ export type DiaryData = {
   entries: DiaryEntry[];
   goals: Goal[];
   plan: PlanItem[];
+  /* seit 14.11.2026 – ältere Tagebücher haben diese Felder nicht */
+  milestones?: Milestone[];
+  plans?: TrainingPlan[];
+  rest?: string[]; // geplante Ruhetage (YYYY-MM-DD)
 };
 
-export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [] };
+export const emptyDiary: DiaryData = { version: DIARY_VERSION, profile: {}, horses: [], entries: [], goals: [], plan: [], milestones: [], plans: [], rest: [] };
 
 export function moodLabel(m?: Mood): string | undefined {
   return MOODS.find((x) => x.id === m)?.label;

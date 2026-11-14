@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { loadDiary, requestPersistence, saveDiary } from "./db";
-import { cleanEntry, cleanGoal, cleanHorse, cleanPlanItem, cleanProfile, newId } from "./sanitize";
+import { cleanDiary, cleanEntry, cleanGoal, cleanHorse, cleanPlanItem, cleanProfile, newId } from "./sanitize";
 import { emptyDiary, type DiaryData, type DiaryEntry, type Goal, type GoalStatus, type Horse, type PlanItem, type RiderProfile } from "./types";
 
 /**
@@ -88,7 +88,8 @@ const nowIso = () => new Date().toISOString();
 
 /* ---------- Profil ---------- */
 export function saveProfile(p: RiderProfile) {
-  return commit((d) => ({ ...d, profile: cleanProfile(p) }));
+  // bestehende Felder (z. B. Monatsziel, aktives Pferd) bleiben erhalten
+  return commit((d) => ({ ...d, profile: cleanProfile({ ...d.profile, ...p }) }));
 }
 
 /* ---------- Pferde ---------- */
@@ -227,4 +228,13 @@ export function deletePlanItem(pid: string) {
 /* ---------- Sicherung ---------- */
 export function replaceDiary(data: DiaryData) {
   return commit(() => data);
+}
+
+/** Riding Space: ganzes Tagebuch speichern – wird vorher vollständig geprüft und bereinigt */
+export function saveWholeDiary(raw: unknown) {
+  return commit(() => {
+    const clean = cleanDiary(raw);
+    if (!clean) throw new SaveError("invalid");
+    return clean;
+  });
 }

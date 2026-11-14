@@ -148,4 +148,5 @@ export const PLAN_KIND_ICON: Record<PlanKind, "horse" | "lab" | "academy" | "sta
   riderlab: "lab",
   lektion: "academy",
   eigenes: "star",
+  boden: "horse",
 };

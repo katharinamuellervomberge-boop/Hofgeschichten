@@ -2,16 +2,12 @@
 
 import { useSyncExternalStore, type ReactNode } from "react";
 import { useDiary } from "./store";
-import { HomeView } from "./views/HomeView";
+import { BackupPanel } from "./views/BackupPanel";
+import { RidingSpace } from "./riding/RidingSpace";
 import { ProfileView } from "./views/ProfileView";
-import { HorsesView, HorseEditor } from "./views/HorsesView";
-import { EntryEditor } from "./views/EntryEditor";
-import { EntriesView, EntryDetail } from "./views/EntriesView";
-import { GoalsView } from "./views/GoalsView";
 import { MomentsView } from "./views/MomentsView";
 import { ReviewView } from "./views/ReviewView";
-import { PlanView } from "./views/PlanView";
-import { EmptyState, Toast } from "./ui";
+import { EmptyState, SubHeader, Toast } from "./ui";
 import s from "./tagebuch.module.css";
 
 export type Notify = (text: string) => void;
@@ -42,6 +38,10 @@ function useToast() {
  *   /tagebuch · /pferde · /pferde/neu · /pferde/<id> · /stunde · /stunde/<id>
  *   /eintraege · /eintrag/<id> · /ziele · /momente · /entwicklung · /profil
  *   /plan · /plan/<Montag YYYY-MM-DD>   (Trainingsplan, seit 09.11.2026)
+ *
+ * Seit 14.11.2026 laufen Start, Pferde, Einträge, Ziele und Plan über den Riding Space
+ * (riding/engine.ts, neue Adressen u. a. /fortschritt, /uebungen, /meilensteine).
+ * Profil, Lieblingsmomente, Rückblick und Sicherung bleiben die bisherigen Seiten.
  */
 export function DiaryApp({ view }: { view: string[] }) {
   const state = useDiary();
@@ -65,41 +65,28 @@ export function DiaryApp({ view }: { view: string[] }) {
     );
   } else {
     const d = state.data;
-    const [a, b] = view;
+    const [a] = view;
     const props = { data: d, notify };
     switch (a) {
-      case undefined:
-        body = <HomeView {...props} persisted={state.persisted} />;
-        break;
       case "profil":
         body = <ProfileView {...props} />;
-        break;
-      case "pferde":
-        body = b ? <HorseEditor {...props} horseId={b === "neu" ? undefined : b} /> : <HorsesView {...props} />;
-        break;
-      case "stunde":
-        body = <EntryEditor {...props} entryId={b} />;
-        break;
-      case "eintraege":
-        body = <EntriesView {...props} />;
-        break;
-      case "eintrag":
-        body = <EntryDetail {...props} entryId={b ?? ""} />;
-        break;
-      case "ziele":
-        body = <GoalsView {...props} />;
         break;
       case "momente":
         body = <MomentsView {...props} />;
         break;
-      case "plan":
-        body = <PlanView {...props} week={b} />;
-        break;
       case "entwicklung":
         body = <ReviewView {...props} />;
         break;
+      case "sicherung":
+        body = (
+          <div className={s.stack}>
+            <SubHeader title="Sicherung & Gerätewechsel" />
+            <BackupPanel {...props} persisted={state.persisted} />
+          </div>
+        );
+        break;
       default:
-        body = <EmptyState art="book" title="Diese Seite gibt es nicht" text="Geh zurück zur Startseite deines Tagebuchs." />;
+        body = <RidingSpace data={d} view={view} />;
     }
   }
 
