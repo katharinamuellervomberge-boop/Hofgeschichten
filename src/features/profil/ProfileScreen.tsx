@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { allLessons } from "@/content/akademie";
 import { ACADEMY_PATHS, academyModules, moduleHref, moduleLessons } from "@/content/akademie/module";
 import { publishedAdventures } from "@/content/adventures";
-import { grosseAkademie } from "@/content/products";
+import { grosseAkademie, ridingSpace } from "@/content/products";
 import { allStamps } from "@/content/stamps";
 import { lessonDone } from "@/features/akademie/progress";
 import type { MembershipStatus } from "@/lib/entitlements/server";
@@ -154,7 +154,7 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
           </Link>
         </section>
 
-        {/* Angebot – seit 09.11.2026 nur noch die Reitakademie (inkl. Rider Lab und Tagebuch) */}
+        {/* Angebot – seit 14.11.2026: Reitakademie (inkl. Rider Lab) und Riding Space getrennt */}
         <section aria-labelledby="pr-shop">
           <h2 id="pr-shop" className={styles.h2}>
             Angebot
@@ -164,9 +164,18 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
               <span className={styles.productKicker}>Einmalzahlung · kein Abo</span>
               <strong className={styles.productName}>Reitakademie</strong>
               <span className={styles.productPrice}>{grosseAkademie.price ?? "29,90 €"}</span>
-              <span className={styles.productText}>Alle Module inkl. Dressur und Springen, Rider Lab und Reitertagebuch mit Trainingsplan – dauerhafter Zugriff.</span>
+              <span className={styles.productText}>14 Module mit 157 Lektionen, 38 Lernvideos und Rider Lab – dauerhafter Zugriff.</span>
               <Link href="/akademie" className={styles.productLink}>
                 {academy ? "Zur Akademie" : "Ansehen"}
+              </Link>
+            </li>
+            <li className={styles.product}>
+              <span className={styles.productKicker}>12 Monate · endet automatisch</span>
+              <strong className={styles.productName}>Riding Space</strong>
+              <span className={styles.productPrice}>{ridingSpace.price}</span>
+              <span className={styles.productText}>Reitertagebuch, Trainingsplaner und Rider Coach – deine Daten bleiben auf dem Gerät.</span>
+              <Link href="/tagebuch" className={styles.productLink}>
+                Ansehen
               </Link>
             </li>
           </ul>

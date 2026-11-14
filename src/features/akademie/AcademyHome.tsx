@@ -271,7 +271,8 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         titleGrown: `Schalte die gesamte Reitakademie für einmalig ${price} frei.`,
         checks: [
           `Alle ${modules} Module mit ${allLessons().length} interaktiven Lektionen – von den Grundlagen bis zu Dressur und Springen`,
-          "6 animierte Lernvideos, Übungen und Quiz",
+          `${academyVideos.length} animierte Lernvideos, Übungen und Quiz`,
+          "Rider Lab: 20 animierte Übungen für zu Hause",
           "Abschlussquiz und Teilnahmezertifikat",
           "Dauerhafter Zugriff auf die enthaltenen Grundlagenmodule",
         ],

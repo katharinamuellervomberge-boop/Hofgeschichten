@@ -25,7 +25,7 @@ const ALL_NAV: NavItem[] = [
   { href: "/akademie", label: "Reitakademie", icon: "academy", short: "Akademie" },
   /* Rider Lab – Übungen für den Reitersitz, Teil der Reitakademie */
   { href: "/akademie/rider-lab", label: "Rider Lab", icon: "lab", short: "Lab" },
-  /* Mein Reitertagebuch mit Trainingsplan – mit Reitakademie, sonst Vorschau */
+  /* Riding Space (Tagebuch, Planer, Coach) – mit Riding Space oder Bestandsschutz, sonst Vorschau */
   { href: "/tagebuch", label: "Tagebuch", icon: "diary", title: "Mein Reitertagebuch" },
   { href: "/spielen", label: "Spielen", icon: "puzzle", also: ["/hoftag"] },
   /* Lernfortschritt, Pass, Käufe und Einstellungen */

@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, ridingSpace as rs } from "@/content/products";
+import type { RidingSpaceStatus } from "@/lib/entitlements/server";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
 
@@ -12,6 +13,7 @@ type Props = {
   owned: string[];
   accessible: string[];
   member: boolean;
+  ridingSpace: RidingSpaceStatus;
   orderUnlockAvailable: boolean;
   codeUnlockAvailable: boolean;
 };
@@ -21,7 +23,7 @@ type Props = {
  * Die Prüfung passiert ausschließlich auf dem Server (/api/freischalten).
  * Das Ergebnis ist ein signiertes HttpOnly-Cookie, das der Browser nicht verändern kann.
  */
-export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, codeUnlockAvailable }: Props) {
+export function UnlockPanel({ owned, accessible, member, ridingSpace, orderUnlockAvailable, codeUnlockAvailable }: Props) {
   const router = useRouter();
   const [mode, setMode] = useState<"order" | "code">(orderUnlockAvailable || !codeUnlockAvailable ? "order" : "code");
   const [orderNumber, setOrderNumber] = useState("");
@@ -46,13 +48,14 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mode === "order" ? { method: "order", orderNumber, email } : { method: "code", code }),
       });
-      const json = (await res.json()) as { ok: boolean; message?: string; adventures?: string[]; membership?: { until: string } | null; code?: string | null };
+      const json = (await res.json()) as { ok: boolean; message?: string; adventures?: string[]; membership?: { until: string } | null; ridingSpace?: { until: string } | null; code?: string | null };
       if (json.ok) {
         const names = premium.filter((a) => json.adventures?.includes(a.slug)).map((a) => a.title);
         if (json.adventures?.includes(grosseAkademie.slug)) names.unshift(grosseAkademie.name);
         if (json.adventures?.includes(meinTagAmHof.slug)) names.unshift(`Spiel „${meinTagAmHof.name}“`);
         if (json.adventures?.includes(adventskalender.slug)) names.unshift(`Adventskalender „${adventskalender.name}“`);
         if (json.membership) names.unshift("Hof-Mitgliedschaft");
+        if (json.ridingSpace) names.unshift(`Riding Space (bis ${new Date(json.ridingSpace.until).toLocaleDateString("de-DE")})`);
         setMsg({
           ok: true,
           text: `Freigeschaltet: ${names.join(", ")}. Viel Spaß beim Spielen!`,
@@ -84,6 +87,8 @@ export function UnlockPanel({ owned, accessible, member, orderUnlockAvailable, c
       <h2 id="abenteuer">Premium-Inhalte &amp; Freischaltung</h2>
 
       <AcademyProduct has={owned.includes(grosseAkademie.slug) || (grosseAkademie.includedInMembership && member)} member={member} owned={owned.includes(grosseAkademie.slug)} />
+
+      <RidingSpaceProduct status={ridingSpace} />
 
       <AdventProduct owned={owned.includes(adventskalender.slug)} member={member} />
 
@@ -251,6 +256,39 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
             ) : (
               <p className={styles.choiceText}>Der Kauf im Shop folgt in Kürze.</p>
             )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Riding Space: Reitertagebuch, Trainingsplaner, Rider Coach – 49,90 € für 12 Monate (seit 14.11.2026) */
+function RidingSpaceProduct({ status }: { status: RidingSpaceStatus }) {
+  const label = !status.active
+    ? `${rs.price} für 12 Monate`
+    : status.via === "kauf"
+      ? `Freigeschaltet bis ${new Date(status.until).toLocaleDateString("de-DE")}`
+      : status.via === "bestand"
+        ? "Mit der Reitakademie enthalten"
+        : "In der Mitgliedschaft enthalten";
+  return (
+    <div className={styles.product} id="riding-space">
+      <div className={styles.productHead}>
+        <strong>{rs.name}</strong>
+        <span className={`${styles.pill} ${status.active ? styles.pillOk : ""}`}>{label}</span>
+      </div>
+      <p className={styles.productInfo}>{rs.parentInfo}</p>
+      {!status.active && (
+        <div className={styles.choice}>
+          <div className={`${styles.choiceOption} ${styles.choiceBest}`}>
+            <p className={styles.choiceLabel}>Riding Space</p>
+            <p className={styles.choicePrice}>{rs.price} für 12 Monate · endet automatisch</p>
+            <a href={rs.checkoutUrl} target="_blank" rel="noopener noreferrer" className={styles.shopLink}>
+              <span>Riding Space kaufen</span>
+              <Icon name="external" />
+            </a>
+            <p className={styles.choiceText}>Nach dem Kauf unten bei „Kauf freischalten“ Bestellnummer und E-Mail eingeben. Die 12 Monate zählen ab dem Kaufdatum.</p>
           </div>
         </div>
       )}

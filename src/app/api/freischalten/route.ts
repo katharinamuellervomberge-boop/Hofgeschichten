@@ -23,7 +23,8 @@ const MESSAGES = {
   unavailable: "Die Freischaltung ist gerade nicht erreichbar. Bitte versuchen Sie es später erneut.",
   not_found: "Wir haben keine passende Bestellung gefunden. Bitte prüfen Sie Bestellnummer und E-Mail-Adresse.",
   not_paid: "Diese Bestellung ist noch nicht bezahlt oder wurde storniert.",
-  no_product: "In dieser Bestellung ist kein Abenteuer, keine Reitakademie, kein Adventskalender und keine Mitgliedschaft enthalten.",
+  no_product: "In dieser Bestellung ist kein App-Produkt enthalten (Reitakademie, Riding Space, Adventskalender, Abenteuer oder Mitgliedschaft).",
+  rs_expired: "Diese Riding-Space-Bestellung ist älter als 12 Monate. Der Zugang ist abgelaufen – im Shop können Sie den Riding Space für weitere 12 Monate kaufen.",
   bad_code: "Dieser Freischaltcode ist ungültig oder abgelaufen. Bitte prüfen Sie die Schreibweise (HG-XXXX-XXXX-XXXX).",
   device_full: `Dieser Mitgliedscode ist bereits auf einem anderen Gerät aktiv. Für einen Gerätewechsel entfernen Sie die Freischaltung zuerst auf dem alten Gerät (Elternbereich → „Freischaltung von diesem Gerät entfernen“). Ist das alte Gerät nicht mehr verfügbar, schreiben Sie bitte an ${plan.supportEmail} – wir setzen die Gerätebindung zurück.`,
   rate: "Zu viele Versuche. Bitte warten Sie 15 Minuten.",
@@ -53,6 +54,8 @@ export async function POST(req: Request) {
   let grant: MembershipGrant | null = null;
   /** Wird nach Bestellprüfung angezeigt, damit Eltern den Code für den Gerätewechsel notieren können */
   let showCode: string | null = null;
+  let ridingSpaceUntil: number | null = null;
+  let academyLegacy = false;
 
   if (body?.method === "order") {
     const orderNumber = normalizeOrderNumber(String(body.orderNumber ?? ""));
@@ -62,6 +65,11 @@ export async function POST(req: Request) {
     const result = await verifyShopifyOrder(orderNumber, email);
     if (!result.ok) return fail(result.reason, result.reason === "unavailable" ? 503 : 400);
     unlocked = result.adventures;
+    academyLegacy = result.academyLegacy;
+    if (result.ridingSpaceUntil) {
+      if (result.ridingSpaceUntil <= Date.now() / 1000 && !unlocked.length && !result.membershipOrder) return fail("rs_expired");
+      if (result.ridingSpaceUntil > Date.now() / 1000) ridingSpaceUntil = result.ridingSpaceUntil;
+    }
     if (result.membershipOrder) {
       const m = membershipCodeForOrder(result.membershipOrder.id, result.membershipOrder.processedAt);
       if (!m) return fail("unavailable", 503);
@@ -95,6 +103,8 @@ export async function POST(req: Request) {
     adventures: [...existing.adventures, ...unlocked],
     deviceId,
     membership: grant ?? existing.membership,
+    ridingSpaceUntil: Math.max(existing.ridingSpaceUntil ?? 0, ridingSpaceUntil ?? 0) || null,
+    legacyDiary: existing.legacyDiary || academyLegacy,
   });
   if (!token) return fail("unavailable", 503);
 
@@ -102,6 +112,7 @@ export async function POST(req: Request) {
     ok: true,
     adventures: unlocked,
     membership: grant ? { until: new Date(grant.until * 1000).toISOString() } : null,
+    ridingSpace: ridingSpaceUntil ? { until: new Date(ridingSpaceUntil * 1000).toISOString() } : null,
     code: showCode,
   });
   res.cookies.set(COOKIE_NAME, token, {
@@ -109,7 +120,7 @@ export async function POST(req: Request) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: grant ? Math.max(MAX_AGE_SECONDS, grant.until - Math.floor(Date.now() / 1000)) : MAX_AGE_SECONDS,
+    maxAge: Math.max(MAX_AGE_SECONDS, (grant?.until ?? 0) - Math.floor(Date.now() / 1000), (ridingSpaceUntil ?? 0) - Math.floor(Date.now() / 1000)),
   });
   return res;
 }

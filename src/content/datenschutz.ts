@@ -147,7 +147,7 @@ Eine darüber hinausgehende Speicherung oder Auswertung erfolgt nur auf einer en
 
 ## 7a. Mein Reitertagebuch
 
-Mitglieder und Käufer der Reitakademie können im Bereich „Mein Reitertagebuch“ Pferde, Reitstunden, Ziele, Notizen und auf Wunsch Fotos festhalten.
+Nutzer des Riding Space (auch Mitglieder und Käufer der Reitakademie mit Bestandsschutz) können im Bereich „Mein Reitertagebuch“ Pferde, Reitstunden, Ziele, Notizen und auf Wunsch Fotos festhalten.
 
 Diese Angaben werden ausschließlich lokal im Speicher des verwendeten Browsers beziehungsweise Endgeräts (IndexedDB) gespeichert. Sie werden nicht an unsere Server oder an Dritte übertragen; wir haben keinen Zugriff darauf.
 

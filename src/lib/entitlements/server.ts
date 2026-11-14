@@ -48,6 +48,28 @@ export async function hasGrosseAkademie(): Promise<boolean> {
 /** Neuer Name, gleiche Prüfung */
 export const hasAcademy = hasGrosseAkademie;
 
+export type RidingSpaceStatus =
+  | { active: true; via: "kauf"; until: string }
+  | { active: true; via: "bestand" | "mitglied" }
+  | { active: false; expired?: string };
+
+/**
+ * Riding Space (Reitertagebuch, Trainingsplaner, Rider Coach) – seit 14.11.2026 eigenes Produkt.
+ * Frei bei: gültigem Riding-Space-Kauf (12 Monate), Bestandsschutz (Reitakademie vor der Trennung
+ * gekauft) oder aktiver Hof-Mitgliedschaft.
+ */
+export async function ridingSpaceStatus(): Promise<RidingSpaceStatus> {
+  const e = await getEntitlement();
+  if (e.ridingSpaceUntil) return { active: true, via: "kauf", until: new Date(e.ridingSpaceUntil * 1000).toISOString() };
+  if (e.legacyDiary) return { active: true, via: "bestand" };
+  if (e.membership) return { active: true, via: "mitglied" };
+  return { active: false };
+}
+
+export async function hasRidingSpace(): Promise<boolean> {
+  return (await ridingSpaceStatus()).active;
+}
+
 /**
  * Adventskalender „Das Geheimnis des Winterhofs“: Zugriff auf diesem Gerät?
  *  "owned"  = gekauft (Einzelprodukt oder Paket, per Bestellnummer oder Code)

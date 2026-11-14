@@ -1,10 +1,12 @@
 import Link from "@/i18n/Link";
 import { Icon } from "@/components/illustrations/Icons";
+import { ridingSpace } from "@/content/products";
 import { MoodIcon } from "./ui";
 import s from "./tagebuch.module.css";
 
 /**
- * Vorschau für alle ohne Reitakademie (bestehende Mitgliedschaften schalten weiterhin frei).
+ * Vorschau für alle ohne Riding Space (seit 14.11.2026 eigenes Produkt; Bestandskäufer der
+ * Reitakademie und Mitglieder schalten weiterhin frei).
  * Zeigt nur Beispielinhalte, die klar als Beispiel gekennzeichnet sind – keine echten Daten.
  */
 export function DiaryPreview() {
@@ -12,9 +14,9 @@ export function DiaryPreview() {
     <div className={`page ${s.diary}`}>
       <div className={s.stack}>
         <header className={s.hero}>
-          <p className="eyebrow">Mein Reitertagebuch</p>
-          <h1 className={s.heroTitle}>Dein Reitertagebuch</h1>
-          <p className={s.heroSub}>Deine Pferde. Deine Fortschritte. Deine schönsten Momente.</p>
+          <p className="eyebrow">Riding Space</p>
+          <h1 className={s.heroTitle}>Reitertagebuch, Trainingsplaner &amp; Rider Coach</h1>
+          <p className={s.heroSub}>Jede Reitstunde festhalten. Jede Woche planen. Hilfe, wenn es im Sattel hakt.</p>
         </header>
 
         <div className={s.previewStage} aria-label="Beispielansicht">
@@ -47,7 +49,10 @@ export function DiaryPreview() {
             <Icon name="check" /> Eigene Ziele setzen und abhaken – ohne Ranglisten, ohne Druck
           </li>
           <li>
-            <Icon name="plan" /> Trainingsplan für die Woche: Reitstunden, Rider-Lab-Übungen und Lektionen planen und abhaken
+            <Icon name="plan" /> Trainingsplaner für Woche und Monat – mit Plan-Builder, Ruhetagen und Zielen mit Verlauf
+          </li>
+          <li>
+            <Icon name="check" /> Rider Coach: Problem im Sattel beschreiben, passende Übungen und einen Wochenplan bekommen
           </li>
           <li>
             <Icon name="star" /> Lieblingsmomente sammeln und jeden Monat zurückblicken
@@ -55,15 +60,16 @@ export function DiaryPreview() {
         </ul>
 
         <section className={`${s.card} ${s.upgrade}`}>
-          <h2 className={s.cardTitle}>In der Reitakademie enthalten</h2>
+          <h2 className={s.cardTitle}>Riding Space – {ridingSpace.price} für 12 Monate</h2>
           <p className={s.small}>
-            Mit der Reitakademie ist das Reitertagebuch samt Trainingsplan freigeschaltet. Die Einträge bleiben privat auf eurem Gerät.
+            Kein Abo: Der Zugang endet nach 12 Monaten automatisch. Alle Einträge bleiben privat auf eurem Gerät. Wer die
+            Reitakademie vor dem 15.11.2026 gekauft hat, hat den Riding Space bereits inklusive.
           </p>
           <div className={s.actions}>
-            <Link href="/akademie" className={s.btnPrimary}>
-              Zur Reitakademie
-            </Link>
-            <Link href="/eltern" className={s.btnText}>
+            <a href={ridingSpace.checkoutUrl} target="_blank" rel="noopener noreferrer" className={s.btnPrimary}>
+              Riding Space kaufen
+            </a>
+            <Link href="/eltern#riding-space" className={s.btnText}>
               Schon gekauft? Freischalten
             </Link>
           </div>

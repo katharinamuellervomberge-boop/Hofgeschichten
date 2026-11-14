@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ParentsArea } from "@/features/parents/ParentsArea";
 import { codesConfigured } from "@/lib/entitlements/codes";
-import { getAccessibleAdventures, getMembershipStatus, getOwnedAdventures } from "@/lib/entitlements/server";
+import { getAccessibleAdventures, getMembershipStatus, getOwnedAdventures, ridingSpaceStatus } from "@/lib/entitlements/server";
 import { shopifyConfigured } from "@/lib/entitlements/shopify";
 import { entitlementsConfigured } from "@/lib/entitlements/token";
 import { UnlockEn } from "@/features/parents/UnlockEn";
@@ -22,6 +22,7 @@ export default async function Page() {
       owned={await getOwnedAdventures()}
       accessible={await getAccessibleAdventures()}
       membership={await getMembershipStatus()}
+      ridingSpace={await ridingSpaceStatus()}
       orderUnlockAvailable={base && shopifyConfigured()}
       codeUnlockAvailable={base && codesConfigured()}
     />

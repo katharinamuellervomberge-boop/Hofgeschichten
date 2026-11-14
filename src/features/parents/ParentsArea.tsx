@@ -1,6 +1,6 @@
 "use client";
 
-import { grosseAkademie } from "@/content/products";
+import { grosseAkademie, ridingSpace as ridingSpaceProduct } from "@/content/products";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { PlaceholderBadge } from "@/components/ui/PlaceholderBadge";
@@ -13,7 +13,7 @@ import { progressActions, useProgress } from "@/lib/progress/store";
 import { hasLocalGermanVoice, recordingsAvailable, speechSupported, voiceEnabled } from "@/lib/speech";
 import { AcademyParents } from "@/features/akademie/AcademyParents";
 import { academyDoneCount } from "@/features/akademie/progress";
-import type { MembershipStatus } from "@/lib/entitlements/server";
+import type { MembershipStatus, RidingSpaceStatus } from "@/lib/entitlements/server";
 import { MembershipPanel } from "./MembershipPanel";
 import { UnlockPanel } from "./UnlockPanel";
 import styles from "./ParentsArea.module.css";
@@ -22,11 +22,12 @@ type Props = {
   owned: string[];
   accessible: string[];
   membership: MembershipStatus;
+  ridingSpace: RidingSpaceStatus;
   orderUnlockAvailable: boolean;
   codeUnlockAvailable: boolean;
 };
 
-export function ParentsArea({ owned, accessible, membership, orderUnlockAvailable, codeUnlockAvailable }: Props) {
+export function ParentsArea({ owned, accessible, membership, ridingSpace, orderUnlockAvailable, codeUnlockAvailable }: Props) {
   const progress = useProgress();
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetDone, setResetDone] = useState(false);
@@ -67,6 +68,7 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
           owned={owned}
           accessible={accessible}
           member={membership.active}
+          ridingSpace={ridingSpace}
           orderUnlockAvailable={orderUnlockAvailable}
           codeUnlockAvailable={codeUnlockAvailable}
         />
@@ -128,7 +130,11 @@ export function ParentsArea({ owned, accessible, membership, orderUnlockAvailabl
             ))}
             <li>
               <strong>Die Reitakademie</strong>
-              <p>Reitwissen in neun Modulen – Pferde verstehen, Umgang, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur, Springen und Abschluss. Je Modul eine Probelektion kostenlos, die ganze Akademie {grosseAkademie.price} einmalig. Details weiter unten.</p>
+              <p>Reitwissen in 14 Modulen mit 157 Lektionen – von Pferde verstehen und Reiten lernen über Haltung, Gesundheit, Verhalten und Gelände bis zu Reitlehre Advanced, Dressur und Springen, dazu das Rider Lab. Je Modul eine Probelektion kostenlos, die ganze Akademie {grosseAkademie.price} einmalig. Details weiter unten.</p>
+            </li>
+            <li>
+              <strong>Riding Space</strong>
+              <p>Reitertagebuch, Trainingsplaner und Rider Coach – {ridingSpaceProduct.price} für 12 Monate, endet automatisch. Details weiter unten.</p>
             </li>
           </ul>
         </section>

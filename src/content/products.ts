@@ -34,7 +34,7 @@ export const grosseAkademie = {
   checkoutUrl: "https://www.horseandharmonie-shop.de/products/die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
   /** Kurzbeschreibung für Eltern */
   parentInfo:
-    "Neun Module mit über 80 interaktiven Lektionen – Pferde verstehen, Umgang mit Pferden, Reiten lernen, Reiterhilfen, Bahnfiguren und Bahnregeln, Besser reiten, Dressur (bis zu Piaffe und Passage), Springen (Springsitz, Sprungphasen, Hindernisse, Distanzen, Parcours) und Akademie-Abschluss – mit Quiz, Übungen, 6 animierten Lernvideos und Teilnahmezertifikat. Drei Lernwege: Kids (6–11), Teen (12–17) und Adult (ab 18). Einmalzahlung, kein Abo.",
+    "14 Module mit 157 interaktiven Lektionen – von Pferde verstehen, Umgang und Reiten lernen über Haltung, Fütterung, Gesundheit, Verhalten und Gelände bis zu Reitlehre Advanced, Dressur und Springen – mit Quiz, Übungen, 38 animierten Lernvideos, dem Rider Lab (20 Übungen für zu Hause) und Teilnahmezertifikat. Einmalzahlung, kein Abo.",
 };
 
 /**
@@ -137,4 +137,26 @@ export const meinTagAmHof = {
 };
 
 /** Alle Paket-Kennungen, die im Berechtigungs-Cookie stehen dürfen */
+/**
+ * Riding Space (seit 14.11.2026 eigenes Produkt): Reitertagebuch, Trainingsplaner und Rider Coach.
+ * 49,90 € für 12 Monate, endet automatisch – kein Abo, keine Verlängerung.
+ * Freischaltung über Bestellnummer + E-Mail; gültig ab Kaufdatum für `termDays` Tage.
+ * Nicht im Berechtigungs-Feld `adventures`, sondern mit eigenem Ablaufdatum im Cookie (token.ts, Feld `r`).
+ *
+ * Bestandsschutz: Wer die Reitakademie vor `legacyCutoff` gekauft hat (damals „mit Reitertagebuch“),
+ * behält Tagebuch, Planer und Coach dauerhaft (token.ts, Feld `l`). Hof-Mitglieder behalten den Zugang ebenfalls.
+ */
+export const ridingSpace = {
+  slug: "riding-space",
+  name: "Riding Space",
+  price: "49,90 €",
+  termDays: 365,
+  shopifyProductHandle: "riding-space-reitertagebuch-trainingsplaner-rider-coach",
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/riding-space-reitertagebuch-trainingsplaner-rider-coach",
+  /** Akademie-Käufe vor diesem Zeitpunkt enthalten das Tagebuch weiterhin (Unix-Sekunden, 15.11.2026 00:00 MEZ) */
+  legacyCutoff: Math.floor(Date.UTC(2026, 10, 14, 23, 0, 0) / 1000),
+  parentInfo:
+    "Reitertagebuch, Trainingsplaner und Rider Coach: Reitstunden mit Fotos festhalten, Ziele mit Verlauf, Wochen- und Monatsplanung, regelbasierter Plan-Builder und ein Coach, der bei Problemen im Sattel passende Übungen vorschlägt. Alle Daten bleiben auf dem Gerät. 12 Monate Zugang, endet automatisch – kein Abo.",
+};
+
 export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug];

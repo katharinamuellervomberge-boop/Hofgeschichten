@@ -1,6 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, ridingSpace } from "@/content/products";
 import { hofpost, membership } from "@/content/membership";
 
 /**
@@ -86,7 +86,15 @@ type OrderNode = {
 };
 
 export type VerifyResult =
-  | { ok: true; adventures: string[]; membershipOrder: { id: string; processedAt: Date } | null }
+  | {
+      ok: true;
+      adventures: string[];
+      membershipOrder: { id: string; processedAt: Date } | null;
+      /** Riding Space gültig bis (Unix-Sekunden), ab Kaufdatum */
+      ridingSpaceUntil: number | null;
+      /** Reitakademie vor der Trennung gekauft → Tagebuch-Bestandsschutz */
+      academyLegacy: boolean;
+    }
   | { ok: false; reason: "not_found" | "not_paid" | "no_product" | "unavailable" };
 
 /** Bestellnummer normalisieren: "#1234", "1234", " #1234 " → "1234" */
@@ -104,6 +112,8 @@ export function normalizeOrderNumber(input: string): string | null {
 const TITLE_RULES: Array<[RegExp, () => string | null]> = [
   // Adventskalender zuerst: Titel wie „… Adventskalender (für Reitakademie-Kunden)“ dürfen NICHT die Akademie freischalten.
   // Nur das Paket (Titel mit „Reitakademie“ UND „Adventskalender“ und „+“/„Paket“) schaltet beides frei.
+  // Riding Space zuerst: der Titel nennt das Reitertagebuch, aber nie die Reitakademie
+  [/riding space/i, () => ridingSpace.shopifyProductHandle],
   [/(reitakademie.*(\+|paket).*adventskalender|adventskalender.*(\+|paket).*reitakademie)/i, () => adventskalender.bundleProductHandle],
   [/adventskalender|winterhof/i, () => adventskalender.shopifyProductHandle],
   [/reitakademie/i, () => grosseAkademie.shopifyProductHandle],
@@ -119,7 +129,7 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
  * „Die Reitakademie – Online-Reitkurs mit Reitertagebuch (…, Hofgeschichten)“ – ohne diesen
  * Eintrag schlugen alle Akademie-Bestellungen ab #1101 mit „no_product“ fehl.
  */
-const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/];
+const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/, /^Riding Space\s+[–-]/];
 
 function handleFromTitle(title: string | null): string | null {
   const t = (title ?? "").trim();
@@ -173,7 +183,10 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   const membershipOrder = handles.has(membership.shopifyProductHandle) || handles.has(hofpost.shopifyProductHandle)
     ? { id: order.id, processedAt: new Date(order.processedAt) }
     : null;
-  return unlocked.length || membershipOrder
-    ? { ok: true, adventures: unlocked, membershipOrder }
+  const processed = Math.floor(new Date(order.processedAt).getTime() / 1000);
+  const ridingSpaceUntil = handles.has(ridingSpace.shopifyProductHandle) ? processed + ridingSpace.termDays * 86400 : null;
+  const academyLegacy = unlocked.includes(grosseAkademie.slug) && processed < ridingSpace.legacyCutoff;
+  return unlocked.length || membershipOrder || ridingSpaceUntil
+    ? { ok: true, adventures: unlocked, membershipOrder, ridingSpaceUntil, academyLegacy }
     : { ok: false, reason: "no_product" };
 }
