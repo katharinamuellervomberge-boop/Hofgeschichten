@@ -58,5 +58,219 @@
     "schlange": 5.49,
     "rund": 6.92,
     "merke": 4.39
+  },
+  "pferdeverdauung": {
+    "titel": 2.22,
+    "weg": 7.71,
+    "groesse": 7.37,
+    "saeure": 8.62,
+    "dickdarm": 8.46,
+    "regeln": 2.72,
+    "merke": 7.16
+  },
+  "raufutterbedarf": {
+    "titel": 2.82,
+    "regel": 6.71,
+    "ts": 8.36,
+    "rechnung": 6.71,
+    "umrechnen": 5.2,
+    "dick": 8.44,
+    "merke": 7.21
+  },
+  "anweiden": {
+    "titel": 1.91,
+    "warum": 10.58,
+    "plan": 5.41,
+    "heu": 3.5,
+    "fruktan": 7.11,
+    "merke": 4.7
+  },
+  "stallhaltung-vergleichen": {
+    "titel": 6.71,
+    "kriterien": 2.59,
+    "vergleich": 2.32,
+    "box": 8.41,
+    "umsetzung": 8.7,
+    "merke": 4.94
+  },
+  "hufaufbau": {
+    "titel": 2.17,
+    "aussen": 7.44,
+    "innen": 6.14,
+    "wachstum": 6.95,
+    "mechanik": 8.59,
+    "merke": 7.73
+  },
+  "pferdezaehne": {
+    "titel": 1.62,
+    "gebiss": 4.13,
+    "nachschub": 6.43,
+    "kanten": 7.47,
+    "zeichen": 1.65,
+    "merke": 6.48
+  },
+  "stallapotheke": {
+    "titel": 2.59,
+    "messen": 1.91,
+    "verband": 2.53,
+    "reinigen": 8.15,
+    "medikamente": 8.52,
+    "merke": 5.88
+  },
+  "pferdeohren": {
+    "titel": 2.32,
+    "vorn": 5.28,
+    "seitlich": 5.07,
+    "zurueck": 4.39,
+    "reiter": 6.16,
+    "merke": 5.59
+  },
+  "herdenkommunikation": {
+    "titel": 2.53,
+    "schutz": 7.18,
+    "leise": 6.82,
+    "rang": 8.36,
+    "mensch": 6.24
+  },
+  "warum-pferde-erschrecken": {
+    "titel": 3.11,
+    "sehen": 7.16,
+    "seiten": 6.14,
+    "flucht": 9.09,
+    "helfen": 7.08,
+    "merke": 5.07
+  },
+  "koerpersprache-fuehren": {
+    "titel": 1.83,
+    "position": 9.72,
+    "los": 7,
+    "abstand": 8.49,
+    "sicher": 5.49
+  },
+  "ausbildungsskala": {
+    "titel": 4.36,
+    "stufen": 6.09,
+    "phasen": 9.17,
+    "stunde": 2.66,
+    "zurueck": 7.65
+  },
+  "pferdebiomechanik": {
+    "titel": 2.14,
+    "vorhand": 7.18,
+    "bewegung": 3.37,
+    "ruecken": 9.72,
+    "rumpf": 8.72,
+    "merke": 5.98
+  },
+  "reiterposition": {
+    "titel": 2.8,
+    "linie": 4.49,
+    "hand": 3.79,
+    "mitgehen": 5.9,
+    "fehler": 6.27,
+    "merke": 3.94
+  },
+  "halbe-paraden": {
+    "titel": 2.8,
+    "kein-ruck": 5.22,
+    "wirkung": 5.67,
+    "gefuehl": 6.69,
+    "uebung": 5.98,
+    "merke": 6.53
+  },
+  "anlehnung": {
+    "titel": 1.44,
+    "hinten": 6.35,
+    "bild": 5.22,
+    "fehler": 5.17,
+    "test": 7.08
+  },
+  "stellung-biegung": {
+    "titel": 3.27,
+    "stellung": 7.84,
+    "biegung": 5.22,
+    "hilfen": 3.45,
+    "fehler": 6.3,
+    "merke": 5.72
+  },
+  "ueber-die-schulter": {
+    "titel": 2.32,
+    "schiefe": 5.43,
+    "zeichen": 5.59,
+    "prinzip": 6.3,
+    "schultervor": 6.37,
+    "merke": 4.99
+  },
+  "galopp-fussfolge": {
+    "titel": 1.72,
+    "takt": 10.14,
+    "zeitlupe": 4.86,
+    "links": 7.08,
+    "aussen": 4.6
+  },
+  "richtig-angaloppieren": {
+    "titel": 2.32,
+    "vorbereiten": 5.43,
+    "hilfen": 5.59,
+    "warum": 6.27,
+    "fehler": 6.37,
+    "merke": 5.15
+  },
+  "galoppfehler": {
+    "titel": 1.54,
+    "falsch": 9.12,
+    "kreuz": 7.68,
+    "vier": 7.65,
+    "reagieren": 6.45,
+    "merke": 5.17
+  },
+  "schenkelweichen-schulterherein": {
+    "titel": 4.36,
+    "weichen": 8.41,
+    "herein": 7.31,
+    "zweck": 7.5,
+    "merke": 3.45
+  },
+  "galoppwechsel": {
+    "titel": 1.62,
+    "einfach": 6.27,
+    "fliegend": 5.77,
+    "voraus": 7.94,
+    "merke": 3.45
+  },
+  "bergauf-bergab": {
+    "titel": 2.12,
+    "bergauf": 5.64,
+    "bergab": 6.92,
+    "schraeg": 3.84,
+    "merke": 6.5
+  },
+  "erster-galopp-gelaende": {
+    "titel": 1.93,
+    "wo": 5.33,
+    "ablauf": 7.42,
+    "galopp": 4.55,
+    "merke": 5.49
+  },
+  "gruppenregeln-ausreiten": {
+    "titel": 2.12,
+    "rollen": 7.31,
+    "regeln": 1.59,
+    "schleifen": 6.16,
+    "merke": 4.99
+  },
+  "gefahren-gelaende": {
+    "titel": 2.12,
+    "rad": 7.99,
+    "hund": 7.44,
+    "wild": 6.45,
+    "fahrzeug": 7.34
+  },
+  "nach-dem-reitunfall": {
+    "titel": 1.96,
+    "ablauf": 5.33,
+    "liegen": 6.79,
+    "notruf": 5.59,
+    "einweisen": 7.05
   }
 }
