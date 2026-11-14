@@ -251,7 +251,7 @@ function AcademyProduct({ has, member, owned }: { has: boolean; member: boolean;
                   <span>Reitakademie kaufen</span>
                   <Icon name="external" />
                 </a>
-                <p className={styles.choiceText}>Den Freischaltcode erhalten Sie nach dem Kauf per E-Mail. Eingeben unten bei „Kauf freischalten“.</p>
+                <p className={styles.choiceText}>Nach dem Kauf unten bei „Kauf freischalten“ Bestellnummer und E-Mail-Adresse der Bestellung eingeben – sofort freigeschaltet.</p>
               </>
             ) : (
               <p className={styles.choiceText}>Der Kauf im Shop folgt in Kürze.</p>

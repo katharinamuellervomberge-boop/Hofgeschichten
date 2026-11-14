@@ -281,9 +281,9 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         forParents: `Für Eltern: ${price} einmalig, kein Abo.`,
         once: "einmalig",
         buy: "Jetzt freischalten",
-        code: "Code eingeben",
+        code: "Schon gekauft? Freischalten",
         small:
-          "Nach dem Kauf kommt ein Freischaltcode per E-Mail. Den Code im Bereich „Code eingeben“ eintragen – fertig. Bei Minderjährigen kaufen die Eltern.",
+          "Nach dem Kauf im Elternbereich Bestellnummer und E-Mail-Adresse der Bestellung eingeben – fertig, sofort freigeschaltet. Bei Minderjährigen kaufen die Eltern.",
       };
   return (
     <section className={styles.buy} aria-labelledby="ak-buy-title" id="ak-buy">
