@@ -79,7 +79,18 @@ const expect: [string, string][] = [
   ["unruhige hände", "cp-06"],
   ["trab immer schneller", "cp-19"],
   ["fällt über die äußere schulter", "cp-29"],
+  ["ich kippe nach vorne", "cp-01"],
+  ["knie klemmen", "cp-09"],
+  ["pferd ist faul und träge", "cp-11"],
+  ["anlehnung schwankt", "cp-15"],
+  ["kreuzgalopp", "cp-27"],
+  ["schulterherein takt", "cp-38"],
+  ["pferd scheut oft", "cp-45"],
+  ["will nicht alleine ausreiten", "cp-46"],
+  ["heimweg zu schnell", "cp-50"],
+  ["fliegender galoppwechsel", "cp-44"],
 ];
+for (const p of COACH_PROBLEMS) if (!p.ready) fail(`${p.id}: kein vollständiger Fall`);
 for (const [q, want] of expect) {
   const top = searchProblems(q, { max: 3 }).map((h) => h.problem.id);
   if (!top.includes(want)) fail(`Suche „${q}“ findet ${want} nicht (gefunden: ${top.join(", ") || "nichts"})`);

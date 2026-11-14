@@ -125,12 +125,12 @@ export function evaluate(p: CoachProblemContent, answers: Answers): CoachResult 
     if (exercises.length < 2) exercises = [...new Set([...exercises, ...(status === "abklaeren" ? p.gentle : p.fallback)])].filter(allowed);
     exercises = exercises.slice(0, MAX_EXERCISES);
     const dropped = [...new Set(pool)].filter((id) => (exerciseById(id)?.level ?? 0) > cap);
-    if (dropped.length && status !== "abklaeren") notes.push("Einige Übungen sind für deinen Stand noch zu anspruchsvoll. Übe den Galopp am besten gemeinsam mit deiner Reitlehrkraft.");
+    if (dropped.length && status !== "abklaeren") notes.push("Einige Übungen sind für deinen Stand noch zu anspruchsvoll und werden nicht gezeigt. Übe solche Inhalte gemeinsam mit deiner Reitlehrkraft.");
   }
   if (stop) notes.push("Wegen der Hinweise auf Schmerzen oder Unwohlsein zeigen wir keine Übungen mit Pferd und keinen Trainingsplan. Bitte lass dein Pferd zuerst untersuchen.");
-  else if (status === "abklaeren") notes.push("Bis zur Abklärung empfehlen wir nur ruhige Übungen ohne Galopparbeit.");
+  else if (status === "abklaeren") notes.push("Bis zur Abklärung empfehlen wir nur ruhige, wenig belastende Übungen.");
   if (status === "unklar") notes.push("Deine Angaben reichen nicht für eine zuverlässige Eingrenzung. Die Übungen unten sind Grundlagen, die bei diesem Problem allgemein sinnvoll sind. Eine Reitlehrkraft vor Ort kann genauer hinschauen.");
-  if (a["q-reiter"] === "weiss-nicht") notes.push("Tipp: Lass dich beim Angaloppieren filmen – so siehst du selbst, was dein Sitz und deine Hände machen.");
+  if (a["q-reiter"] === "weiss-nicht") notes.push("Tipp: Lass dich beim Reiten filmen – so siehst du selbst, was dein Sitz und deine Hände machen.");
 
   const summary = chosen(p, a)
     .filter(({ q }) => q.id !== LEVEL_QUESTION)

@@ -1050,8 +1050,8 @@ const RINGS = `<svg class="cx-rings" viewBox="0 0 200 200" aria-hidden="true"><g
 function coachHits(){
   const q = UI.c.q.trim();
   if(!q){
-    const ready = coach.problems().filter(p=>p.ready);
-    return `<div class="chips" style="margin-top:12px">${ready.map(p=>`<button class="cx-glass" data-a="cstart" data-v="${p.id}">${ic("spark",14)} ${esc(p.title)}</button>`).join("")}</div>`;
+    const ready = ["cp-22","cp-06","cp-19","cp-29","cp-45"].map(id=>coach.problem(id)).filter(p=>p&&p.ready);
+    return `<p class="tiny" style="margin:14px 0 0;color:rgba(255,255,255,.7)">Häufig gesucht</p><div class="chips" style="margin-top:8px">${ready.map(p=>`<button class="cx-glass" data-a="cstart" data-v="${p.id}">${esc(p.title)}</button>`).join("")}</div>`;
   }
   const hits = coach.search(q);
   if(!hits.length) return `<div class="cx-hits"><p class="small muted" style="margin:10px 12px">Nichts gefunden. Versuch es mit anderen Worten oder stöbere in den Kategorien.</p></div>`;
