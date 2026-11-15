@@ -52,6 +52,10 @@ import { MYTH_TOTAL, renderMythen } from "@/video/reels/c04-mythen-reel";
 import { UEB_TOTAL, renderUebersetzer } from "@/video/reels/c03-uebersetzer-reel";
 import { FAUL_TOTAL, renderFaul } from "@/video/reels/c02-faul-reel";
 import { TRAV_TOTAL, renderTraversale } from "@/video/reels/c01-traversale-reel";
+import { MATHE_TOTAL, renderMathe } from "@/video/reels/ts1-mathe-reel";
+import { AS_TOTAL, renderAussenschulter } from "@/video/reels/ts2-aussenschulter-reel";
+import { SCHLAF_TOTAL, renderSchlaf } from "@/video/reels/ts3-schlaf-reel";
+import { HS_TOTAL, renderHandseite } from "@/video/reels/ts4-handseite-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -106,6 +110,10 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   "uebersetzer": { total: () => UEB_TOTAL, render: renderUebersetzer },
   "faul": { total: () => FAUL_TOTAL, render: renderFaul },
   traversale: { total: () => TRAV_TOTAL, render: renderTraversale },
+  mathe: { total: () => MATHE_TOTAL, render: renderMathe },
+  aussenschulter: { total: () => AS_TOTAL, render: renderAussenschulter },
+  schlaf: { total: () => SCHLAF_TOTAL, render: renderSchlaf },
+  handseite: { total: () => HS_TOTAL, render: renderHandseite },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";

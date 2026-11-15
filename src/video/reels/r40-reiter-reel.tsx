@@ -57,7 +57,7 @@ export function Stopwatch({ t, x, y, r }: { t: number; x: number; y: number; r: 
 }
 
 /* ---------- Szene 1: Uhr ---------- */
-function Clock({ min, x, y, r }: { min: number; x: number; y: number; r: number }) {
+export function Clock({ min, x, y, r }: { min: number; x: number; y: number; r: number }) {
   const ha = ((min / 60) % 12) / 12 * Math.PI * 2 - Math.PI / 2;
   const ma = ((min % 60) / 60) * Math.PI * 2 - Math.PI / 2;
   return (

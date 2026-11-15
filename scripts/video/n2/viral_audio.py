@@ -55,6 +55,19 @@ elif reel == "eindecken":
     add(fx, stab([45, 51], 0.35, 0.9, 3), NOTE + 0.9); add(fx, timp(0.4), NOTE + 0.9)
     add(fx, stab([60, 64, 67], 0.25, 0.8, 3), S("23") + 0.6)
     quiet = [(S("21") - 0.1, S("22") + 0.1)]; mend = S("24") + 0.2; fin = E("24") + 0.1
+elif reel in ("mathe", "aussenschulter", "schlaf", "handseite"):
+    # Tagesset 01 (15.11.2026): Whoosh an Szenenschnitten, Blips/Stabs an Pointen
+    C = {
+        "mathe": dict(cut=["03","07","11","15","19","23","24"], blip=[("04",72),("08",74),("12",76),("16",79)], ok=["06","10","14","18"], stab=["23"], quiet=[("23",0.0,0.5)], mend="25", fin="25"),
+        "aussenschulter": dict(cut=["05","08","13","15"], blip=[("04",76),("06",72),("07",72),("09",79),("10",81),("11",83),("12",84)], ok=[], stab=["05"], quiet=[], mend="16", fin="16"),
+        "schlaf": dict(cut=["03","08","10","12","14","16"], blip=[("04",79),("07",76),("09",84),("18",84),("20",86)], ok=[], stab=["11","15"], quiet=[("10",-0.1,1.3)], mend="21", fin="21"),
+        "handseite": dict(cut=["04","05","09","11","13","15"], blip=[("02",84),("07",79),("08",84),("09",76),("10",81),("12",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
+    }[reel]
+    for k in C["cut"]: add(fx, whoosh(0.28), S(k) - 0.18)
+    for k, m in C["blip"]: add(fx, blip(m, 0.2), S(k) - 0.02, 0.6)
+    for k in C["ok"]: add(fx, blip(84, 0.18, 0.1), E(k) - 0.4, 0.4); add(fx, blip(91, 0.18, 0.15), E(k) - 0.28, 0.4)
+    for k in C["stab"]: add(fx, stab([45, 52], 0.3, 0.6, 5), S(k) - 0.05); add(fx, timp(0.35), S(k) - 0.05)
+    quiet = [(S(k) + a, S(k) + b) for k, a, b in C["quiet"]]; mend = S(C["mend"]) + 0.2; fin = E(C["fin"]) + 0.1
 else:
     cuts = [S("03")-0.1, S("04")-0.05, S("05")-0.1, S("06")-0.05, S("07")-0.1, S("08")-0.05, S("09")-0.05, S("10")-0.1, S("11")-0.05, S("12")-0.1, S("13")-0.05, S("15")-0.1]
     for s in [S("02")-0.05] + cuts: add(fx, whoosh(), s - 0.06)
