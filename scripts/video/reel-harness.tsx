@@ -56,6 +56,10 @@ import { MATHE_TOTAL, renderMathe } from "@/video/reels/ts1-mathe-reel";
 import { AS_TOTAL, renderAussenschulter } from "@/video/reels/ts2-aussenschulter-reel";
 import { SCHLAF_TOTAL, renderSchlaf } from "@/video/reels/ts3-schlaf-reel";
 import { HS_TOTAL, renderHandseite } from "@/video/reels/ts4-handseite-reel";
+import { PHASEN_TOTAL, renderPhasen } from "@/video/reels/ts5-phasen-reel";
+import { FH_TOTAL, renderFesthalten } from "@/video/reels/ts6-festhalten-reel";
+import { SICHT_TOTAL, renderSicht } from "@/video/reels/ts7-sicht-reel";
+import { LT_TOTAL, renderLeichttraben } from "@/video/reels/ts8-leichttraben-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -114,6 +118,10 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   aussenschulter: { total: () => AS_TOTAL, render: renderAussenschulter },
   schlaf: { total: () => SCHLAF_TOTAL, render: renderSchlaf },
   handseite: { total: () => HS_TOTAL, render: renderHandseite },
+  phasen: { total: () => PHASEN_TOTAL, render: renderPhasen },
+  festhalten: { total: () => FH_TOTAL, render: renderFesthalten },
+  sicht: { total: () => SICHT_TOTAL, render: renderSicht },
+  leichttraben: { total: () => LT_TOTAL, render: renderLeichttraben },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
