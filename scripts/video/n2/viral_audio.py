@@ -55,7 +55,30 @@ elif reel == "eindecken":
     add(fx, stab([45, 51], 0.35, 0.9, 3), NOTE + 0.9); add(fx, timp(0.4), NOTE + 0.9)
     add(fx, stab([60, 64, 67], 0.25, 0.8, 3), S("23") + 0.6)
     quiet = [(S("21") - 0.1, S("22") + 0.1)]; mend = S("24") + 0.2; fin = E("24") + 0.1
-elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben", "haenger"):
+elif reel in ("pov", "rlsaetze"):
+    # Funny-Reels ohne Sprecher (18.11.2026)
+    for k in ["02", "03", "04", "05"]: add(fx, whoosh(0.3), S(k) - 0.2)
+    if reel == "pov":
+        r = rng.standard_normal(int(SR*2.2)); env = np.sin(np.linspace(0, np.pi, len(r)))
+        add(fx, bp(r, 300, 2500) * 0.18 * env, S("02"), 0.3); add(fx, bp(r, 300, 2500) * 0.18 * env, S("02") + 0.05, 0.7)
+        add(fx, stab([41, 47, 53], 0.4, 0.9, 3), S("03")); add(fx, timp(0.45), S("03"))
+        for i, m in enumerate([40, 39, 36]): add(fx, stab([m, m + 6], 0.3, 0.5, 5), S("03") + 0.55 + i*0.38); add(fx, timp(0.3), S("03") + 0.55 + i*0.38)
+        for i, m in enumerate([67, 66, 65, 61]): add(fx, note(mid(m), 0.5 if i < 3 else 1.0, 0.16, 3 if i < 3 else 1.5), S("04") + 0.3 + i*0.42, 0.5)
+        add(fx, blip(84, 0.2), S("05")); add(fx, blip(88, 0.2), S("05") + 0.15)
+        quiet = [(S("03") - 0.05, S("04") - 0.1)]
+    else:
+        add(fx, stab([57, 64], 0.3, 0.4, 6), S("02") + 0.05)
+        for i, m in enumerate([79, 76, 72]): add(fx, blip(m, 0.18, 0.12), S("02") + 1.4 + i*0.2, 0.7)
+        add(fx, stab([60], 0.25, 0.3, 6), S("03") + 0.05)
+        t0 = S("03") + 1.0; add(fx, note(mid(96), 1.4, 0.25, 2.2), t0, 0.5); add(fx, note(mid(103), 1.2, 0.12, 2.6), t0 + 0.05, 0.5)
+        r = rng.standard_normal(int(SR*0.35)); add(fx, bp(r, 3000, 9000) * 0.12 * np.exp(-np.linspace(0, 6, len(r))), t0, 0.5)
+        add(fx, stab([55, 62], 0.3, 0.4, 6), S("04") + 0.05)
+        add(fx, blip(76, 0.2), S("04") + 0.8, 0.4); add(fx, blip(79, 0.2), S("04") + 1.3, 0.6)
+        tb = tt(0.5); add(fx, np.sin(2*np.pi*np.cumsum(220*(1 + 1.5*np.exp(-tb*8))*(1 + 0.2*np.sin(tb*60)))/SR) * np.exp(-tb*5) * 0.2, S("04") + 1.85, 0.5)
+        add(fx, blip(84, 0.2), S("05") + 0.3); add(fx, blip(88, 0.2), S("05") + 0.45)
+        quiet = []
+    mend = S("05") + 1.2; fin = S("05") + 0.3
+elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben", "haenger", "kneten", "pferdesicht"):
     # Tagesset 01 (15.11.2026): Whoosh an Szenenschnitten, Blips/Stabs an Pointen
     C = {
         "mathe": dict(cut=["03","07","11","15","19","23","24"], blip=[("04",72),("08",74),("12",76),("16",79)], ok=["06","10","14","18"], stab=["23"], quiet=[("23",0.0,0.5)], mend="25", fin="25"),
@@ -66,6 +89,8 @@ elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festh
         "sicht": dict(cut=["03","05","08","10","11","13","15"], blip=[("02",72),("06",84),("09",72),("12",81),("14",84)], ok=[], stab=["07"], quiet=[], mend="15", fin="15"),
         "leichttraben": dict(cut=["02","03","04","07","14","16","20"], blip=[("06",79),("09",84),("10",79),("11",84),("12",79),("17",72),("19",86)], ok=[], stab=["03"], quiet=[], mend="20", fin="20"),
         "haenger": dict(cut=["03","07","11","13","16","17"], blip=[("02",72),("04",67),("06",79),("12",70),("15",70),("18",84)], ok=[], stab=[], quiet=[], mend="18", fin="18"),
+        "kneten": dict(cut=["04","06","07","11","15","17"], blip=[("02",72),("05",76),("08",79),("13",72),("14",79),("18",84)], ok=[], stab=["15"], quiet=[], mend="18", fin="18"),
+        "pferdesicht": dict(cut=["03","07","10","12","14"], blip=[("02",72),("04",79),("05",70),("06",76),("08",79),("11",84),("13",76),("15",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
         "handseite": dict(cut=["04","05","09","11","13","15"], blip=[("02",84),("07",79),("08",84),("09",76),("10",81),("12",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
     }[reel]
     for k in C["cut"]: add(fx, whoosh(0.28), S(k) - 0.18)
@@ -78,6 +103,9 @@ elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festh
         for i in range(3): add(fx, blip(76 + 3*i, 0.16), S("08") + 0.05 + i*d8/3, 0.3 + 0.2*i)
         for i in range(3): add(fx, clop(0.16, 150), S("10") + 0.9 + i*0.42, 0.55); add(fx, clop(0.06, 95), S("10") + 0.93 + i*0.42, 0.55)
         for i, st in enumerate([S("13") + 0.4, S("13") + 1.0, S("14") + 2.0]): add(fx, blip(84 + 2*i, 0.14, 0.1), st, 0.4)
+    if reel == "kneten":
+        # Schwamm-Drücken: zwei weiche Quietsch-Blips
+        for st in [S("09") + 0.75, S("10") - 0.05]: add(fx, blip(88, 0.12, 0.14), st, 0.6)
     quiet = [(S(k) + a, S(k) + b) for k, a, b in C["quiet"]]; mend = S(C["mend"]) + 0.2; fin = E(C["fin"]) + 0.1
 else:
     cuts = [S("03")-0.1, S("04")-0.05, S("05")-0.1, S("06")-0.05, S("07")-0.1, S("08")-0.05, S("09")-0.05, S("10")-0.1, S("11")-0.05, S("12")-0.1, S("13")-0.05, S("15")-0.1]

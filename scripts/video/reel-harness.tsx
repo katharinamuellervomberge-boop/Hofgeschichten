@@ -61,6 +61,9 @@ import { FH_TOTAL, renderFesthalten } from "@/video/reels/ts6-festhalten-reel";
 import { SICHT_TOTAL, renderSicht } from "@/video/reels/ts7-sicht-reel";
 import { LT_TOTAL, renderLeichttraben } from "@/video/reels/ts8-leichttraben-reel";
 import { HAENGER_TOTAL, renderHaenger, renderHaengerCover } from "@/video/reels/hg1-haenger-reel";
+import { KNETEN_TOTAL, renderKneten, renderKnetenCover } from "@/video/reels/ts9-kneten-reel";
+import { PS_TOTAL, renderPferdesicht, renderPferdesichtCover } from "@/video/reels/ts10-pferdesicht-reel";
+import { POV_TOTAL, RL_TOTAL, renderPov, renderRlsaetze } from "@/video/reels/t3-funny-reels";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -125,6 +128,12 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   leichttraben: { total: () => LT_TOTAL, render: renderLeichttraben },
   haenger: { total: () => HAENGER_TOTAL, render: renderHaenger },
   "haenger-cover": { total: () => 0.1, render: renderHaengerCover },
+  kneten: { total: () => KNETEN_TOTAL, render: renderKneten },
+  "kneten-cover": { total: () => 0.1, render: renderKnetenCover },
+  pferdesicht: { total: () => PS_TOTAL, render: renderPferdesicht },
+  "pferdesicht-cover": { total: () => 0.1, render: renderPferdesichtCover },
+  pov: { total: () => POV_TOTAL, render: renderPov },
+  rlsaetze: { total: () => RL_TOTAL, render: renderRlsaetze },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";

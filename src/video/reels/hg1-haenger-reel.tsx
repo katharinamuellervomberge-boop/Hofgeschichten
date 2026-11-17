@@ -40,13 +40,13 @@ const CAP: VLine[] = Object.entries((LJ as VoLines).lines).map(([id, [a, b]]) =>
 
 /* ---------- Helfer ---------- */
 const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
-const mix = (a: string, b: string, u: number) => {
+export const mix = (a: string, b: string, u: number) => {
   const A = hex(a), B = hex(b);
   return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], Math.max(0, Math.min(1, u))))).join(",")})`;
 };
 const lp = (p: Pt, q: Pt, u: number): Pt => [lerp(p[0], q[0], u), lerp(p[1], q[1], u)];
 
-function Tag({ x, y, text, size = 30, fill = COL.forestDeep, color = PAPER, o = 1 }: { x: number; y: number; text: string; size?: number; fill?: string; color?: string; o?: number }) {
+export function Tag({ x, y, text, size = 30, fill = COL.forestDeep, color = PAPER, o = 1 }: { x: number; y: number; text: string; size?: number; fill?: string; color?: string; o?: number }) {
   if (o <= 0.01) return null;
   const w = text.length * size * 0.54 + 60;
   return (
@@ -57,7 +57,7 @@ function Tag({ x, y, text, size = 30, fill = COL.forestDeep, color = PAPER, o = 
   );
 }
 /** „Grund n von 4“ + Punkte */
-function FHead({ t, a, n, title, size = 100 }: { t: number; a: number; n: number; title: string; size?: number }) {
+export function FHead({ t, a, n, title, size = 100 }: { t: number; a: number; n: number; title: string; size?: number }) {
   const k = ease((t - a) / 0.3);
   return (
     <g>
@@ -69,7 +69,7 @@ function FHead({ t, a, n, title, size = 100 }: { t: number; a: number; n: number
     </g>
   );
 }
-function ArrowL({ from, to, col, w = 12, head = 30, o = 1 }: { from: Pt; to: Pt; col: string; w?: number; head?: number; o?: number }) {
+export function ArrowL({ from, to, col, w = 12, head = 30, o = 1 }: { from: Pt; to: Pt; col: string; w?: number; head?: number; o?: number }) {
   const ang = Math.atan2(to[1] - from[1], to[0] - from[0]);
   const bx = to[0] - Math.cos(ang) * head * 0.8, by = to[1] - Math.sin(ang) * head * 0.8;
   const l: Pt = [to[0] - Math.cos(ang - 0.5) * head, to[1] - Math.sin(ang - 0.5) * head];
@@ -81,7 +81,7 @@ function ArrowL({ from, to, col, w = 12, head = 30, o = 1 }: { from: Pt; to: Pt;
     </g>
   );
 }
-function Cross({ x, y, s = 22, o = 1 }: { x: number; y: number; s?: number; o?: number }) {
+export function Cross({ x, y, s = 22, o = 1 }: { x: number; y: number; s?: number; o?: number }) {
   return <path opacity={o} d={`M${x - s} ${y - s} L${x + s} ${y + s} M${x + s} ${y - s} L${x - s} ${y + s}`} stroke={COL.rust} strokeWidth="10" strokeLinecap="round" />;
 }
 
@@ -127,7 +127,7 @@ function TrailerSide({ ax, gy, k, dark = 0.85, shade = 0 }: { ax: number; gy: nu
 const sideP = (ax: number, gy: number, k: number, p: Pt): Pt => [ax + p[0] * k, gy + p[1] * k];
 
 /** Von hinten, aus Pferdesicht (Illustration) */
-function TrailerFront({ dark, detail, glare }: { dark: number; detail: number; glare: number }) {
+export function TrailerFront({ dark, detail, glare }: { dark: number; detail: number; glare: number }) {
   const O = { x0: 276, x1: 804, y0: 668, y1: 1290 };
   const B = { x0: 400, x1: 680, y0: 790, y1: 1150 };
   const dc = "#8B8174";
