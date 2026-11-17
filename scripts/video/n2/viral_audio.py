@@ -55,7 +55,7 @@ elif reel == "eindecken":
     add(fx, stab([45, 51], 0.35, 0.9, 3), NOTE + 0.9); add(fx, timp(0.4), NOTE + 0.9)
     add(fx, stab([60, 64, 67], 0.25, 0.8, 3), S("23") + 0.6)
     quiet = [(S("21") - 0.1, S("22") + 0.1)]; mend = S("24") + 0.2; fin = E("24") + 0.1
-elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben"):
+elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben", "haenger"):
     # Tagesset 01 (15.11.2026): Whoosh an Szenenschnitten, Blips/Stabs an Pointen
     C = {
         "mathe": dict(cut=["03","07","11","15","19","23","24"], blip=[("04",72),("08",74),("12",76),("16",79)], ok=["06","10","14","18"], stab=["23"], quiet=[("23",0.0,0.5)], mend="25", fin="25"),
@@ -65,12 +65,19 @@ elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festh
         "festhalten": dict(cut=["03","07","08","13","16","18"], blip=[("02",72),("05",70),("09",79),("10",81),("11",83),("12",86),("14",84)], ok=[], stab=["07"], quiet=[], mend="18", fin="18"),
         "sicht": dict(cut=["03","05","08","10","11","13","15"], blip=[("02",72),("06",84),("09",72),("12",81),("14",84)], ok=[], stab=["07"], quiet=[], mend="15", fin="15"),
         "leichttraben": dict(cut=["02","03","04","07","14","16","20"], blip=[("06",79),("09",84),("10",79),("11",84),("12",79),("17",72),("19",86)], ok=[], stab=["03"], quiet=[], mend="20", fin="20"),
+        "haenger": dict(cut=["03","07","11","13","16","17"], blip=[("02",72),("04",67),("06",79),("12",70),("15",70),("18",84)], ok=[], stab=[], quiet=[], mend="18", fin="18"),
         "handseite": dict(cut=["04","05","09","11","13","15"], blip=[("02",84),("07",79),("08",84),("09",76),("10",81),("12",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
     }[reel]
     for k in C["cut"]: add(fx, whoosh(0.28), S(k) - 0.18)
     for k, m in C["blip"]: add(fx, blip(m, 0.2), S(k) - 0.02, 0.6)
     for k in C["ok"]: add(fx, blip(84, 0.18, 0.1), E(k) - 0.4, 0.4); add(fx, blip(91, 0.18, 0.15), E(k) - 0.28, 0.4)
     for k in C["stab"]: add(fx, stab([45, 52], 0.3, 0.6, 5), S(k) - 0.05); add(fx, timp(0.35), S(k) - 0.05)
+    if reel == "haenger":
+        # Hänger 17.11.2026: Markierungen Rampe/Kante/Schatten, hohle Huftritte auf der Rampe
+        d8 = E("08") - S("08")
+        for i in range(3): add(fx, blip(76 + 3*i, 0.16), S("08") + 0.05 + i*d8/3, 0.3 + 0.2*i)
+        for i in range(3): add(fx, clop(0.16, 150), S("10") + 0.9 + i*0.42, 0.55); add(fx, clop(0.06, 95), S("10") + 0.93 + i*0.42, 0.55)
+        for i, st in enumerate([S("13") + 0.4, S("13") + 1.0, S("14") + 2.0]): add(fx, blip(84 + 2*i, 0.14, 0.1), st, 0.4)
     quiet = [(S(k) + a, S(k) + b) for k, a, b in C["quiet"]]; mend = S(C["mend"]) + 0.2; fin = E(C["fin"]) + 0.1
 else:
     cuts = [S("03")-0.1, S("04")-0.05, S("05")-0.1, S("06")-0.05, S("07")-0.1, S("08")-0.05, S("09")-0.05, S("10")-0.1, S("11")-0.05, S("12")-0.1, S("13")-0.05, S("15")-0.1]

@@ -60,6 +60,7 @@ import { PHASEN_TOTAL, renderPhasen } from "@/video/reels/ts5-phasen-reel";
 import { FH_TOTAL, renderFesthalten } from "@/video/reels/ts6-festhalten-reel";
 import { SICHT_TOTAL, renderSicht } from "@/video/reels/ts7-sicht-reel";
 import { LT_TOTAL, renderLeichttraben } from "@/video/reels/ts8-leichttraben-reel";
+import { HAENGER_TOTAL, renderHaenger, renderHaengerCover } from "@/video/reels/hg1-haenger-reel";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
   zirkel: { total: () => ZIRKEL_TOTAL, render: renderZirkel },
@@ -122,6 +123,8 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   festhalten: { total: () => FH_TOTAL, render: renderFesthalten },
   sicht: { total: () => SICHT_TOTAL, render: renderSicht },
   leichttraben: { total: () => LT_TOTAL, render: renderLeichttraben },
+  haenger: { total: () => HAENGER_TOTAL, render: renderHaenger },
+  "haenger-cover": { total: () => 0.1, render: renderHaengerCover },
 };
 
 const comp = new URLSearchParams(location.search).get("c") ?? "zirkel";
