@@ -55,6 +55,34 @@ elif reel == "eindecken":
     add(fx, stab([45, 51], 0.35, 0.9, 3), NOTE + 0.9); add(fx, timp(0.4), NOTE + 0.9)
     add(fx, stab([60, 64, 67], 0.25, 0.8, 3), S("23") + 0.6)
     quiet = [(S("21") - 0.1, S("22") + 0.1)]; mend = S("24") + 0.2; fin = E("24") + 0.1
+elif reel == "pov2":
+    # Tierdoku (17.11. abends): REC-Piep, Zeitlupe (Musik weg), Alarm, Entwarnung, Wah-wah
+    add(fx, blip(96, 0.08, 0.06), S("01") - 0.25, 0.5)
+    for k in ["04", "07", "10", "11"]: add(fx, whoosh(0.3), S(k) - 0.2)
+    add(fx, blip(76, 0.2), S("03") + 0.05); add(fx, blip(81, 0.2), S("03") + 0.65)
+    r = rng.standard_normal(int(SR*3.0)); env = np.sin(np.linspace(0, np.pi, len(r)))
+    add(fx, bp(r, 250, 2200) * 0.16 * env, S("06") - 0.2, 0.4); add(fx, bp(r, 250, 2200) * 0.16 * env, S("06") - 0.15, 0.6)
+    add(fx, stab([41, 47, 53], 0.4, 0.9, 3), S("07") + 0.15); add(fx, timp(0.45), S("07") + 0.15)
+    for i in range(4): add(fx, note(mid(84 if i % 2 == 0 else 79), 0.22, 0.12, 6), S("07") + 0.5 + i*0.28, 0.5)
+    for i in range(3): add(fx, clop(0.05, 600), S("08") + 0.8 + i*0.32, 0.5)
+    add(fx, blip(79, 0.2), S("09") + 0.05); add(fx, blip(84, 0.25), S("09") + 0.22)
+    for i, m in enumerate([67, 66, 65, 61]): add(fx, note(mid(m), 0.45 if i < 3 else 0.9, 0.14, 3 if i < 3 else 1.5), S("10") + 0.4 + i*0.4, 0.5)
+    add(fx, blip(84, 0.2), S("11")); add(fx, blip(88, 0.2), S("11") + 0.15)
+    quiet = [(S("04") - 0.05, S("07") + 0.1)]
+    mend = S("11") + 1.0; fin = S("11")
+elif reel == "rl2":
+    for k in ["03", "06", "09", "12"]: add(fx, whoosh(0.3), S(k) - 0.15)
+    for k in ["03", "06", "09"]: add(fx, stab([57, 64], 0.3, 0.4, 6), S(k) + 0.02)
+    for i in range(4): add(fx, blip(76 + 2*i, 0.12, 0.1), S("04") + i*0.08, 0.3 + 0.1*i)
+    for i in range(8): add(fx, blip(80 + (i % 4)*2, 0.12, 0.1), S("05") + (i % 4)*0.08 + (i // 4)*0.12, 0.3 + 0.05*i)
+    tb = tt(0.5); add(fx, np.sin(2*np.pi*np.cumsum(260*(1 + 1.2*np.exp(-tb*8)))/SR) * np.exp(-tb*5) * 0.2, S("07") + 0.05, 0.5)
+    for i in range(4): add(fx, blip(84, 0.08, 0.08), S("08") + 0.2 + i*0.17, 0.3 + 0.13*i)
+    add(fx, blip(76, 0.2), S("10"), 0.4)
+    for i in range(4): add(fx, blip(79, 0.12), S("11") + i*0.15, 0.6)
+    add(fx, stab([60, 67], 0.25, 0.3, 6), S("11") + 1.0); add(fx, blip(91, 0.15), S("11") + 1.1)
+    add(fx, blip(84, 0.2), S("12") + 0.3); add(fx, blip(88, 0.2), S("12") + 0.45)
+    quiet = []
+    mend = S("12") + 1.2; fin = S("12")
 elif reel in ("pov", "rlsaetze"):
     # Funny-Reels ohne Sprecher (18.11.2026)
     for k in ["02", "03", "04", "05"]: add(fx, whoosh(0.3), S(k) - 0.2)
