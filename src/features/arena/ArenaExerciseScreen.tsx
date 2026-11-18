@@ -12,6 +12,8 @@ const REVIEW = { entwurf: "Entwurf", geprueft: "Geprüft", freigegeben: "Freigeg
 /** Detailseite einer Reitbahn-Übung: Kopf, interaktive Bahn, Hintergrund, Fehler, Weiterlernen */
 export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise }) {
   const variants = variantsOf(ex);
+  const GAIT = { halt: "Halt", schritt: "Schritt", trab: "Trab", galopp: "Galopp" } as const;
+  const gaits = [...new Set(ex.phases.map((p) => GAIT[p.gait]))].join(" · ");
   const number = String(arenaFigures().findIndex((e) => e.id === variants[0].id) + 1).padStart(2, "0");
   return (
     <div className={styles.page}>
@@ -36,7 +38,7 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
           </div>
           <div>
             <dt>Gangart</dt>
-            <dd>Trab</dd>
+            <dd>{gaits}</dd>
           </div>
           <div>
             <dt>Hand</dt>

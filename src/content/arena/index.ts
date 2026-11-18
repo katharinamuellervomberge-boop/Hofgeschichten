@@ -1,4 +1,5 @@
 import { WELLE_1 } from "./exercises/bahnfiguren";
+import { WELLE_2 } from "./exercises/uebergaenge";
 import { zirkel } from "./exercises/zirkel";
 import { insideSide, resolveLetters } from "./geometry";
 import type { ArenaExercise, ArenaSize, Evidence, QuizQuestion, Rein } from "./types";
@@ -7,7 +8,7 @@ import type { ArenaExercise, ArenaSize, Evidence, QuizQuestion, Rein } from "./t
  * Die Reitbahn – Übungsverzeichnis. Neue Übungen: Datei in exercises/ anlegen und hier eintragen.
  * Trainingsplaner und Lernpfade greifen über getArenaExercise(id) zu.
  */
-export const ARENA_EXERCISES: ArenaExercise[] = [zirkel, ...WELLE_1];
+export const ARENA_EXERCISES: ArenaExercise[] = [zirkel, ...WELLE_1, ...WELLE_2];
 
 /** Varianten derselben Figur (z. B. Volte 10 m / 8 m); ohne Gruppe nur die Übung selbst */
 export const variantsOf = (ex: ArenaExercise) => (ex.group ? ARENA_EXERCISES.filter((e) => e.group === ex.group) : [ex]);

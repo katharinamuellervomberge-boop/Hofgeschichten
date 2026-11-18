@@ -1,4 +1,4 @@
-import { segmentLength } from "./geometry";
+import { pointOnSegment, segmentLength } from "./geometry";
 import type { Gait, Pt, Segment } from "./types";
 
 /**
@@ -40,6 +40,14 @@ export class PathBuilder {
 
   setGait(g: Gait) {
     this.gait = g;
+    return this;
+  }
+
+  /** Stehen am aktuellen Punkt (Sekunden echte Zeit) */
+  halt(seconds: number) {
+    const last = this.segments[this.segments.length - 1];
+    const heading = last ? pointOnSegment(last, 1e9).heading : 0;
+    this.segments.push({ kind: "halt", at: this.pos, headingDeg: heading, seconds });
     return this;
   }
 

@@ -1,4 +1,5 @@
 import { PathBuilder } from "../build";
+import { rawSeconds } from "../geometry";
 import type { Annotation, ArenaExercise, ArenaSize, Mistake, Phase, QuizQuestion, Segment } from "../types";
 import { change, MISTAKES, PURPOSE, Q_INNER_LEG, Q_OUTER_REIN, SAFETY, straight, turnHold, turnIn } from "./common";
 
@@ -11,13 +12,14 @@ import { change, MISTAKES, PURPOSE, Q_INNER_LEG, Q_OUTER_REIN, SAFETY, straight,
  */
 
 const Q = (r: number) => (Math.PI * r) / 2; // Viertelkreis
-const SPEED = 2.7; // m/s bei 1× (Lerntempo)
-const REVIEW = "Nach FN-Lehre geschrieben, fachlich geprüft und freigegeben durch die Inhaberin am 18.11.2026.";
+/** Lerntempo: etwas langsamer als in echt */
+const SLOW = 1.22;
+export const REVIEW = "Nach FN-Lehre geschrieben, fachlich geprüft und freigegeben durch die Inhaberin am 18.11.2026.";
 
-type Built = { segs: Segment[]; phases: Phase[]; ann?: Annotation[]; len: number };
+export type Built = { segs: Segment[]; phases: Phase[]; ann?: Annotation[]; len: number };
 
 /** Dieselbe Figur für 20 × 40 und 20 × 60 bauen */
-function sizes(fn: (L: number) => Built) {
+export function sizes(fn: (L: number) => Built) {
   const a = fn(40);
   const b = fn(60);
   const by = (k: "20x40" | "20x60") => (k === "20x40" ? a : b);
@@ -27,13 +29,13 @@ function sizes(fn: (L: number) => Built) {
     annotations: both((x) => x.ann ?? []),
     phases: a.phases,
     phasesBySize: both((x) => x.phases),
-    durationSec: Math.round(a.len / SPEED),
-    durationBySize: both((x) => Math.round(x.len / SPEED)),
+    durationSec: Math.round(rawSeconds(a.segs) * SLOW),
+    durationBySize: both((x) => Math.round(rawSeconds(x.segs) * SLOW)),
     _by: by,
   };
 }
 
-const LESSON = {
+export const LESSON = {
   ganze: { id: "ra-w7-l2", title: "Ganze Bahn und Handwechsel", href: "/akademie/reiten-in-der-bahn/ganze-bahn-und-handwechsel" },
   wechsel: { id: "ra-w11-l2", title: "Alle Handwechsel", href: "/akademie/alle-bahnfiguren/alle-handwechsel" },
   ecken: { id: "ra-w11-l1", title: "Hufschläge und Ecken", href: "/akademie/alle-bahnfiguren/hufschlaege-und-ecken" },
@@ -42,9 +44,11 @@ const LESSON = {
   schlange: { id: "ra-w11-l5", title: "Schlangenlinien", href: "/akademie/alle-bahnfiguren/schlangenlinien" },
 };
 
-const pick = (...ids: string[]): Mistake[] => ids.map((i) => MISTAKES[i]);
+export const pick = (...ids: string[]): Mistake[] => ids.map((i) => MISTAKES[i]);
 
-function base(o: {
+export function base(o: {
+  category?: ArenaExercise["category"];
+  review?: { status: ArenaExercise["reviewStatus"]; note: string };
   id: string;
   slug: string;
   title: string;
@@ -76,7 +80,7 @@ function base(o: {
     title: o.title,
     titleDe: o.titleDe,
     description: o.description,
-    category: "bahnfigur",
+    category: o.category ?? "bahnfigur",
     group: o.group,
     variantLabel: o.variantLabel,
     changesRein: o.changesRein,
@@ -98,8 +102,8 @@ function base(o: {
     relatedLessons: o.relatedLessons,
     relatedLibraryIds: [],
     relatedSkillIds: o.relatedSkillIds,
-    reviewStatus: "freigegeben",
-    reviewNote: REVIEW,
+    reviewStatus: o.review?.status ?? "freigegeben",
+    reviewNote: o.review?.note ?? REVIEW,
   };
 }
 
@@ -207,7 +211,7 @@ export const halbeBahn = base({
         straight({ id: "g1", from: 0, to: e("e") - 3, title: "Auf dem Hufschlag Richtung [E]", summary: "Gerade auf dem Hufschlag, die Wendung bei [E] vorbereiten.", look: "Geradeaus – und schon quer durch die Bahn auf [B] schauen.", pause: true }),
         turnIn({ id: "t1", from: e("e") - 3, to: e("e") + q, bend: "links", title: "Bei [E] abwenden", summary: "Mit Blick, Gewicht und innerem Schenkel abwenden – wie in einer Viertelvolte.", look: "Über X auf [B] schauen.", pause: true }),
         straight({ id: "g2", from: e("e") + q, to: e("b") - 3, title: "Gerade über X", summary: "Zwischen [E] und [B] ist das Pferd gerade – X liegt auf dem Weg.", look: "Den Punkt [B] fest anpeilen.", pause: true, mistakes: ["schief"] }),
-        turnIn({ id: "t2", from: e("b") - 3, to: e("b") + q, bend: "links", title: "Bei [B] auf den Hufschlag", summary: "Wieder nach innen wenden – du bleibst auf der linken Hand.", look: "Auf der langen Seite Richtung [M] schauen." }),
+        turnIn({ id: "t2", from: e("b") - 3, to: e("b") + q, bend: "links", title: "Bei [B] auf den Hufschlag", summary: "Wieder nach innen wenden – du bleibst auf derselben Hand.", look: "Auf der langen Seite Richtung [M] schauen." }),
         straight({ id: "g3", from: e("b") + q, to: e("c1") - 3, title: "Lange Seite Richtung [M]", summary: "Gerade auf dem Hufschlag.", look: "Geradeaus Richtung [M]." }),
         turnIn({ id: "c1", from: e("c1") - 3, to: e("c1") + q, bend: "links", title: "Ecke zwischen [M] und C", summary: "Ecke ankündigen und ausreiten.", look: "Durch die Ecke schauen.", extra: [CORNER_WHY], mistakes: ["ecke"] }),
         straight({ id: "g4", from: e("c1") + q, to: e("c2") - 3, title: "Kurze Seite bei C", summary: "Gerade richten.", look: "Geradeaus auf die Ecke." }),
@@ -345,7 +349,7 @@ export const wechselHalbe = base({
         turnIn({ id: "t1", from: e("c1") - 3, to: e("h_e"), bend: "links", title: "Ecke und bei [H] abwenden", summary: "Durch die Ecke, dann bei [H] auf die Linie zu [B] wenden.", look: "Schon in der Ecke auf [B] schauen.", pause: true }),
         straight({ id: "g2", from: e("h_e"), to: e("b") - 4, title: "Gerade auf [B] zu", summary: "Die Linie ist kürzer als die ganze Diagonale – Takt und Geradeaus trotzdem halten.", look: "[B] fest anpeilen.", pause: true, mistakes: ["schief"] }),
         change({ id: "w", from: e("b") - 4, to: e("b_e"), nextBend: "rechts", hand: "rechts", title: "Vor [B] umstellen", summary: "Kurz vor dem Hufschlag umstellen. Die Wendung auf den Hufschlag ist hier etwas enger als bei der ganzen Diagonale.", look: "Auf den Hufschlag Richtung [F] schauen.", pause: true }),
-        straight({ id: "g3", from: e("b_e"), to: e("c2") - 3, hand: "rechts", title: "Neue Hand: Richtung [F]", summary: "Gerade auf dem Hufschlag, jetzt auf der rechten Hand.", look: "Geradeaus Richtung [F]." }),
+        straight({ id: "g3", from: e("b_e"), to: e("c2") - 3, hand: "rechts", title: "Neue Hand: Richtung [F]", summary: "Gerade auf dem Hufschlag, jetzt auf der neuen Hand.", look: "Geradeaus Richtung [F]." }),
         turnIn({ id: "t2", from: e("c2") - 3, to: e("c2_e"), bend: "rechts", hand: "rechts", title: "Ecke zwischen [F] und A", summary: "Erste Ecke auf der neuen Hand.", look: "Durch die Ecke schauen.", mistakes: ["ecke"] }),
         straight({ id: "g4", from: e("c2_e"), to: 1e4, hand: "rechts", title: "Kurze Seite bei A", summary: "Gerade richten.", look: "Geradeaus Richtung A." }),
       ],
@@ -538,7 +542,7 @@ function kehrtvolte(d: 10 | 8): ArenaExercise {
           turnIn({ id: "t1", from: e("k") - 4, to: e("k") + Q(r), bend: "links", title: "Bei [E] in die halbe Volte", summary: "Wie bei der Volte: halbe Parade, Stellung, Blick nach innen.", look: "Auf die halbe Volte schauen.", pause: true }),
           turnHold({ id: "h1", from: e("k") + Q(r), to: e("kh"), bend: "links", title: "Halbe Volte rund beenden", summary: "Die halbe Volte wird ganz rund geritten, erst dann geht es schräg zurück.", look: "Auf den Hufschlag schauen, wo du ankommen willst.", pause: true }),
           change({ id: "w", from: e("kh"), to: e("s2_e"), nextBend: "rechts", hand: "rechts", title: "Schräg zurück und umstellen", summary: "Auf der schrägen Linie gerade richten und vor dem Hufschlag auf die neue Hand umstellen.", look: "Auf den Hufschlag in die neue Richtung schauen.", pause: true }),
-          straight({ id: "g2", from: e("s2_e"), to: 1e4, hand: "rechts", title: "Neue Hand", summary: "Gerade auf dem Hufschlag – jetzt auf der rechten Hand.", look: "Geradeaus Richtung [H]." }),
+          straight({ id: "g2", from: e("s2_e"), to: 1e4, hand: "rechts", title: "Neue Hand", summary: "Gerade auf dem Hufschlag – jetzt auf der neuen Hand.", look: "Geradeaus Richtung [H]." }),
         ],
       };
     }),
@@ -733,7 +737,7 @@ export const schlangeEinfach = base({
         straight({ id: "g1", from: 0, to: e("c1") - 3, title: "Kurze Seite bei A", summary: "Gerade auf dem Hufschlag.", look: "Geradeaus auf die Ecke.", pause: true }),
         turnIn({ id: "t1", from: e("c1") - 3, to: e("f"), bend: "links", title: "Ecke zwischen A und [F]", summary: "Durch die Ecke – die Schlangenlinie beginnt gleich danach.", look: "Durch die Ecke auf die lange Seite.", mistakes: ["ecke"] }),
         turnIn({ id: "t2", from: e("f"), to: e("f_e") + 1, bend: "links", title: "Bei [F] den Hufschlag verlassen", summary: "Flach nach innen abwenden – mit Blick auf den tiefsten Punkt.", look: "Auf den tiefsten Punkt auf Höhe von [B] schauen.", pause: true }),
-        change({ id: "w1", from: e("f_e") + 1, to: e("ap"), nextBend: "rechts", title: "Umstellen vor dem tiefsten Punkt", summary: "Vor dem tiefsten Punkt zur Bande hin umstellen. Du bleibst auf der linken Hand.", look: "Auf den tiefsten Punkt, dann schon zu [M].", pause: true }),
+        change({ id: "w1", from: e("f_e") + 1, to: e("ap"), nextBend: "rechts", title: "Umstellen vor dem tiefsten Punkt", summary: "Vor dem tiefsten Punkt zur Bande hin umstellen. Du bleibst auf derselben Hand.", look: "Auf den tiefsten Punkt, dann schon zu [M].", pause: true }),
         turnHold({ id: "h1", from: e("ap"), to: e("ap_e"), bend: "rechts", title: "Tiefster Punkt auf Höhe von [B]", summary: "Etwa 5 m vom Hufschlag: Das Pferd ist kurz zur Bande hin gestellt.", look: "Auf den Hufschlag bei [M] schauen.", pause: true, extra: [{ evidence: "lehre", text: "An der langen Seite wird das Pferd zweimal umgestellt: erst vom Hufschlag weg, dann wieder zur Bande hin. Die Hand bleibt dabei gleich." }] }),
         change({ id: "w2", from: e("ap_e"), to: e("m"), nextBend: "links", title: "Zurück umstellen", summary: "Wieder auf die alte Seite umstellen, bevor der Bogen zum Hufschlag beginnt.", look: "Auf [M] schauen." }),
         turnIn({ id: "t3", from: e("m"), to: e("m_e"), bend: "links", title: "Bei [M] zurück auf den Hufschlag", summary: "Flach auf den Hufschlag zurück.", look: "Auf die Ecke schauen." }),

@@ -3,7 +3,7 @@
  * Aufruf: npm run check:arena
  */
 import { ARENA_EXERCISES, fillText, quizAnswer } from "../src/content/arena";
-import { aidSide, arenaLength, arenaLetters, buildTrack, durationFor, forRein, phaseAt, phasesFor, pointOnSegment, sampleAt, timeAtMeters } from "../src/content/arena/geometry";
+import { aidSide, arenaLength, arenaLetters, buildTrack, durationFor, forRein, phaseAtTime, phaseStartTimes, phasesFor, pointOnSegment, sampleAt } from "../src/content/arena/geometry";
 import type { ArenaSize } from "../src/content/arena/types";
 
 let failed = 0;
@@ -55,13 +55,19 @@ for (const ex of ARENA_EXERCISES) {
       ok(ph[0].timelineStart === 0, `${tag}: erste Phase beginnt nicht bei 0`);
       for (let i = 1; i < ph.length; i++) ok(ph[i].timelineStart === ph[i - 1].timelineEnd, `${tag}: Phasenlücke vor ${ph[i].id}`);
       ok(ph[ph.length - 1].timelineEnd >= track.totalLen, `${tag}: letzte Phase endet vor der Linie`);
+      const starts = phaseStartTimes(track, ph);
       let last = -1;
-      for (const p of ph) {
-        const t = timeAtMeters(track, p.timelineStart);
+      ph.forEach((p, i) => {
+        const t = starts[i];
         ok(t > last, `${tag}: Zeit nicht steigend bei ${p.id}`);
         last = t;
-        ok(phaseAt(ph, sampleAt(track, t + 0.01).s).id === p.id, `${tag}: Phase ${p.id} nicht am eigenen Anfang`);
-      }
+        ok(phaseAtTime(ph, starts, t + 0.01).id === p.id, `${tag}: Phase ${p.id} nicht am eigenen Anfang`);
+        // Gangart: Halt-Phasen stehen, sonst passt die Gangart in der Mitte der Phase
+        const tEnd = i + 1 < ph.length ? starts[i + 1] : track.totalTime;
+        const mid = sampleAt(track, (t + tEnd) / 2);
+        if (p.halt) ok(mid.gait === "halt" && p.timelineStart === p.timelineEnd, `${tag}: Halt-Phase ${p.id} steht nicht`);
+        else ok(mid.gait === p.gait || (mid.gait === "halt" && false), `${tag}: ${p.id} „${p.title}“ sagt ${p.gait}, die Linie ist dort ${mid.gait}`);
+      });
 
       // innen/außen folgt der Biegung
       for (const p of ph) {
@@ -74,8 +80,8 @@ for (const ex of ARENA_EXERCISES) {
 
       // Biegung passt zur Krümmung der Linie: links = gegen den Uhrzeigersinn, rechts = im Uhrzeigersinn, gerade = kaum Drehung
       for (let i = 0; i < ph.length; i++) {
-        const t0 = timeAtMeters(track, ph[i].timelineStart);
-        const t1 = Math.min(track.totalTime, timeAtMeters(track, ph[i].timelineEnd));
+        const t0 = starts[i];
+        const t1 = i + 1 < ph.length ? starts[i + 1] : track.totalTime;
         let total = 0;
         let maxCw = 0;
         let maxCcw = 0;
@@ -120,6 +126,12 @@ for (const ex of ARENA_EXERCISES) {
       }
       for (const q of e.quiz) for (const t of [q.prompt, q.explanation, ...q.options.map((o) => o.text)]) ok(!/\{|\}/.test(fillText(t, rein)), `${tag}: Platzhalter in Frage ${q.id}`);
       void letterSet;
+      // Texte, die auf beiden Händen gelten, dürfen keine feste Seite nennen
+      const SIDE = /(linken|rechten) Hand|Links(galopp)|Rechts(galopp)|\b(links|rechts) (ab)?wenden/;
+      for (const p of ph) {
+        const texts = [p.title, p.summary, ...Object.values(p.aids).map((a) => a!.text), ...p.explanations.map((x) => x.text)];
+        for (const t of texts) ok(!SIDE.test(t) || /auf der linken Hand Linksgalopp/.test(t), `${tag}: feste Seite in „${t.slice(0, 60)}“`);
+      }
 
       // Notizen wie „4 m nach K“ stehen auf der Seite ihres Buchstabens (auch nach dem Spiegeln)
       const letters = Object.fromEntries(arenaLetters(size).map((l) => [l.l, l]));

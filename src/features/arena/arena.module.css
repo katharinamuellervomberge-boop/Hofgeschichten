@@ -211,6 +211,21 @@
   font-size: 8.5px;
   fill: #6f6553;
 }
+.noteStrong {
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--forest);
+}
+.markTransition {
+  fill: var(--champagne);
+  stroke: var(--espresso);
+  stroke-width: 0.08;
+}
+.markHalt {
+  fill: var(--forest);
+  stroke: var(--ivory);
+  stroke-width: 0.1;
+}
 .horseBody {
   fill: var(--espresso);
 }
@@ -847,6 +862,9 @@
 }
 
 /* Übersicht */
+.exGroup {
+  margin-top: var(--space-6);
+}
 .exList {
   margin: 0;
   padding: 0;

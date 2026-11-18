@@ -16,7 +16,7 @@ export type ArenaSize = "20x40" | "20x60";
 export type Rein = "links" | "rechts";
 /** Biegung des Pferdes. "keine" = geradeaus gerichtet; "wechsel" = Umstellen läuft */
 export type Bend = "links" | "rechts" | "keine" | "wechsel";
-export type Gait = "halt" | "schritt" | "trab";
+export type Gait = "halt" | "schritt" | "trab" | "galopp";
 export type PhaseKind = "vorbereiten" | "einleiten" | "ausfuehren" | "halten" | "abschliessen";
 /** Woher eine Aussage stammt – Pflichtangabe bei jeder Erklärung */
 export type Evidence = "lehre" | "biomechanik" | "vereinfachung";
@@ -61,6 +61,8 @@ export type Phase = {
   commonMistakeIds: string[];
   /** Lern-Modus hält am Anfang dieser Phase an */
   pause?: boolean;
+  /** Phase ist das Stehen selbst: timelineStart = timelineEnd = Haltepunkt, die Dauer kommt aus dem Halt-Abschnitt */
+  halt?: boolean;
 };
 
 export type Mistake = {
@@ -87,7 +89,7 @@ export type QuizQuestion = {
 
 /** Notiz in der Bahn. Bahnpunkte (z. B. „4 m nach K“) bleiben beim Handwechsel stehen;
  *  nur Notizen mit followsPath wandern mit der gespiegelten Linie. */
-export type Annotation = { at: Pt; label: string; followsPath?: boolean };
+export type Annotation = { at: Pt; label: string; followsPath?: boolean; kind?: "notiz" | "uebergang" | "halt" };
 
 export type ArenaExercise = {
   id: string;

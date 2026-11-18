@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { EVIDENCE_LABEL, fillText, quizAnswer } from "@/content/arena";
-import { AID_LABEL, aidLabel, buildTrack, durationFor, forRein, phaseAt, phasesFor, sampleAt, timeAtMeters } from "@/content/arena/geometry";
+import { AID_LABEL, aidLabel, buildTrack, durationFor, forRein, phaseAtTime, phaseStartTimes, phasesFor, sampleAt } from "@/content/arena/geometry";
 import type { AidId, AidState, ArenaExercise, ArenaSize, Rein } from "@/content/arena/types";
 import { ArenaView, type Layers } from "./ArenaView";
 import { RiderTop } from "./RiderTop";
@@ -13,7 +13,7 @@ const RATES = [0.5, 1, 1.5] as const;
 const AIDS: AidId[] = ["blick", "oberkoerper", "sitz", "gewicht", "innenSchenkel", "aussenSchenkel", "innenZuegel", "aussenZuegel"];
 const STATE_LABEL: Record<AidState, string> = { aktiv: "aktiv", verwahrend: "verwahrend", nachgebend: "gibt nach", neutral: "neutral", begleitend: "begleitend" };
 const BEND_LABEL = { links: "nach links", rechts: "nach rechts", keine: "keine (gerade)", wechsel: "wird umgestellt" } as const;
-const GAIT_LABEL = { halt: "Halt", schritt: "Schritt", trab: "Trab" } as const;
+const GAIT_LABEL = { halt: "Halt", schritt: "Schritt", trab: "Trab", galopp: "Galopp" } as const;
 const LAYER_LABEL: Record<keyof Layers, string> = { linie: "Linie", buchstaben: "Buchstaben", richtung: "Richtung", hilfen: "Phasen", erklaerungen: "Notizen" };
 
 function useReducedMotion() {
@@ -53,10 +53,10 @@ export function ArenaPlayer({ variants, initial = 0 }: { variants: ArenaExercise
   const phases = phasesFor(ex, size);
   const duration = durationFor(ex, size);
   const track = useMemo(() => buildTrack(segments, duration), [segments, duration]);
-  const phaseTimes = useMemo(() => phases.map((p) => timeAtMeters(track, p.timelineStart)), [phases, track]);
+  const phaseTimes = useMemo(() => phaseStartTimes(track, phases), [phases, track]);
   const annotations = ex.annotations[size];
   const sample = sampleAt(track, t);
-  const phase = phaseAt(phases, sample.s);
+  const phase = phaseAtTime(phases, phaseTimes, t);
   const phaseIdx = phases.indexOf(phase);
   const hand = phase.hand ?? rein;
   const ended = t >= track.totalTime - 1e-6;

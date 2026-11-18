@@ -83,7 +83,12 @@ export function pointOnSegment(s: Segment, d: number): { p: Pt; heading: number 
 }
 
 /** Tempo je Gangart in m/s (Grundlage für die Verteilung der Zeit; skaliert auf durationSec) */
-const SPEED: Record<Exclude<Gait, "halt">, number> = { schritt: 1.6, trab: 3.3 };
+const SPEED: Record<Exclude<Gait, "halt">, number> = { schritt: 1.6, trab: 3.3, galopp: 4.6 };
+
+/** Ungefähre echte Dauer einer Linie in Sekunden (Grundlage für das Lerntempo) */
+export function rawSeconds(segments: Segment[]): number {
+  return segments.reduce((a, seg) => a + (seg.kind === "halt" ? seg.seconds : seg.gait === "halt" ? 0 : segmentLength(seg) / SPEED[seg.gait]), 0);
+}
 
 export type TrackPiece = { seg: Segment; len: number; s0: number; t0: number; dur: number };
 export type Track = { pieces: TrackPiece[]; totalLen: number; totalTime: number };
@@ -128,14 +133,31 @@ export function sampleAt(track: Track, t: number): Sample {
 }
 
 /** Zeitpunkt, an dem die Linie s Meter erreicht (für Phasengrenzen) */
-export function timeAtMeters(track: Track, s: number): number {
+export function timeAtMeters(track: Track, s: number, afterHalt = false): number {
+  let t = track.totalTime;
   for (const pc of track.pieces) {
-    if (s <= pc.s0 + pc.len) {
-      if (pc.len === 0) return pc.t0;
-      return pc.t0 + ((s - pc.s0) / pc.len) * pc.dur;
+    if (s <= pc.s0 + pc.len + 1e-9) {
+      t = pc.len === 0 ? pc.t0 : pc.t0 + (Math.min(s - pc.s0, pc.len) / pc.len) * pc.dur;
+      break;
     }
   }
-  return track.totalTime;
+  if (afterHalt) {
+    // über Halte an genau diesem Punkt hinweg
+    for (const pc of track.pieces) if (pc.len === 0 && Math.abs(pc.s0 - s) < 1e-6 && Math.abs(pc.t0 - t) < 1e-6) t = pc.t0 + pc.dur;
+  }
+  return t;
+}
+
+/** Startzeit jeder Phase. Nach einer Halt-Phase beginnt die nächste erst, wenn das Stehen vorbei ist. */
+export function phaseStartTimes(track: Track, phases: Phase[]): number[] {
+  return phases.map((p, i) => timeAtMeters(track, p.timelineStart, i > 0 && !!phases[i - 1].halt));
+}
+
+/** Phase zu einem Zeitpunkt der Zeitleiste */
+export function phaseAtTime(phases: Phase[], starts: number[], t: number): Phase {
+  let idx = 0;
+  for (let i = 0; i < starts.length; i++) if (starts[i] <= t + 1e-9) idx = i;
+  return phases[idx];
 }
 
 /** Phasen und Dauer für eine Bahngröße */

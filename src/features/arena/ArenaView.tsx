@@ -113,9 +113,19 @@ const StaticLayers = memo(function StaticLayers({
       {/* 8 Erklärende Notizen */}
       {layers.erklaerungen &&
         annotations.map((a) => (
-          <T key={a.label} x={a.at.x} y={a.at.y + (a.at.y <= 0.01 ? 2.3 : a.at.y >= ARENA_WIDTH - 0.01 ? -1.6 : 1.9)} className={styles.note}>
-            {a.label}
-          </T>
+          <g key={a.label}>
+            {/* Übergangs- und Haltepunkte bekommen eine Form, nicht nur eine Farbe */}
+            {a.kind === "uebergang" && <rect x={a.at.x - 0.5} y={a.at.y - 0.5} width={1} height={1} transform={`rotate(45 ${a.at.x} ${a.at.y})`} className={styles.markTransition} />}
+            {a.kind === "halt" && <rect x={a.at.x - 0.55} y={a.at.y - 0.55} width={1.1} height={1.1} className={styles.markHalt} />}
+            <T
+              x={a.at.x + (a.at.x <= 0.01 ? 1.4 : 0)}
+              y={a.at.y + (a.at.y <= 0.01 ? 2.3 : a.at.y >= ARENA_WIDTH - 0.01 ? -1.6 : 1.9)}
+              className={a.kind ? styles.noteStrong : styles.note}
+              anchor={a.at.x <= 0.01 ? "start" : "middle"}
+            >
+              {a.label}
+            </T>
+          </g>
         ))}
     </>
   );
