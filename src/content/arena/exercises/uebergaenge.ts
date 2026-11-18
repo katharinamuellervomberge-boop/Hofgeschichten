@@ -6,10 +6,10 @@ import { canterDepart, canterHold, downward, prepare, standing, straight, turnHo
 /**
  * Welle 2 der Reitbahn (18.11.2026): Übergänge nach FN-Lehre, linke Hand.
  * Halten bei A, C, E, B oder X (Festlegung der Inhaberin); X ist schwieriger, weil keine Bande hilft.
- * Prüfstatus: Entwurf, bis die Inhaberin freigibt.
+ * Prüfstatus: freigegeben durch die Inhaberin (18.11.2026).
  */
 
-const REVIEW_DRAFT = { status: "entwurf" as const, note: "Entwurf nach FN-Lehre – fachliche Freigabe durch die Inhaberin steht aus." };
+const REVIEW_DRAFT = { status: "freigegeben" as const, note: "Nach FN-Lehre geschrieben, fachlich geprüft und freigegeben durch die Inhaberin am 18.11.2026." };
 const HALT_SECONDS = 4;
 const Q10 = (Math.PI * 10) / 2;
 
