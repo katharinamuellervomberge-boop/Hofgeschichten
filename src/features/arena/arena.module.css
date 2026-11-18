@@ -1,0 +1,880 @@
+/* Die Reitbahn – Designsystem 2.0. SVG-Maße der Bahn in Metern (viewBox = Meter). */
+
+.page {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter) calc(var(--nav-height) + var(--space-7) + env(safe-area-inset-bottom));
+}
+
+.crumbs {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--brown);
+}
+.crumbs a {
+  color: var(--brown);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: var(--forest);
+}
+
+/* ---------- Kopf ---------- */
+.hero {
+  padding: var(--space-6) 0 var(--space-5);
+  max-width: 720px;
+}
+.heroTitle {
+  margin-top: var(--space-2);
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+.heroLead {
+  margin-top: var(--space-3);
+  color: var(--ink-soft);
+  font-size: var(--text-md);
+}
+.heroFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+.heroFacts dt,
+.status dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.heroFacts dd,
+.status dd {
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+.review {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--champagne);
+  background: var(--bone);
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
+/* ---------- Spieler ---------- */
+.player {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+}
+.seg button {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.seg button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.seg .segOn {
+  background: var(--forest);
+  color: var(--ivory);
+}
+
+.stage {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 960px) {
+  .stage {
+    grid-template-columns: minmax(0, 1.55fr) minmax(320px, 1fr);
+    align-items: start;
+  }
+  .sideCol {
+    position: sticky;
+    top: 76px;
+  }
+}
+
+.arenaCol,
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.arenaBox {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+}
+.arenaBox:focus-visible {
+  outline-offset: 2px;
+}
+.arenaSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: var(--font-body);
+}
+
+.surface {
+  fill: #e9e1d1;
+  stroke: #cbbfa8;
+  stroke-width: 0.12;
+}
+.centerline {
+  stroke: #d8cdb8;
+  stroke-width: 0.06;
+  stroke-dasharray: 0.4 0.4;
+}
+.tick {
+  stroke: var(--brown);
+  stroke-width: 0.08;
+}
+.letter {
+  font-size: 13.5px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.midDot {
+  fill: #b6a98f;
+}
+.midLetter {
+  font-size: 9.5px;
+  font-weight: 500;
+  fill: #857a66;
+}
+.lineGhost {
+  fill: none;
+  stroke: var(--forest);
+  stroke-opacity: 0.22;
+  stroke-width: 0.16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lineDone {
+  fill: none;
+  stroke: var(--forest);
+  stroke-width: 0.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.chevron {
+  fill: none;
+  stroke: var(--forest);
+  stroke-width: 0.14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+.phaseMark {
+  fill: var(--ivory);
+  stroke: var(--champagne);
+  stroke-width: 0.12;
+}
+.phaseNum {
+  font-size: 10px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.note {
+  font-size: 8.5px;
+  fill: #6f6553;
+}
+.horseBody {
+  fill: var(--espresso);
+}
+.rider {
+  fill: var(--champagne);
+  stroke: var(--espresso);
+  stroke-width: 0.08;
+}
+
+.symbolNote {
+  font-size: 0.75rem;
+  color: var(--brown);
+}
+
+.status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.status dd {
+  font-size: var(--text-sm);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.iconBtn,
+.playBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.iconBtn:hover {
+  background: var(--bone);
+}
+.playBtn {
+  width: 56px;
+  height: 56px;
+  border: 0;
+  background: var(--forest);
+  color: var(--ivory);
+}
+.iconBtn svg,
+.playBtn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.playBtn .fillIcon {
+  fill: currentColor;
+}
+.rates {
+  display: inline-flex;
+  margin-left: auto;
+  gap: 2px;
+}
+.rates button {
+  min-width: 44px;
+  min-height: 40px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--brown);
+  cursor: pointer;
+}
+.rates .rateOn {
+  color: var(--forest);
+  font-weight: 600;
+  background: var(--sage);
+}
+
+.timeline {
+  position: relative;
+  padding-bottom: 10px;
+}
+.range {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  accent-color: var(--forest);
+  cursor: pointer;
+}
+.ticks {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 8px;
+}
+.ticks span {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 8px;
+  margin-left: -1px;
+  background: var(--sand);
+}
+.ticks .tickOn {
+  background: var(--forest);
+}
+
+.layers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: var(--space-3) 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+.layers legend {
+  float: left;
+  width: 100%;
+  margin-bottom: var(--space-2);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+.switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--forest);
+}
+
+/* ---------- Phase, Hilfen ---------- */
+.phaseCard,
+.aidsCard,
+.steps {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.phaseTitle {
+  margin-top: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 400;
+}
+.phaseSummary {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+.explain {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.evidence {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  vertical-align: 1px;
+}
+.ev_lehre {
+  background: var(--sage);
+  color: var(--forest);
+}
+.ev_biomechanik {
+  background: #e6e9ec;
+  color: #3e5260;
+}
+.ev_vereinfachung {
+  background: #f1eadb;
+  color: #6b5426;
+}
+.nextBtn,
+.primaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: var(--space-4);
+  padding: 0 var(--space-5);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--forest);
+  color: var(--ivory);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  cursor: pointer;
+}
+.secondaryBtn {
+  min-height: 48px;
+  margin-top: var(--space-4);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--sand);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--forest);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.secondaryBtn[aria-pressed="true"] {
+  background: var(--sage);
+  border-color: var(--sage);
+}
+
+.aidsHead {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.aidsHead svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--brown);
+  stroke-width: 1.8;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.aidsHead .chevUp {
+  transform: rotate(180deg);
+}
+.aidsBody {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+@media (min-width: 560px) and (max-width: 959px) {
+  .aidsBody {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+  .aidDetail {
+    grid-column: 1 / -1;
+  }
+}
+.riderWrap {
+  max-width: 220px;
+  margin: 0 auto;
+}
+.riderSvg {
+  width: 100%;
+  height: auto;
+  font-family: var(--font-body);
+}
+.straightNote {
+  margin-top: var(--space-2);
+  font-size: 0.75rem;
+  color: var(--brown);
+  text-align: center;
+}
+.aidList {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aidBtn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.aidBtn:hover {
+  background: var(--bone);
+}
+.aidKey .aidName::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--champagne);
+  vertical-align: 2px;
+}
+.aidOn {
+  border-color: var(--forest);
+  background: var(--sage);
+}
+.aidName {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.aidState {
+  font-size: 0.75rem;
+  color: var(--brown);
+}
+.aidDetail {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+.aidDetail h3 {
+  font-size: var(--text-md);
+}
+.aidDetail dl {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--space-2) var(--space-3);
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+}
+.aidDetail dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brown);
+  padding-top: 3px;
+}
+.aidDetail dd {
+  margin: 0;
+}
+.important {
+  margin-top: var(--space-3);
+  font-size: 0.75rem;
+  color: var(--brown);
+}
+
+/* Reiter von oben */
+.rtHorse {
+  fill: #e4dccd;
+  stroke: #b9ad97;
+  stroke-width: 1;
+}
+.rtGirth {
+  stroke: #a39780;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.rtSmall {
+  font-size: 9px;
+  fill: #857a66;
+}
+.rtSaddle {
+  fill: #cdbfa6;
+}
+.rtPart {
+  transition: opacity var(--dur) var(--ease);
+}
+.rtBody {
+  fill: #6f6a5f;
+  stroke: var(--espresso);
+  stroke-width: 1;
+}
+.rtHead {
+  fill: var(--espresso);
+}
+.rtSeatBone {
+  fill: var(--ivory);
+}
+.rtLeg {
+  fill: none;
+  stroke: #6f6a5f;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rtRein {
+  stroke: #6f6a5f;
+  stroke-width: 1.6;
+}
+.rtHand {
+  fill: #6f6a5f;
+}
+.rtGaze {
+  fill: none;
+  stroke: var(--brown);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 3 2.5;
+}
+.rtLabel {
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--forest);
+}
+.rtHl .rtLeg,
+.rtHl .rtRein {
+  stroke: var(--forest);
+}
+.rtHl .rtHand,
+.rtHl.rtPart > .rtBody,
+.rtHl .rtBody {
+  fill: var(--forest);
+}
+.rtHl .rtRein {
+  stroke-width: 2.4;
+}
+.rtHl .rtGaze {
+  stroke: var(--forest);
+  stroke-dasharray: none;
+  stroke-width: 2;
+}
+.rtHl .rtSeatBone {
+  fill: var(--champagne);
+}
+.rtDim {
+  opacity: 0.35;
+}
+
+/* Schritt für Schritt */
+.steps ol {
+  display: grid;
+  gap: 2px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.steps button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 6px var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.steps button:hover {
+  background: var(--bone);
+}
+.steps .stepOn {
+  background: var(--sage);
+}
+.stepNum {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--champagne);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.stepOn .stepNum {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--ivory);
+}
+.stepTitle {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.stepMeta {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--brown);
+}
+
+/* Üben */
+.quizQ {
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  line-height: 1.25;
+}
+.quizOpts {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.opt {
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--sand);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  text-align: left;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.opt:disabled {
+  cursor: default;
+}
+.optRight {
+  border-color: var(--forest);
+  background: var(--sage);
+  font-weight: 500;
+}
+.optWrong {
+  border-color: var(--rust);
+  background: #f6e6dd;
+}
+.optDim {
+  opacity: 0.55;
+}
+.optMark {
+  font-weight: 600;
+}
+
+/* ---------- Unter dem Spieler ---------- */
+.below {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+}
+@media (min-width: 960px) {
+  .below {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-7);
+  }
+}
+.block {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-4);
+}
+.blockTitle {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  margin-bottom: var(--space-3);
+}
+.list {
+  margin: 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 6px;
+  font-size: var(--text-sm);
+}
+.small {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--brown);
+}
+.mistakes {
+  margin-top: var(--space-3);
+}
+.mistake {
+  border-bottom: 1px solid var(--line);
+}
+.mistake summary {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mistake dl {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+.mistake dt {
+  margin-top: var(--space-3);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.mistake dd {
+  margin: 4px 0 0;
+}
+.mistake ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+.safety {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--rust);
+  background: #f6ece6;
+  font-size: var(--text-xs);
+  display: grid;
+  gap: 6px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.related {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.related a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+  color: var(--forest);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Übersicht */
+.exList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.exItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 72px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+}
+.exNum {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.75rem;
+  color: var(--champagne);
+  font-variant-numeric: tabular-nums;
+}
+.exTitle {
+  display: block;
+  font-weight: 500;
+}
+.exMeta {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--brown);
+}

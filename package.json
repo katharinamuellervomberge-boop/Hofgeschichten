@@ -21,7 +21,8 @@
     "check:premium": "tsx --conditions=react-server scripts/check-premium.ts",
     "check:advent": "tsx --conditions=react-server scripts/check-advent.ts",
     "en:extract": "tsx --conditions=react-server scripts/en-extract.ts",
-    "check:en": "tsx --conditions=react-server scripts/en-extract.ts --check"
+    "check:en": "tsx --conditions=react-server scripts/en-extract.ts --check",
+    "check:arena": "tsx scripts/check-arena.ts"
   },
   "engines": {
     "node": ">=20.9.0"
