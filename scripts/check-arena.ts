@@ -81,6 +81,13 @@ for (const ex of ARENA_EXERCISES) {
         if (ex.category === "bahnfigur" && p.bend !== "keine" && p.bend !== "wechsel") ok(p.bend === rein, `${tag}: Biegung ${p.bend} passt nicht zur Hand in ${p.id}`);
       }
 
+      // Notizen wie „4 m nach K“ stehen auf der Seite ihres Buchstabens (auch nach dem Spiegeln)
+      const letters = Object.fromEntries(arenaLetters(size).map((l) => [l.l, l]));
+      for (const a of e.annotations[size]) {
+        const m = /nach ([A-Z])\b/.exec(a.label);
+        if (m && letters[m[1]]) ok(letters[m[1]].y === a.at.y, `${tag}: Notiz „${a.label}“ steht nicht auf der Seite von ${m[1]}`);
+      }
+
       // Quiz-Antworten existieren
       for (const q of e.quiz) {
         const a = quizAnswer(q, rein, size);

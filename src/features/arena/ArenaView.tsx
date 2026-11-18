@@ -113,7 +113,7 @@ const StaticLayers = memo(function StaticLayers({
       {/* 8 Erklärende Notizen */}
       {layers.erklaerungen &&
         annotations.map((a) => (
-          <T key={a.label} x={a.at.x} y={a.at.y + (a.at.y <= 0.01 ? 1.6 : a.at.y >= ARENA_WIDTH - 0.01 ? -1.2 : -1)} className={styles.note}>
+          <T key={a.label} x={a.at.x} y={a.at.y + (a.at.y <= 0.01 ? 2.3 : a.at.y >= ARENA_WIDTH - 0.01 ? -1.6 : 1.9)} className={styles.note}>
             {a.label}
           </T>
         ))}

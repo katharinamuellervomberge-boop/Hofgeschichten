@@ -185,12 +185,12 @@ export function mirrorSegment(s: Segment): Segment {
   return { ...s, at: mirrorPt(s.at), headingDeg: -s.headingDeg };
 }
 
-/** Übung für die gewählte Hand: Linie, Notizen und Biegung werden gespiegelt, Texte bleiben (sie sagen innen/außen) */
+/** Übung für die gewählte Hand: Linie und Biegung werden gespiegelt, Texte bleiben (sie sagen innen/außen), Bahnpunkte bleiben stehen */
 export function forRein(ex: ArenaExercise, rein: Rein): ArenaExercise {
   if (rein === ex.authoredRein) return ex;
   const path = Object.fromEntries(Object.entries(ex.path).map(([k, segs]) => [k, segs.map(mirrorSegment)])) as ArenaExercise["path"];
   const annotations = Object.fromEntries(
-    Object.entries(ex.annotations).map(([k, list]) => [k, list.map((a) => ({ ...a, at: mirrorPt(a.at) }))]),
+    Object.entries(ex.annotations).map(([k, list]) => [k, list.map((a) => (a.followsPath ? { ...a, at: mirrorPt(a.at) } : a))]),
   ) as ArenaExercise["annotations"];
   return { ...ex, path, annotations, phases: ex.phases.map((p) => ({ ...p, bend: swapBend(p.bend) })) };
 }

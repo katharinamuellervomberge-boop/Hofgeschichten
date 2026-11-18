@@ -79,7 +79,9 @@ export type QuizQuestion = {
   explanation: string;
 };
 
-export type Annotation = { at: Pt; label: string };
+/** Notiz in der Bahn. Bahnpunkte (z. B. „4 m nach K“) bleiben beim Handwechsel stehen;
+ *  nur Notizen mit followsPath wandern mit der gespiegelten Linie. */
+export type Annotation = { at: Pt; label: string; followsPath?: boolean };
 
 export type ArenaExercise = {
   id: string;

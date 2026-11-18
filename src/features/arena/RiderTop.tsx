@@ -50,7 +50,7 @@ export const RiderTop = memo(function RiderTop({
   const legPts = (aid: AidId): { hip: P; knee: P; foot: P } => {
     const behind = states[aid] === "verwahrend";
     const side = aidSide(aid, bend, rein) ?? "links";
-    const base = { hip: [84, 150] as P, knee: [66, behind ? 146 : 136] as P, foot: [59, behind ? 150 : 122] as P };
+    const base = { hip: [84, 152] as P, knee: [65, 137] as P, foot: [60, behind ? 150 : 128] as P };
     return side === "links" ? base : { hip: mx(base.hip), knee: mx(base.knee), foot: mx(base.foot) };
   };
   const pivot: P = [100, 84];
@@ -66,12 +66,12 @@ export const RiderTop = memo(function RiderTop({
     <svg viewBox="0 0 200 280" className={styles.riderSvg} role="img" aria-label="Reiter und Pferd von oben, schematisch">
       {/* Pferd */}
       <g transform={`rotate(${stellung} ${pivot[0]} ${pivot[1]})`}>
-        <path d="M 88 92 Q 86 60 92 40 Q 94 10 100 6 Q 106 10 108 40 Q 114 60 112 92 Z" className={styles.rtHorse} />
+        <path d="M 85 98 Q 87 68 92 50 L 92 24 Q 100 2 108 24 L 108 50 Q 113 68 115 98 Z" className={styles.rtHorse} />
       </g>
       <ellipse cx={100} cy={170} rx={37} ry={92} className={styles.rtHorse} />
       <path d="M 100 258 Q 96 272 100 278 Q 104 272 100 258" className={styles.rtHorse} />
       <line x1={64} y1={126} x2={136} y2={126} className={styles.rtGirth} />
-      <text x={140} y={129} className={styles.rtSmall}>Gurt</text>
+      <text x={150} y={121} className={styles.rtSmall}>Gurt</text>
       <rect x={79} y={128} width={42} height={46} rx={9} className={styles.rtSaddle} />
 
       {/* Zügel und Hände */}
