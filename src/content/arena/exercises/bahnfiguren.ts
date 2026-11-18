@@ -7,12 +7,12 @@ import { change, MISTAKES, PURPOSE, Q_INNER_LEG, Q_OUTER_REIN, SAFETY, straight,
  * Alle für die linke Hand geschrieben (gegen den Uhrzeigersinn, K–E–H oben, A links).
  * Abgeglichen mit den Lektionen „Ganze Bahn und Handwechsel“, „Alle Handwechsel“,
  * „Volten und Achten“ und „Schlangenlinien“ der Reitakademie.
- * Prüfstatus: Entwurf, bis die Inhaberin die Texte freigibt.
+ * Prüfstatus: freigegeben durch die Inhaberin (18.11.2026).
  */
 
 const Q = (r: number) => (Math.PI * r) / 2; // Viertelkreis
 const SPEED = 2.7; // m/s bei 1× (Lerntempo)
-const REVIEW = "Entwurf nach FN-Lehre – fachliche Freigabe durch die Inhaberin steht aus.";
+const REVIEW = "Nach FN-Lehre geschrieben, fachlich geprüft und freigegeben durch die Inhaberin am 18.11.2026.";
 
 type Built = { segs: Segment[]; phases: Phase[]; ann?: Annotation[]; len: number };
 
@@ -98,7 +98,7 @@ function base(o: {
     relatedLessons: o.relatedLessons,
     relatedLibraryIds: [],
     relatedSkillIds: o.relatedSkillIds,
-    reviewStatus: "entwurf",
+    reviewStatus: "freigegeben",
     reviewNote: REVIEW,
   };
 }
