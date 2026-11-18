@@ -29,6 +29,7 @@ export const zirkel: ArenaExercise = {
   titleDe: "Zirkel",
   description: "Eine runde Linie, die die ganze Bahnbreite nutzt. Hier lernst du, wie Blick, Sitz, Schenkel und Zügel zusammenarbeiten, damit das Pferd gleichmäßig auf der Kreislinie bleibt.",
   category: "bahnfigur",
+  changesRein: false,
   difficulty: 1,
   learnMinutes: 8,
   arenaSizes: ["20x40", "20x60"],
@@ -150,7 +151,7 @@ export const zirkel: ArenaExercise = {
       summary: "Kurz vor dem Hufschlag Stellung aufgeben, geradeaus schauen und das Pferd gerade auf dem Hufschlag weitertraben lassen.",
       highlightedAids: ["blick", "innenZuegel"],
       aids: {
-        blick: { state: "aktiv", text: "Geradeaus den Hufschlag entlang Richtung K." },
+        blick: { state: "aktiv", text: "Geradeaus den Hufschlag entlang Richtung [K]." },
         oberkoerper: { state: "neutral", text: "Schultern wieder gerade, parallel zum Hufschlag." },
         sitz: { state: "begleitend", text: "Beide Gesäßknochen gleich belastet." },
         gewicht: { state: "neutral", text: "Gleichmäßig auf beiden Seiten." },

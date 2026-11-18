@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "@/i18n/Link";
-import { ARENA_EXERCISES, arenaHref } from "@/content/arena";
+import { arenaFigures, arenaHref, variantsOf } from "@/content/arena";
 import styles from "@/features/arena/arena.module.css";
 import { DiaryPreview } from "@/features/tagebuch/DiaryPreview";
 import { hasRidingSpace } from "@/lib/entitlements/server";
@@ -19,14 +19,16 @@ export default async function Page() {
         <p className={styles.heroLead}>Sieh die Linie. Versteh die Hilfen. Begreif die Bewegung.</p>
       </header>
       <ol className={styles.exList}>
-        {ARENA_EXERCISES.map((e, i) => (
+        {arenaFigures().map((e, i) => (
           <li key={e.id}>
             <Link href={arenaHref(e)} className={styles.exItem}>
               <span className={styles.exNum}>{String(i + 1).padStart(2, "0")}</span>
               <span>
                 <span className={styles.exTitle}>{e.title}</span>
                 <span className={styles.exMeta}>
-                  {e.titleDe} · ca. {e.learnMinutes} Min · {e.reviewStatus === "freigegeben" ? "Bahnfigur" : "Entwurf"}
+                  {[e.changesRein ? "mit Handwechsel" : null, variantsOf(e).length > 1 ? variantsOf(e).map((v) => v.variantLabel).join(" / ") : null, `ca. ${e.learnMinutes} Min`, e.reviewStatus === "freigegeben" ? null : "Entwurf"]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </span>
               </span>
             </Link>

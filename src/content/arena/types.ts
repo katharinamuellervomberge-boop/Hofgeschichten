@@ -5,10 +5,11 @@
  * Darstellung (features/arena) zeigt jede Übung. IDs (`arena_…`) nie ändern –
  * Trainingsplaner und Lernpfade verweisen darauf.
  *
- * Alle Übungen werden für die LINKE Hand geschrieben. Die rechte Hand entsteht
- * durch Spiegelung (geometry.ts → mirrorExercise). Texte sprechen deshalb nur von
- * „innen“ und „außen“, nie von „links“ und „rechts“ – die Oberfläche löst das je
- * nach Biegung auf.
+ * Alle Übungen werden für die LINKE Hand geschrieben (Start auf der linken Hand).
+ * Die rechte Hand entsteht durch Spiegelung (geometry.ts → forRein). Texte sprechen
+ * deshalb nur von „innen“ und „außen“, nie von „links“ und „rechts“ – die Oberfläche
+ * löst das je nach Biegung auf. Buchstaben, die beim Spiegeln wechseln, stehen in
+ * eckigen Klammern: „bei [H] abwenden“ wird auf der rechten Hand zu „bei M abwenden“.
  */
 
 export type ArenaSize = "20x40" | "20x60";
@@ -48,6 +49,10 @@ export type Phase = {
   timelineStart: number;
   timelineEnd: number;
   bend: Bend;
+  /** Beim Umstellen (bend "wechsel"): die neue Biegung – danach richten sich innen und außen */
+  nextBend?: "links" | "rechts";
+  /** Hand in dieser Phase (Standard: Starthand). Nach einem Handwechsel die neue Hand. */
+  hand?: Rein;
   gait: Gait;
   summary: string;
   highlightedAids: AidId[];
@@ -75,7 +80,8 @@ export type QuizQuestion = {
   prompt: string;
   options: { id: string; text: string }[];
   /** Antwort-ID oder Regel, die aus Hand/Bahn berechnet wird */
-  answer: string | { rule: "innenSeite" | "aussenSeite" | "mittellinienPunkt" };
+  /** innenSeite/aussenSeite: bezogen auf die Starthand; …Neu: nach dem Handwechsel */
+  answer: string | { rule: "innenSeite" | "aussenSeite" | "innenSeiteNeu" | "aussenSeiteNeu" | "mittellinienPunkt" };
   explanation: string;
 };
 
@@ -90,6 +96,11 @@ export type ArenaExercise = {
   titleDe: string;
   description: string;
   category: "bahnfigur" | "grundlage" | "uebergang";
+  /** Varianten (z. B. Volte 10 m / 8 m) teilen sich eine Gruppe; die Seite zeigt einen Umschalter */
+  group?: string;
+  variantLabel?: string;
+  /** Endet die Figur auf der anderen Hand? */
+  changesRein: boolean;
   difficulty: 1 | 2 | 3;
   learnMinutes: number;
   arenaSizes: ArenaSize[];
@@ -104,7 +115,10 @@ export type ArenaExercise = {
   annotations: Record<ArenaSize, Annotation[]>;
   /** Wiedergabedauer bei 1× in Sekunden (Lerntempo, nicht Echtzeit) */
   durationSec: number;
+  /** Phasen; bei Figuren, deren Meterangaben von der Bahngröße abhängen, je Größe in phasesBySize */
   phases: Phase[];
+  phasesBySize?: Partial<Record<ArenaSize, Phase[]>>;
+  durationBySize?: Partial<Record<ArenaSize, number>>;
   aidPurpose: Partial<Record<AidId, string>>;
   whyItWorks: Explanation[];
   mistakes: Mistake[];

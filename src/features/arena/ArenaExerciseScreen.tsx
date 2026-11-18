@@ -1,7 +1,7 @@
 import Link from "@/i18n/Link";
 import type { ArenaExercise } from "@/content/arena/types";
 import { exerciseById } from "@/content/training/uebungen";
-import { ARENA_EXERCISES, EVIDENCE_LABEL } from "@/content/arena";
+import { arenaFigures, EVIDENCE_LABEL, variantsOf } from "@/content/arena";
 import { ArenaPlayer } from "./ArenaPlayer";
 import { SaveButton } from "./SaveButton";
 import styles from "./arena.module.css";
@@ -11,7 +11,8 @@ const REVIEW = { entwurf: "Entwurf", geprueft: "Geprüft", freigegeben: "Freigeg
 
 /** Detailseite einer Reitbahn-Übung: Kopf, interaktive Bahn, Hintergrund, Fehler, Weiterlernen */
 export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise }) {
-  const number = String(ARENA_EXERCISES.findIndex((e) => e.id === ex.id) + 1).padStart(2, "0");
+  const variants = variantsOf(ex);
+  const number = String(arenaFigures().findIndex((e) => e.id === variants[0].id) + 1).padStart(2, "0");
   return (
     <div className={styles.page}>
       <nav aria-label="Brotkrumen" className={styles.crumbs}>
@@ -37,6 +38,16 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
             <dt>Gangart</dt>
             <dd>Trab</dd>
           </div>
+          <div>
+            <dt>Hand</dt>
+            <dd>{ex.changesRein ? "mit Handwechsel" : "gleiche Hand"}</dd>
+          </div>
+          {variants.length > 1 && (
+            <div>
+              <dt>Varianten</dt>
+              <dd>{variants.map((v) => v.variantLabel).join(" · ")}</dd>
+            </div>
+          )}
         </dl>
         {ex.reviewStatus !== "freigegeben" && (
           <p className={styles.review} role="note">
@@ -45,7 +56,7 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
         )}
       </header>
 
-      <ArenaPlayer exercise={ex} />
+      <ArenaPlayer variants={variants} initial={Math.max(0, variants.findIndex((v) => v.id === ex.id))} />
 
       <div className={styles.below}>
         <section className={styles.block}>

@@ -28,12 +28,16 @@ const mx = ([x, y]: P): P => [200 - x, y];
 export const RiderTop = memo(function RiderTop({
   bend,
   rein,
+  nextBend,
   states,
   highlighted,
   selected,
 }: {
   bend: Bend;
+  /** aktuelle Hand (nach einem Handwechsel die neue) */
   rein: Rein;
+  /** beim Umstellen: die neue Biegung, nach der sich innen/außen richten */
+  nextBend?: "links" | "rechts";
   states: Partial<Record<AidId, AidState>>;
   highlighted: AidId[];
   selected: AidId | null;
@@ -49,14 +53,14 @@ export const RiderTop = memo(function RiderTop({
   // Schenkel: am Gurt oder hinter dem Gurt – abhängig vom Zustand (verwahrend = hinter dem Gurt)
   const legPts = (aid: AidId): { hip: P; knee: P; foot: P } => {
     const behind = states[aid] === "verwahrend";
-    const side = aidSide(aid, bend, rein) ?? "links";
+    const side = aidSide(aid, bend, rein, nextBend) ?? "links";
     const base = { hip: [84, 152] as P, knee: [65, 137] as P, foot: [60, behind ? 150 : 128] as P };
     return side === "links" ? base : { hip: mx(base.hip), knee: mx(base.knee), foot: mx(base.foot) };
   };
   const pivot: P = [100, 84];
   const bit = (side: "links" | "rechts"): P => rot(side === "links" ? [93, 22] : [107, 22], pivot, stellung);
   const handOf = (side: "links" | "rechts"): P => (side === "links" ? [88, 108] : [112, 108]);
-  const reinSide = (aid: AidId) => aidSide(aid, bend, rein) ?? "links";
+  const reinSide = (aid: AidId) => aidSide(aid, bend, rein, nextBend) ?? "links";
   const legs: AidId[] = ["innenSchenkel", "aussenSchenkel"];
   const reins: AidId[] = ["innenZuegel", "aussenZuegel"];
   const label = (a: AidId) => (states[a] ? STATE_WORD[states[a]!] : "");
@@ -95,7 +99,7 @@ export const RiderTop = memo(function RiderTop({
       {/* Schenkel */}
       {legs.map((a) => {
         const { hip, knee, foot } = legPts(a);
-        const side = aidSide(a, bend, rein) ?? "links";
+        const side = aidSide(a, bend, rein, nextBend) ?? "links";
         return (
           <g key={a} className={cls(a, styles.rtPart)}>
             <polyline points={`${hip.join(",")} ${knee.join(",")} ${foot.join(",")}`} className={styles.rtLeg} />

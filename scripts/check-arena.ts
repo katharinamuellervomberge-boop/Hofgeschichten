@@ -2,8 +2,8 @@
  * Prüft die Reitbahn: Buchstabenlage, Linien, Spiegelung, innen/außen, Zeitleiste und Phasen.
  * Aufruf: npm run check:arena
  */
-import { ARENA_EXERCISES, quizAnswer } from "../src/content/arena";
-import { aidSide, arenaLength, arenaLetters, buildTrack, forRein, phaseAt, pointOnSegment, sampleAt, timeAtMeters } from "../src/content/arena/geometry";
+import { ARENA_EXERCISES, fillText, quizAnswer } from "../src/content/arena";
+import { aidSide, arenaLength, arenaLetters, buildTrack, durationFor, forRein, phaseAt, phasesFor, pointOnSegment, sampleAt, timeAtMeters } from "../src/content/arena/geometry";
 import type { ArenaSize } from "../src/content/arena/types";
 
 let failed = 0;
@@ -33,9 +33,10 @@ for (const ex of ARENA_EXERCISES) {
     for (const rein of ["links", "rechts"] as const) {
       const e = forRein(ex, rein);
       const segs = e.path[size];
-      const track = buildTrack(segs, e.durationSec);
+      const dur = durationFor(e, size);
+      const track = buildTrack(segs, dur);
       const tag = `${ex.id} ${size} ${rein}`;
-      ok(near(track.totalTime, e.durationSec), `${tag}: Gesamtzeit`);
+      ok(near(track.totalTime, dur), `${tag}: Gesamtzeit`);
 
       // Linie bleibt in der Bahn und ist zusammenhängend
       for (let t = 0; t <= track.totalTime; t += track.totalTime / 400) {
@@ -48,19 +49,9 @@ for (const ex of ARENA_EXERCISES) {
         ok(near(a.x, b.x, 1e-6) && near(a.y, b.y, 1e-6), `${tag}: Lücke zwischen Abschnitt ${i - 1} und ${i}`);
       }
 
-      // Drehsinn: linke Hand = gegen den Uhrzeigersinn (Bildschirm, y nach unten) → Kreuzprodukt negativ
-      let cross = 0;
-      for (let t = 0; t < track.totalTime; t += track.totalTime / 200) {
-        const a = sampleAt(track, t);
-        const b = sampleAt(track, t + track.totalTime / 200);
-        const ha = (a.heading * Math.PI) / 180;
-        const hb = (b.heading * Math.PI) / 180;
-        cross += Math.cos(ha) * Math.sin(hb) - Math.sin(ha) * Math.cos(hb);
-      }
-      ok(rein === "links" ? cross < 0 : cross > 0, `${tag}: Drehsinn passt nicht zur Hand (${cross.toFixed(2)})`);
-
+      // Hand am Ende passt zu changesRein (Startrichtung vs. Endrichtung auf dem Hufschlag)
       // Phasen lückenlos, Zeitleiste monoton
-      const ph = e.phases;
+      const ph = phasesFor(e, size);
       ok(ph[0].timelineStart === 0, `${tag}: erste Phase beginnt nicht bei 0`);
       for (let i = 1; i < ph.length; i++) ok(ph[i].timelineStart === ph[i - 1].timelineEnd, `${tag}: Phasenlücke vor ${ph[i].id}`);
       ok(ph[ph.length - 1].timelineEnd >= track.totalLen, `${tag}: letzte Phase endet vor der Linie`);
@@ -78,8 +69,57 @@ for (const ex of ARENA_EXERCISES) {
           ok(aidSide("innenSchenkel", p.bend, rein) === p.bend, `${tag}: innerer Schenkel ≠ Biegung in ${p.id}`);
           ok(aidSide("aussenZuegel", p.bend, rein) !== p.bend, `${tag}: äußerer Zügel = Biegung in ${p.id}`);
         }
-        if (ex.category === "bahnfigur" && p.bend !== "keine" && p.bend !== "wechsel") ok(p.bend === rein, `${tag}: Biegung ${p.bend} passt nicht zur Hand in ${p.id}`);
+        if (p.bend === "wechsel") ok(!!p.nextBend, `${tag}: Umstellen ohne neue Biegung in ${p.id}`);
       }
+
+      // Biegung passt zur Krümmung der Linie: links = gegen den Uhrzeigersinn, rechts = im Uhrzeigersinn, gerade = kaum Drehung
+      for (let i = 0; i < ph.length; i++) {
+        const t0 = timeAtMeters(track, ph[i].timelineStart);
+        const t1 = Math.min(track.totalTime, timeAtMeters(track, ph[i].timelineEnd));
+        let total = 0;
+        let maxCw = 0;
+        let maxCcw = 0;
+        const n = Math.max(10, Math.ceil((t1 - t0) / 0.01));
+        let prev = sampleAt(track, t0).heading;
+        for (let k = 1; k <= n; k++) {
+          const h = sampleAt(track, t0 + ((t1 - t0) * k) / n).heading;
+          let d = h - prev;
+          while (d > 180) d -= 360;
+          while (d < -180) d += 360;
+          total += d;
+          if (d > 0) maxCw += d;
+          else maxCcw -= d;
+          prev = h;
+        }
+        const p = ph[i];
+        if (p.bend === "links") ok(maxCw < 1, `${tag}: ${p.id} „${p.title}“ ist links gebogen, die Linie dreht aber ${maxCw.toFixed(0)}° im Uhrzeigersinn`);
+        if (p.bend === "rechts") ok(maxCcw < 1, `${tag}: ${p.id} „${p.title}“ ist rechts gebogen, die Linie dreht aber ${maxCcw.toFixed(0)}° gegen den Uhrzeigersinn`);
+        if (p.bend === "keine") ok(Math.abs(total) < 25 && maxCw < 25 && maxCcw < 25, `${tag}: ${p.id} „${p.title}“ ist gerade, die Linie dreht aber ${total.toFixed(0)}°`);
+      }
+
+      // Hand am Ende
+      const finalPhase = ph[ph.length - 1];
+      const endHand = finalPhase.hand ?? rein;
+      ok(endHand === (ex.changesRein ? (rein === "links" ? "rechts" : "links") : rein), `${tag}: Hand am Ende passt nicht zu changesRein`);
+      // … und zur Geometrie: Liegt die Bahnmitte links vom Pferd, ist es auf der linken Hand
+      const handAt = (t: number) => {
+        const sm = sampleAt(track, t);
+        const hx = Math.cos((sm.heading * Math.PI) / 180);
+        const hy = Math.sin((sm.heading * Math.PI) / 180);
+        const toMid = { x: L / 2 - sm.p.x, y: 10 - sm.p.y };
+        return hy * toMid.x - hx * toMid.y > 0 ? "links" : "rechts";
+      };
+      ok(handAt(0) === rein, `${tag}: Start-Hand laut Linie ${handAt(0)}, erwartet ${rein}`);
+      ok(handAt(track.totalTime) === endHand, `${tag}: End-Hand laut Linie ${handAt(track.totalTime)}, im Text ${endHand}`);
+
+      // Buchstaben in Texten existieren in dieser Bahn
+      const letterSet = new Set(arenaLetters(size).map((l) => l.l));
+      for (const p of ph) {
+        const texts = [p.title, p.summary, ...Object.values(p.aids).map((a) => a!.text), ...p.explanations.map((x) => x.text)];
+        for (const t of texts) ok(!/\[[A-Z]\]/.test(t), `${tag}: unaufgelöster Buchstabe in „${t.slice(0, 40)}“`);
+      }
+      for (const q of e.quiz) for (const t of [q.prompt, q.explanation, ...q.options.map((o) => o.text)]) ok(!/\{|\}/.test(fillText(t, rein)), `${tag}: Platzhalter in Frage ${q.id}`);
+      void letterSet;
 
       // Notizen wie „4 m nach K“ stehen auf der Seite ihres Buchstabens (auch nach dem Spiegeln)
       const letters = Object.fromEntries(arenaLetters(size).map((l) => [l.l, l]));
@@ -98,14 +138,24 @@ for (const ex of ARENA_EXERCISES) {
   // Zirkel-spezifisch: Berührpunkte
   if (ex.id === "arena_circle_20m") {
     const track = buildTrack(ex.path["20x40"], ex.durationSec);
+    const mistakeIdsAll = new Set(ex.mistakes.map((m) => m.id));
+    void mistakeIdsAll;
     const pts = Array.from({ length: 2001 }, (_, i) => sampleAt(track, (track.totalTime * i) / 2000).p);
     const touches = (x: number, y: number) => pts.some((p) => Math.hypot(p.x - x, p.y - y) < 0.05);
     ok(touches(0, 10), "Zirkel berührt A");
     ok(touches(20, 10), "Zirkel berührt X (20×40)");
     ok(touches(10, 20), "Zirkel berührt den Hufschlag unten 10 m von A");
-    const mistakeIds = new Set(ex.mistakes.map((m) => m.id));
-    for (const p of ex.phases) for (const m of p.commonMistakeIds) ok(mistakeIds.has(m), `Fehler ${m} fehlt`);
   }
+  // Jede Phase verweist nur auf Fehler, die die Übung auch beschreibt
+  const mistakeIds = new Set(ex.mistakes.map((m) => m.id));
+  for (const size of ex.arenaSizes) for (const p of phasesFor(ex, size)) for (const m of p.commonMistakeIds) ok(mistakeIds.has(m), `${ex.id}: Fehler ${m} in ${p.id} fehlt in der Fehlerliste`);
+  // Varianten derselben Gruppe haben eindeutige Slugs und IDs
+}
+{
+  const ids = ARENA_EXERCISES.map((e) => e.id);
+  const slugs = ARENA_EXERCISES.map((e) => e.slug);
+  ok(new Set(ids).size === ids.length, "IDs doppelt");
+  ok(new Set(slugs).size === slugs.length, "Slugs doppelt");
 }
 
 if (failed) {

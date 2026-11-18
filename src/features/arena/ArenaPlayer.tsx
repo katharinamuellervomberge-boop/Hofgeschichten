@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { EVIDENCE_LABEL, fillText, quizAnswer } from "@/content/arena";
-import { AID_LABEL, aidLabel, buildTrack, forRein, insideSide, phaseAt, sampleAt, timeAtMeters } from "@/content/arena/geometry";
+import { AID_LABEL, aidLabel, buildTrack, durationFor, forRein, phaseAt, phasesFor, sampleAt, timeAtMeters } from "@/content/arena/geometry";
 import type { AidId, AidState, ArenaExercise, ArenaSize, Rein } from "@/content/arena/types";
 import { ArenaView, type Layers } from "./ArenaView";
 import { RiderTop } from "./RiderTop";
@@ -34,8 +34,10 @@ function useReducedMotion() {
  * Phase, Hilfen und Erklärung; alles andere wird daraus berechnet. Dadurch kann nichts
  * auseinanderlaufen, und Anhalten hält alles gleichzeitig an.
  */
-export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
+export function ArenaPlayer({ variants, initial = 0 }: { variants: ArenaExercise[]; initial?: number }) {
   const reduced = useReducedMotion();
+  const [variantIdx, setVariantIdx] = useState(initial);
+  const exercise = variants[Math.min(variantIdx, variants.length - 1)];
   const [rein, setRein] = useState<Rein>("links");
   const [size, setSize] = useState<ArenaSize>(exercise.defaultSize);
   const [mode, setMode] = useState<Mode>("ansehen");
@@ -48,12 +50,15 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
 
   const ex = useMemo(() => forRein(exercise, rein), [exercise, rein]);
   const segments = ex.path[size];
-  const track = useMemo(() => buildTrack(segments, ex.durationSec), [segments, ex.durationSec]);
-  const phaseTimes = useMemo(() => ex.phases.map((p) => timeAtMeters(track, p.timelineStart)), [ex.phases, track]);
+  const phases = phasesFor(ex, size);
+  const duration = durationFor(ex, size);
+  const track = useMemo(() => buildTrack(segments, duration), [segments, duration]);
+  const phaseTimes = useMemo(() => phases.map((p) => timeAtMeters(track, p.timelineStart)), [phases, track]);
   const annotations = ex.annotations[size];
   const sample = sampleAt(track, t);
-  const phase = phaseAt(ex.phases, sample.s);
-  const phaseIdx = ex.phases.indexOf(phase);
+  const phase = phaseAt(phases, sample.s);
+  const phaseIdx = phases.indexOf(phase);
+  const hand = phase.hand ?? rein;
   const ended = t >= track.totalTime - 1e-6;
 
   /* ---- gemeinsame Zeitleiste ---- */
@@ -74,7 +79,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
       let stop = to >= track.totalTime;
       if (modeRef.current === "lernen") {
         // Im Lern-Modus an jedem Phasenanfang anhalten
-        const i = phaseTimes.findIndex((pt, k) => k > 0 && ex.phases[k].pause && pt > from + 1e-6 && pt <= to);
+        const i = phaseTimes.findIndex((pt, k) => k > 0 && phases[k].pause && pt > from + 1e-6 && pt <= to);
         if (i > 0) {
           to = phaseTimes[i];
           stop = true;
@@ -87,7 +92,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [playing, rate, track, phaseTimes, ex.phases]);
+  }, [playing, rate, track, phaseTimes, phases]);
 
   // Hand oder Bahn gewechselt: an derselben Phase weitermachen (gut zum Vergleichen)
   const pendingPhase = useRef<number | null>(null);
@@ -118,7 +123,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
     setPlaying(false);
     const cur = phaseIdx;
     // Zurück: an den Anfang der laufenden Phase, wenn wir schon mitten drin sind
-    const target = d === -1 && t - phaseTimes[cur] > 0.4 ? cur : Math.min(ex.phases.length - 1, Math.max(0, cur + d));
+    const target = d === -1 && t - phaseTimes[cur] > 0.4 ? cur : Math.min(phases.length - 1, Math.max(0, cur + d));
     setT(phaseTimes[target] + (target === 0 ? 0 : 0.001));
   };
   const goPhase = (i: number) => {
@@ -147,18 +152,27 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
     return out;
   }, [phase]);
 
-  const handLabel = rein === "links" ? "Linke Hand" : "Rechte Hand";
-  const arenaLabel = `${ex.titleDe}, ${handLabel}, Bahn ${size.replace("x", " × ")} Meter. Phase ${phaseIdx + 1} von ${ex.phases.length}: ${phase.title}.`;
+  const handLabel = rein === "links" ? "linken Hand" : "rechten Hand";
+  const arenaLabel = `${ex.titleDe}${exercise.variantLabel ? " " + exercise.variantLabel : ""}, Start auf der ${handLabel}, Bahn ${size.replace("x", " × ")} Meter. Phase ${phaseIdx + 1} von ${phases.length}: ${phase.title}.`;
   const sel = selected ? phase.aids[selected] : undefined;
 
   return (
     <section className={styles.player} aria-label="Interaktive Reitbahn">
       {/* Auswahl: Hand, Bahn, Modus */}
       <div className={styles.toolbar}>
-        <div className={styles.seg} role="group" aria-label="Hand">
+        {variants.length > 1 && (
+          <div className={styles.seg} role="group" aria-label="Variante">
+            {variants.map((v, i) => (
+              <button key={v.id} type="button" aria-pressed={variantIdx === i} className={variantIdx === i ? styles.segOn : ""} onClick={() => switchTo(() => setVariantIdx(i))}>
+                {v.variantLabel ?? v.title}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className={styles.seg} role="group" aria-label="Starthand">
           {(["links", "rechts"] as const).map((r) => (
             <button key={r} type="button" aria-pressed={rein === r} className={rein === r ? styles.segOn : ""} onClick={() => switchTo(() => setRein(r))} disabled={!exercise.hasMirror && r === "rechts"}>
-              {r === "links" ? "Linke Hand" : "Rechte Hand"}
+              {r === "links" ? "Start links" : "Start rechts"}
             </button>
           ))}
         </div>
@@ -201,7 +215,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
               size={size}
               segments={segments}
               track={track}
-              phases={ex.phases}
+              phases={phases}
               phaseTimes={phaseTimes}
               annotations={annotations}
               layers={layers}
@@ -218,11 +232,11 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
           <dl className={styles.status} aria-live="polite">
             <div>
               <dt>Hand</dt>
-              <dd>{rein === "links" ? "links" : "rechts"}</dd>
+              <dd>{hand}</dd>
             </div>
             <div>
               <dt>Biegung</dt>
-              <dd>{BEND_LABEL[phase.bend]}</dd>
+              <dd>{phase.bend === "wechsel" && phase.nextBend ? `→ ${phase.nextBend}` : BEND_LABEL[phase.bend]}</dd>
             </div>
             <div>
               <dt>Gangart</dt>
@@ -231,7 +245,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
             <div>
               <dt>Phase</dt>
               <dd>
-                {phaseIdx + 1}/{ex.phases.length}
+                {phaseIdx + 1}/{phases.length}
               </dd>
             </div>
           </dl>
@@ -308,7 +322,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
 
         <div className={styles.sideCol}>
           {mode === "ueben" ? (
-            <Practice exercise={ex} rein={rein} size={size} />
+            <Practice key={exercise.id} exercise={ex} rein={rein} size={size} />
           ) : (
             <>
               {/* Phase und Erklärung */}
@@ -343,8 +357,9 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
                 {aidsOpen && (
                   <div className={styles.aidsBody}>
                     <div className={styles.riderWrap}>
-                      <RiderTop bend={phase.bend} rein={rein} states={states} highlighted={phase.highlightedAids} selected={selected} />
-                      {!insideSide(phase.bend) && <p className={styles.straightNote}>Gerade Linie: keine Biegung. Die Seiten heißen hier links und rechts.</p>}
+                      <RiderTop bend={phase.bend} rein={hand} nextBend={phase.nextBend} states={states} highlighted={phase.highlightedAids} selected={selected} />
+                      {phase.bend === "keine" && <p className={styles.straightNote}>Gerade Linie: keine Biegung. Die Seiten heißen hier links und rechts.</p>}
+                      {phase.bend === "wechsel" && <p className={styles.straightNote}>Umstellen: Die Zeichnung zeigt schon die neue Seite.</p>}
                     </div>
                     <ul className={styles.aidList}>
                       {AIDS.filter((a) => phase.aids[a]).map((a) => {
@@ -353,7 +368,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
                         return (
                           <li key={a}>
                             <button type="button" aria-pressed={on} className={`${styles.aidBtn} ${on ? styles.aidOn : ""} ${phase.highlightedAids.includes(a) ? styles.aidKey : ""}`} onClick={() => setSelected(on ? null : a)}>
-                              <span className={styles.aidName}>{aidLabel(a, phase.bend, rein)}</span>
+                              <span className={styles.aidName}>{aidLabel(a, phase.bend, hand, phase.nextBend)}</span>
                               <span className={styles.aidState}>{STATE_LABEL[ins.state]}</span>
                             </button>
                           </li>
@@ -362,7 +377,7 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
                     </ul>
                     {selected && sel && (
                       <div className={styles.aidDetail}>
-                        <h3>{aidLabel(selected, phase.bend, rein)}</h3>
+                        <h3>{aidLabel(selected, phase.bend, hand, phase.nextBend)}</h3>
                         <dl>
                           <dt>Wozu</dt>
                           <dd>{ex.aidPurpose[selected] ?? AID_LABEL[selected]}</dd>
@@ -384,13 +399,16 @@ export function ArenaPlayer({ exercise }: { exercise: ArenaExercise }) {
           <section className={styles.steps} aria-label="Schritt für Schritt">
             <p className="eyebrow">{reduced ? "Schritt für Schritt (Animation reduziert)" : "Schritt für Schritt"}</p>
             <ol>
-              {ex.phases.map((p, i) => (
+              {phases.map((p, i) => (
                 <li key={p.id}>
                   <button type="button" aria-current={i === phaseIdx ? "step" : undefined} className={i === phaseIdx ? styles.stepOn : ""} onClick={() => goPhase(i)}>
                     <span className={styles.stepNum}>{i + 1}</span>
                     <span>
                       <span className={styles.stepTitle}>{p.title}</span>
-                      <span className={styles.stepMeta}>Biegung {BEND_LABEL[p.bend]}</span>
+                      <span className={styles.stepMeta}>
+                        Biegung {p.bend === "wechsel" && p.nextBend ? `wird nach ${p.nextBend} umgestellt` : BEND_LABEL[p.bend]}
+                        {p.hand && p.hand !== rein ? " · neue Hand" : ""}
+                      </span>
                     </span>
                   </button>
                 </li>
@@ -466,7 +484,7 @@ function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rei
                 if (o.id === right) setScore((s) => s + 1);
               }}
             >
-              {o.text}
+              {fillText(o.text, rein)}
               {picked != null && o.id === right && <span className={styles.optMark}> · richtig</span>}
               {picked === o.id && o.id !== right && <span className={styles.optMark}> · nicht ganz</span>}
             </button>

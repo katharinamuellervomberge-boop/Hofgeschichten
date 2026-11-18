@@ -138,6 +138,10 @@ export function timeAtMeters(track: Track, s: number): number {
   return track.totalTime;
 }
 
+/** Phasen und Dauer für eine Bahngröße */
+export const phasesFor = (ex: ArenaExercise, size: ArenaSize): Phase[] => ex.phasesBySize?.[size] ?? ex.phases;
+export const durationFor = (ex: ArenaExercise, size: ArenaSize): number => ex.durationBySize?.[size] ?? ex.durationSec;
+
 export function phaseAt(phases: Phase[], s: number): Phase {
   return phases.find((p) => s >= p.timelineStart && s < p.timelineEnd) ?? phases[phases.length - 1];
 }
@@ -178,6 +182,20 @@ const f = (n: number) => (Math.round(n * 1000) / 1000).toString();
 
 const mirrorPt = (p: Pt): Pt => ({ x: p.x, y: ARENA_WIDTH - p.y });
 const swapBend = (b: Bend): Bend => (b === "links" ? "rechts" : b === "rechts" ? "links" : b);
+const swapRein = (r: Rein): Rein => (r === "links" ? "rechts" : "links");
+
+/** Buchstaben, die beim Spiegeln (K-Seite ↔ F-Seite) die Seite wechseln */
+const MIRROR_LETTER: Record<string, string> = { K: "F", F: "K", E: "B", B: "E", H: "M", M: "H", V: "P", P: "V", S: "R", R: "S" };
+
+/** „[H]“ → „H“ (linke Hand) bzw. „M“ (gespiegelt) */
+export function resolveLetters(text: string, mirrored: boolean): string {
+  return text.replace(/\[([A-Z])\]/g, (_, l: string) => (mirrored ? (MIRROR_LETTER[l] ?? l) : l));
+}
+
+function mapPhaseText(p: Phase, f: (s: string) => string): Phase {
+  const aids = Object.fromEntries(Object.entries(p.aids).map(([k, v]) => [k, v ? { ...v, text: f(v.text) } : v])) as Phase["aids"];
+  return { ...p, title: f(p.title), summary: f(p.summary), aids, explanations: p.explanations.map((x) => ({ ...x, text: f(x.text) })) };
+}
 
 export function mirrorSegment(s: Segment): Segment {
   if (s.kind === "line") return { ...s, from: mirrorPt(s.from), to: mirrorPt(s.to) };
@@ -187,12 +205,27 @@ export function mirrorSegment(s: Segment): Segment {
 
 /** Übung für die gewählte Hand: Linie und Biegung werden gespiegelt, Texte bleiben (sie sagen innen/außen), Bahnpunkte bleiben stehen */
 export function forRein(ex: ArenaExercise, rein: Rein): ArenaExercise {
-  if (rein === ex.authoredRein) return ex;
+  const mirrored = rein !== ex.authoredRein;
+  const f = (t: string) => resolveLetters(t, mirrored);
+  const mapBySize = (g: (p: Phase) => Phase) =>
+    ex.phasesBySize ? (Object.fromEntries(Object.entries(ex.phasesBySize).map(([k, list]) => [k, (list ?? []).map(g)])) as ArenaExercise["phasesBySize"]) : undefined;
+  if (!mirrored) {
+    const g = (p: Phase) => mapPhaseText(p, f);
+    return {
+      ...ex,
+      annotations: Object.fromEntries(Object.entries(ex.annotations).map(([k, list]) => [k, list.map((a) => ({ ...a, label: f(a.label) }))])) as ArenaExercise["annotations"],
+      phases: ex.phases.map(g),
+      phasesBySize: mapBySize(g),
+      tips: ex.tips.map(f),
+    };
+  }
+  const gm = (p: Phase) =>
+    mapPhaseText({ ...p, bend: swapBend(p.bend), nextBend: p.nextBend ? (swapBend(p.nextBend) as "links" | "rechts") : undefined, hand: p.hand ? swapRein(p.hand) : undefined }, f);
   const path = Object.fromEntries(Object.entries(ex.path).map(([k, segs]) => [k, segs.map(mirrorSegment)])) as ArenaExercise["path"];
   const annotations = Object.fromEntries(
-    Object.entries(ex.annotations).map(([k, list]) => [k, list.map((a) => (a.followsPath ? { ...a, at: mirrorPt(a.at) } : a))]),
+    Object.entries(ex.annotations).map(([k, list]) => [k, list.map((a) => ({ ...a, label: f(a.label), at: a.followsPath ? mirrorPt(a.at) : a.at }))]),
   ) as ArenaExercise["annotations"];
-  return { ...ex, path, annotations, phases: ex.phases.map((p) => ({ ...p, bend: swapBend(p.bend) })) };
+  return { ...ex, path, annotations, tips: ex.tips.map(f), phases: ex.phases.map(gm), phasesBySize: mapBySize(gm) };
 }
 
 /* ---------- innen / außen ---------- */
@@ -219,10 +252,10 @@ const SIDE_OF: Partial<Record<AidId, "innen" | "aussen">> = {
  * Körperseite einer Hilfe. Ohne Biegung gilt die Bahnseite der Hand (linke Hand → innen = links),
  * damit die Hilfe einen festen Platz in der Zeichnung hat; die Oberfläche kennzeichnet das.
  */
-export function aidSide(aid: AidId, bend: Bend, rein: Rein): Side | null {
+export function aidSide(aid: AidId, bend: Bend, rein: Rein, nextBend?: "links" | "rechts"): Side | null {
   const rel = SIDE_OF[aid];
   if (!rel) return null;
-  const inside: Side = insideSide(bend) ?? rein;
+  const inside: Side = insideSide(bend) ?? (bend === "wechsel" && nextBend ? nextBend : rein);
   return rel === "innen" ? inside : inside === "links" ? "rechts" : "links";
 }
 
@@ -238,10 +271,11 @@ export const AID_LABEL: Record<AidId, string> = {
 };
 
 /** Beschriftung mit aufgelöster Seite, z. B. „Innerer Schenkel · links“ oder ohne Biegung „Schenkel links“ */
-export function aidLabel(aid: AidId, bend: Bend, rein: Rein): string {
-  const side = aidSide(aid, bend, rein);
+export function aidLabel(aid: AidId, bend: Bend, rein: Rein, nextBend?: "links" | "rechts"): string {
+  const side = aidSide(aid, bend, rein, nextBend);
   if (!side) return AID_LABEL[aid];
   if (insideSide(bend)) return `${AID_LABEL[aid]} · ${side}`;
+  if (bend === "wechsel" && nextBend) return `Neuer ${AID_LABEL[aid][0].toLowerCase()}${AID_LABEL[aid].slice(1)} · ${side}`;
   const part = aid.endsWith("Schenkel") ? "Schenkel" : "Zügel";
   return `${part} ${side}`;
 }
