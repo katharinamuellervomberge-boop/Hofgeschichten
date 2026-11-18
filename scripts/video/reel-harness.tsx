@@ -23,6 +23,7 @@ import { N06_TOTAL, renderN06 } from "@/video/reels/nov06-bahnfiguren-reel";
 import { N07_TOTAL, renderN07 } from "@/video/reels/nov07-45minuten-reel";
 import { STELLUNG_TOTAL, renderStellung } from "@/video/reels/stellung-reel";
 import { LERN } from "@/video/lern/lern-videos";
+import LERN_UI_EN from "@/video/lern/ui-en.json";
 import { RS01_TOTAL, renderRS01 } from "@/video/reels/rs01-hinten-vorne-reel";
 import { RS02_TOTAL, renderRS02 } from "@/video/reels/rs02-haende-ruhig-reel";
 import { GW_TOTAL, renderGaloppwechsel } from "@/video/reels/galoppwechsel-reel";
@@ -103,7 +104,40 @@ const r = REELS[comp];
 const w = window as unknown as Record<string, unknown>;
 w.__total = r.total();
 const root = createRoot(document.getElementById("root")!);
-w.__setT = (t: number) => flushSync(() => root.render(r.render(t)));
+const LANG_EN = new URLSearchParams(location.search).get("lang") === "en";
+const UI = (LERN_UI_EN as { ui: Record<string, string> }).ui;
+const seen = new Set<string>();
+w.__texts = seen;
+/** Englische Fassung: feste Bildtexte übersetzen; Chips (rect + mittiger Text) an die neue Länge anpassen */
+function localize() {
+  const walker = document.createTreeWalker(document.getElementById("root")!, NodeFilter.SHOW_TEXT);
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    const raw = n.nodeValue ?? "";
+    const key = raw.trim();
+    if (!key) continue;
+    seen.add(key);
+    if (!LANG_EN || UI[key] === undefined || UI[key] === key) continue;
+    n.nodeValue = raw.replace(key, UI[key]);
+    const el = n.parentElement as unknown as SVGTextElement | null;
+    const rect = el?.previousElementSibling;
+    if (el && rect?.tagName === "rect" && el.getAttribute("text-anchor") === "middle" && Number(rect.getAttribute("x")) < 0) {
+      const fs = Number(el.getAttribute("font-size") ?? 22);
+      const wd = el.getComputedTextLength() + fs * 1.6;
+      rect.setAttribute("width", String(wd));
+      rect.setAttribute("x", String(-wd / 2));
+    }
+  }
+  if (!LANG_EN) return;
+  for (const g of Array.from(document.querySelectorAll('g[transform="translate(24 24)"]'))) {
+    const rect = g.querySelector("rect");
+    const text = g.querySelector("text") as SVGTextElement | null;
+    if (rect && text) rect.setAttribute("width", String(Math.round(text.getComputedTextLength() + 58)));
+  }
+}
+w.__setT = (t: number) => {
+  flushSync(() => root.render(r.render(t)));
+  localize();
+};
 (w.__setT as (t: number) => void)(0);
 const IMGS = ["/horses/tivoli-960.webp", "/kids/mila-640.webp", "/kids/ben-640.webp", "/people/hanna-640.webp"];
 w.__ready = Promise.all([document.fonts.ready, ...IMGS.map((src) => new Promise((res) => { const i = new Image(); i.onload = i.onerror = res; i.src = src; }))]);

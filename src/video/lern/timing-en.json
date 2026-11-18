@@ -1,0 +1,1092 @@
+{
+ "leichttraben-komplett": {
+  "audio": "leichttraben-komplett",
+  "total": 73.52,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 3.65,
+    "chunks": [
+     {
+      "text": "Why do riders keep standing up and sitting down in trot?",
+      "start": 0.4,
+      "end": 3.65
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "warum",
+    "start": 4.18,
+    "end": 10.58,
+    "chunks": [
+     {
+      "text": "That's called rising trot.",
+      "start": 4.18,
+      "end": 6.18
+     },
+     {
+      "text": "It takes the weight off your horse's back",
+      "start": 6.18,
+      "end": 8.02
+     },
+     {
+      "text": "and makes the trot much more comfortable for you.",
+      "start": 8.02,
+      "end": 10.58
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "zweitakt",
+    "start": 11.08,
+    "end": 17.31,
+    "chunks": [
+     {
+      "text": "The trot is a two-beat gait: two legs always land at the same time, diagonally opposite each other.",
+      "start": 11.08,
+      "end": 17.31
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wie",
+    "start": 17.81,
+    "end": 24.7,
+    "chunks": [
+     {
+      "text": "In rising trot, you move forwards and upwards from your hips on one beat",
+      "start": 17.81,
+      "end": 22.0
+     },
+     {
+      "text": "and sit softly back down on the next.",
+      "start": 22.0,
+      "end": 24.7
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "aufab",
+    "start": 25.12,
+    "end": 28.77,
+    "chunks": [
+     {
+      "text": "Up, down, up, down",
+      "start": 25.12,
+      "end": 26.52
+     },
+     {
+      "text": "in your horse's rhythm.",
+      "start": 26.52,
+      "end": 28.77
+     }
+    ],
+    "nseg": 5
+   },
+   {
+    "id": "haende",
+    "start": 29.27,
+    "end": 34.73,
+    "chunks": [
+     {
+      "text": "Your hands stay still in the same place.",
+      "start": 29.27,
+      "end": 31.9
+     },
+     {
+      "text": "Your knees stay springy, and your heels stay down.",
+      "start": 31.9,
+      "end": 34.73
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "treiben",
+    "start": 35.26,
+    "end": 43.52,
+    "chunks": [
+     {
+      "text": "And when do you use your legs?",
+      "start": 35.26,
+      "end": 37.45
+     },
+     {
+      "text": "Always as you sit!",
+      "start": 37.45,
+      "end": 39.1
+     },
+     {
+      "text": "Give a short squeeze with both calves",
+      "start": 39.1,
+      "end": 41.02
+     },
+     {
+      "text": "when you rise, your legs stay relaxed.",
+      "start": 41.02,
+      "end": 43.52
+     }
+    ],
+    "nseg": 4
+   },
+   {
+    "id": "warumtreiben",
+    "start": 43.89,
+    "end": 49.77,
+    "chunks": [
+     {
+      "text": "Because when you sit, the inside hind leg is just pushing off.",
+      "start": 43.89,
+      "end": 47.31
+     },
+     {
+      "text": "That's exactly when your leg helps.",
+      "start": 47.31,
+      "end": 49.77
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "fuss",
+    "start": 50.3,
+    "end": 52.78,
+    "chunks": [
+     {
+      "text": "Now all that's missing is the correct diagonal.",
+      "start": 50.3,
+      "end": 52.78
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "schulter",
+    "start": 53.18,
+    "end": 56.22,
+    "chunks": [
+     {
+      "text": "You rise when your horse's outside shoulder moves forward.",
+      "start": 53.18,
+      "end": 56.22
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "falsch",
+    "start": 56.65,
+    "end": 62.17,
+    "chunks": [
+     {
+      "text": "On the wrong diagonal?",
+      "start": 56.65,
+      "end": 58.25
+     },
+     {
+      "text": "No problem: just sit for one extra beat",
+      "start": 58.25,
+      "end": 60.54
+     },
+     {
+      "text": "and you're back on the right one.",
+      "start": 60.54,
+      "end": 62.17
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "wechsel",
+    "start": 62.67,
+    "end": 65.7,
+    "chunks": [
+     {
+      "text": "Every time you change the rein, you change your diagonal too.",
+      "start": 62.67,
+      "end": 65.7
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "merke",
+    "start": 66.16,
+    "end": 71.32,
+    "chunks": [
+     {
+      "text": "Remember: outside shoulder forward – you're up.",
+      "start": 66.16,
+      "end": 69.93
+     },
+     {
+      "text": "And use your legs as you sit.",
+      "start": 69.93,
+      "end": 71.32
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "leichter-sitz": {
+  "audio": "leichter-sitz",
+  "total": 41.91,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 3.41,
+    "chunks": [
+     {
+      "text": "Why do riders sometimes half stand up in canter?",
+      "start": 0.4,
+      "end": 3.41
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "was",
+    "start": 3.9,
+    "end": 9.2,
+    "chunks": [
+     {
+      "text": "That's the light seat.",
+      "start": 3.9,
+      "end": 5.57
+     },
+     {
+      "text": "Your weight comes out of the saddle",
+      "start": 5.57,
+      "end": 7.16
+     },
+     {
+      "text": "so your horse can move its back freely.",
+      "start": 7.16,
+      "end": 9.2
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wann",
+    "start": 9.68,
+    "end": 13.69,
+    "chunks": [
+     {
+      "text": "You use it, for example, to warm up, out hacking or when jumping.",
+      "start": 9.68,
+      "end": 13.69
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "p1",
+    "start": 14.28,
+    "end": 19.3,
+    "chunks": [
+     {
+      "text": "One: lift your bottom a tiny bit.",
+      "start": 14.28,
+      "end": 16.75
+     },
+     {
+      "text": "Your weight goes down into the stirrups.",
+      "start": 16.75,
+      "end": 19.3
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "p2",
+    "start": 19.77,
+    "end": 22.75,
+    "chunks": [
+     {
+      "text": "Two: lean your upper body slightly forward.",
+      "start": 19.77,
+      "end": 22.75
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "p3",
+    "start": 23.19,
+    "end": 26.92,
+    "chunks": [
+     {
+      "text": "Three: heels down.",
+      "start": 23.19,
+      "end": 25.34
+     },
+     {
+      "text": "Your knees act like springs.",
+      "start": 25.34,
+      "end": 26.92
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "p4",
+    "start": 27.34,
+    "end": 30.04,
+    "chunks": [
+     {
+      "text": "Four: your hands follow your horse's neck.",
+      "start": 27.34,
+      "end": 30.04
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "wichtig",
+    "start": 30.44,
+    "end": 35.42,
+    "chunks": [
+     {
+      "text": "Really important: don't hold on to the reins.",
+      "start": 30.44,
+      "end": 33.28
+     },
+     {
+      "text": "Your balance comes from your legs.",
+      "start": 33.28,
+      "end": 35.42
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "merke",
+    "start": 35.85,
+    "end": 39.48,
+    "chunks": [
+     {
+      "text": "Remember: bottom up, heels down, hands follow.",
+      "start": 35.85,
+      "end": 39.48
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "pferd-lenken": {
+  "audio": "pferd-lenken",
+  "total": 37.19,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 2.63,
+    "chunks": [
+     {
+      "text": "How do you actually steer a horse?",
+      "start": 0.4,
+      "end": 2.63
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "koerper",
+    "start": 2.86,
+    "end": 6.59,
+    "chunks": [
+     {
+      "text": "Not just with the reins!",
+      "start": 2.86,
+      "end": 4.74
+     },
+     {
+      "text": "You steer with your whole body.",
+      "start": 4.74,
+      "end": 6.59
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "blick",
+    "start": 7.11,
+    "end": 9.1,
+    "chunks": [
+     {
+      "text": "One: look where you want to go.",
+      "start": 7.11,
+      "end": 9.1
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gewicht",
+    "start": 9.63,
+    "end": 12.88,
+    "chunks": [
+     {
+      "text": "Two: shift your weight a tiny bit to the inside.",
+      "start": 9.63,
+      "end": 12.88
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "schenkel",
+    "start": 13.36,
+    "end": 18.61,
+    "chunks": [
+     {
+      "text": "Three: your inside leg works on the girth, your outside leg lies slightly behind it.",
+      "start": 13.36,
+      "end": 18.61
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "zuegel",
+    "start": 19.15,
+    "end": 24.99,
+    "chunks": [
+     {
+      "text": "Four: the inside rein shows the way, the outside rein gives",
+      "start": 19.15,
+      "end": 23.41
+     },
+     {
+      "text": "but keeps the contact.",
+      "start": 23.41,
+      "end": 24.99
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "nie",
+    "start": 25.31,
+    "end": 30.26,
+    "chunks": [
+     {
+      "text": "Never pull on just one rein!",
+      "start": 25.31,
+      "end": 27.1
+     },
+     {
+      "text": "Your horse will turn its head, but not its body.",
+      "start": 27.1,
+      "end": 30.26
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "merke",
+    "start": 30.72,
+    "end": 34.99,
+    "chunks": [
+     {
+      "text": "Remember: first look, then sit, then leg and hand.",
+      "start": 30.72,
+      "end": 34.99
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "innen-aussen": {
+  "audio": "innen-aussen",
+  "total": 48.89,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 5.92,
+    "chunks": [
+     {
+      "text": "Inside leg, outside rein",
+      "start": 0.4,
+      "end": 2.24
+     },
+     {
+      "text": "what do inside and outside actually mean?",
+      "start": 2.24,
+      "end": 5.92
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "innen",
+    "start": 6.51,
+    "end": 12.14,
+    "chunks": [
+     {
+      "text": "The inside is the side your horse is bent towards.",
+      "start": 6.51,
+      "end": 9.22
+     },
+     {
+      "text": "On a circle, that's the side towards the middle.",
+      "start": 9.22,
+      "end": 12.14
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "schenkelin",
+    "start": 12.7,
+    "end": 16.37,
+    "chunks": [
+     {
+      "text": "Your inside leg works on the girth.",
+      "start": 12.7,
+      "end": 14.52
+     },
+     {
+      "text": "Your horse bends around it.",
+      "start": 14.52,
+      "end": 16.37
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "schenkelaus",
+    "start": 16.89,
+    "end": 21.4,
+    "chunks": [
+     {
+      "text": "Your outside leg lies slightly behind and makes sure the hindquarters don't swing out.",
+      "start": 16.89,
+      "end": 21.4
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "zuegel",
+    "start": 21.93,
+    "end": 29.54,
+    "chunks": [
+     {
+      "text": "The outside rein controls the shoulder.",
+      "start": 21.93,
+      "end": 24.86
+     },
+     {
+      "text": "The inside rein only asks for a little flexion",
+      "start": 24.86,
+      "end": 27.25
+     },
+     {
+      "text": "you can just see the inside eye.",
+      "start": 27.25,
+      "end": 29.54
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "fehler",
+    "start": 30.02,
+    "end": 34.44,
+    "chunks": [
+     {
+      "text": "If you only pull on the inside, the neck bends",
+      "start": 30.02,
+      "end": 32.46
+     },
+     {
+      "text": "but the shoulder drifts out.",
+      "start": 32.46,
+      "end": 34.44
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "rahmen",
+    "start": 34.94,
+    "end": 40.33,
+    "chunks": [
+     {
+      "text": "The answer is framing: your horse moves between your aids",
+      "start": 34.94,
+      "end": 38.73
+     },
+     {
+      "text": "like between two rails.",
+      "start": 38.73,
+      "end": 40.33
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "merke",
+    "start": 40.81,
+    "end": 46.69,
+    "chunks": [
+     {
+      "text": "Remember: inside drives, outside holds",
+      "start": 40.81,
+      "end": 43.92
+     },
+     {
+      "text": "so the shoulder stays where it belongs.",
+      "start": 43.92,
+      "end": 46.69
+     }
+    ],
+    "nseg": 4
+   }
+  ]
+ },
+ "anreiten-durchparieren": {
+  "audio": "anreiten-durchparieren",
+  "total": 164.09,
+  "lines": [
+   {
+    "id": "frage",
+    "start": 0.4,
+    "end": 4.55,
+    "chunks": [
+     {
+      "text": "How do you tell your horse: let's go",
+      "start": 0.4,
+      "end": 2.35
+     },
+     {
+      "text": "or: time to slow down?",
+      "start": 2.35,
+      "end": 4.55
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "hilfen",
+    "start": 5.11,
+    "end": 11.45,
+    "chunks": [
+     {
+      "text": "You have three aids for this: your weight, your legs and your reins.",
+      "start": 5.11,
+      "end": 9.5
+     },
+     {
+      "text": "They always work together.",
+      "start": 9.5,
+      "end": 11.45
+     }
+    ],
+    "nseg": 4
+   },
+   {
+    "id": "hp",
+    "start": 12.03,
+    "end": 17.42,
+    "chunks": [
+     {
+      "text": "Before every change of gait comes a half-halt.",
+      "start": 12.03,
+      "end": 14.25
+     },
+     {
+      "text": "It means: attention, something's about to happen!",
+      "start": 14.25,
+      "end": 17.42
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "hpwie",
+    "start": 17.99,
+    "end": 27.74,
+    "chunks": [
+     {
+      "text": "Here's how it works: you sit deep for a moment and tighten your tummy muscles.",
+      "start": 17.99,
+      "end": 22.72
+     },
+     {
+      "text": "Your legs stay on.",
+      "start": 22.72,
+      "end": 24.2
+     },
+     {
+      "text": "And your hand closes briefly",
+      "start": 24.2,
+      "end": 25.5
+     },
+     {
+      "text": "and then softens again straight away.",
+      "start": 25.5,
+      "end": 27.74
+     }
+    ],
+    "nseg": 5
+   },
+   {
+    "id": "hpzieh",
+    "start": 28.18,
+    "end": 33.25,
+    "chunks": [
+     {
+      "text": "Important: the hand doesn't pull.",
+      "start": 28.18,
+      "end": 30.82
+     },
+     {
+      "text": "It just holds for a moment and then softens again.",
+      "start": 30.82,
+      "end": 33.25
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "schritt",
+    "start": 33.91,
+    "end": 44.62,
+    "chunks": [
+     {
+      "text": "From halt to walk: first a half-halt.",
+      "start": 33.91,
+      "end": 36.8
+     },
+     {
+      "text": "Then both legs ask on the girth.",
+      "start": 36.8,
+      "end": 39.1
+     },
+     {
+      "text": "Your pelvis moves forward with the horse, and your hand gives a little",
+      "start": 39.1,
+      "end": 42.99
+     },
+     {
+      "text": "so your horse can move off.",
+      "start": 42.99,
+      "end": 44.62
+     }
+    ],
+    "nseg": 4
+   },
+   {
+    "id": "schritt2",
+    "start": 45.05,
+    "end": 48.76,
+    "chunks": [
+     {
+      "text": "As soon as it walks, your legs lie quietly against its sides again.",
+      "start": 45.05,
+      "end": 48.76
+     }
+    ],
+    "nseg": 1
+   },
+   {
+    "id": "trab",
+    "start": 49.44,
+    "end": 57.35,
+    "chunks": [
+     {
+      "text": "From walk to trot: again, a half-halt.",
+      "start": 49.44,
+      "end": 52.8
+     },
+     {
+      "text": "Then both legs ask a little more clearly, and your hand allows your horse forward.",
+      "start": 52.8,
+      "end": 57.35
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "trab2",
+    "start": 57.74,
+    "end": 61.97,
+    "chunks": [
+     {
+      "text": "Sit the first few strides.",
+      "start": 57.74,
+      "end": 59.72
+     },
+     {
+      "text": "After that, you can go into rising trot.",
+      "start": 59.72,
+      "end": 61.97
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "galopp",
+    "start": 62.65,
+    "end": 68.87,
+    "chunks": [
+     {
+      "text": "From trot to canter: sit to the trot and give a half-halt",
+      "start": 62.65,
+      "end": 66.7
+     },
+     {
+      "text": "ideally in a corner or on a circle.",
+      "start": 66.7,
+      "end": 68.87
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp2",
+    "start": 69.3,
+    "end": 76.78,
+    "chunks": [
+     {
+      "text": "Your weight goes a little more to the inside.",
+      "start": 69.3,
+      "end": 72.09
+     },
+     {
+      "text": "Your inside leg asks on the girth.",
+      "start": 72.09,
+      "end": 74.34
+     },
+     {
+      "text": "Your outside leg lies a hand's width behind it.",
+      "start": 74.34,
+      "end": 76.78
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp3",
+    "start": 77.2,
+    "end": 85.02,
+    "chunks": [
+     {
+      "text": "The inside rein asks for a little flexion to the inside, the outside rein holds",
+      "start": 77.2,
+      "end": 81.82
+     },
+     {
+      "text": "and as your horse strikes off, your hand gives.",
+      "start": 81.82,
+      "end": 85.02
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "galopp4",
+    "start": 85.42,
+    "end": 89.09,
+    "chunks": [
+     {
+      "text": "And off it goes into canter",
+      "start": 85.42,
+      "end": 86.81
+     },
+     {
+      "text": "with the outside hind leg first.",
+      "start": 86.81,
+      "end": 89.09
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "runter",
+    "start": 89.64,
+    "end": 94.69,
+    "chunks": [
+     {
+      "text": "To slow down, you give several half-halts in a row.",
+      "start": 89.64,
+      "end": 92.24
+     },
+     {
+      "text": "That's called a downward transition.",
+      "start": 92.24,
+      "end": 94.69
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gt",
+    "start": 95.36,
+    "end": 105.4,
+    "chunks": [
+     {
+      "text": "From canter to trot: sit deep, keep your legs on, close and soften your hand",
+      "start": 95.36,
+      "end": 100.4
+     },
+     {
+      "text": "until your horse trots.",
+      "start": 100.4,
+      "end": 102.15
+     },
+     {
+      "text": "Then your hand becomes light again straight away.",
+      "start": 102.15,
+      "end": 105.4
+     }
+    ],
+    "nseg": 6
+   },
+   {
+    "id": "ts",
+    "start": 106.06,
+    "end": 111.37,
+    "chunks": [
+     {
+      "text": "From trot to walk: sit to the trot and give a few more half-halts until your horse walks.",
+      "start": 106.06,
+      "end": 111.37
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "warum",
+    "start": 111.79,
+    "end": 119.79,
+    "chunks": [
+     {
+      "text": "And why do your legs stay on when you slow down?",
+      "start": 111.79,
+      "end": 114.69
+     },
+     {
+      "text": "So your horse keeps stepping under its belly with its hind legs and doesn't just fall onto its forehand.",
+      "start": 114.69,
+      "end": 119.79
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "gp",
+    "start": 120.46,
+    "end": 127.65,
+    "chunks": [
+     {
+      "text": "From walk to halt: that's the full halt.",
+      "start": 120.46,
+      "end": 123.41
+     },
+     {
+      "text": "Several half-halts in quick succession, until your horse stands still.",
+      "start": 123.41,
+      "end": 127.65
+     }
+    ],
+    "nseg": 3
+   },
+   {
+    "id": "gp2",
+    "start": 128.07,
+    "end": 133.73,
+    "chunks": [
+     {
+      "text": "Once it's standing quietly on all four legs, your hand becomes light.",
+      "start": 128.07,
+      "end": 131.76
+     },
+     {
+      "text": "And you praise your horse.",
+      "start": 131.76,
+      "end": 133.73
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "treppe",
+    "start": 134.3,
+    "end": 144.38,
+    "chunks": [
+     {
+      "text": "At first, you go down from canter to halt step by step: canter, trot, walk, halt.",
+      "start": 134.3,
+      "end": 140.8
+     },
+     {
+      "text": "On every step of the staircase, you give half-halts.",
+      "start": 140.8,
+      "end": 144.38
+     }
+    ],
+    "nseg": 6
+   },
+   {
+    "id": "profi",
+    "start": 144.8,
+    "end": 151.43,
+    "chunks": [
+     {
+      "text": "Experienced riders and well-schooled horses can later make bigger jumps",
+      "start": 144.8,
+      "end": 148.63
+     },
+     {
+      "text": "for example straight from canter to walk.",
+      "start": 148.63,
+      "end": 151.43
+     }
+    ],
+    "nseg": 2
+   },
+   {
+    "id": "merke",
+    "start": 152.01,
+    "end": 161.89,
+    "chunks": [
+     {
+      "text": "Remember: a half-halt means attention.",
+      "start": 152.01,
+      "end": 155.36
+     },
+     {
+      "text": "A full halt means stop.",
+      "start": 155.36,
+      "end": 156.88
+     },
+     {
+      "text": "Your legs take you forward",
+      "start": 156.88,
+      "end": 158.68
+     },
+     {
+      "text": "and after every aid, your hand becomes light again.",
+      "start": 158.68,
+      "end": 161.89
+     }
+    ],
+    "nseg": 5
+   }
+  ]
+ }
+}

@@ -34,6 +34,12 @@ export type Beat = (SideBeat | TopBeat | TreppeBeat) & { h?: Array<"g" | "s" | "
 export type Section = { from: string; kicker: string; title: string; items?: Array<[string, string, string?]>; hilfen?: Array<"g" | "s" | "z">; treppe?: boolean };
 export type LernDef = { slug: string; chip: string; beats: Record<string, Beat>; sections: Section[]; merke: string[] };
 
+/** Englische Fassung: Stichwörter, an denen im Satz etwas passiert (deutsches Wort → englisches Wort) */
+const CUE: Record<string, string> = {};
+export function setCues(c: Record<string, string>) {
+  Object.assign(CUE, c);
+}
+
 export function timingOf(slug: string) {
   return ALL[slug];
 }
@@ -50,7 +56,7 @@ function mk(slug: string) {
   /** Zeitpunkt eines Wortes innerhalb eines Satzes (über die Zeichenposition geschätzt) */
   const word = (id: string, w: string, text: string) => {
     const l = line(id);
-    const i = Math.max(0, text.indexOf(w));
+    const i = Math.max(0, text.indexOf(CUE[w] ?? w));
     return l.start + (i / text.length) * (l.end - l.start);
   };
   return { tm, line, idx, word };

@@ -1,6 +1,10 @@
 import { COL } from "@/video/kit";
 import LINES from "./lines.json";
-import { renderLern, timingOf, type LernDef } from "./lern-kit";
+import LINES_EN from "./lines-en.json";
+import TIMING from "./timing.json";
+import TIMING_EN from "./timing-en.json";
+import UI_EN from "./ui-en.json";
+import { renderLern, setCues, timingOf, type LernDef } from "./lern-kit";
 
 /* Fünf neue Lernvideos für die Reitakademie (02.11.2026), Aufnahmen Jessica v4. */
 
@@ -134,7 +138,22 @@ const DEFS: LernDef[] = [
   },
 ];
 
-const TEXTS = Object.fromEntries(Object.entries(LINES as Record<string, Array<[string, string]>>).map(([k, v]) => [k, Object.fromEntries(v)]));
+/* Englische Fassung (?lang=en): englische Aufnahme (timing-en.json), Sprechertexte (lines-en.json), Bildtexte (ui-en.json) */
+const EN = typeof location !== "undefined" && new URLSearchParams(location.search).get("lang") === "en";
+if (EN) {
+  Object.assign(TIMING, TIMING_EN);
+  const ui = (UI_EN as { ui: Record<string, string>; cues: Record<string, string> });
+  const tr = (x: unknown): unknown => {
+    if (typeof x === "string") return ui.ui[x] ?? x;
+    if (Array.isArray(x)) return x.map(tr);
+    if (x && typeof x === "object") return Object.fromEntries(Object.entries(x).map(([k, v]) => [k, k === "to" ? v : tr(v)]));
+    return x;
+  };
+  DEFS.forEach((d, i) => (DEFS[i] = tr(d) as LernDef));
+  setCues(ui.cues);
+}
+
+const TEXTS = Object.fromEntries(Object.entries((EN ? LINES_EN : LINES) as Record<string, Array<[string, string]>>).map(([k, v]) => [k, Object.fromEntries(v)]));
 
 export const LERN: Record<string, { total: () => number; render: (t: number) => ReturnType<typeof renderLern> }> = Object.fromEntries(
   DEFS.map((d) => [`lern-${d.slug}`, { total: () => timingOf(d.slug).total, render: (t: number) => renderLern(d, TEXTS[d.slug], t) }]),

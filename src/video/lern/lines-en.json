@@ -1,0 +1,252 @@
+{
+ "leichttraben-komplett": [
+  [
+   "frage",
+   "Why do riders keep standing up and sitting down in trot?"
+  ],
+  [
+   "warum",
+   "That's called rising trot. It takes the weight off your horse's back – and makes the trot much more comfortable for you."
+  ],
+  [
+   "zweitakt",
+   "The trot is a two-beat gait: two legs always land at the same time, diagonally opposite each other."
+  ],
+  [
+   "wie",
+   "In rising trot, you move forwards and upwards from your hips on one beat – and sit softly back down on the next."
+  ],
+  [
+   "aufab",
+   "Up, down, up, down – in your horse's rhythm."
+  ],
+  [
+   "haende",
+   "Your hands stay still in the same place. Your knees stay springy, and your heels stay down."
+  ],
+  [
+   "treiben",
+   "And when do you use your legs? Always as you sit! Give a short squeeze with both calves – when you rise, your legs stay relaxed."
+  ],
+  [
+   "warumtreiben",
+   "Because when you sit, the inside hind leg is just pushing off. That's exactly when your leg helps."
+  ],
+  [
+   "fuss",
+   "Now all that's missing is the correct diagonal."
+  ],
+  [
+   "schulter",
+   "You rise when your horse's outside shoulder moves forward."
+  ],
+  [
+   "falsch",
+   "On the wrong diagonal? No problem: just sit for one extra beat – and you're back on the right one."
+  ],
+  [
+   "wechsel",
+   "Every time you change the rein, you change your diagonal too."
+  ],
+  [
+   "merke",
+   "Remember: outside shoulder forward – you're up. And use your legs as you sit."
+  ]
+ ],
+ "leichter-sitz": [
+  [
+   "frage",
+   "Why do riders sometimes half stand up in canter?"
+  ],
+  [
+   "was",
+   "That's the light seat. Your weight comes out of the saddle – so your horse can move its back freely."
+  ],
+  [
+   "wann",
+   "You use it, for example, to warm up, out hacking or when jumping."
+  ],
+  [
+   "p1",
+   "One: lift your bottom a tiny bit. Your weight goes down into the stirrups."
+  ],
+  [
+   "p2",
+   "Two: lean your upper body slightly forward."
+  ],
+  [
+   "p3",
+   "Three: heels down. Your knees act like springs."
+  ],
+  [
+   "p4",
+   "Four: your hands follow your horse's neck."
+  ],
+  [
+   "wichtig",
+   "Really important: don't hold on to the reins. Your balance comes from your legs."
+  ],
+  [
+   "merke",
+   "Remember: bottom up, heels down, hands follow."
+  ]
+ ],
+ "pferd-lenken": [
+  [
+   "frage",
+   "How do you actually steer a horse?"
+  ],
+  [
+   "koerper",
+   "Not just with the reins! You steer with your whole body."
+  ],
+  [
+   "blick",
+   "One: look where you want to go."
+  ],
+  [
+   "gewicht",
+   "Two: shift your weight a tiny bit to the inside."
+  ],
+  [
+   "schenkel",
+   "Three: your inside leg works on the girth, your outside leg lies slightly behind it."
+  ],
+  [
+   "zuegel",
+   "Four: the inside rein shows the way, the outside rein gives – but keeps the contact."
+  ],
+  [
+   "nie",
+   "Never pull on just one rein! Your horse will turn its head, but not its body."
+  ],
+  [
+   "merke",
+   "Remember: first look, then sit, then leg and hand."
+  ]
+ ],
+ "innen-aussen": [
+  [
+   "frage",
+   "Inside leg, outside rein – what do inside and outside actually mean?"
+  ],
+  [
+   "innen",
+   "The inside is the side your horse is bent towards. On a circle, that's the side towards the middle."
+  ],
+  [
+   "schenkelin",
+   "Your inside leg works on the girth. Your horse bends around it."
+  ],
+  [
+   "schenkelaus",
+   "Your outside leg lies slightly behind and makes sure the hindquarters don't swing out."
+  ],
+  [
+   "zuegel",
+   "The outside rein controls the shoulder. The inside rein only asks for a little flexion – you can just see the inside eye."
+  ],
+  [
+   "fehler",
+   "If you only pull on the inside, the neck bends – but the shoulder drifts out."
+  ],
+  [
+   "rahmen",
+   "The answer is framing: your horse moves between your aids – like between two rails."
+  ],
+  [
+   "merke",
+   "Remember: inside drives, outside holds – so the shoulder stays where it belongs."
+  ]
+ ],
+ "anreiten-durchparieren": [
+  [
+   "frage",
+   "How do you tell your horse: let's go – or: time to slow down?"
+  ],
+  [
+   "hilfen",
+   "You have three aids for this: your weight, your legs and your reins. They always work together."
+  ],
+  [
+   "hp",
+   "Before every change of gait comes a half-halt. It means: attention, something's about to happen!"
+  ],
+  [
+   "hpwie",
+   "Here's how it works: you sit deep for a moment and tighten your tummy muscles. Your legs stay on. And your hand closes briefly – and then softens again straight away."
+  ],
+  [
+   "hpzieh",
+   "Important: the hand doesn't pull. It just holds for a moment and then softens again."
+  ],
+  [
+   "schritt",
+   "From halt to walk: first a half-halt. Then both legs ask on the girth. Your pelvis moves forward with the horse, and your hand gives a little – so your horse can move off."
+  ],
+  [
+   "schritt2",
+   "As soon as it walks, your legs lie quietly against its sides again."
+  ],
+  [
+   "trab",
+   "From walk to trot: again, a half-halt. Then both legs ask a little more clearly, and your hand allows your horse forward."
+  ],
+  [
+   "trab2",
+   "Sit the first few strides. After that, you can go into rising trot."
+  ],
+  [
+   "galopp",
+   "From trot to canter: sit to the trot and give a half-halt – ideally in a corner or on a circle."
+  ],
+  [
+   "galopp2",
+   "Your weight goes a little more to the inside. Your inside leg asks on the girth. Your outside leg lies a hand's width behind it."
+  ],
+  [
+   "galopp3",
+   "The inside rein asks for a little flexion to the inside, the outside rein holds – and as your horse strikes off, your hand gives."
+  ],
+  [
+   "galopp4",
+   "And off it goes into canter – with the outside hind leg first."
+  ],
+  [
+   "runter",
+   "To slow down, you give several half-halts in a row. That's called a downward transition."
+  ],
+  [
+   "gt",
+   "From canter to trot: sit deep, keep your legs on, close and soften your hand – until your horse trots. Then your hand becomes light again straight away."
+  ],
+  [
+   "ts",
+   "From trot to walk: sit to the trot and give a few more half-halts until your horse walks."
+  ],
+  [
+   "warum",
+   "And why do your legs stay on when you slow down? So your horse keeps stepping under its belly with its hind legs and doesn't just fall onto its forehand."
+  ],
+  [
+   "gp",
+   "From walk to halt: that's the full halt. Several half-halts in quick succession, until your horse stands still."
+  ],
+  [
+   "gp2",
+   "Once it's standing quietly on all four legs, your hand becomes light. And you praise your horse."
+  ],
+  [
+   "treppe",
+   "At first, you go down from canter to halt step by step: canter, trot, walk, halt. On every step of the staircase, you give half-halts."
+  ],
+  [
+   "profi",
+   "Experienced riders and well-schooled horses can later make bigger jumps – for example straight from canter to walk."
+  ],
+  [
+   "merke",
+   "Remember: a half-halt means attention. A full halt means stop. Your legs take you forward – and after every aid, your hand becomes light again."
+  ]
+ ]
+}

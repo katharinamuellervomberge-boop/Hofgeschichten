@@ -41,12 +41,16 @@ const port = server.address().port;
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: VW, height: VH } });
 page.on("pageerror", (e) => console.error("PAGE", e.message));
-await page.goto(`http://localhost:${port}/?c=${comp}`);
+const LANG = arg("--lang") ?? "de";
+await page.goto(`http://localhost:${port}/?c=${comp}${LANG === "en" ? "&lang=en" : ""}`);
 await page.waitForFunction(() => window.__setT);
 await page.evaluate(() => window.__ready);
 await page.waitForTimeout(800);
 const total = await page.evaluate(() => window.__total);
-if (stills) {
+if (process.argv.includes("--collect")) {
+  for (let x = 0; x < total; x += 0.2) await page.evaluate((t) => window.__setT(t), x);
+  writeFileSync(out, JSON.stringify(await page.evaluate(() => [...window.__texts]), null, 1));
+} else if (stills) {
   mkdirSync(out, { recursive: true });
   for (const t of stills) { await page.evaluate((x) => window.__setT(x), t); await page.screenshot({ path: path.join(out, `t${t}.png`) }); }
 } else {
