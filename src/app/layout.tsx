@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import { Andika, Fraunces } from "next/font/google";
+import { Andika, Fraunces, Inter } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import { site } from "@/content/site";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
@@ -16,7 +16,14 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-/* Andika: eigens für Leseanfänger gestaltete Schrift */
+/* Inter: Oberfläche, Formulare, Zahlen (Designsystem 2.0) */
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+/* Andika: eigens für Leseanfänger gestaltete Schrift (Klasse .reading) */
 const andika = Andika({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -51,13 +58,13 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#344638",
+  themeColor: "#f7f5ef",
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const locale = await getLocale();
   return (
-    <html lang={locale === "en" ? "en-GB" : "de"} className={`${fraunces.variable} ${andika.variable}`}>
+    <html lang={locale === "en" ? "en-GB" : "de"} className={`${fraunces.variable} ${inter.variable} ${andika.variable}`}>
       <body>
         <LocaleProvider locale={locale}>
           <AppShell>{children}</AppShell>

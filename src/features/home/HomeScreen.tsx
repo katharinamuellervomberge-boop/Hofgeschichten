@@ -24,7 +24,7 @@ const STAGE = [
 
 /**
  * Startseite (seit 09.11.2026 ohne Hofwelt): Reitakademie (am stärksten hervorgehoben),
- * Rider Lab, Reitertagebuch mit Trainingsplan, Spielen. Die Pferde der Bühne sind Dekoration.
+ * Rider Lab, Riding Space (Tagebuch, Planer, Coach), Spielen. Die Pferde der Bühne sind Dekoration.
  */
 export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
   if (locale === "en") return <HomeScreenEn />;
@@ -104,8 +104,8 @@ export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
             <Icon name="diary" />
           </span>
           <span>
-            <span className={styles.tileTitle}>Mein Reitertagebuch</span>
-            <span className={styles.tileText}>Reitstunden festhalten, Ziele setzen und mit dem Trainingsplan dranbleiben.</span>
+            <span className={styles.tileTitle}>Riding Space</span>
+            <span className={styles.tileText}>Tagebuch, Trainingsplaner und Rider Coach – deine Reitstunden festhalten und dranbleiben.</span>
           </span>
           <Icon name="back" className={styles.arrow} aria-hidden />
         </Link>
