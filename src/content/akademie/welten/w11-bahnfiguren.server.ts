@@ -130,7 +130,7 @@ export const welt11: AcademyWorld = {
         ],
         mittel: [
           "Durch die ganze Bahn wechseln: vom ersten Wechselpunkt (Eckbuchstabe) über X zum diagonal gegenüberliegenden Eckbuchstaben, z. B. von M über X nach K. Durch die halbe Bahn wechseln: vom Eckbuchstaben zur Mitte der gegenüberliegenden langen Seite, z. B. von H nach B. Durch die Länge der Bahn wechseln: auf der Mittellinie von A über X nach C.",
-          "Kehrtvolte: aus der Bewegung eine halbe Volte (6–10 m) nach innen reiten und in schräger Linie auf den Hufschlag zurückkehren. „Aus der Ecke kehrt“ funktioniert ähnlich, beginnt aber direkt nach der Ecke. Außerdem wechselt man durch den Zirkel und aus dem Zirkel (nächste Lektion) oder mit einer Schlangenlinie mit ungerader Bogenzahl.",
+          "Kehrtvolte: aus der Bewegung eine halbe Volte (6–10 m) nach innen reiten und in schräger Linie auf den Hufschlag zurückkehren. „Aus der Ecke kehrt“ funktioniert ähnlich, beginnt aber direkt nach der Ecke. Außerdem wechselt man durch den Zirkel und aus dem Zirkel (nächste Lektion) oder mit einer Schlangenlinie mit gerader Bogenzahl.",
           "Bei jedem Handwechsel ändert sich die Stellung und Biegung des Pferdes. Ein paar Pferdelängen vor dem neuen Hufschlag stellst du das Pferd um: neuer innerer Zügel stellt, neuer innerer Schenkel am Gurt, neuer äußerer Schenkel verwahrend – und dein Gewicht wechselt mit nach innen.",
         ],
       },
@@ -447,7 +447,7 @@ export const welt11: AcademyWorld = {
           "An der langen Seite gibt es die einfache Schlangenlinie mit einem flachen Bogen und die doppelte mit zwei kleinen Bögen.",
         ],
         mittel: [
-          "Schlangenlinie durch die ganze Bahn: Sie beginnt in der Mitte einer kurzen Seite und endet in der Mitte der anderen. Die Bögen sind gleich groß und berühren abwechselnd die langen Seiten. Bei einer ungeraden Bogenzahl (z. B. drei) endet sie auf der anderen Hand, bei einer geraden (z. B. vier) auf derselben. Die Mittellinie wird jeweils gerade überquert, dabei wird umgestellt.",
+          "Schlangenlinie durch die ganze Bahn: Sie beginnt in der Mitte einer kurzen Seite und endet in der Mitte der anderen. Die Bögen sind gleich groß und berühren abwechselnd die langen Seiten. Bei einer geraden Bogenzahl (z. B. vier) endet sie auf der anderen Hand, bei einer ungeraden (z. B. drei) auf derselben. Die Mittellinie wird jeweils gerade überquert, dabei wird umgestellt.",
           "Einfache Schlangenlinie an der langen Seite: Vom ersten Eckbuchstaben ein flacher Bogen nach innen, am tiefsten Punkt bei E bzw. B etwa 5 Meter von der Bande entfernt, zurück zum zweiten Eckbuchstaben. Doppelte Schlangenlinie: zwei flachere Bögen an derselben langen Seite.",
           "An der langen Seite wird das Pferd zweimal umgestellt: erst vom Hufschlag weg, dann wieder zur Bande hin. Die Bögen sollen gleichmäßig und flüssig sein – das Pferd darf nicht hektisch oder schief werden.",
         ],
@@ -507,11 +507,11 @@ export const welt11: AcademyWorld = {
           levels: ["mittel"],
           prompt: "Eine Schlangenlinie durch die ganze Bahn hat drei Bögen. Auf welcher Hand endest du?",
           options: [
-            ok("andere", "Auf der anderen Hand"),
-            no("gleiche", "Auf derselben Hand", "Bei gerader Bogenzahl wäre das so – bei drei Bögen wechselst du."),
+            ok("gleiche", "Auf derselben Hand"),
+            no("andere", "Auf der anderen Hand", "Bei gerader Bogenzahl wäre das so – bei drei Bögen bleibst du auf derselben Hand."),
             no("x", "Du endest bei X", "Sie endet an der kurzen Seite."),
           ],
-          explain: "Richtig. Ungerade Bogenzahl = Handwechsel, gerade = gleiche Hand.",
+          explain: "Richtig. Ungerade Bogenzahl = gleiche Hand, gerade = Handwechsel.",
         },
         {
           id: "tiefe",
@@ -527,7 +527,7 @@ export const welt11: AcademyWorld = {
       ],
       merksatz: {
         leicht: "Gleich große, runde Bögen – und dein Pferd biegt sich mal links, mal rechts.",
-        mittel: "Durch die ganze Bahn: ungerade Bögen = Handwechsel. An der langen Seite: einfach bis ca. 5 m, doppelt mit zwei flachen Bögen.",
+        mittel: "Durch die ganze Bahn: gerade Bögen = Handwechsel. An der langen Seite: einfach bis ca. 5 m, doppelt mit zwei flachen Bögen.",
       },
     },
 
