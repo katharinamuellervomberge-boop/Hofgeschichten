@@ -13,6 +13,22 @@ export type AcademyVideo = {
   seconds: number;
   /** true = mit Sprecherstimme vertont */
   voiced: boolean;
+  /** Englische Fassung (Datei private/akademie-video/en/<slug>.mp4) */
+  en?: { title: string; seconds: number };
+};
+
+/** Englische Fassungen (Stimme Jessica, 18.11.2026). Länge in Sekunden. */
+const EN: Record<string, { title: string; seconds: number }> = {
+  "schritt-viertakt": { title: "The walk – a four-beat gait", seconds: 40 },
+  "trab-zweitakt": { title: "The trot – a two-beat gait", seconds: 42 },
+  "leichttraben-komplett": { title: "Rising trot – the complete guide", seconds: 74 },
+  "richtiger-fuss": { title: "Rising on the correct diagonal", seconds: 53 },
+  "galopp-dreitakt": { title: "The canter – a three-beat gait", seconds: 52 },
+  bahnfiguren: { title: "School figures in the arena", seconds: 62 },
+  "pferd-lenken": { title: "How do you steer a horse?", seconds: 37 },
+  "innen-aussen": { title: "Inside and outside: inside leg, outside rein", seconds: 49 },
+  "anreiten-durchparieren": { title: "Moving off and downward transitions – half-halt and full halt", seconds: 164 },
+  "leichter-sitz": { title: "The light seat in canter", seconds: 42 },
 };
 
 export const academyVideos: AcademyVideo[] = [
@@ -58,10 +74,20 @@ export const academyVideos: AcademyVideo[] = [
   { slug: "nach-dem-reitunfall", title: "Verhalten nach einem Reitunfall", world: "gelaende-ausreiten", lesson: "unfaelle-notfaelle-ausritt", seconds: 32, voiced: true },
 ];
 
-export function videoForLesson(world: string, lesson: string): AcademyVideo | undefined {
-  return academyVideos.find((v) => v.world === world && v.lesson === lesson);
+for (const v of academyVideos) if (EN[v.slug]) v.en = EN[v.slug];
+
+/** Lernvideo einer Lektion; auf Englisch nur, wenn es eine englische Fassung gibt */
+export function videoForLesson(world: string, lesson: string, locale: "de" | "en" = "de"): AcademyVideo | undefined {
+  const v = academyVideos.find((x) => x.world === world && x.lesson === lesson);
+  return locale === "en" && !v?.en ? undefined : v;
 }
 
-export function videoSrc(v: AcademyVideo) {
-  return { video: `/api/akademie-video/${v.slug}.mp4`, poster: `/api/akademie-video/${v.slug}.jpg` };
+/** Videos, die in einer Sprache verfügbar sind */
+export function videosFor(locale: "de" | "en") {
+  return locale === "en" ? academyVideos.filter((v) => v.en) : academyVideos;
+}
+
+export function videoSrc(v: AcademyVideo, en = false) {
+  const q = en && v.en ? "?lang=en" : "";
+  return { video: `/api/akademie-video/${v.slug}.mp4${q}`, poster: `/api/akademie-video/${v.slug}.jpg${q}` };
 }

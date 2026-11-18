@@ -25,8 +25,14 @@ const args = process.argv.slice(2);
 const stills = args.includes("--stills");
 // --lines: nur Sprechertexte exportieren (scripts/video/lines.json + lines-text.json), nichts rendern
 const linesOnly = args.includes("--lines");
-const only = args.filter((a) => !a.startsWith("--"));
-const OUT = path.join(ROOT, "private/akademie-video");
+// --lang en: englische Fassung (scripts/video/en/*.json, Ton aus voice/video-en/<slug>/, Ausgabe private/akademie-video/en/)
+const langIdx = args.indexOf("--lang");
+const LANG = langIdx >= 0 ? args[langIdx + 1] : "de";
+// --collect: alle Bildtexte sammeln (.video-tmp/texts-<slug>.json), zum Übersetzen
+const collect = args.includes("--collect");
+const only = args.filter((a, i) => !a.startsWith("--") && !(langIdx >= 0 && i === langIdx + 1));
+const Q = LANG === "en" ? "&lang=en" : "";
+const OUT = path.join(ROOT, "private/akademie-video", LANG === "en" ? "en" : "");
 const TMP = path.join(ROOT, ".video-tmp");
 mkdirSync(OUT, { recursive: true });
 mkdirSync(TMP, { recursive: true });
@@ -74,7 +80,7 @@ const list = await (async () => {
 })();
 
 for (const slug of list) {
-  await page.goto(`http://localhost:${port}/?v=${slug}`);
+  await page.goto(`http://localhost:${port}/?v=${slug}${Q}`);
   await page.waitForFunction(() => window.__setT);
   await page.waitForTimeout(600);
   const total = await page.evaluate(() => window.__total);
@@ -91,11 +97,18 @@ for (const slug of list) {
     console.log(`${slug}: ${lines.length} Sätze exportiert`);
     continue;
   }
+  if (collect) {
+    for (let x = 0; x < total; x += 0.2) await page.evaluate((t) => window.__setT(t), x);
+    const texts = await page.evaluate(() => [...window.__texts]);
+    writeFileSync(path.join(TMP, `texts-${slug}.json`), JSON.stringify(texts, null, 1));
+    console.log(`${slug}: ${texts.length} Texte gesammelt`);
+    continue;
+  }
   if (stills) {
     mkdirSync(path.join(TMP, "stills"), { recursive: true });
     for (const l of lines) {
       await page.evaluate((t) => window.__setT(t), (l.start + l.end) / 2);
-      await page.screenshot({ path: path.join(TMP, "stills", `${slug}-${l.id}.png`) });
+      await page.screenshot({ path: path.join(TMP, "stills", `${slug}${Q ? "-en" : ""}-${l.id}.png`) });
     }
     console.log(`${slug}: Standbilder in .video-tmp/stills`);
     continue;
@@ -109,7 +122,7 @@ for (const slug of list) {
     await page.screenshot({ path: path.join(dir, `${String(i).padStart(5, "0")}.jpg`), type: "jpeg", quality: 92 });
   }
   const mp4 = path.join(OUT, `${slug}.mp4`);
-  const voiceDir = path.join(ROOT, "voice", "video", slug);
+  const voiceDir = path.join(ROOT, "voice", LANG === "en" ? "video-en" : "video", slug);
   const clips = existsSync(voiceDir) ? lines.map((l, i) => ({ l, f: path.join(voiceDir, `${String(i + 1).padStart(2, "0")}.mp3`) })).filter((c) => existsSync(c.f)) : [];
   const vArgs = ["-framerate", String(FPS), "-i", path.join(dir, "%05d.jpg")];
   if (clips.length) {

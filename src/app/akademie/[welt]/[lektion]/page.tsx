@@ -32,8 +32,8 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       worldSlug={found.world.slug}
       lesson={found.lesson}
       activity={lessonActivity(found.lesson, locale)}
-      // Lernvideos sind deutsch vertont – in der englischen Version vorerst nicht
-      video={unlocked && locale === "de" ? videoForLesson(found.world.slug, found.lesson.slug) : undefined}
+      // Auf Englisch nur Videos mit englischer Fassung
+      video={unlocked ? videoForLesson(found.world.slug, found.lesson.slug, locale) : undefined}
       unlocked={unlocked}
     />
   );

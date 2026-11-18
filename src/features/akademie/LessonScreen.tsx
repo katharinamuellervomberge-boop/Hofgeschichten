@@ -108,7 +108,7 @@ export function LessonScreen({
             </span>
           </p>
         )}
-        {video && <LessonVideo video={video} />}
+        {video && <LessonVideo video={video} en={en} />}
         <ActivityPlayer
           activity={activity}
           tint={world.tint}

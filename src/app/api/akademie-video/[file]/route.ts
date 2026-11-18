@@ -19,7 +19,9 @@ export async function GET(req: Request, { params }: { params: Promise<{ file: st
   if (!m || !academyVideos.some((v) => v.slug === m[1])) return new Response(null, { status: 404 });
   if (!(await hasGrosseAkademie())) return new Response(null, { status: 403 });
 
-  const full = path.join(process.cwd(), "private", "akademie-video", file);
+  // Englische Fassung: ?lang=en → private/akademie-video/en/<datei>
+  const en = new URL(req.url).searchParams.get("lang") === "en" && academyVideos.some((v) => v.slug === m[1] && v.en);
+  const full = path.join(process.cwd(), "private", "akademie-video", ...(en ? ["en"] : []), file);
   let size: number;
   try {
     size = (await stat(full)).size;

@@ -1,0 +1,50 @@
+{
+ "schritt-viertakt": {
+  "titel": "The walk – a four-beat gait.",
+  "einzeln": "In walk, the horse puts each hoof down on its own. Count along: one, two, three, four.",
+  "reihenfolge": "First the left hind, then the left fore. Then the right hind, and then the right fore.",
+  "boden": "There are always two or three hooves on the ground. That's why the walk has no moment of suspension.",
+  "ruhig": "That's what makes the walk so calm and comfortable. It is the slowest gait.",
+  "merke": "Remember: the walk has four beats – one, two, three, four."
+ },
+ "trab-zweitakt": {
+  "titel": "The trot – a two-beat gait.",
+  "paare": "In trot, two legs always move at the same time: one foreleg and the hind leg on the opposite side.",
+  "diagonal": "Left hind moves with right fore, right hind with left fore. These are called diagonal pairs.",
+  "takt": "Listen to the rhythm: ta-tum, ta-tum. Those are the two beats.",
+  "schwebe": "Between the beats, the horse floats for a split second. No hoof is touching the ground.",
+  "spueren": "That's why you feel an up-and-down movement in the saddle.",
+  "merke": "Remember: the trot is a two-beat gait with diagonal pairs and a short moment of suspension."
+ },
+ "richtiger-fuss": {
+  "titel": "Rising on the correct diagonal.",
+  "seiten": "In the arena, there's an inside and an outside. The inside is the side towards the middle, the outside is the side towards the fence.",
+  "hand": "On the left rein, your left is the inside and your right is the outside.",
+  "sitzen": "You sit as the inside hind leg and the outside foreleg touch the ground …",
+  "aufstehen": "… and you rise as those two legs swing forward.",
+  "schulter": "To check, take a quick glance – just with your eyes – at the outside shoulder. If it's moving forward, you should be up.",
+  "wechsel": "When you change the rein, inside and outside swap over. So you sit for one extra beat: sit – sit – up.",
+  "merke": "Remember: outside shoulder forward – you're up. When you change the rein, sit twice."
+ },
+ "galopp-dreitakt": {
+  "titel": "The canter – a three-beat gait.",
+  "takte": "In canter, you hear three beats and then a short pause: ba-da-boom, ba-da-boom.",
+  "reihenfolge": "In right canter, the left hind leg lands first. Then the right hind and the left fore together. And last of all, the right fore.",
+  "schwebe": "Then the horse flies through the air for a moment. That's the moment of suspension.",
+  "vorgreifen": "In right canter, the right legs reach further forward.",
+  "links": "In left canter, it's exactly the other way round: now the left legs reach further forward.",
+  "hand": "In the arena, you canter on the right lead on the right rein, and on the left lead on the left rein.",
+  "merke": "Remember: the canter has three beats and a moment of suspension. In right canter, the right legs reach further forward."
+ },
+ "bahnfiguren": {
+  "titel": "School figures – how to ride in the arena.",
+  "bahn": "An arena is often twenty by forty metres. There are letters around the edge, so everyone knows where they're riding.",
+  "ganze": "Going large: you ride along all four sides and ride your corners properly. On the left rein, your left side is the inside.",
+  "wechsel": "Changing the rein across the diagonal: you ride from F through X to H. After that, you're on the other rein.",
+  "zirkel": "A circle is a large round figure at one short end. It is twenty metres across – as wide as the arena.",
+  "volte": "A volte is a small circle. It is usually six, eight or ten metres across.",
+  "schlange": "Serpentines: you ride even loops from one end of the arena to the other.",
+  "rund": "For every figure: ride round, not square. And look with your eyes to where you want to go.",
+  "merke": "Remember: with the letters, you can find your way in any arena."
+ }
+}

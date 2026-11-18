@@ -4,7 +4,7 @@ import Link from "@/i18n/Link";
 import { useState } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { allLessons } from "@/content/akademie";
-import { academyVideos } from "@/content/akademie/videos";
+import { academyVideos, videosFor } from "@/content/akademie/videos";
 import {
   academyPaths,
   modulesIn,
@@ -41,6 +41,7 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
   const locale = useLocale();
   const en = locale === "en";
   const academyModules = modulesIn(locale);
+  const vids = videosFor(locale);
   const progress = useProgress();
   const path = progress.settings.academyPath;
   const [picking, setPicking] = useState(false);
@@ -149,33 +150,35 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
 
         {!unlocked && <AcademyBuyBox path={path} />}
 
-        {/* Die Lernvideos sind deutsch vertont – in der englischen Version vorerst ausgeblendet */}
-        {!en && <section aria-labelledby="ak-videos">
+        {/* Lernvideos – auf Englisch nur die Videos mit englischer Fassung */}
+        {vids.length > 0 && <section aria-labelledby="ak-videos">
           <div className={styles.sectionHead}>
             <h2 id="ak-videos" className={styles.sectionTitle}>
-              Lernvideos
+              {en ? "Videos" : "Lernvideos"}
             </h2>
-            <span className={styles.sectionMeta}>{academyVideos.length} animierte Videos</span>
+            <span className={styles.sectionMeta}>{en ? `${vids.length} animated videos` : `${vids.length} animierte Videos`}</span>
           </div>
           {unlocked ? (
             <ul className={styles.videos}>
-              {academyVideos.map((v) => (
+              {vids.map((v) => (
                 <li key={v.slug}>
-                  <LessonVideo video={v} compact />
+                  <LessonVideo video={v} compact en={en} />
                 </li>
               ))}
             </ul>
           ) : (
             <ul className={styles.rows}>
-              {academyVideos.map((v) => (
+              {vids.map((v) => (
                 <li key={v.slug}>
                   <span className={`${styles.row} ${styles.rowLocked}`}>
                     <span className={styles.rowIcon} aria-hidden>
                       <Icon name="lock" />
                     </span>
                     <span>
-                      <span className={styles.rowTitle}>{v.title}</span>
-                      <span className={styles.rowMeta}>{Math.round(v.seconds / 6) / 10} Min. · in der Reitakademie</span>
+                      <span className={styles.rowTitle}>{en && v.en ? v.en.title : v.title}</span>
+                      <span className={styles.rowMeta}>
+                        {en && v.en ? `${Math.round(v.en.seconds / 6) / 10} min · in the Riding Academy` : `${Math.round(v.seconds / 6) / 10} Min. · in der Reitakademie`}
+                      </span>
                     </span>
                     <span />
                   </span>

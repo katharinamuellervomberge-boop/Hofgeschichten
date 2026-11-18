@@ -1,0 +1,50 @@
+{
+ "schritt-viertakt": {
+  "titel": 2.46,
+  "einzeln": 7.94,
+  "reihenfolge": 5.59,
+  "boden": 5.75,
+  "ruhig": 4.88,
+  "merke": 6.01
+ },
+ "trab-zweitakt": {
+  "titel": 2.3,
+  "paare": 6.43,
+  "diagonal": 6.19,
+  "takt": 4.81,
+  "schwebe": 5.07,
+  "spueren": 2.85,
+  "merke": 5.69
+ },
+ "richtiger-fuss": {
+  "titel": 2.09,
+  "seiten": 8.33,
+  "hand": 4.6,
+  "sitzen": 4.39,
+  "aufstehen": 3.03,
+  "schulter": 6.82,
+  "wechsel": 8.1,
+  "merke": 6.01
+ },
+ "galopp-dreitakt": {
+  "titel": 2.53,
+  "takte": 5.43,
+  "reihenfolge": 8.33,
+  "schwebe": 4.75,
+  "vorgreifen": 3.32,
+  "links": 5.41,
+  "hand": 5.43,
+  "merke": 7.84
+ },
+ "bahnfiguren": {
+  "titel": 3.06,
+  "bahn": 6.64,
+  "ganze": 8.65,
+  "wechsel": 7.47,
+  "zirkel": 6.79,
+  "volte": 5.3,
+  "schlange": 4.7,
+  "rund": 5.85,
+  "merke": 4.1
+ }
+}
