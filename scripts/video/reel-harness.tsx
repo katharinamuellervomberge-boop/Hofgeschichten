@@ -64,6 +64,7 @@ import { HAENGER_TOTAL, renderHaenger, renderHaengerCover } from "@/video/reels/
 import { KNETEN_TOTAL, renderKneten, renderKnetenCover } from "@/video/reels/ts9-kneten-reel";
 import { PS_TOTAL, renderPferdesicht, renderPferdesichtCover } from "@/video/reels/ts10-pferdesicht-reel";
 import { POV_TOTAL, RL_TOTAL, renderPov, renderRlsaetze } from "@/video/reels/t3-funny-reels";
+import { DATING_TOTAL, renderDating, renderDatingCover } from "@/video/reels/dating-reel";
 import { POV2_TOTAL, RL2_TOTAL, renderPov2, renderPov2Cover, renderRl2, renderRl2Cover } from "@/video/reels/t3-funny2-reels";
 
 const REELS: Record<string, { total: () => number; render: (t: number) => ReactNode }> = {
@@ -136,6 +137,8 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   pov: { total: () => POV_TOTAL, render: renderPov },
   rlsaetze: { total: () => RL_TOTAL, render: renderRlsaetze },
   pov2: { total: () => POV2_TOTAL, render: renderPov2 },
+  dating: { total: () => DATING_TOTAL, render: renderDating },
+  "dating-cover": { total: () => 0.1, render: renderDatingCover },
   "pov2-cover": { total: () => 0.1, render: renderPov2Cover },
   rl2: { total: () => RL2_TOTAL, render: renderRl2 },
   "rl2-cover": { total: () => 0.1, render: renderRl2Cover },
