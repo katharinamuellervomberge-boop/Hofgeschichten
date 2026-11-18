@@ -8,6 +8,8 @@ import type { ArenaExercise, Segment } from "../types";
  * Der Zirkel berührt: Hufschlag oben 4 m nach K · A · Hufschlag unten 4 m nach F ·
  * Mittellinie 20 m von A (20 × 40: X; 20 × 60: 2 m hinter L).
  *
+ * Fachlich geprüft und freigegeben (18.11.2026).
+ *
  * Meterangaben der Phasen: Anfahrt 0–16 · Zirkel 16–78,83 · Ausreiten 78,83–84,83.
  */
 
@@ -279,6 +281,6 @@ export const zirkel: ArenaExercise = {
   ],
   relatedLibraryIds: ["ex-dr-4", "ex-trab-1", "ex-hilfe-5"],
   relatedSkillIds: ["skill_line", "skill_bend", "skill_rhythm"],
-  reviewStatus: "entwurf",
-  reviewNote: "Hilfenbeschreibung nach klassischer deutscher Reitlehre formuliert, fachliche Prüfung durch eine Reitlehrerin oder einen Reitlehrer steht aus.",
+  reviewStatus: "freigegeben",
+  reviewNote: "Fachlich geprüft und freigegeben durch die Inhaberin am 18.11.2026.",
 };

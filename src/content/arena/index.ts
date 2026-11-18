@@ -10,7 +10,8 @@ export const ARENA_EXERCISES: ArenaExercise[] = [zirkel];
 
 export const getArenaExercise = (idOrSlug: string) => ARENA_EXERCISES.find((e) => e.id === idOrSlug || e.slug === idOrSlug);
 
-export const arenaHref = (ex: Pick<ArenaExercise, "slug">) => `/akademie/reitbahn/${ex.slug}`;
+/** Die Reitbahn gehört zum Riding Space */
+export const arenaHref = (ex: Pick<ArenaExercise, "slug">) => `/tagebuch/reitbahn/${ex.slug}`;
 
 /** Richtige Antwort einer Frage für Hand und Bahngröße */
 export function quizAnswer(q: QuizQuestion, rein: Rein, size: ArenaSize): string {

@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Link from "@/i18n/Link";
 import { ARENA_EXERCISES, arenaHref } from "@/content/arena";
 import styles from "@/features/arena/arena.module.css";
+import { DiaryPreview } from "@/features/tagebuch/DiaryPreview";
+import { hasRidingSpace } from "@/lib/entitlements/server";
 
-export const metadata: Metadata = { title: "Die Reitbahn", robots: { index: false } };
+export const metadata: Metadata = { title: "Die Reitbahn – Riding Space", robots: { index: false } };
+export const dynamic = "force-dynamic";
 
-/** Übersicht der Reitbahn-Übungen (Prototyp) */
-export default function Page() {
+/** Übersicht der Reitbahn-Übungen – Teil des Riding Space */
+export default async function Page() {
+  if (!(await hasRidingSpace())) return <DiaryPreview />;
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
-        <p className="eyebrow">Akademie</p>
+        <p className="eyebrow">Riding Space</p>
         <h1 className={styles.heroTitle}>Die Reitbahn</h1>
         <p className={styles.heroLead}>Sieh die Linie. Versteh die Hilfen. Begreif die Bewegung.</p>
       </header>
@@ -22,7 +26,7 @@ export default function Page() {
               <span>
                 <span className={styles.exTitle}>{e.title}</span>
                 <span className={styles.exMeta}>
-                  {e.titleDe} · ca. {e.learnMinutes} Min · {e.reviewStatus === "freigegeben" ? "freigegeben" : "Entwurf"}
+                  {e.titleDe} · ca. {e.learnMinutes} Min · {e.reviewStatus === "freigegeben" ? "Bahnfigur" : "Entwurf"}
                 </span>
               </span>
             </Link>

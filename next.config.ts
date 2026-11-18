@@ -34,6 +34,9 @@ const nextConfig: NextConfig = {
       // Nicht permanent, damit die Adressen später wieder frei verwendbar sind.
       { source: "/akademie/klein", destination: "/akademie", permanent: false },
       { source: "/akademie/gross", destination: "/akademie", permanent: false },
+      // Die Reitbahn gehört zum Riding Space (18.11.2026)
+      { source: "/akademie/reitbahn", destination: "/tagebuch/reitbahn", permanent: false },
+      { source: "/akademie/reitbahn/:path*", destination: "/tagebuch/reitbahn/:path*", permanent: false },
     ];
   },
   async headers() {

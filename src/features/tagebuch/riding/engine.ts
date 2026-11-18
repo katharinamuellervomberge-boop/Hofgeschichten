@@ -340,6 +340,8 @@ function vHome(){
            : `<button class="next" data-a="openWizard">${ic("plus",20)}<span style="flex:1"><b>Nächste Einheit planen</b></span>${ic("right",18)}</button>`}
     </div></section>` : `<div class="card empty-state">${ic("horse",34)}<h2>Wer ist dein Pferd?</h2><p>Leg zuerst ein Pferd an.</p><button class="btn" data-a="horseForm">Pferd anlegen</button></div>`}
 
+  <section aria-label="Die Reitbahn"><button class="mtile" data-a="nav" data-v="/reitbahn"><span class="sw">${ic("spark",22)}</span><span style="flex:1"><span class="eyebrow" style="display:block;margin:0">Neu · Die Reitbahn</span><b style="display:block;font-size:15.5px">Bahnfiguren mit Hilfen verstehen</b><span class="small muted">Linie, Hilfen und Bewegung – Schritt für Schritt</span></span>${ic("right",18)}</button></section>
+
   <section>
     <div class="sec-head"><h2>Meine Trainingsaktivität</h2>
       <div class="chips">${[["all","Alle"],...D.horses.map(x=>[x.id,x.name])].map(([id,l])=>`<button class="chip sm ${UI.scope===id?"on":""}" data-a="scope" data-id="${id}">${esc(l)}</button>`).join("")}</div></div>

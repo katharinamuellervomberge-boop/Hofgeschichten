@@ -1,7 +1,7 @@
 import Link from "@/i18n/Link";
 import type { ArenaExercise } from "@/content/arena/types";
 import { exerciseById } from "@/content/training/uebungen";
-import { EVIDENCE_LABEL } from "@/content/arena";
+import { ARENA_EXERCISES, EVIDENCE_LABEL } from "@/content/arena";
 import { ArenaPlayer } from "./ArenaPlayer";
 import { SaveButton } from "./SaveButton";
 import styles from "./arena.module.css";
@@ -11,16 +11,17 @@ const REVIEW = { entwurf: "Entwurf", geprueft: "Geprüft", freigegeben: "Freigeg
 
 /** Detailseite einer Reitbahn-Übung: Kopf, interaktive Bahn, Hintergrund, Fehler, Weiterlernen */
 export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise }) {
+  const number = String(ARENA_EXERCISES.findIndex((e) => e.id === ex.id) + 1).padStart(2, "0");
   return (
     <div className={styles.page}>
       <nav aria-label="Brotkrumen" className={styles.crumbs}>
-        <Link href="/akademie">Akademie</Link>
+        <Link href="/tagebuch">Riding Space</Link>
         <span aria-hidden>/</span>
-        <Link href="/akademie/reitbahn">Die Reitbahn</Link>
+        <Link href="/tagebuch/reitbahn">Die Reitbahn</Link>
       </nav>
 
       <header className={styles.hero}>
-        <p className="eyebrow">Die Reitbahn · Übung 01</p>
+        <p className="eyebrow">Die Reitbahn · Übung {number}</p>
         <h1 className={styles.heroTitle}>{ex.title}</h1>
         <p className={styles.heroLead}>{ex.description}</p>
         <dl className={styles.heroFacts}>
@@ -120,7 +121,7 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
           <h2 className={styles.blockTitle}>Weiter</h2>
           <div className={styles.actions}>
             <Link href="/tagebuch/plan" className={styles.primaryLink}>
-              Im Riding Space einplanen
+              Im Trainingsplaner einplanen
             </Link>
             <SaveButton id={ex.id} />
           </div>
