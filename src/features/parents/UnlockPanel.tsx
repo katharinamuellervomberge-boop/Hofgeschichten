@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
 import { productUrl, publishedAdventures } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof, ridingSpace as rs } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, mutigReiten, ridingSpace as rs } from "@/content/products";
 import type { RidingSpaceStatus } from "@/lib/entitlements/server";
 import { site } from "@/content/site";
 import styles from "./ParentsArea.module.css";
@@ -53,6 +53,7 @@ export function UnlockPanel({ owned, accessible, member, ridingSpace, orderUnloc
         const names = premium.filter((a) => json.adventures?.includes(a.slug)).map((a) => a.title);
         if (json.adventures?.includes(grosseAkademie.slug)) names.unshift(grosseAkademie.name);
         if (json.adventures?.includes(meinTagAmHof.slug)) names.unshift(`Spiel „${meinTagAmHof.name}“`);
+        if (json.adventures?.includes(mutigReiten.slug)) names.unshift(`Programm „${mutigReiten.name}“ (unter /mutig-reiten)`);
         if (json.adventures?.includes(adventskalender.slug)) names.unshift(`Adventskalender „${adventskalender.name}“`);
         if (json.membership) names.unshift("Hof-Mitgliedschaft");
         if (json.ridingSpace) names.unshift(`Riding Space (bis ${new Date(json.ridingSpace.until).toLocaleDateString("de-DE")})`);

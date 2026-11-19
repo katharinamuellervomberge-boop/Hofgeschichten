@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { allLessons } from "@/content/akademie";
 import { ACADEMY_PATHS, academyModules, moduleHref, moduleLessons } from "@/content/akademie/module";
 import { publishedAdventures } from "@/content/adventures";
-import { grosseAkademie, ridingSpace } from "@/content/products";
+import { grosseAkademie, mutigReiten, ridingSpace } from "@/content/products";
 import { allStamps } from "@/content/stamps";
 import { lessonDone } from "@/features/akademie/progress";
 import type { MembershipStatus } from "@/lib/entitlements/server";
@@ -16,14 +16,14 @@ import { earnedStamps } from "@/lib/progress/stamps";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import styles from "./profil.module.css";
 
-type Props = { academy: boolean; membership: MembershipStatus; adventures: string[] };
+type Props = { academy: boolean; membership: MembershipStatus; adventures: string[]; mutig?: boolean };
 
 /**
  * Profil (seit 28.10.2026): Lernweg, Lernfortschritt, Freischaltungen dieses Geräts,
  * die drei Produkte und Einstellungen. Es gibt bewusst kein Konto – alles gilt für dieses Gerät.
  * Käufe und Codes laufen weiter über den Elternbereich.
  */
-export function ProfileScreen({ academy, membership, adventures }: Props) {
+export function ProfileScreen({ academy, membership, adventures, mutig = false }: Props) {
   const progress = useProgress();
   const total = allLessons().length;
   const done = allLessons().filter((l) => lessonDone(progress, l)).length;
@@ -138,6 +138,15 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
               </span>
             </li>
             )}
+            {mutig && (
+            <li>
+              <Icon name="check" />
+              <span>
+                <strong>Mutig reiten</strong>
+                Freigeschaltet
+              </span>
+            </li>
+            )}
             {ownedCases.length > 0 && (
             <li>
               <Icon name="check" />
@@ -176,6 +185,15 @@ export function ProfileScreen({ academy, membership, adventures }: Props) {
               <span className={styles.productText}>Reitertagebuch, Trainingsplaner und Rider Coach – deine Daten bleiben auf dem Gerät.</span>
               <Link href="/tagebuch" className={styles.productLink}>
                 Ansehen
+              </Link>
+            </li>
+            <li className={styles.product}>
+              <span className={styles.productKicker}>Neu · Einmalzahlung</span>
+              <strong className={styles.productName}>Mutig reiten</strong>
+              <span className={styles.productPrice}>{mutigReiten.price}</span>
+              <span className={styles.productText}>6 Wochen gegen Angst beim Reiten – nach dem Sturz, beim Wiedereinstieg, nach der Geburt. Mit kostenlosem Angst-Check.</span>
+              <Link href="/mutig-reiten" className={styles.productLink}>
+                {mutig ? "Zum Programm" : "Ansehen"}
               </Link>
             </li>
           </ul>

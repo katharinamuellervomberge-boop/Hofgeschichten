@@ -1,6 +1,6 @@
 import "server-only";
 import { adventures, isVisible } from "@/content/adventures";
-import { adventskalender, grosseAkademie, meinTagAmHof, ridingSpace } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, mutigReiten, ridingSpace } from "@/content/products";
 import { hofpost, membership } from "@/content/membership";
 
 /**
@@ -112,6 +112,8 @@ export function normalizeOrderNumber(input: string): string | null {
 const TITLE_RULES: Array<[RegExp, () => string | null]> = [
   // Adventskalender zuerst: Titel wie „… Adventskalender (für Reitakademie-Kunden)“ dürfen NICHT die Akademie freischalten.
   // Nur das Paket (Titel mit „Reitakademie“ UND „Adventskalender“ und „+“/„Paket“) schaltet beides frei.
+  // Mutig reiten ganz vorn: der Produkttitel beginnt mit „Mutig reiten –“ und darf nichts anderes freischalten
+  [/^mutig reiten\s+[–-]/i, () => mutigReiten.shopifyProductHandle],
   // Riding Space zuerst: der Titel nennt das Reitertagebuch, aber nie die Reitakademie
   [/riding space/i, () => ridingSpace.shopifyProductHandle],
   [/(reitakademie.*(\+|paket).*adventskalender|adventskalender.*(\+|paket).*reitakademie)/i, () => adventskalender.bundleProductHandle],
@@ -129,7 +131,7 @@ const TITLE_RULES: Array<[RegExp, () => string | null]> = [
  * „Die Reitakademie – Online-Reitkurs mit Reitertagebuch (…, Hofgeschichten)“ – ohne diesen
  * Eintrag schlugen alle Akademie-Bestellungen ab #1101 mit „no_product“ fehl.
  */
-const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/, /^Riding Space\s+[–-]/];
+const APP_TITLE_PREFIXES = [/^Die Hofgeschichten\s+[–-]/, /^Die Reitakademie\s+[–-]/, /^Riding Space\s+[–-]/, /^Mutig reiten\s+[–-]/i];
 
 function handleFromTitle(title: string | null): string | null {
   const t = (title ?? "").trim();
@@ -179,6 +181,8 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   }
   // Spiel „Mein Tag am Hof“ (Einzelkauf)
   if (handles.has(meinTagAmHof.shopifyProductHandle)) unlocked.push(meinTagAmHof.slug);
+  // Mutig reiten (Einmalkauf, 19.11.2026)
+  if (handles.has(mutigReiten.shopifyProductHandle)) unlocked.push(mutigReiten.slug);
   // Hofpost enthält die App-Mitgliedschaft – gleicher Mitgliedscode
   const membershipOrder = handles.has(membership.shopifyProductHandle) || handles.has(hofpost.shopifyProductHandle)
     ? { id: order.id, processedAt: new Date(order.processedAt) }

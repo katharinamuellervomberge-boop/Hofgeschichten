@@ -26,7 +26,7 @@ const STAGE = [
  * Startseite (seit 09.11.2026 ohne Hofwelt): Reitakademie (am stärksten hervorgehoben),
  * Rider Lab, Riding Space (Tagebuch, Planer, Coach), Spielen. Die Pferde der Bühne sind Dekoration.
  */
-export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
+export function HomeScreen({ locale = "de", mutig = false }: { locale?: Locale; mutig?: boolean }) {
   if (locale === "en") return <HomeScreenEn />;
   return (
     <div className={styles.home}>
@@ -106,6 +106,21 @@ export function HomeScreen({ locale = "de" }: { locale?: Locale }) {
           <span>
             <span className={styles.tileTitle}>Riding Space</span>
             <span className={styles.tileText}>Tagebuch, Trainingsplaner und Rider Coach – deine Reitstunden festhalten und dranbleiben.</span>
+          </span>
+          <Icon name="back" className={styles.arrow} aria-hidden />
+        </Link>
+
+        <Link href="/mutig-reiten" className={`${styles.tile} ${styles.world}`}>
+          <span className={styles.tileIcon} aria-hidden>
+            <Icon name="horseshoe" />
+          </span>
+          <span>
+            <span className={styles.tileTitle}>{mutig ? "Dein Mut-Programm" : "Mutig reiten"}</span>
+            <span className={styles.tileText}>
+              {mutig
+                ? "Weiter mit deiner nächsten Einheit, deiner Mut-Leiter und deinen Werkzeugen."
+                : "6 Wochen gegen Angst beim Reiten – starte mit dem kostenlosen Angst-Check."}
+            </span>
           </span>
           <Icon name="back" className={styles.arrow} aria-hidden />
         </Link>
