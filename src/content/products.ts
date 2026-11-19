@@ -159,4 +159,33 @@ export const ridingSpace = {
     "Reitertagebuch, Trainingsplaner und Rider Coach: Reitstunden mit Fotos festhalten, Ziele mit Verlauf, Wochen- und Monatsplanung, regelbasierter Plan-Builder und ein Coach, der bei Problemen im Sattel passende Übungen vorschlägt. Alle Daten bleiben auf dem Gerät. 12 Monate Zugang, endet automatisch – kein Abo.",
 };
 
-export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug];
+/**
+ * Mutig reiten – 6-Wochen-Programm gegen Angst beim Reiten (seit 19.11.2026, Einmalkauf).
+ * Wochen 3–6 erscheinen gestaffelt (Termine in src/content/mutig/katalog.ts).
+ */
+export const mutigReiten = {
+  /** Kennung für Freischaltcodes und das Berechtigungs-Cookie (nie ändern) */
+  slug: "mutig-reiten",
+  name: "Mutig reiten",
+  fullName: "Mutig reiten – das 6-Wochen-Programm gegen Angst beim Reiten",
+  /** Verkaufspreis (19.11.2026: 39,90 €, kein Einführungsrabatt). Für einen Aktionspreis `price` senken, `regularPrice` bleibt. */
+  price: "39,90 €",
+  regularPrice: "39,90 €",
+  /** Shopify-Handle (Produkt wird als Entwurf angelegt; Titel beginnt mit „Mutig reiten –“) */
+  shopifyProductHandle: "mutig-reiten-6-wochen-programm-gegen-angst-beim-reiten",
+  /** Shop-Link. null = Verkauf noch nicht geöffnet (Knopf wird dann nicht gezeigt) */
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/mutig-reiten-6-wochen-programm-gegen-angst-beim-reiten" as string | null,
+  /**
+   * Kostenloses Abschlussgespräch (15–20 Min., per Zoom) nach Abschluss aller 30 Einheiten.
+   * Termin wird per E-Mail vereinbart (Entscheidung 19.11.2026): `bookingUrl` bleibt null, Anfrage an `bookingEmail`.
+   */
+  abschlussgespraech: {
+    minutes: "15–20",
+    bookingUrl: null as string | null,
+    bookingEmail: "infohorseandharmonie@gmail.com",
+  },
+  parentInfo:
+    "6 Wochen, 30 kurze Einheiten mit Audio, Mut-Leiter, Mut-Barometer und 8 Werkzeugen gegen Angst beim Reiten – für drei Wege: nach dem Sturz, Wiedereinstieg, nach der Geburt. Einmalkauf, kein Abo. Nach Abschluss ein kostenloses Abschlussgespräch (15–20 Min., per Zoom). Wochen 3–6 erscheinen gestaffelt. Alle Einträge bleiben auf dem Gerät.",
+};
+
+export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug, mutigReiten.slug];

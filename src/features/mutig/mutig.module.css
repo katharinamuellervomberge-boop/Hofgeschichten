@@ -1,0 +1,647 @@
+/* Mutig reiten – Designsystem 2.0 (Ivory, Forest, Champagne, Honey) */
+
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.narrow {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--honey);
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  line-height: 1.12;
+  color: var(--forest-deep);
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--forest-deep);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.muted {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.xs {
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---------- Karten ---------- */
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--sand), var(--shadow-card);
+}
+
+.cardForest {
+  composes: card;
+  background: var(--forest);
+  color: var(--paper);
+  box-shadow: var(--shadow-lift);
+}
+
+.cardForest .h1,
+.cardForest .h2 {
+  color: var(--paper);
+}
+
+.cardForest .muted,
+.cardForest .lead {
+  color: #e3ddcf;
+}
+
+.hero {
+  composes: cardForest;
+  padding: var(--space-5) var(--space-4);
+  gap: var(--space-3);
+}
+
+/* ---------- Knöpfe ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: var(--touch-min);
+  padding: 0.7rem 1.3rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--forest);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cardForest .btn,
+.hero .btn {
+  background: var(--champagne);
+  color: var(--forest-deep);
+}
+
+.btnGhost {
+  composes: btn;
+  background: var(--sand-light);
+  color: var(--forest-deep);
+}
+
+.btnLink {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--forest);
+  text-decoration: underline;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.danger {
+  composes: btn;
+  background: var(--rust);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---------- Unternavigation ---------- */
+
+.subnav {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.subnav a {
+  flex: none;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.subnav a[aria-current="page"] {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+/* ---------- Fortschritt ---------- */
+
+.journey {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.journey small {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  color: var(--ink-soft);
+}
+
+.bar {
+  display: block;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--bone);
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--forest);
+}
+
+.weekCur small {
+  color: var(--forest-deep);
+  font-weight: 700;
+}
+
+/* ---------- Einheitenliste ---------- */
+
+.units {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: var(--ivory);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.unit:hover {
+  background: var(--sand-light);
+}
+
+.unitNum {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--bone);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--forest-deep);
+}
+
+.unitDone .unitNum {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.unitNext {
+  box-shadow: inset 0 0 0 2px var(--honey);
+  background: var(--paper);
+}
+
+.unitLocked {
+  opacity: 0.6;
+}
+
+.unitTitle {
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+.unitMeta {
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
+/* ---------- Barometer ---------- */
+
+.barometer {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.scale {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+
+.scale button {
+  min-height: 2.6rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scale button[aria-pressed="true"] {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.scaleEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--forest-deep);
+  min-height: 1.5em;
+}
+
+/* ---------- Auswahl ---------- */
+
+.choices {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: var(--touch-min);
+  padding: 0.6rem 0.9rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 1.5px var(--sand);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.choice[aria-pressed="true"] {
+  background: var(--forest);
+  color: var(--paper);
+  box-shadow: none;
+}
+
+.dots {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.dots i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--bone);
+}
+
+.dots i.on {
+  background: var(--forest);
+}
+
+/* ---------- Formulare ---------- */
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid var(--sand);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.check input {
+  margin-top: 0.2rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--forest);
+}
+
+/* ---------- Hinweise ---------- */
+
+.note {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--sand-light);
+  color: var(--forest-deep);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.warn {
+  composes: note;
+  background: #f3e5d8;
+  color: var(--brown-deep);
+}
+
+.notePlain {
+  margin: 0;
+}
+
+/* ---------- Schritte ---------- */
+
+.steps {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.3rem;
+  line-height: 1.5;
+}
+
+.progressTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+.back {
+  color: var(--forest);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: var(--text-sm);
+}
+
+/* ---------- Audio ---------- */
+
+.audio {
+  width: 100%;
+}
+
+.transcript {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.transcript summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.transcript p {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-reading);
+  line-height: 1.65;
+}
+
+/* ---------- Leiter ---------- */
+
+.ladder {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 1.5px var(--sand);
+}
+
+.stepHead {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.stepDone {
+  background: #e7efe9;
+  box-shadow: inset 0 0 0 1.5px #b7cbbd;
+}
+
+.stepDone .unitNum {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.stepWork {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--honey);
+}
+
+.stepGoal .unitNum {
+  background: var(--champagne);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.pill {
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: var(--bone);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--forest-deep);
+}
+
+.pillGood {
+  composes: pill;
+  background: #dce8df;
+}
+
+.pillHigh {
+  composes: pill;
+  background: #f1d9c9;
+}
+
+/* ---------- Werkzeuge ---------- */
+
+.tools {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Abschluss ---------- */
+
+.seal {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--paper);
+  font-size: 2rem;
+}
+
+.center {
+  text-align: center;
+  justify-items: center;
+}
+
+.certificate {
+  composes: card;
+  text-align: center;
+  justify-items: center;
+  padding: var(--space-6) var(--space-4);
+  box-shadow: inset 0 0 0 3px var(--champagne), var(--shadow-card);
+}
+
+/* ---------- Vorschau ---------- */
+
+.features {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.price s {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-left: 0.4rem;
+}
+
+.weekList {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekList li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}

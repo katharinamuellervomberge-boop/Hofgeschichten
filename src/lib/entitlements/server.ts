@@ -2,7 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { adventures, isVisible } from "@/content/adventures";
 import { getRelease, isReleased, type Release } from "@/content/membership";
-import { adventskalender, grosseAkademie, meinTagAmHof, productSlugs } from "@/content/products";
+import { adventskalender, grosseAkademie, meinTagAmHof, mutigReiten, productSlugs } from "@/content/products";
 import { membershipCodeStillValid } from "./codes";
 import { COOKIE_NAME, emptyEntitlement, readToken, type Entitlement } from "./token";
 
@@ -47,6 +47,14 @@ export async function hasGrosseAkademie(): Promise<boolean> {
 
 /** Neuer Name, gleiche Prüfung */
 export const hasAcademy = hasGrosseAkademie;
+
+/**
+ * Mutig reiten freigeschaltet? Nur durch Kauf oder Code (Kennung `mutig-reiten`),
+ * nicht über die Mitgliedschaft. Wird vor jeder Einheit und jeder Audiodatei geprüft.
+ */
+export async function hasMutigReiten(): Promise<boolean> {
+  return (await getEntitlement()).adventures.includes(mutigReiten.slug);
+}
 
 export type RidingSpaceStatus =
   | { active: true; via: "kauf"; until: string }

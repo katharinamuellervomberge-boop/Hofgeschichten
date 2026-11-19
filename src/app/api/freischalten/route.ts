@@ -23,7 +23,7 @@ const MESSAGES = {
   unavailable: "Die Freischaltung ist gerade nicht erreichbar. Bitte versuchen Sie es später erneut.",
   not_found: "Wir haben keine passende Bestellung gefunden. Bitte prüfen Sie Bestellnummer und E-Mail-Adresse.",
   not_paid: "Diese Bestellung ist noch nicht bezahlt oder wurde storniert.",
-  no_product: "In dieser Bestellung ist kein App-Produkt enthalten (Reitakademie, Riding Space, Adventskalender, Abenteuer oder Mitgliedschaft).",
+  no_product: "In dieser Bestellung ist kein App-Produkt enthalten (Reitakademie, Riding Space, Mutig reiten, Adventskalender, Abenteuer oder Mitgliedschaft).",
   rs_expired: "Diese Riding-Space-Bestellung ist älter als 12 Monate. Der Zugang ist abgelaufen – im Shop können Sie den Riding Space für weitere 12 Monate kaufen.",
   bad_code: "Dieser Freischaltcode ist ungültig oder abgelaufen. Bitte prüfen Sie die Schreibweise (HG-XXXX-XXXX-XXXX).",
   device_full: `Dieser Mitgliedscode ist bereits auf einem anderen Gerät aktiv. Für einen Gerätewechsel entfernen Sie die Freischaltung zuerst auf dem alten Gerät (Elternbereich → „Freischaltung von diesem Gerät entfernen“). Ist das alte Gerät nicht mehr verfügbar, schreiben Sie bitte an ${plan.supportEmail} – wir setzen die Gerätebindung zurück.`,
