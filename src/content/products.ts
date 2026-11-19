@@ -177,7 +177,7 @@ export const mutigReiten = {
   checkoutUrl: null as string | null,
   /**
    * Kostenloses Abschlussgespräch (15–20 Min., per Zoom) nach Abschluss aller 30 Einheiten.
-   * `bookingUrl`: Buchungslink (z. B. Calendly oder Zoom Scheduler). null = Anfrage per E-Mail an `bookingEmail`.
+   * Termin wird per E-Mail vereinbart (Entscheidung 19.11.2026): `bookingUrl` bleibt null, Anfrage an `bookingEmail`.
    */
   abschlussgespraech: {
     minutes: "15–20",
