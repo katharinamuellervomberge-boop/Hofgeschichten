@@ -39,9 +39,23 @@ export function quizAnswer(q: QuizQuestion, rein: Rein, size: ArenaSize): string
   }
 }
 
-/** Platzhalter für die gewählte Starthand: {hand} {innen} {aussen}, nach dem Handwechsel {neueHand} {neuInnen} {neuAussen}; Buchstaben [H] */
-export function fillText(text: string, rein: Rein): string {
+/** Platzhalter für die gewählte Starthand: {hand} {innen} {aussen}, nach dem Handwechsel {neueHand} {neuInnen} {neuAussen}; Buchstaben [H].
+ *  Englisch (übersetzte Texte): alle Platzhalter werden zu „left“/„right“. */
+export function fillText(text: string, rein: Rein, locale: "de" | "en" = "de"): string {
   const l = rein === "links";
+  if (locale === "en") {
+    const [own, other] = l ? ["left", "right"] : ["right", "left"];
+    return resolveLetters(
+      text
+        .replaceAll("{neueHand}", other)
+        .replaceAll("{neuInnen}", other)
+        .replaceAll("{neuAussen}", own)
+        .replaceAll("{hand}", own)
+        .replaceAll("{innen}", own)
+        .replaceAll("{aussen}", other),
+      !l,
+    );
+  }
   return resolveLetters(
     text
       .replaceAll("{neueHand}", l ? "rechten" : "linken")

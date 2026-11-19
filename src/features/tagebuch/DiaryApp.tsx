@@ -1,6 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
+import { EnglishDom } from "@/i18n/EnglishDom";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { useDiary } from "./store";
 import { BackupPanel } from "./views/BackupPanel";
@@ -45,34 +46,6 @@ function useToast() {
  * (riding/engine.ts, neue Adressen u. a. /fortschritt, /uebungen, /meilensteine).
  * Profil, Lieblingsmomente, Rückblick und Sicherung bleiben die bisherigen Seiten.
  */
-/**
- * Englisch (/en): Die bisherigen Tagebuch-Seiten sind deutsch geschrieben; ihr Text wird nach dem
- * Rendern im Browser übersetzt (i18n/dom-translate.ts, Wörterbuch en-views.json + Riding Space).
- * Bis das Wörterbuch geladen ist, bleibt der Inhalt unsichtbar – so blitzt kein Deutsch auf.
- */
-function EnglishDom({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
-  useLayoutEffect(() => {
-    let alive = true;
-    let stop: (() => void) | undefined;
-    import("./riding/en").then((m) => {
-      if (!alive || !ref.current) return;
-      stop = m.diaryTranslator().observe(ref.current);
-      setReady(true);
-    });
-    return () => {
-      alive = false;
-      stop?.();
-    };
-  }, []);
-  return (
-    <div ref={ref} style={ready ? undefined : { visibility: "hidden" }}>
-      {children}
-    </div>
-  );
-}
-
 const OLD_VIEWS = ["profil", "momente", "entwicklung", "sicherung"];
 
 export function DiaryApp({ view }: { view: string[] }) {
@@ -130,7 +103,7 @@ export function DiaryApp({ view }: { view: string[] }) {
       <Toast text={toast} onDone={clearToast} />
     </div>
   );
-  // Der Riding Space übersetzt sich selbst (riding/RidingSpace.tsx)
+  // Englisch: Profil, Momente, Rückblick, Sicherung werden im Browser übersetzt; der Riding Space übersetzt sich selbst (riding/RidingSpace.tsx)
   const ownTranslation = state.status === "ready" && !OLD_VIEWS.includes(view[0] ?? "");
-  return locale === "en" && !ownTranslation ? <EnglishDom>{page}</EnglishDom> : page;
+  return locale === "en" && !ownTranslation ? <EnglishDom pack="diary">{page}</EnglishDom> : page;
 }
