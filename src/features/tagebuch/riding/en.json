@@ -732,7 +732,7 @@
   "{0} Einplanen": "{0} Schedule",
   "{0} Jahre": "{0} years",
   "{0} Jahre ·": "{0} years ·",
-  "{0} Einheiten dazu": "{0} sessions linked",
+  "{0} Einheiten dazu": "sessions linked: {0}",
   "{0} Einheiten": "{0} sessions",
   "KW {0}{1}": "Week {0}{1}",
   "Festigen ({0})": "Consolidate ({0})",

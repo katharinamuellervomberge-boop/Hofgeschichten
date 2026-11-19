@@ -146,7 +146,7 @@ export function AcademyHome({ unlocked }: { unlocked: boolean }) {
         </section>
 
         {/* Rider Lab: Übungen für zu Hause (bisher nur deutsch) */}
-        {!en && <RiderLabTeaser unlocked={unlocked} />}
+        <RiderLabTeaser unlocked={unlocked} />
 
         {!unlocked && <AcademyBuyBox path={path} />}
 

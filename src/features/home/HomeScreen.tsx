@@ -177,8 +177,8 @@ function HomeScreenEn() {
               The Riding Academy
             </span>
             <span className={styles.academyText}>
-              81 interactive lessons – from understanding horses, grooming and your first ride to school figures, the aids, dressage and
-              jumping. With pictures, exercises and quizzes.
+              157 interactive lessons – from understanding horses, grooming and your first ride to school figures, the aids, dressage and
+              jumping. With pictures, exercises, quizzes and learning videos.
             </span>
             <ul className={styles.paths} aria-label="Learning tracks">
               {ACADEMY_PATHS.map((p) => (
@@ -214,6 +214,28 @@ function HomeScreenEn() {
           <span>
             <span className={styles.tileTitle}>For horse-mad kids</span>
             <span className={styles.tileText}>Simple language, lots of pictures and games – with Lea, Mila and Ben from the farm.</span>
+          </span>
+          <Icon name="back" className={styles.arrow} aria-hidden />
+        </Link>
+
+        <Link href="/akademie/rider-lab" className={`${styles.tile} ${styles.games}`}>
+          <span className={styles.tileIcon} aria-hidden>
+            <Icon name="lab" />
+          </span>
+          <span>
+            <span className={styles.tileTitle}>Rider Lab</span>
+            <span className={styles.tileText}>20 exercises for your seat, balance and body awareness – with animations and a trainer.</span>
+          </span>
+          <Icon name="back" className={styles.arrow} aria-hidden />
+        </Link>
+
+        <Link href="/tagebuch" className={`${styles.tile} ${styles.world}`}>
+          <span className={styles.tileIcon} aria-hidden>
+            <Icon name="diary" />
+          </span>
+          <span>
+            <span className={styles.tileTitle}>Riding Space</span>
+            <span className={styles.tileText}>Journal, training planner and Rider Coach – record your riding sessions and keep improving.</span>
           </span>
           <Icon name="back" className={styles.arrow} aria-hidden />
         </Link>

@@ -7,6 +7,7 @@ import type { DomTranslator } from "./dom-translate";
 const PACKS = {
   diary: () => import("@/features/tagebuch/riding/en").then((m) => m.diaryTranslator()),
   arena: () => import("@/features/arena/en").then((m) => m.arenaTranslator()),
+  riderlab: () => import("@/features/riderlab/en").then((m) => m.riderLabTranslator()),
 } satisfies Record<string, () => Promise<DomTranslator>>;
 
 /**

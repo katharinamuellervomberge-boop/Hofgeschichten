@@ -20,7 +20,7 @@ function technical(s: string): boolean {
   if (/^[a-z]{2}-[A-Z]{2}$/.test(t)) return true;
   if (/^\/[\w/-]*$/.test(t)) return true; // Pfade
   if (/[{};]\s*$/.test(t) && /:/.test(t)) return true; // CSS
-  if (/^(?:var|rgba?|calc|url)\(/.test(t)) return true;
+  if (/^(?:var|rgba?|calc|url|rotate|translate|scale)\(/.test(t)) return true;
   if (/^[a-z-]+:\s*[^ ]+$/.test(t)) return true; // "background:{0}"
   return false;
 }
@@ -38,7 +38,7 @@ function addRun(run: string, exact: Set<string>, patterns: Set<string>, html = f
     .replace(/&shy;|\u00ad/g, "")
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
+    .replace(/&#39;|&apos;/g, "'")
     .replace(/\s+/g, " ")
     .trim();
   if (!s) return;
