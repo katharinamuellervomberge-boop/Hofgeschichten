@@ -1,4 +1,4 @@
-import { COL, FONT_BODY, PAPER, Phone, T, back, ease, lerp, sm } from "./nov-kit";
+import { COL, FONT_BODY, NodHorse, PAPER, Phone, T, back, ease, lerp, sm } from "./nov-kit";
 import { HomeScreen } from "./nov-akademie";
 import { Big } from "./viral-kit";
 import { Tag } from "./hg1-haenger-reel";
@@ -103,6 +103,32 @@ export function RiderCTA({ t, a, b, fin, module, title, id }: { t: number; a: nu
           <rect x={70} y={1360} width={940} height={260} rx="44" fill={COL.forest} />
           <T x={540} y={1460} size={58} color={PAPER}>REITEN ENDLICH VERSTEHEN.</T>
           <T x={540} y={1550} size={46} font={FONT_BODY} weight={900} color={COL.honey}>Rider Academy – Link in Bio</T>
+        </g>
+      )}
+    </g>
+  );
+}
+
+/** Englischer Rider-Academy-Abschluss (ohne deutsches App-Handy): Pferd, drei Pillen, Endkarte */
+export function RiderCTAEn({ t, a, b, fin, title, look }: { t: number; a: number; b: number; fin: number; title: string[]; look: Parameters<typeof NodHorse>[0]["look"] }) {
+  const pills = ["Finally understand riding.", "Step by step.", "Simply explained."];
+  const k = 2.6;
+  const pl = { x: 700 - 230 * k, y: 1300 - 285 * k, k };
+  return (
+    <g>
+      <rect x={0} y={1300} width={1080} height={620} fill={COL.sandLight} />
+      <NodHorse t={t} pl={pl} look={look} gait="stand" id="cta-en" nod={-2 + 3 * Math.sin(t * 2)} />
+      <Big t={t} a={a - 0.1} lines={title} y={190} size={84} />
+      {t < fin && pills.map((p, i) => {
+        const at = b + i * ((fin - b) / 3);
+        const nx = b + (i + 1) * ((fin - b) / 3);
+        return t >= at && t < nx ? <Tag key={p} x={540} y={1440} text={p} size={50} fill={[COL.forest, COL.honey, COL.rust][i]} color={i === 1 ? COL.forestDeep : PAPER} o={ease((t - at) / 0.2)} /> : null;
+      })}
+      {t >= fin && (
+        <g opacity={Math.min(1, back((t - fin) / 0.4))}>
+          <rect x={70} y={1360} width={940} height={260} rx="44" fill={COL.forest} />
+          <T x={540} y={1460} size={50} color={PAPER}>FINALLY UNDERSTAND RIDING.</T>
+          <T x={540} y={1550} size={46} font={FONT_BODY} weight={900} color={COL.honey}>Rider Academy – link in bio</T>
         </g>
       )}
     </g>

@@ -64,6 +64,8 @@ import { HAENGER_TOTAL, renderHaenger, renderHaengerCover } from "@/video/reels/
 import { KNETEN_TOTAL, renderKneten, renderKnetenCover } from "@/video/reels/ts9-kneten-reel";
 import { PS_TOTAL, renderPferdesicht, renderPferdesichtCover } from "@/video/reels/ts10-pferdesicht-reel";
 import { POV_TOTAL, RL_TOTAL, renderPov, renderRlsaetze } from "@/video/reels/t3-funny-reels";
+import { TEMPO_EN_TOTAL, renderTempoEn, renderTempoEnCover } from "@/video/reels/ts11-tempo-en-reel";
+import { ANL_EN_TOTAL, renderAnlehnungEn, renderAnlehnungEnCover } from "@/video/reels/ts12-anlehnung-en-reel";
 import { ANL_TOTAL, renderAnlehnung, renderAnlehnungCover } from "@/video/reels/ts12-anlehnung-reel";
 import { TEMPO_TOTAL, renderTempo, renderTempoCover } from "@/video/reels/ts11-tempo-reel";
 import { DATING_TOTAL, renderDating, renderDatingCover } from "@/video/reels/dating-reel";
@@ -142,6 +144,10 @@ const REELS: Record<string, { total: () => number; render: (t: number) => ReactN
   dating: { total: () => DATING_TOTAL, render: renderDating },
   tempo: { total: () => TEMPO_TOTAL, render: renderTempo },
   anlehnung: { total: () => ANL_TOTAL, render: renderAnlehnung },
+  "tempo-en": { total: () => TEMPO_EN_TOTAL, render: renderTempoEn },
+  "tempo-en-cover": { total: () => 0.1, render: renderTempoEnCover },
+  "anlehnung-en": { total: () => ANL_EN_TOTAL, render: renderAnlehnungEn },
+  "anlehnung-en-cover": { total: () => 0.1, render: renderAnlehnungEnCover },
   "anlehnung-cover": { total: () => 0.1, render: renderAnlehnungCover },
   "tempo-cover": { total: () => 0.1, render: renderTempoCover },
   "dating-cover": { total: () => 0.1, render: renderDatingCover },

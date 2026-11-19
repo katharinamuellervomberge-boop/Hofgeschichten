@@ -106,7 +106,7 @@ elif reel in ("pov", "rlsaetze"):
         add(fx, blip(84, 0.2), S("05") + 0.3); add(fx, blip(88, 0.2), S("05") + 0.45)
         quiet = []
     mend = S("05") + 1.2; fin = S("05") + 0.3
-elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben", "haenger", "kneten", "pferdesicht", "tempo", "anlehnung"):
+elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festhalten", "sicht", "leichttraben", "haenger", "kneten", "pferdesicht", "tempo", "anlehnung", "tempo-en", "anlehnung-en"):
     # Tagesset 01 (15.11.2026): Whoosh an Szenenschnitten, Blips/Stabs an Pointen
     C = {
         "mathe": dict(cut=["03","07","11","15","19","23","24"], blip=[("04",72),("08",74),("12",76),("16",79)], ok=["06","10","14","18"], stab=["23"], quiet=[("23",0.0,0.5)], mend="25", fin="25"),
@@ -120,7 +120,9 @@ elif reel in ("mathe", "aussenschulter", "schlaf", "handseite", "phasen", "festh
         "kneten": dict(cut=["04","06","07","11","15","17"], blip=[("02",72),("05",76),("08",79),("13",72),("14",79),("18",84)], ok=[], stab=["15"], quiet=[], mend="18", fin="18"),
         "pferdesicht": dict(cut=["03","07","10","12","14"], blip=[("02",72),("04",79),("05",70),("06",76),("08",79),("11",84),("13",76),("15",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
         "tempo": dict(cut=["05","10","13","23","25"], blip=[("04",76),("08",72),("09",79),("11",79),("15",72),("16",74),("17",76),("18",79),("19",84),("22",84),("24",79),("26",84)], ok=[], stab=["03"], quiet=[], mend="26", fin="26"),
+        "tempo-en": dict(cut=["05","10","13","23","25"], blip=[("04",76),("08",72),("09",79),("11",79),("15",72),("16",74),("17",76),("18",79),("19",84),("22",84),("24",79),("26",84)], ok=[], stab=["03"], quiet=[], mend="26", fin="26"),
         "anlehnung": dict(cut=["04","05","07","09","11","14","18","20","21","23"], blip=[("03",76),("06",79),("08",72),("10",84),("13",79),("15",72),("16",76),("17",79),("19",84),("22",88)], ok=[], stab=["04","09"], quiet=[], mend="23", fin="23"),
+        "anlehnung-en": dict(cut=["04","05","07","09","11","14","18","20","21","23"], blip=[("03",76),("06",79),("08",72),("10",84),("13",79),("15",72),("16",76),("17",79),("19",84),("22",88)], ok=[], stab=["04","09"], quiet=[], mend="23", fin="23"),
         "handseite": dict(cut=["04","05","09","11","13","15"], blip=[("02",84),("07",79),("08",84),("09",76),("10",81),("12",84)], ok=[], stab=[], quiet=[], mend="15", fin="15"),
     }[reel]
     for k in C["cut"]: add(fx, whoosh(0.28), S(k) - 0.18)
