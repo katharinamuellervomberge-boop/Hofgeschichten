@@ -1,7 +1,7 @@
 // @ts-nocheck
 /* eslint-disable */
 import { EXERCISES } from "@/content/training/uebungen";
-import { coach } from "@/content/coach/provider";
+import { coach as coachDe } from "@/content/coach/provider";
 /**
  * Riding Space – Übersicht, Reitertagebuch, Trainingsplaner und Fortschritt (seit 14.11.2026).
  *
@@ -29,12 +29,14 @@ const fromDay = s => { const [y,m,d] = s.split("-").map(Number); return new Date
 let TODAY = isoOf(new Date());
 const addDays = (s,n) => { const d = fromDay(s); d.setDate(d.getDate()+n); return isoOf(d); };
 const weekStart = s => { const d = fromDay(s); d.setDate(d.getDate()-((d.getDay()+6)%7)); return isoOf(d); };
-const WD = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+let WD = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+/* Sprache: Englisch setzt mountRidingSpace (host.locale). Texte übersetzt dann host.translator nach dem Rendern. */
+let LOC = "de-DE";
 const wdOf = s => WD[(fromDay(s).getDay()+6)%7];
-const fmt = (s,o) => fromDay(s).toLocaleDateString("de-DE", o || {day:"numeric",month:"short"});
-const fmtLong = s => fromDay(s).toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});
+const fmt = (s,o) => fromDay(s).toLocaleDateString(LOC, o || {day:"numeric",month:"short"});
+const fmtLong = s => fromDay(s).toLocaleDateString(LOC,{weekday:"long",day:"numeric",month:"long"});
 const monthKey = s => s.slice(0,7);
-const monthLabel = k => { const [y,m]=k.split("-").map(Number); return new Date(y,m-1,1).toLocaleDateString("de-DE",{month:"long",year:"numeric"}); };
+const monthLabel = k => { const [y,m]=k.split("-").map(Number); return new Date(y,m-1,1).toLocaleDateString(LOC,{month:"long",year:"numeric"}); };
 const shiftMonth = (k,n) => { const [y,m]=k.split("-").map(Number); const d=new Date(y,m-1+n,1); return `${d.getFullYear()}-${p2(d.getMonth()+1)}`; };
 const kw = s => { const d=fromDay(s); const t=new Date(d.getFullYear(),d.getMonth(),d.getDate()); t.setDate(t.getDate()+3-((t.getDay()+6)%7)); const w1=new Date(t.getFullYear(),0,4); return 1+Math.round(((t-w1)/864e5-3+((w1.getDay()+6)%7))/7); };
 const uid = p => `${p}-${Math.random().toString(36).slice(2,9)}`;
@@ -112,7 +114,8 @@ const CATS = [
  {id:"sitz",l:"Sitz & Balance"},{id:"hilfen",l:"Hilfengebung"},{id:"uebergaenge",l:"Übergänge"},{id:"dressur",l:"Dressur"},
  {id:"galopp",l:"Galopp"},{id:"stangen",l:"Stangenarbeit"},{id:"boden",l:"Bodenarbeit"},{id:"gelaende",l:"Geländetraining"},{id:"gymn",l:"Gymnastizierung"}];
 const catLabel = id => (CATS.find(c=>c.id===id)||{}).l || id;
-const EX = EXERCISES;
+let EX = EXERCISES;
+let coach = coachDe;
 const exById = id => EX.find(e=>e.id===id);
 
 /* ---------- Regelwerk: Ziel → Übungsgruppe (feste, nachvollziehbare Zuordnung) ---------- */
@@ -635,7 +638,7 @@ entryView(s){
       ${ps?`<button class="linkcard" data-a="openSession" data-id="${ps.id}"><span class="k ex">${ic("cal",18)}</span><span style="flex:1"><span class="tiny muted">Geplante Einheit</span><br><b>${esc(ps.title)}</b></span>${ic("right",16)}</button>`:""}
       ${ms?`<button class="linkcard" data-a="openMs" data-id="${ms.id}"><span class="k rl">${ic("star",18)}</span><span style="flex:1"><span class="tiny muted">Meilenstein</span><br><b>${esc(ms.title)}</b></span>${ic("right",16)}</button>`:""}
       ${(e.lessons||[]).map(linkCard).join("")}</div>`:""}
-    <p class="tiny muted" style="margin-top:16px">${fmtLong(e.date)} · zuletzt geändert ${new Date(e.updatedAt).toLocaleDateString("de-DE")}</p>
+    <p class="tiny muted" style="margin-top:16px">${fmtLong(e.date)} · zuletzt geändert ${new Date(e.updatedAt).toLocaleDateString(LOC)}</p>
     ${s.confirm?`<div class="confirm"><b>Eintrag wirklich löschen?</b><p class="small" style="margin:4px 0 10px">Das lässt sich nicht rückgängig machen.</p><div class="row"><button class="btn sm ghost" data-a="sset" data-k="confirm" data-v="">Abbrechen</button><button class="btn sm danger" data-a="delEntry" data-id="${e.id}">Löschen</button></div></div>`:""}`,
     `<button class="btn ghost" data-a="sset" data-k="confirm" data-v="1" aria-label="Löschen">${ic("trash",18)}</button><button class="btn" data-a="editEntry" data-id="${e.id}">${ic("edit",18)} Bearbeiten</button>`,
     {eyebrow: fmtLong(e.date)});
@@ -1327,10 +1330,16 @@ function ensureStyle(){
 
 /**
  * Startet den Riding Space in `root`.
- * host: { data, view, links: {id:{title,href}}, save(data) → Promise, navigate(href), onRoute(path) }
+ * host: { data, view, links: {id:{title,href}}, save(data) → Promise, navigate(href), onRoute(path),
+ *         locale?, translator? (Englisch, siehe i18n/dom-translate.ts), exercises?, coach? (übersetzte Inhalte) }
  */
 export function mountRidingSpace(root, host){
   ROOT = root; HOST = host; TODAY = isoOf(new Date());
+  const en = host.locale === "en";
+  LOC = en ? "en-GB" : "de-DE";
+  WD = en ? ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] : ["Mo","Di","Mi","Do","Fr","Sa","So"];
+  EX = host.exercises || EXERCISES;
+  coach = host.coach || coachDe;
   UI.week = weekStart(TODAY); UI.pmonth = monthKey(TODAY); UI.pday = TODAY; UI.jmonth = monthKey(TODAY);
   for(const [id,l] of Object.entries(host.links||{})){ if(id.startsWith("rl-")) RL[id] = l.title; else LESSONS[id] = l.title; }
   ensureStyle();
@@ -1342,10 +1351,11 @@ export function mountRidingSpace(root, host){
   const L = [["click",onClick],["input",onInput],["change",onChange],["dragstart",onDragStart],["dragover",onDragOver],["dragleave",onDragLeave],["drop",onDrop]];
   L.forEach(([t,f])=>root.addEventListener(t,f));
   document.addEventListener("keydown", onKey);
+  const unobserve = host.translator ? host.translator.observe(root) : null;
   render();
   return {
     setData(d){ const next = prep(d); if(JSON.stringify(next)===JSON.stringify(D)) { SNAP = JSON.stringify(D); return; } setDataInternal(d); render(true); },
-    destroy(){ L.forEach(([t,f])=>root.removeEventListener(t,f)); document.removeEventListener("keydown", onKey); clearTimeout(toast.t); root.innerHTML = ""; ROOT = null; HOST = null; SHEETS = []; },
+    destroy(){ unobserve && unobserve(); L.forEach(([t,f])=>root.removeEventListener(t,f)); document.removeEventListener("keydown", onKey); clearTimeout(toast.t); root.innerHTML = ""; ROOT = null; HOST = null; SHEETS = []; },
   };
 }
 

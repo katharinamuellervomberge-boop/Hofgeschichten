@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/illustrations/Icons";
-import { academyCheckoutUrl, academyPriceLabel, grosseAkademie, regionalCheckoutUrl } from "@/content/products";
+import { academyCheckoutUrl, academyPriceLabel, grosseAkademie, regionalCheckoutUrl, ridingSpace as rs, ridingSpacePriceLabel } from "@/content/products";
+import type { RidingSpaceStatus } from "@/lib/entitlements/server";
 import { membership as plan } from "@/content/membership";
 import Link from "@/i18n/Link";
 import styles from "./ParentsArea.module.css";
@@ -12,7 +13,8 @@ const MESSAGES: Record<string, string> = {
   unavailable: "Unlocking is not available right now. Please try again later.",
   not_found: "We couldn't find a matching order. Please check the order number and email address.",
   not_paid: "This order hasn't been paid yet or was cancelled.",
-  no_product: "This order doesn't contain the Riding Academy or another app product.",
+  no_product: "This order doesn't contain the Riding Academy, the Riding Space or another app product.",
+  rs_expired: "This Riding Space order is more than 12 months old, so access has expired. You can buy the Riding Space for another 12 months in our shop.",
   bad_code: "This unlock code is invalid or has expired. Please check the spelling (HG-XXXX-XXXX-XXXX).",
   device_full: `This code is already active on another device. Remove it on the old device first, or email ${plan.supportEmail} and we'll reset it.`,
   rate: "Too many attempts. Please wait 15 minutes.",
@@ -20,10 +22,12 @@ const MESSAGES: Record<string, string> = {
 };
 
 /**
- * Englische Seite „Unlock“ (unter /en/eltern): Reitakademie kaufen und freischalten.
+ * Englische Seite „Unlock“ (unter /en/eltern): Reitakademie und Riding Space kaufen und freischalten.
  * Gleiche Server-Prüfung wie im deutschen Elternbereich (/api/freischalten).
  */
-export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: { owned: string[]; orderUnlockAvailable: boolean; codeUnlockAvailable: boolean }) {
+type Props = { owned: string[]; ridingSpace: RidingSpaceStatus; orderUnlockAvailable: boolean; codeUnlockAvailable: boolean };
+
+export function UnlockEn({ owned, ridingSpace, orderUnlockAvailable, codeUnlockAvailable }: Props) {
   const router = useRouter();
   const has = owned.includes(grosseAkademie.slug);
   const [mode, setMode] = useState<"order" | "code">(orderUnlockAvailable || !codeUnlockAvailable ? "order" : "code");
@@ -46,14 +50,14 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mode === "order" ? { method: "order", orderNumber, email } : { method: "code", code }),
       });
-      const json = (await res.json()) as { ok: boolean; reason?: string; adventures?: string[]; membership?: unknown };
+      const json = (await res.json()) as { ok: boolean; reason?: string; adventures?: string[]; membership?: unknown; ridingSpace?: { until: string } | null };
       if (json.ok) {
-        const academy = json.adventures?.includes(grosseAkademie.slug);
+        const names: string[] = [];
+        if (json.adventures?.includes(grosseAkademie.slug)) names.push("The Riding Academy");
+        if (json.ridingSpace) names.push(`Riding Space (until ${new Date(json.ridingSpace.until).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })})`);
         setMsg({
           ok: true,
-          text: academy
-            ? "Unlocked: The Riding Academy. Enjoy learning!"
-            : "Unlocked. Your purchase is now available on this device.",
+          text: names.length ? `Unlocked: ${names.join(" and ")}. Enjoy!` : "Unlocked. Your purchase is now available on this device.",
         });
         setOrderNumber("");
         setEmail("");
@@ -91,9 +95,9 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
               <span className={`${styles.pill} ${has ? styles.pillOk : ""}`}>{has ? "Unlocked on this device" : `${price} one-time`}</span>
             </div>
             <p className={styles.productInfo}>
-              Nine modules with 81 interactive lessons – understanding horses, handling and grooming, learning to ride, the aids, school
-              figures and arena rules, riding better, dressage (up to piaffe and passage), jumping, and the academy finale with knowledge tests.
-              Three learning tracks: Kids (6–11), Teens (12–17) and Adults (18+). The first lesson of every module is free.
+              14 modules with 157 interactive lessons – understanding horses, handling and grooming, learning to ride, the aids, school
+              figures and arena rules, riding better, dressage, jumping and more – plus the Rider Lab with 20 animated exercises for your seat
+              and body. Three learning tracks: Kids (6–11), Teens (12–17) and Adults (18+). The first lesson of every module is free.
             </p>
             {!has && (
               <div className={styles.choice}>
@@ -118,6 +122,8 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
               </div>
             )}
           </div>
+
+          <RidingSpaceProductEn status={ridingSpace} />
 
           <div className={styles.unlock}>
             <h2 style={{ fontSize: "var(--text-lg)" }}>Unlock your purchase</h2>
@@ -167,6 +173,8 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
                 {msg.ok && (
                   <p>
                     <Link href="/akademie">Go to the Riding Academy →</Link>
+                    <br />
+                    <Link href="/tagebuch">Go to the Riding Space →</Link>
                   </p>
                 )}
               </div>
@@ -197,7 +205,8 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
         <section className={styles.card}>
           <h2 style={{ fontSize: "var(--text-lg)" }}>Good to know</h2>
           <ul style={{ display: "grid", gap: "var(--space-2)", paddingLeft: "1.2em", margin: 0 }}>
-            <li>One-time purchase, no subscription – permanent access, every lesson can be repeated.</li>
+            <li>Riding Academy: one-time purchase, no subscription – permanent access, every lesson can be repeated.</li>
+            <li>Riding Space: 12 months of access from the date of purchase, then it ends automatically – no subscription, nothing to cancel.</li>
             <li>No account, no ads, no chat. Progress is saved only on this device.</li>
             <li>Works in the browser on phone, tablet and computer – nothing to install.</li>
             <li>A great gift: write the order number and email in the card and unlock it together.</li>
@@ -207,6 +216,54 @@ export function UnlockEn({ owned, orderUnlockAvailable, codeUnlockAvailable }: {
           </ul>
         </section>
       </div>
+    </div>
+  );
+}
+
+/** Riding Space (Reitertagebuch, Trainingsplaner, Rider Coach) – 12 Monate, endet automatisch */
+function RidingSpaceProductEn({ status }: { status: RidingSpaceStatus }) {
+  const date = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const label = !status.active
+    ? `${ridingSpacePriceLabel("en")} for 12 months`
+    : status.via === "kauf"
+      ? `Unlocked until ${date(status.until)}`
+      : status.via === "bestand"
+        ? "Included with the Riding Academy"
+        : "Included in the membership";
+  return (
+    <div className={styles.product} id="riding-space">
+      <div className={styles.productHead}>
+        <strong>{rs.name}</strong>
+        <span className={`${styles.pill} ${status.active ? styles.pillOk : ""}`}>{label}</span>
+      </div>
+      <p className={styles.productInfo}>
+        Riding journal, training planner and Rider Coach: record your riding sessions with photos, set goals and track how they develop, plan
+        your weeks and months, build a training plan with fixed rules, and get matching exercises from the coach when something isn&apos;t
+        working in the saddle. All data stays on your device. 12 months of access that ends automatically – no subscription.
+      </p>
+      {!status.active && (
+        <div className={styles.choice}>
+          <div className={`${styles.choiceOption} ${styles.choiceBest}`}>
+            <p className={styles.choiceLabel}>Riding Space</p>
+            <p className={styles.choicePrice}>{ridingSpacePriceLabel("en")} for 12 months · ends automatically</p>
+            <a
+              href={rs.checkoutUrl}
+              onClick={(e) => (e.currentTarget.href = regionalCheckoutUrl(rs.shopifyProductHandle))}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.shopLink}
+            >
+              <span>Buy the Riding Space</span>
+              <Icon name="external" />
+            </a>
+            <p className={styles.choiceText}>
+              After buying, enter your order number and email address below under &ldquo;Unlock your purchase&rdquo;. The 12 months start on
+              the date of purchase.
+            </p>
+          </div>
+        </div>
+      )}
+      {!status.active && status.expired && <p className={styles.notice}>Your Riding Space expired on {date(status.expired)}.</p>}
     </div>
   );
 }

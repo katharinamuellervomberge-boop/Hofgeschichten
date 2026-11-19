@@ -45,10 +45,10 @@ export function translateText(s: string, dict: Dict, onMissing?: (s: string) => 
   return hit;
 }
 
-/** Übersetzt alle sichtbaren Texte eines Datenobjekts (tiefe Kopie). */
-export function translateDeep<T>(value: T, dict: Dict, onMissing?: (s: string) => void): T {
+/** Übersetzt alle sichtbaren Texte eines Datenobjekts (tiefe Kopie). `skip`: weitere Felder ohne Übersetzung. */
+export function translateDeep<T>(value: T, dict: Dict, onMissing?: (s: string) => void, skip?: ReadonlySet<string>): T {
   const walk = (v: unknown, key?: string): unknown => {
-    if (key && SKIP_KEYS.has(key)) return v;
+    if (key && (SKIP_KEYS.has(key) || skip?.has(key))) return v;
     if (typeof v === "string") return translateText(v, dict, onMissing);
     if (Array.isArray(v)) return v.map((x) => walk(x));
     if (v && typeof v === "object") {
@@ -62,8 +62,8 @@ export function translateDeep<T>(value: T, dict: Dict, onMissing?: (s: string) =
 }
 
 /** Alle zu übersetzenden Texte eines Objekts (für das Werkzeug `npm run en:extract`) */
-export function collectTexts(value: unknown): string[] {
+export function collectTexts(value: unknown, skip?: ReadonlySet<string>): string[] {
   const out: string[] = [];
-  translateDeep(value, {}, (s) => out.push(s));
+  translateDeep(value, {}, (s) => out.push(s), skip);
   return [...new Set(out)];
 }

@@ -14,9 +14,16 @@ export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const base = entitlementsConfigured();
-  // Englische Version: nur Kauf und Freischaltung der Reitakademie
+  // Englische Version: Kauf und Freischaltung von Reitakademie und Riding Space
   if ((await getLocale()) === "en")
-    return <UnlockEn owned={await getOwnedAdventures()} orderUnlockAvailable={base && shopifyConfigured()} codeUnlockAvailable={base && codesConfigured()} />;
+    return (
+      <UnlockEn
+        owned={await getOwnedAdventures()}
+        ridingSpace={await ridingSpaceStatus()}
+        orderUnlockAvailable={base && shopifyConfigured()}
+        codeUnlockAvailable={base && codesConfigured()}
+      />
+    );
   return (
     <ParentsArea
       owned={await getOwnedAdventures()}

@@ -14,7 +14,12 @@ const STOP = new Set(
     "ich mein meine meinen meinem meiner mir mich du dein deine das der die den dem des ein eine einen einem einer und oder aber beim bei im in am an auf aus mit " +
     "immer staendig standig nicht kein keine nie so sehr zu es er sie wenn wird werden ist bin bist sind habe hab hat haben kann koennen konnen klappt geht gehts mehr gerade " +
     "pferd pferde pferdchen reiten reite reiter reiterin dann wie was warum wieso weshalb oft total voll irgendwie richtig mal noch schon jedes jedem jeden " +
-    "hilfe problem probleme bitte einfach dabei dass uns wir man vom zum zur von fur fuer ueber uber"
+    "hilfe problem probleme bitte einfach dabei dass uns wir man vom zum zur von fur fuer ueber uber " +
+    // Englisch (Rider Coach auf /en)
+    "my me mine the a an and or but with when while if is are am be been being was were it its he she they his her their " +
+    "not no never don dont doesn doesnt isn isnt won wont can cant cannot could get gets got keeps keep always constantly " +
+    "very too really so just also still more of to for on at by from into than then what why how which who help please " +
+    "horse horses pony riding ride rider problem problems"
   ).split(" "),
 );
 

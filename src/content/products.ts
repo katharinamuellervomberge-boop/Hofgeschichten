@@ -54,9 +54,9 @@ export function academyCheckoutUrl(locale: "de" | "en" = "de"): string | null {
   return locale === "en" ? `${SHOP_BASE}/en/products/${grosseAkademie.shopifyProductHandle}` : grosseAkademie.checkoutUrl;
 }
 
-/** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link */
-export function regionalCheckoutUrl(): string {
-  const handle = grosseAkademie.shopifyProductHandle ?? "";
+/** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link (Standard: Reitakademie) */
+export function regionalCheckoutUrl(productHandle?: string): string {
+  const handle = productHandle ?? grosseAkademie.shopifyProductHandle ?? "";
   let us = false;
   try {
     const lang = navigator.language || "";
@@ -158,5 +158,10 @@ export const ridingSpace = {
   parentInfo:
     "Reitertagebuch, Trainingsplaner und Rider Coach: Reitstunden mit Fotos festhalten, Ziele mit Verlauf, Wochen- und Monatsplanung, regelbasierter Plan-Builder und ein Coach, der bei Problemen im Sattel passende Übungen vorschlägt. Alle Daten bleiben auf dem Gerät. 12 Monate Zugang, endet automatisch – kein Abo.",
 };
+
+/** Preis des Riding Space je Sprache („49,90 €“ / „€49.90“) */
+export function ridingSpacePriceLabel(locale: "de" | "en" = "de"): string {
+  return locale === "en" ? `€${ridingSpace.price.replace(/\s*€/, "").replace(",", ".")}` : ridingSpace.price;
+}
 
 export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug];

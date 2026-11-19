@@ -31,20 +31,32 @@ export function RidingSpace({ data, view }: { data: DiaryData; view: string[] })
   const locale = useLocale();
   const links = useMemo(buildLinks, []);
   const first = useRef({ data, view });
+  const latest = useRef(data);
+  latest.current = data;
 
   useEffect(() => {
     if (!ref.current) return;
-    api.current = mountRidingSpace(ref.current, {
-      data: first.current.data,
-      view: first.current.view,
-      links,
-      save: (d: unknown) => saveWholeDiary(d),
-      navigate: (href: string) => router.push(localizePath(href, locale)),
-      onRoute: (path: string) => {
-        if (window.location.pathname !== path) window.history.replaceState(null, "", path);
-      },
-    });
+    let cancelled = false;
+    const start = (extra: Record<string, unknown> = {}) => {
+      if (cancelled || !ref.current) return;
+      api.current = mountRidingSpace(ref.current, {
+        data: latest.current,
+        view: first.current.view,
+        links,
+        locale,
+        ...extra,
+        save: (d: unknown) => saveWholeDiary(d),
+        navigate: (href: string) => router.push(localizePath(href, locale)),
+        onRoute: (path: string) => {
+          if (window.location.pathname !== path) window.history.replaceState(null, "", path);
+        },
+      });
+    };
+    // Englisch: Wörterbücher und übersetzte Inhalte nur auf /en nachladen
+    if (locale === "en") import("./en").then((m) => start(m.ridingSpaceEnglish()));
+    else start();
     return () => {
+      cancelled = true;
       api.current?.destroy();
       api.current = null;
     };

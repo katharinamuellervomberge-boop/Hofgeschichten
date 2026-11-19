@@ -1,5 +1,11 @@
 import type { DiaryData, DiaryEntry } from "./types";
 
+/** Datumsformat der Anzeige – Englisch setzt DiaryApp (setStatsLocale) */
+let DATE_LOCALE = "de-DE";
+export const setStatsLocale = (l: string) => {
+  DATE_LOCALE = l;
+};
+
 /** Alle Zahlen werden ausschließlich aus den gespeicherten Einträgen berechnet. */
 
 export function totals(d: DiaryData) {
@@ -35,7 +41,7 @@ export function shiftMonth(key: MonthKey, delta: number): MonthKey {
 
 export function monthLabel(key: MonthKey): string {
   const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("de-DE", { month: "long", year: "numeric" });
+  return new Date(y, m - 1, 1).toLocaleDateString(DATE_LOCALE, { month: "long", year: "numeric" });
 }
 
 /** Häufigste Werte; bei Gleichstand alle (in Reihenfolge des ersten Vorkommens) */
@@ -84,5 +90,5 @@ export function formatMinutes(min: number): string {
 
 export function formatDay(date: string, opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" }): string {
   const [y, m, d] = date.split("-").map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString("de-DE", opts);
+  return new Date(y, m - 1, d).toLocaleDateString(DATE_LOCALE, opts);
 }
