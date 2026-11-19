@@ -174,7 +174,7 @@ export const mutigReiten = {
   /** Shopify-Handle (Produkt wird als Entwurf angelegt; Titel beginnt mit „Mutig reiten –“) */
   shopifyProductHandle: "mutig-reiten-6-wochen-programm-gegen-angst-beim-reiten",
   /** Shop-Link. null = Verkauf noch nicht geöffnet (Knopf wird dann nicht gezeigt) */
-  checkoutUrl: null as string | null,
+  checkoutUrl: "https://www.horseandharmonie-shop.de/products/mutig-reiten-6-wochen-programm-gegen-angst-beim-reiten" as string | null,
   /**
    * Kostenloses Abschlussgespräch (15–20 Min., per Zoom) nach Abschluss aller 30 Einheiten.
    * Termin wird per E-Mail vereinbart (Entscheidung 19.11.2026): `bookingUrl` bleibt null, Anfrage an `bookingEmail`.
