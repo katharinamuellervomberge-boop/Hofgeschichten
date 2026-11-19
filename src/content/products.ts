@@ -168,15 +168,24 @@ export const mutigReiten = {
   slug: "mutig-reiten",
   name: "Mutig reiten",
   fullName: "Mutig reiten – das 6-Wochen-Programm gegen Angst beim Reiten",
-  /** Einführungspreis; regulär `regularPrice` */
-  price: "29,90 €",
+  /** Verkaufspreis (19.11.2026: 39,90 €, kein Einführungsrabatt). Für einen Aktionspreis `price` senken, `regularPrice` bleibt. */
+  price: "39,90 €",
   regularPrice: "39,90 €",
   /** Shopify-Handle (Produkt wird als Entwurf angelegt; Titel beginnt mit „Mutig reiten –“) */
   shopifyProductHandle: "mutig-reiten-6-wochen-programm-gegen-angst-beim-reiten",
   /** Shop-Link. null = Verkauf noch nicht geöffnet (Knopf wird dann nicht gezeigt) */
   checkoutUrl: null as string | null,
+  /**
+   * Kostenloses Abschlussgespräch (15–20 Min., per Zoom) nach Abschluss aller 30 Einheiten.
+   * `bookingUrl`: Buchungslink (z. B. Calendly oder Zoom Scheduler). null = Anfrage per E-Mail an `bookingEmail`.
+   */
+  abschlussgespraech: {
+    minutes: "15–20",
+    bookingUrl: null as string | null,
+    bookingEmail: "infohorseandharmonie@gmail.com",
+  },
   parentInfo:
-    "6 Wochen, 30 kurze Einheiten mit Audio, Mut-Leiter, Mut-Barometer und 8 Werkzeugen gegen Angst beim Reiten – für drei Wege: nach dem Sturz, Wiedereinstieg, nach der Geburt. Einmalkauf, kein Abo. Wochen 3–6 erscheinen gestaffelt. Alle Einträge bleiben auf dem Gerät.",
+    "6 Wochen, 30 kurze Einheiten mit Audio, Mut-Leiter, Mut-Barometer und 8 Werkzeugen gegen Angst beim Reiten – für drei Wege: nach dem Sturz, Wiedereinstieg, nach der Geburt. Einmalkauf, kein Abo. Nach Abschluss ein kostenloses Abschlussgespräch (15–20 Min., per Zoom). Wochen 3–6 erscheinen gestaffelt. Alle Einträge bleiben auf dem Gerät.",
 };
 
 export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug, mutigReiten.slug];

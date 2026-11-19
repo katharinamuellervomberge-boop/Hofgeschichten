@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "@/i18n/Link";
 import { WEEKS, weekOf } from "@/content/mutig/katalog";
 import type { Tool, UnitContent, WegLesson } from "@/content/mutig/types";
+import { AbschlussCard } from "./AbschlussCard";
 import { Barometer } from "./Barometer";
 import { fearWord, saddleLocked, today, uid, unitUnlockedInOrder } from "./logic";
 import { useMutig } from "./store";
@@ -229,6 +230,7 @@ export function UnitFlow({ unit, title, lesson, tool, audioUrl }: Props) {
 
       {st === "fertig" && (
         unit.n === 30 ? (
+          <>
           <div className={styles.certificate}>
             <p className={styles.kicker}>Urkunde</p>
             <h1 className={styles.h1}>Mutig reiten – geschafft</h1>
@@ -236,6 +238,8 @@ export function UnitFlow({ unit, title, lesson, tool, audioUrl }: Props) {
             <p className={styles.muted}>{new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}</p>
             <Link className={styles.btn} href="/mutig-reiten">Zur Übersicht</Link>
           </div>
+          <AbschlussCard state={state} />
+          </>
         ) : (
           <div className={`${styles.card} ${styles.center}`}>
             <div className={styles.seal} aria-hidden>✓</div>

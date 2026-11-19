@@ -42,6 +42,10 @@ export function Preview() {
           <li>8 Werkzeuge für Kopf und Körper, die direkt am Stall funktionieren</li>
           <li>Zusatzlektionen für deinen Weg und klare Sicherheitsregeln</li>
           <li>Ein Mut-Tagebuch – alle Einträge bleiben auf deinem Gerät</li>
+          <li>
+            Nach den sechs Wochen: ein kostenloses persönliches Abschlussgespräch ({mutigReiten.abschlussgespraech.minutes} Minuten, per Zoom) –
+            über deinen Weg, dein Ziel und wie es weitergeht
+          </li>
         </ul>
       </section>
 
@@ -67,7 +71,7 @@ export function Preview() {
           {mutigReiten.price}
           {mutigReiten.regularPrice !== mutigReiten.price && <s>{mutigReiten.regularPrice}</s>}
         </p>
-        <p className={styles.muted}>Einführungspreis. Nach dem Kauf schaltest du das Programm mit deiner Bestellnummer frei.</p>
+        <p className={styles.muted}>Inklusive kostenlosem Abschlussgespräch. Nach dem Kauf schaltest du das Programm mit deiner Bestellnummer frei.</p>
         <div className={styles.row}>
           {mutigReiten.checkoutUrl ? (
             <a className={styles.btn} href={mutigReiten.checkoutUrl}>Jetzt holen</a>

@@ -2,6 +2,7 @@
 
 import Link from "@/i18n/Link";
 import { TYPEN, WEEKS, WEGE } from "@/content/mutig/katalog";
+import { AbschlussCard } from "./AbschlussCard";
 import { CheckFlow } from "./CheckFlow";
 import { currentStepIndex, fearWord, nextUnit, unitUnlockedInOrder } from "./logic";
 import { useMutig } from "./store";
@@ -69,6 +70,8 @@ export function Dashboard({ units }: { units: UnitMeta[] }) {
           </>
         )}
       </section>
+
+      <AbschlussCard state={state} />
 
       <section className={styles.card} aria-labelledby="mr-weeks">
         <div className={styles.between}>
