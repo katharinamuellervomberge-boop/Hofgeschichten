@@ -5,17 +5,24 @@ import { arenaFigures, EVIDENCE_LABEL, variantsOf } from "@/content/arena";
 import { ArenaPlayer } from "./ArenaPlayer";
 import { SaveButton } from "./SaveButton";
 import styles from "./arena.module.css";
+import { getLocale } from "@/i18n/server";
+import { EnglishDom } from "@/i18n/EnglishDom";
+import { arenaText, translateArena } from "@/content/arena/en";
 
 const LEVEL = { 1: "Einsteiger", 2: "Fortgeschritten", 3: "Erfahren" } as const;
 const REVIEW = { entwurf: "Entwurf", geprueft: "Geprüft", freigegeben: "Freigegeben" } as const;
 
 /** Detailseite einer Reitbahn-Übung: Kopf, interaktive Bahn, Hintergrund, Fehler, Weiterlernen */
-export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise }) {
-  const variants = variantsOf(ex);
+export async function ArenaExerciseScreen({ exercise }: { exercise: ArenaExercise }) {
+  // Englisch: Inhalte hier übersetzen, die Oberfläche übersetzt EnglishDom im Browser
+  const en = (await getLocale()) === "en";
+  const ex = en ? translateArena(exercise) : exercise;
+  const variants = en ? variantsOf(exercise).map(translateArena) : variantsOf(exercise);
+  const name = (s: string) => (en ? arenaText(s) : s);
   const GAIT = { halt: "Halt", schritt: "Schritt", trab: "Trab", galopp: "Galopp" } as const;
   const gaits = [...new Set(ex.phases.map((p) => GAIT[p.gait]))].join(" · ");
   const number = String(arenaFigures().findIndex((e) => e.id === variants[0].id) + 1).padStart(2, "0");
-  return (
+  const page = (
     <div className={styles.page}>
       <nav aria-label="Brotkrumen" className={styles.crumbs}>
         <Link href="/tagebuch">Riding Space</Link>
@@ -106,7 +113,7 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
                     {rel && (
                       <>
                         <dt>Passende Übung</dt>
-                        <dd>{rel.name}</dd>
+                        <dd>{name(rel.name)}</dd>
                       </>
                     )}
                   </dl>
@@ -156,4 +163,5 @@ export function ArenaExerciseScreen({ exercise: ex }: { exercise: ArenaExercise 
       </div>
     </div>
   );
+  return en ? <EnglishDom pack="arena">{page}</EnglishDom> : page;
 }

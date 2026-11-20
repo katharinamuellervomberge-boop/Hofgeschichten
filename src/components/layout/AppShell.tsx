@@ -32,12 +32,14 @@ const ALL_NAV: NavItem[] = [
 const NAV = ALL_NAV.filter((n) => !n.hidden);
 
 /**
- * Englische Version (seit 30.10.2026): zunächst Start, Reitakademie und Freischaltung.
- * Weitere Bereiche kommen dazu, sobald sie übersetzt sind.
+ * Englische Version (seit 30.10.2026): Start, Reitakademie, Riding Space, Rider Lab (seit 19.11.2026) und Freischaltung.
+ * Profil, Spielen und Hofwelt folgen, sobald sie übersetzt sind.
  */
 const NAV_EN: NavItem[] = [
   { href: "/", label: "Home", glyph: "home" },
-  { href: "/akademie", label: "Riding Academy", glyph: "academy" },
+  { href: "/akademie", label: "Academy", glyph: "academy", title: "Riding Academy" },
+  { href: "/tagebuch", label: "Riding Space", glyph: "space", title: "Riding Space – journal, planner, coach" },
+  { href: "/akademie/rider-lab", label: "Rider Lab", glyph: "lab" },
   { href: "/eltern", label: "Unlock", glyph: "unlock" },
 ];
 

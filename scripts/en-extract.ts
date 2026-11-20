@@ -1,5 +1,6 @@
 /**
- * Englische Version der Reitakademie: offene Übersetzungen finden.
+ * Englische Version (Reitakademie, Riding Space, Rider Lab): offene Übersetzungen finden.
+ * Oberflächentexte von Riding Space, Reitbahn und Rider Lab prüft zusätzlich scripts/en-ui-check.ts.
  *   npm run en:extract            → Übersicht je Bereich
  *   npm run en:extract -- w3      → offene Texte von Welt 3 als JSON { schlüssel: deutsch }
  *   npm run check:en              → Fehler, wenn noch etwas fehlt
@@ -15,7 +16,7 @@ const check = arg === "--check";
 let missing = 0;
 for (const src of enSources()) {
   const shared: Dict = src.id === "katalog" ? {} : (katalog as Dict);
-  const all = collectTexts(src.data);
+  const all = collectTexts(src.data, src.skip);
   const open = all.filter((s) => src.dict[textKey(s)] === undefined && shared[textKey(s)] === undefined);
   missing += open.length;
   if (arg && !check) {

@@ -1,6 +1,8 @@
 "use client";
 
 import { useSyncExternalStore, type ReactNode } from "react";
+import { EnglishDom } from "@/i18n/EnglishDom";
+import { useLocale } from "@/i18n/LocaleProvider";
 import { useDiary } from "./store";
 import { BackupPanel } from "./views/BackupPanel";
 import { RidingSpace } from "./riding/RidingSpace";
@@ -8,6 +10,7 @@ import { ProfileView } from "./views/ProfileView";
 import { MomentsView } from "./views/MomentsView";
 import { ReviewView } from "./views/ReviewView";
 import { EmptyState, SubHeader, Toast } from "./ui";
+import { setStatsLocale } from "./stats";
 import s from "./tagebuch.module.css";
 
 export type Notify = (text: string) => void;
@@ -43,9 +46,13 @@ function useToast() {
  * (riding/engine.ts, neue Adressen u. a. /fortschritt, /uebungen, /meilensteine).
  * Profil, Lieblingsmomente, Rückblick und Sicherung bleiben die bisherigen Seiten.
  */
+const OLD_VIEWS = ["profil", "momente", "entwicklung", "sicherung"];
+
 export function DiaryApp({ view }: { view: string[] }) {
   const state = useDiary();
   const toast = useToast();
+  const locale = useLocale();
+  setStatsLocale(locale === "en" ? "en-GB" : "de-DE");
 
   let body: ReactNode;
   if (state.status === "loading") {
@@ -90,10 +97,13 @@ export function DiaryApp({ view }: { view: string[] }) {
     }
   }
 
-  return (
+  const page = (
     <div className={`page ${s.diary}`}>
       <div key={view.join("/")}>{body}</div>
       <Toast text={toast} onDone={clearToast} />
     </div>
   );
+  // Englisch: Profil, Momente, Rückblick, Sicherung werden im Browser übersetzt; der Riding Space übersetzt sich selbst (riding/RidingSpace.tsx)
+  const ownTranslation = state.status === "ready" && !OLD_VIEWS.includes(view[0] ?? "");
+  return locale === "en" && !ownTranslation ? <EnglishDom pack="diary">{page}</EnglishDom> : page;
 }

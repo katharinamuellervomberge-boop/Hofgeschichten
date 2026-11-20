@@ -7,9 +7,22 @@ import { useProgress } from "@/lib/progress/store";
 import { labDoneCount } from "./progress";
 import ak from "@/features/akademie/academy.module.css";
 import styles from "./riderlab.module.css";
+import { useLocale } from "@/i18n/LocaleProvider";
+import { EnglishDom } from "@/i18n/EnglishDom";
 
-/** Einstieg ins Rider Lab auf der Startseite der Reitakademie */
+/** Einstieg ins Rider Lab auf der Startseite der Reitakademie (auf Englisch im Browser übersetzt) */
 export function RiderLabTeaser({ unlocked }: { unlocked: boolean }) {
+  const en = useLocale() === "en";
+  return en ? (
+    <EnglishDom pack="riderlab">
+      <Teaser unlocked={unlocked} />
+    </EnglishDom>
+  ) : (
+    <Teaser unlocked={unlocked} />
+  );
+}
+
+function Teaser({ unlocked }: { unlocked: boolean }) {
   const progress = useProgress();
   const total = riderLabCatalog.reduce((n, a) => n + a.exercises.length, 0);
   const done = labDoneCount(progress, riderLabCatalog);

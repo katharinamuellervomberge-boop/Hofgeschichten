@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { DiaryApp } from "@/features/tagebuch/DiaryApp";
 import { DiaryPreview } from "@/features/tagebuch/DiaryPreview";
 import { hasRidingSpace } from "@/lib/entitlements/server";
+import { getLocale } from "@/i18n/server";
 
-export const metadata: Metadata = { title: "Riding Space – Reitertagebuch, Trainingsplaner & Rider Coach", robots: { index: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const en = (await getLocale()) === "en";
+  return { title: en ? "Riding Space – riding journal, training planner & Rider Coach" : "Riding Space – Reitertagebuch, Trainingsplaner & Rider Coach", robots: { index: false } };
+}
 export const dynamic = "force-dynamic";
 
 type Params = { view?: string[] };

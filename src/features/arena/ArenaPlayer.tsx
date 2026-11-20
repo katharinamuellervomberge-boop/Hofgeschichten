@@ -7,6 +7,7 @@ import type { AidId, AidState, ArenaExercise, ArenaSize, Rein } from "@/content/
 import { ArenaView, type Layers } from "./ArenaView";
 import { RiderTop } from "./RiderTop";
 import styles from "./arena.module.css";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 type Mode = "ansehen" | "lernen" | "ueben";
 const RATES = [0.5, 1, 1.5] as const;
@@ -35,6 +36,7 @@ function useReducedMotion() {
  * auseinanderlaufen, und Anhalten hält alles gleichzeitig an.
  */
 export function ArenaPlayer({ variants, initial = 0 }: { variants: ArenaExercise[]; initial?: number }) {
+  const locale = useLocale();
   const reduced = useReducedMotion();
   const [variantIdx, setVariantIdx] = useState(initial);
   const exercise = variants[Math.min(variantIdx, variants.length - 1)];
@@ -153,7 +155,11 @@ export function ArenaPlayer({ variants, initial = 0 }: { variants: ArenaExercise
   }, [phase]);
 
   const handLabel = rein === "links" ? "linken Hand" : "rechten Hand";
-  const arenaLabel = `${ex.titleDe}${exercise.variantLabel ? " " + exercise.variantLabel : ""}, Start auf der ${handLabel}, Bahn ${size.replace("x", " × ")} Meter. Phase ${phaseIdx + 1} von ${phases.length}: ${phase.title}.`;
+  const variantPart = exercise.variantLabel ? " " + exercise.variantLabel : "";
+  const arenaLabel =
+    locale === "en"
+      ? `${ex.titleDe}${variantPart}, starting on the ${rein === "links" ? "left" : "right"} rein, arena ${size.replace("x", " × ")} metres. Phase ${phaseIdx + 1} of ${phases.length}: ${phase.title}.`
+      : `${ex.titleDe}${variantPart}, Start auf der ${handLabel}, Bahn ${size.replace("x", " × ")} Meter. Phase ${phaseIdx + 1} von ${phases.length}: ${phase.title}.`;
   const sel = selected ? phase.aids[selected] : undefined;
 
   return (
@@ -428,6 +434,7 @@ function phaseKindLabel(k: string) {
 /* ---------- Üben: regelbasierte Fragen ---------- */
 
 function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rein; size: ArenaSize }) {
+  const locale = useLocale();
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -443,7 +450,7 @@ function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rei
   if (done)
     return (
       <article className={styles.phaseCard}>
-        <p className="eyebrow">Üben · {rein === "links" ? "linke" : "rechte"} Hand</p>
+        <p className="eyebrow">{`Üben · ${rein === "links" ? "linke" : "rechte"} Hand`}</p>
         <h2 className={styles.phaseTitle}>
           {score} von {qs.length} richtig
         </h2>
@@ -469,7 +476,7 @@ function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rei
       <p className="eyebrow">
         Frage {i + 1} von {qs.length}
       </p>
-      <h2 className={styles.quizQ}>{fillText(q.prompt, rein)}</h2>
+      <h2 className={styles.quizQ}>{fillText(q.prompt, rein, locale)}</h2>
       <div className={styles.quizOpts} role="group" aria-label="Antworten">
         {q.options.map((o) => {
           const state = picked == null ? "" : o.id === right ? styles.optRight : o.id === picked ? styles.optWrong : styles.optDim;
@@ -484,7 +491,7 @@ function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rei
                 if (o.id === right) setScore((s) => s + 1);
               }}
             >
-              {fillText(o.text, rein)}
+              {fillText(o.text, rein, locale)}
               {picked != null && o.id === right && <span className={styles.optMark}> · richtig</span>}
               {picked === o.id && o.id !== right && <span className={styles.optMark}> · nicht ganz</span>}
             </button>
@@ -493,7 +500,7 @@ function Practice({ exercise, rein, size }: { exercise: ArenaExercise; rein: Rei
       </div>
       {picked != null && (
         <div aria-live="polite">
-          <p className={styles.explain}>{fillText(q.explanation, rein)}</p>
+          <p className={styles.explain}>{fillText(q.explanation, rein, locale)}</p>
           <button
             type="button"
             className={styles.nextBtn}

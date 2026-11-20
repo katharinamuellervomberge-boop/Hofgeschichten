@@ -54,9 +54,9 @@ export function academyCheckoutUrl(locale: "de" | "en" = "de"): string | null {
   return locale === "en" ? `${SHOP_BASE}/en/products/${grosseAkademie.shopifyProductHandle}` : grosseAkademie.checkoutUrl;
 }
 
-/** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link */
-export function regionalCheckoutUrl(): string {
-  const handle = grosseAkademie.shopifyProductHandle ?? "";
+/** Im Browser: passender englischer Markt (USA oder UK) für den Kauf-Link (Standard: Reitakademie) */
+export function regionalCheckoutUrl(productHandle?: string): string {
+  const handle = productHandle ?? grosseAkademie.shopifyProductHandle ?? "";
   let us = false;
   try {
     const lang = navigator.language || "";
@@ -187,5 +187,10 @@ export const mutigReiten = {
   parentInfo:
     "6 Wochen, 30 kurze Einheiten mit Audio, Mut-Leiter, Mut-Barometer und 8 Werkzeugen gegen Angst beim Reiten – für drei Wege: nach dem Sturz, Wiedereinstieg, nach der Geburt. Einmalkauf, kein Abo. Nach Abschluss ein kostenloses Abschlussgespräch (15–20 Min., per Zoom). Wochen 3–6 erscheinen gestaffelt. Alle Einträge bleiben auf dem Gerät.",
 };
+
+/** Preis des Riding Space je Sprache („49,90 €“ / „€49.90“) */
+export function ridingSpacePriceLabel(locale: "de" | "en" = "de"): string {
+  return locale === "en" ? `€${ridingSpace.price.replace(/\s*€/, "").replace(",", ".")}` : ridingSpace.price;
+}
 
 export const productSlugs: string[] = [grosseAkademie.slug, adventskalender.slug, meinTagAmHof.slug, mutigReiten.slug];

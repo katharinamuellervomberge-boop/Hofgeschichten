@@ -4,6 +4,8 @@ import { getArenaExercise } from "@/content/arena";
 import { ArenaExerciseScreen } from "@/features/arena/ArenaExerciseScreen";
 import { DiaryPreview } from "@/features/tagebuch/DiaryPreview";
 import { hasRidingSpace } from "@/lib/entitlements/server";
+import { getLocale } from "@/i18n/server";
+import { translateArena } from "@/content/arena/en";
 
 type Params = { uebung: string };
 
@@ -11,6 +13,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const ex = getArenaExercise((await params).uebung);
+  if ((await getLocale()) === "en") return { title: ex ? `${translateArena(ex).title} – The Arena` : "The Arena", robots: { index: false } };
   return { title: ex ? `${ex.title} – Die Reitbahn` : "Die Reitbahn", robots: { index: false } };
 }
 
