@@ -195,6 +195,8 @@ Kauf und Bezahlung finden in unserem Onlineshop horseandharmonie-shop.de statt, 
 
 Wenn Sie die Freischaltung im Elternbereich mit Bestellnummer und E-Mail-Adresse vornehmen, werden diese Angaben ausschließlich zur Prüfung der Bestellung an Shopify übermittelt und von der Web-App nicht gespeichert.
 
+Beim Direktkauf aus der Web-App („Jetzt freischalten“) erzeugen wir eine zufällige Kauf-Kennung ohne Personenbezug. Sie wird als technisch notwendiges Cookie auf Ihrem Gerät gespeichert und an Ihre Bestellung im Shop übergeben, damit der Kauf nach der Zahlung automatisch freigeschaltet werden kann. Nach der Freischaltung, spätestens nach 14 Tagen, wird das Cookie gelöscht.
+
 Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.
 
 ## 8b. Technische Dienstleister für Gerätebindung und E-Mails

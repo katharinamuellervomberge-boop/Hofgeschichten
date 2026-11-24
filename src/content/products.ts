@@ -25,6 +25,12 @@ export const grosseAkademie = {
   price: "29,90 €" as string | null,
   /** Shopify-Produkt (Handle). Eine bezahlte Bestellung damit schaltet die Große Akademie frei. */
   shopifyProductHandle: "die-hofgeschichten-die-grosse-reitakademie-interaktiver-reitwissen-kurs" as string | null,
+  /**
+   * Shopify-Variante (gid://shopify/ProductVariant/55180014420301, 29,90 €) für den Direktkauf
+   * von der Landingpage aus (Warenkorb-Link direkt in die Kasse, siehe lib/entitlements/directCheckout.ts).
+   * null = kein Direktkauf, dann wie früher Link zur Produktseite im Shop.
+   */
+  shopifyVariantId: "55180014420301" as string | null,
   /** Shopify-Produkt gid://shopify/Product/10990621163853 (angelegt 25.10.2026, aktiv seit 26.10.2026) */
   /**
    * Link zum Shop-Produkt. null = Einzelkauf noch nicht geöffnet.

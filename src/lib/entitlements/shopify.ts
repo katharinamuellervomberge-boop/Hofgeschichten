@@ -50,8 +50,8 @@ export function shopifyConfigured(): boolean {
 }
 
 const ORDER_QUERY = /* GraphQL */ `
-  query HofgeschichtenOrder($q: String!) {
-    orders(first: 5, query: $q) {
+  query HofgeschichtenOrder($q: String!, $n: Int = 5) {
+    orders(first: $n, query: $q, sortKey: PROCESSED_AT, reverse: true) {
       nodes {
         id
         name
@@ -60,6 +60,10 @@ const ORDER_QUERY = /* GraphQL */ `
         test
         cancelledAt
         displayFinancialStatus
+        customAttributes {
+          key
+          value
+        }
         lineItems(first: 50) {
           nodes {
             quantity
@@ -82,6 +86,7 @@ type OrderNode = {
   test: boolean;
   cancelledAt: string | null;
   displayFinancialStatus: string | null;
+  customAttributes?: Array<{ key: string; value: string | null }>;
   lineItems: { nodes: Array<{ quantity: number; title: string | null; product: { handle: string } | null }> };
 };
 
@@ -162,7 +167,11 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
     (o) => o.name.replace(/^#/, "") === orderNumber && (o.email ?? "").toLowerCase() === wanted,
   );
   if (!order) return { ok: false, reason: "not_found" };
+  return evaluateOrder(order);
+}
 
+/** Bezahlstatus und App-Produkte einer Bestellung auswerten (gemeinsam für Bestellnummer und Direktkauf) */
+function evaluateOrder(order: OrderNode): VerifyResult {
   const paid = ["PAID", "PARTIALLY_REFUNDED"].includes(order.displayFinancialStatus ?? "");
   // Testbestellungen nur zulassen, wenn ausdrücklich erlaubt (für den Testkauf vor dem Launch)
   const testOk = !order.test || process.env.SHOPIFY_ALLOW_TEST_ORDERS === "1";
@@ -193,4 +202,38 @@ export async function verifyShopifyOrder(orderNumber: string, email: string): Pr
   return unlocked.length || membershipOrder || ridingSpaceUntil
     ? { ok: true, adventures: unlocked, membershipOrder, ridingSpaceUntil, academyLegacy }
     : { ok: false, reason: "no_product" };
+}
+
+export type ClaimResult = VerifyResult | { ok: false; reason: "pending" };
+
+/**
+ * Direktkauf: bezahlte Bestellung mit dem Warenkorb-Attribut `hg_claim` suchen.
+ * Gesucht wird unter den Bestellungen der letzten 14 Tage (neueste zuerst, max. 100) –
+ * reicht bei unserem Bestellaufkommen sicher aus; die Kennung selbst ist zufällig und geheim.
+ * Keine Bestellung (noch) gefunden → "pending" (Kasse noch offen oder Zahlung in Bearbeitung).
+ */
+export async function verifyShopifyClaim(claim: string, attributeKey: string): Promise<ClaimResult> {
+  const domain = process.env.SHOPIFY_STORE_DOMAIN;
+  if (!domain || !shopifyConfigured()) return { ok: false, reason: "unavailable" };
+  const token = await getAccessToken(domain);
+  if (!token) return { ok: false, reason: "unavailable" };
+
+  const since = new Date(Date.now() - 14 * 86400 * 1000).toISOString();
+  const res = await fetch(`https://${domain}/admin/api/${API_VERSION}/graphql.json`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Shopify-Access-Token": token },
+    body: JSON.stringify({ query: ORDER_QUERY, variables: { q: `processed_at:>='${since}'`, n: 100 } }),
+    cache: "no-store",
+  });
+  if (!res.ok) return { ok: false, reason: "unavailable" };
+  const json = (await res.json()) as { data?: { orders?: { nodes: OrderNode[] } } };
+  if (!json.data?.orders) return { ok: false, reason: "unavailable" };
+
+  const order = json.data.orders.nodes.find((o) => (o.customAttributes ?? []).some((a) => a.key === attributeKey && a.value === claim));
+  if (!order) return { ok: false, reason: "pending" };
+  const r = evaluateOrder(order);
+  // Bestellung da, aber Zahlung noch nicht bestätigt (z. B. Vorkasse/Klarna in Prüfung) → weiter warten
+  const testBlocked = order.test && process.env.SHOPIFY_ALLOW_TEST_ORDERS !== "1";
+  if (!r.ok && r.reason === "not_paid" && !order.cancelledAt && !testBlocked) return { ok: false, reason: "pending" };
+  return r;
 }

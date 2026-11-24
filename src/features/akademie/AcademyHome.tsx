@@ -14,7 +14,8 @@ import {
   pathInfo,
   type AcademyModule,
 } from "@/content/akademie/module";
-import { academyCheckoutUrl, academyPriceLabel, regionalCheckoutUrl } from "@/content/products";
+import { academyCheckoutUrl, academyPriceLabel, grosseAkademie, regionalCheckoutUrl } from "@/content/products";
+import { DirectBuyButton } from "./DirectBuyButton";
 import { useLocale } from "@/i18n/LocaleProvider";
 import type { Locale } from "@/i18n/locale";
 import { VisualView } from "@/engine/VisualView";
@@ -266,7 +267,7 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         buy: "Unlock now",
         code: "I've already bought it",
         small:
-          "Prices are shown in your local currency at checkout. After buying, enter your order number and the email address you used for the order – the academy unlocks instantly. Parents buy for under-18s.",
+          "Secure checkout in our shop (horseandharmonie-shop.de). After payment the academy unlocks automatically on this device – on another device, use the link in your order confirmation. Parents buy for under-18s.",
       }
     : {
         eyebrow: "Einmalzahlung · kein Abo",
@@ -286,7 +287,7 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
         buy: "Jetzt freischalten",
         code: "Schon gekauft? Freischalten",
         small:
-          "Nach dem Kauf im Elternbereich Bestellnummer und E-Mail-Adresse der Bestellung eingeben – fertig, sofort freigeschaltet. Bei Minderjährigen kaufen die Eltern.",
+          "Sichere Bezahlung über unseren Shop (horseandharmonie-shop.de). Nach der Zahlung wird die Akademie auf diesem Gerät automatisch freigeschaltet – auf einem anderen Gerät über den Link in der Bestellbestätigung. Bei Minderjährigen kaufen die Eltern.",
       };
   return (
     <section className={styles.buy} aria-labelledby="ak-buy-title" id="ak-buy">
@@ -321,18 +322,23 @@ export function AcademyBuyBox({ path, compact }: { path: AcademyPath | null | un
             {price} <small>{T.once}</small>
           </p>
           <div className={styles.buyActions}>
-            {checkout && (
-              <a
-                href={checkout}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${styles.cta} ${styles.ctaDark}`}
-                // Englisch: USA-Shop (US-Dollar) oder UK-Shop (Pfund) je nach Gerät
-                onClick={(e) => en && (e.currentTarget.href = regionalCheckoutUrl())}
-              >
-                <Icon name="external" />
-                {T.buy}
-              </a>
+            {grosseAkademie.shopifyVariantId ? (
+              // Direktkauf: direkt in die Kasse, Freischaltung danach automatisch auf dieser Seite
+              <DirectBuyButton product="akademie" label={T.buy} en={en} />
+            ) : (
+              checkout && (
+                <a
+                  href={checkout}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.cta} ${styles.ctaDark}`}
+                  // Englisch: USA-Shop (US-Dollar) oder UK-Shop (Pfund) je nach Gerät
+                  onClick={(e) => en && (e.currentTarget.href = regionalCheckoutUrl())}
+                >
+                  <Icon name="external" />
+                  {T.buy}
+                </a>
+              )
             )}
             <Link href="/eltern#akademie" className={`${styles.cta} ${styles.ctaGhost}`}>
               {T.code}
